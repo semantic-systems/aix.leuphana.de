@@ -1,0 +1,41 @@
+---
+---
+@import "minima";
+
+/* Custom header/navigation layout overrides */
+.site-header .wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+}
+
+.site-nav .trigger {
+  display: inline-block;
+  margin-left: 1rem;
+}
+
+.site-logo {
+  display: inline-block;
+}
+
+/* Keep mobile menu behavior but keep items inline when possible */
+@media (max-width: 640px) {
+  .site-header .wrapper {
+    flex-direction: row;
+  }
+  .site-nav .trigger {
+    margin-left: 0.6rem;
+  }
+}
+
+.team-grid { display:flex; flex-wrap:wrap; gap:1.5rem; margin-top:1rem; }
+.person-card { width:200px; text-align:center; }
+.person-card .profile-pic { width:150px; height:150px; object-fit:cover; border-radius:50%; display:block; margin:0 auto .5rem; }
+.person-card h3 { margin:0 0 .25rem; font-size:1rem; }
+.person-card .role { color:#666; font-size:.9rem; margin:0; }
+@media (max-width:600px) { .team-grid { justify-content:center; } .person-card { width:140px; } .person-card .profile-pic { width:110px; height:110px; } }
