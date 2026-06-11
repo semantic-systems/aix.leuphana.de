@@ -9,27 +9,29 @@
 <body>
   {% include header.html %}
 
-  <div class="container">
-    <article class="team-member-page">
-      <div class="team-member-header">
-        <div class="team-member-image">
-          <img src="/assets/images/{{ page.image }}" alt="{{ page.name }}" class="profile-image">
+  <main class="page-content" aria-label="Content">
+    <div class="wrapper">
+      <article class="team-member-page">
+        <div class="team-member-header">
+          <div class="team-member-image">
+            <img src="/assets/images/{{ page.image }}" alt="{{ page.name }}" class="profile-image">
+          </div>
+          <div class="team-member-info">
+            <h1>{{ page.name }}</h1>
+            <h2>{{ page.title }}</h2>
+          </div>
         </div>
-        <div class="team-member-info">
-          <h1>{{ page.name }}</h1>
-          <h2>{{ page.title }}</h2>
+
+        <div class="team-member-content">
+          {{ content }}
         </div>
-      </div>
 
-      <div class="team-member-content">
-        {{ content }}
-      </div>
-
-      <div class="back-link">
-        <a href="/team/">← Back to Team</a>
-      </div>
-    </article>
-  </div>
+        <div class="back-link">
+          <a href="/team/">← Back to Team</a>
+        </div>
+      </article>
+    </div>
+  </main>
 
   {% include footer.html %}
 </body>
