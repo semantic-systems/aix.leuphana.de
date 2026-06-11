@@ -36,6 +36,15 @@ theme: minima
 plugins:
   - jekyll-feed
 
+# Collections
+collections:
+  team:
+    output: true
+    permalink: /team/:path/
+  publications:
+    output: true
+    permalink: /publications/:path/
+
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to

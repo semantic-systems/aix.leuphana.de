@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.name }} | {{ site.title }}</title>
+  <link rel="stylesheet" href="/assets/main.css">
+</head>
+<body>
+  {% include header.html %}
+
+  <div class="container">
+    <article class="team-member-page">
+      <div class="team-member-header">
+        <div class="team-member-image">
+          <img src="/assets/images/{{ page.image }}" alt="{{ page.name }}" class="profile-image">
+        </div>
+        <div class="team-member-info">
+          <h1>{{ page.name }}</h1>
+          <h2>{{ page.title }}</h2>
+        </div>
+      </div>
+
+      <div class="team-member-content">
+        {{ content }}
+      </div>
+
+      <div class="back-link">
+        <a href="/team/">← Back to Team</a>
+      </div>
+    </article>
+  </div>
+
+  {% include footer.html %}
+</body>
+</html>

@@ -9,6 +9,19 @@
   justify-content: space-between;
 }
 
+/* Increase wrapper width to accommodate footer columns */
+.wrapper {
+  max-width: calc(1200px - (30px * 2));
+}
+
+@media screen and (max-width: 1200px) {
+  .wrapper {
+    max-width: calc(1200px - (30px));
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+}
+
 .site-nav {
   display: flex;
   align-items: center;
@@ -34,8 +47,88 @@
 }
 
 .team-grid { display:flex; flex-wrap:wrap; gap:1.5rem; margin-top:1rem; }
-.person-card { width:200px; text-align:center; }
-.person-card .profile-pic { width:150px; height:150px; object-fit:cover; border-radius:50%; display:block; margin:0 auto .5rem; }
+.person-card { width:150px; text-align:center; }
+.person-card .profile-pic { width:120px; height:120px; object-fit:cover; border-radius:50%; display:block; margin:0 auto .5rem; }
 .person-card h3 { margin:0 0 .25rem; font-size:1rem; }
 .person-card .role { color:#666; font-size:.9rem; margin:0; }
 @media (max-width:600px) { .team-grid { justify-content:center; } .person-card { width:140px; } .person-card .profile-pic { width:110px; height:110px; } }
+
+/* Footer legal links styling */
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: right;
+}
+
+.footer-links li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-links a {
+  color: inherit;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+/* Footer layout adjustments */
+.footer-col-wrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+  width: 100%;
+}
+
+.footer-col {
+  flex: 1;
+  min-width: 180px;
+}
+
+.footer-col-4 {
+  text-align: right;
+  flex: 0 0 auto;
+  width: auto;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.footer-links li {
+  margin-bottom: 0.5rem;
+  white-space: nowrap;
+}
+
+@media (max-width: 960px) {
+  .footer-col-wrapper {
+    flex-wrap: wrap;
+  }
+
+  .footer-col {
+    min-width: 150px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-col-wrapper {
+    flex-direction: column;
+  }
+
+  .footer-col-4 {
+    text-align: left;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+  }
+
+  .footer-links {
+    align-items: flex-start;
+  }
+}

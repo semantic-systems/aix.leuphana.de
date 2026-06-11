@@ -24,9 +24,17 @@
         {%- include social.html -%}
       </div>
 
-      <div class="footer-col footer-col-3">
-        <p>{{ site.description | escape }}</p>
-      </div>
+       <div class="footer-col footer-col-3">
+         <p>{{ site.description | escape }}</p>
+       </div>
+
+       <div class="footer-col footer-col-4">
+         <ul class="footer-links">
+           <li><a href="{{ '/accessibility/' | relative_url }}">Accessibility</a></li>
+           <li><a href="{{ '/impressum/' | relative_url }}">Impressum</a></li>
+           <li><a href="{{ '/privacy/' | relative_url }}">Privacy</a></li>
+         </ul>
+       </div>
     </div>
   </div>
 </footer>
