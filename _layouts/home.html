@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+
+  {%- include head.html -%}
+
+  <body>
+
+    {%- include header.html -%}
+
+    <!-- Custom Hero Section for Home Page -->
+    <section class="hero">
+      <div class="wrapper">
+        <h1>AIX Research Group</h1>
+        <p class="lead">Artificial Intelligence and Explainability at Leuphana University, led by Prof. Dr. Ricardo Usbeck.</p>
+        <div class="hero-actions">
+          <a href="{{ '/projects/' | relative_url }}" class="btn">Discover Our Projects</a>
+          <a href="{{ '/publications/' | relative_url }}" class="btn btn-secondary">Read Publications</a>
+        </div>
+      </div>
+    </section>
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        
+        <div class="features-grid">
+          <div class="feature-card">
+            <h3>Team</h3>
+            <p>Meet the researchers, associates, and students driving our neuro-symbolic AI research forward.</p>
+            <a href="{{ '/team/' | relative_url }}" class="btn">View Team</a>
+          </div>
+          <div class="feature-card">
+            <h3>Publications</h3>
+            <p>Explore our latest research papers, journals, and contributions to conferences worldwide.</p>
+            <a href="{{ '/publications/' | relative_url }}" class="btn">View Publications</a>
+          </div>
+          <div class="feature-card">
+            <h3>News & Demos</h3>
+            <p>Stay up to date with our recent milestones, software demonstrations, and open-source releases.</p>
+            <a href="{{ '/news/' | relative_url }}" class="btn">Read News</a>
+          </div>
+        </div>
+
+        {{ content }}
+      </div>
+    </main>
+
+    {%- include footer.html -%}
+
+  </body>
+
+</html>

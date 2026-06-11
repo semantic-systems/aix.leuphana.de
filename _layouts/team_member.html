@@ -1,36 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ page.name }} | {{ site.title }}</title>
-  <link rel="stylesheet" href="/assets/main.css">
-</head>
-<body>
-  {% include header.html %}
-
-  <div class="container">
-    <article class="team-member-page">
-      <div class="team-member-header">
-        <div class="team-member-image">
-          <img src="/assets/images/{{ page.image }}" alt="{{ page.name }}" class="profile-image">
-        </div>
-        <div class="team-member-info">
-          <h1>{{ page.name }}</h1>
-          <h2>{{ page.title }}</h2>
-        </div>
-      </div>
-
-      <div class="team-member-content">
-        {{ content }}
-      </div>
-
-      <div class="back-link">
-        <a href="/team/">← Back to Team</a>
-      </div>
-    </article>
+---
+layout: default
+---
+<div class="team-member-page">
+  <div class="team-member-header" style="margin-bottom: 2rem; display: flex; gap: 2rem; align-items: center; border-bottom: 1px solid var(--c-granit-40); padding-bottom: 2rem;">
+    <div class="team-member-image">
+      <img src="{{ '/assets/images/' | append: page.image | relative_url }}" alt="{{ page.name }}" class="profile-image" style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%; border: 4px solid var(--c-jaspis);">
+    </div>
+    <div class="team-member-info">
+      <h1 style="margin-bottom: 0.5rem; font-size: 2.5rem;">{{ page.name }}</h1>
+      <h2 style="color: var(--text-secondary); margin-top: 0; font-size: 1.5rem; font-weight: 400;">{{ page.title }}</h2>
+    </div>
   </div>
 
-  {% include footer.html %}
-</body>
-</html>
+  <div class="team-member-content" style="font-size: 1.1rem; max-width: 800px;">
+    {{ content }}
+  </div>
+
+  <div class="back-link" style="margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--c-granit-20);">
+    <a href="{{ '/team/' | relative_url }}" class="btn btn-secondary">← Back to Team</a>
+  </div>
+</div>

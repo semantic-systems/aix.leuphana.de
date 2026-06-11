@@ -1,0 +1,74 @@
+---
+layout: default
+title: Team
+permalink: /team/
+---
+
+<h1>Team</h1>
+
+{% assign defined_categories = "head,academic_advisor,research_associate,research_assistant,scholarship_holder,external_phd,student_assistant,alumni" | split: "," %}
+
+{% for cat in defined_categories %}
+  {% assign members = site.team | where: "job_category", cat %}
+  
+  {% if members.size > 0 %}
+    {% case cat %}
+      {% when "head" %}
+        <h2 style="margin-top: 3rem; border-bottom: 2px solid var(--c-granit-20); padding-bottom: 0.5rem;">Head</h2>
+      {% when "academic_advisor" %}
+        <h2 style="margin-top: 3rem; border-bottom: 2px solid var(--c-granit-20); padding-bottom: 0.5rem;">Academic Advisor</h2>
+      {% when "research_assistant" %}
+        <h2 style="margin-top: 3rem; border-bottom: 2px solid var(--c-granit-20); padding-bottom: 0.5rem;">Research Assistants</h2>
+      {% when "research_associate" %}
+        <h2 style="margin-top: 3rem; border-bottom: 2px solid var(--c-granit-20); padding-bottom: 0.5rem;">Research Associate</h2>
+      {% when "scholarship_holder" %}
+        <h2 style="margin-top: 3rem; border-bottom: 2px solid var(--c-granit-20); padding-bottom: 0.5rem;">Scholarship Holder</h2>
+      {% when "external_phd" %}
+        <h2 style="margin-top: 3rem; border-bottom: 2px solid var(--c-granit-20); padding-bottom: 0.5rem;">External PhD Students</h2>
+      {% when "student_assistant" %}
+        <h2 style="margin-top: 3rem; border-bottom: 2px solid var(--c-granit-20); padding-bottom: 0.5rem;">Student Assistants and Research Assistants</h2>
+      {% when "alumni" %}
+        <h2 style="margin-top: 3rem; border-bottom: 2px solid var(--c-granit-20); padding-bottom: 0.5rem;">Alumni</h2>
+    {% endcase %}
+
+    <div class="team-grid">
+      {% for member in members %}
+        <div class="person-card">
+          <a href="{{ member.url | relative_url }}">
+            <img src="{{ '/assets/images/' | append: member.image | relative_url }}" alt="{{ member.name }}" class="profile-pic">
+            <div>
+              <h3>{{ member.name }}</h3>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endfor %}
+
+{% comment %} Handle any other uncategorized members {% endcomment %}
+{% assign all_defined = "head,academic_advisor,research_associate,research_assistant,scholarship_holder,external_phd,student_assistant,alumni" %}
+{% assign other_members = "" | split: "" %}
+
+{% for member in site.team %}
+  {% unless all_defined contains member.job_category %}
+    {% assign other_members = other_members | push: member %}
+  {% endunless %}
+{% endfor %}
+
+{% if other_members.size > 0 %}
+  <h2 style="margin-top: 3rem; border-bottom: 2px solid var(--c-granit-20); padding-bottom: 0.5rem;">Other Members</h2>
+  <div class="team-grid">
+    {% for member in other_members %}
+      <div class="person-card">
+        <a href="{{ member.url | relative_url }}">
+          <img src="{{ '/assets/images/' | append: member.image | relative_url }}" alt="{{ member.name }}" class="profile-pic">
+          <div>
+            <h3>{{ member.name }}</h3>
+            <p class="role">{{ member.job_category | replace: "_", " " | capitalize }}</p>
+          </div>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}

@@ -1,34 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ page.title }} | {{ site.title }}</title>
-  <link rel="stylesheet" href="/assets/main.css">
-</head>
-<body>
-  {% include header.html %}
-
-  <div class="container">
-    <article class="publication-page">
-      <div class="publication-header">
-        <h1>{{ page.title }}</h1>
-        <div class="publication-meta">
-          <p><strong>Authors:</strong> {{ page.authors | join: ", " }}</p>
-          <p><strong>Year:</strong> {{ page.year }}</p>
-        </div>
-      </div>
-
-      <div class="publication-content">
-        {{ content }}
-      </div>
-
-      <div class="back-link">
-        <a href="/publications/">← Back to Publications</a>
-      </div>
-    </article>
+---
+layout: default
+---
+<article class="publication-page">
+  <div class="publication-header" style="margin-bottom: 2rem; border-bottom: 2px solid var(--c-granit-20); padding-bottom: 1.5rem;">
+    <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">{{ page.title }}</h1>
+    <div class="publication-meta" style="font-size: 1.1rem; color: var(--text-secondary);">
+      <p style="margin: 0.5rem 0;"><strong>Authors:</strong> {{ page.authors | join: ", " }}</p>
+      <p style="margin: 0.5rem 0;"><strong>Year:</strong> {{ page.year }}</p>
+    </div>
   </div>
 
-  {% include footer.html %}
-</body>
-</html>
+  <div class="publication-content" style="font-size: 1.1rem; max-width: 800px; line-height: 1.8;">
+    {{ content }}
+  </div>
+
+  <div class="back-link" style="margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--c-granit-20);">
+    <a href="{{ '/publications/' | relative_url }}" class="btn btn-secondary">← Back to Publications</a>
+  </div>
+</article>
