@@ -53,6 +53,11 @@
 .person-card .role { color:#666; font-size:.9rem; margin:0; }
 @media (max-width:600px) { .team-grid { justify-content:center; } .person-card { width:140px; } .person-card .profile-pic { width:110px; height:110px; } }
 
+.publication-entry { margin-bottom: 1.5rem; }
+.publication-entry h3 { margin-bottom: .25rem; }
+.github-link { font-size: .85rem; color:#666; margin-left: .5rem; }
+.publication-abstract { margin-top: .5rem; color:#444; }
+
 /* Footer legal links styling */
 .footer-links {
   list-style: none;
