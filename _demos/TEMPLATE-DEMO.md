@@ -1,22 +1,19 @@
 ---
-layout: project
-title: "REPLACE WITH TITLE: Name of the Project"
+layout: demo
+title: "REPLACE WITH TITLE: Name of the Interactive Demo"
 date: 2099-01-01 # Format exactly like this: YYYY-MM-DD. This controls the sorting order (newest first)
-status: "Ongoing" # e.g. "Ongoing", "Completed", "In Review"
-thumbnail: "/assets/images/your-thumbnail-image.jpg" # Square preview image for the main Projects list
-image: "/assets/images/your-banner-image.jpg" # Large banner image inside the actual project page (optional)
-excerpt: "A short 1-2 sentence summary explaining what this project aims to achieve."
+demo_url: "https://your-demo-website.com" # The actual link where users can try the demo
+thumbnail: "/assets/images/your-thumbnail-image.jpg" # Square preview image for the main Demos list
+image: "/assets/images/your-screenshot.jpg" # A screenshot of the demo in action (optional)
+excerpt: "A short 1-2 sentence summary explaining what this demo does."
 published: false # Change this to 'true' when you want it to appear on the live website!
 ---
 
-Explain the background and goals of the project here.
+Write a short introduction explaining how the user should interact with the demo and what it demonstrates.
 
-## Objectives
-- Objective 1
-- Objective 2
-
-## Methodology
-Describe how you are solving the problem.
+## Features
+- Feature 1
+- Feature 2
 
 **Images inside the text:**
 If you want a beautifully formatted image with dynamic width, height, and a caption, use this HTML block:
