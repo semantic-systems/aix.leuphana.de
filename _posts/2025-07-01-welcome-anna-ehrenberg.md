@@ -1,9 +1,10 @@
 ---
 layout: post
 title: "Welcome Anna Ehrenberg!"
-date: 2025-07-01 11:00:00 +0200
+date: 2025-07-01
 author: "AIX Team"
 categories: [news, team]
+thumbnail: "/assets/images/anna_ehrenberg.png"
 image: "/assets/images/anna_ehrenberg.png"
 ---
 
