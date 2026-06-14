@@ -8,36 +8,84 @@
     {%- include header.html -%}
 
     <!-- Custom Hero Section for Home Page -->
-    <section class="hero">
+    <section class="hero" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('{{ '/assets/images/main_building_leuphana.png' | relative_url }}') no-repeat center center/cover; padding: 140px 0; border-bottom: 5px solid var(--c-jaspis);">
       <div class="wrapper">
-        <h1>AIX Research Group</h1>
-        <p class="lead">Artificial Intelligence and Explainability at Leuphana University, led by Prof. Dr. Ricardo Usbeck.</p>
-        <div class="hero-actions">
-          <a href="{{ '/projects/' | relative_url }}" class="btn">Discover Our Projects</a>
-          <a href="{{ '/publications/' | relative_url }}" class="btn btn-secondary">Read Publications</a>
+        <h1 style="color: white; font-size: 4rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); margin-bottom: 25px;">AIX Research Group</h1>
+        <p class="lead" style="color: var(--c-granit-20); font-size: 1.4rem; text-shadow: 1px 1px 5px rgba(0,0,0,0.5); max-width: 900px; line-height: 1.5;">Artificial Intelligence and Explainability at Leuphana University, led by Prof. Dr. Ricardo Usbeck.</p>
+        <div class="hero-actions" style="margin-top: 40px;">
+          <a href="{{ '/projects/' | relative_url }}" class="btn" style="font-size: 1.1rem; padding: 14px 32px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">Discover Our Projects</a>
+          <a href="{{ '/publications/' | relative_url }}" class="btn" style="font-size: 1.1rem; padding: 12px 30px; background-color: transparent; border: 2px solid white; color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.3); margin-left: 15px;">Read Publications</a>
         </div>
       </div>
     </section>
 
     <main class="page-content" aria-label="Content">
       <div class="wrapper">
-        
-        <div class="features-grid">
-          <div class="feature-card">
-            <h3>Team</h3>
-            <p>Meet the researchers, associates, and students driving our neuro-symbolic AI research forward.</p>
-            <a href="{{ '/team/' | relative_url }}" class="btn">View Team</a>
-          </div>
-          <div class="feature-card">
-            <h3>Publications</h3>
-            <p>Explore our latest research papers, journals, and contributions to conferences worldwide.</p>
-            <a href="{{ '/publications/' | relative_url }}" class="btn">View Publications</a>
-          </div>
-          <div class="feature-card">
-            <h3>News & Demos</h3>
-            <p>Stay up to date with our recent milestones, software demonstrations, and open-source releases.</p>
-            <a href="{{ '/news/' | relative_url }}" class="btn">Read News</a>
-          </div>
+        <style>
+          .section-heading { margin-top: 3rem; margin-bottom: 1.5rem; font-size: 2rem; color: var(--text-primary); border-bottom: 2px solid var(--c-granit-20); padding-bottom: 0.5rem; }
+          .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+          
+          .item-card {
+            border: 1px solid var(--c-granit-20); border-radius: 8px; overflow: hidden; background: var(--bg-primary); 
+            display: flex; flex-direction: column; transition: transform 0.2s ease, box-shadow 0.2s ease;
+            text-decoration: none; color: inherit; height: 100%;
+          }
+          .item-card:hover { transform: translateY(-5px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); border-color: var(--c-jaspis); }
+          
+          .card-image-placeholder { height: 180px; width: 100%; background: var(--c-granit-40); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; color: var(--text-secondary); }
+          .card-content { padding: 1.25rem; flex-grow: 1; display: flex; flex-direction: column; }
+          .card-title { margin: 0 0 0.5rem 0; font-size: 1.2rem; color: var(--text-primary); }
+          .card-date { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.8rem; }
+          .card-excerpt { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.5; margin: 0; flex-grow: 1; }
+        </style>
+
+        <h2 class="section-heading">Latest News</h2>
+        <div class="cards-grid">
+          {% for post in site.posts limit:3 %}
+            <a href="{{ post.url | relative_url }}" class="item-card">
+              {% if post.image and post.image != "" %}
+                <div class="card-image-placeholder" style="background-image: url('{{ post.image | relative_url }}');"></div>
+              {% endif %}
+              <div class="card-content">
+                <h3 class="card-title">{{ post.title }}</h3>
+                <div class="card-date">{{ post.date | date: "%B %-d, %Y" }}</div>
+                <p class="card-excerpt">{{ post.excerpt | strip_html | truncatewords: 20 }}</p>
+              </div>
+            </a>
+          {% endfor %}
+        </div>
+        <div style="text-align: right;"><a href="{{ '/news/' | relative_url }}" class="btn btn-secondary">View All News →</a></div>
+
+        <h2 class="section-heading" id="projects">Our Projects</h2>
+        <div class="cards-grid">
+          {% for project in site.projects limit:3 %}
+            <a href="{{ project.url | relative_url }}" class="item-card">
+              {% if project.image and project.image != "" %}
+                <div class="card-image-placeholder" style="background-image: url('{{ project.image | relative_url }}');"></div>
+              {% endif %}
+              <div class="card-content">
+                <h3 class="card-title">{{ project.title }}</h3>
+                {% if project.status %}<span style="align-self: flex-start; font-size: 0.8rem; background: var(--c-granit-20); padding: 0.2rem 0.5rem; border-radius: 4px; margin-bottom: 0.5rem;">{{ project.status }}</span>{% endif %}
+                <p class="card-excerpt">{{ project.excerpt | strip_html | truncatewords: 20 }}</p>
+              </div>
+            </a>
+          {% endfor %}
+        </div>
+        <div style="text-align: right;"><a href="{{ '/projects/' | relative_url }}" class="btn btn-secondary">View All Projects →</a></div>
+
+        <h2 class="section-heading" id="demos">Interactive Demos</h2>
+        <div class="cards-grid">
+          {% for demo in site.demos limit:3 %}
+            <a href="{{ demo.url | relative_url }}" class="item-card">
+              {% if demo.image and demo.image != "" %}
+                <div class="card-image-placeholder" style="background-image: url('{{ demo.image | relative_url }}');"></div>
+              {% endif %}
+              <div class="card-content">
+                <h3 class="card-title">{{ demo.title }}</h3>
+                <p class="card-excerpt">{{ demo.excerpt | strip_html | truncatewords: 20 }}</p>
+              </div>
+            </a>
+          {% endfor %}
         </div>
 
         {{ content }}

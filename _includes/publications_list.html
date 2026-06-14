@@ -1,0 +1,54 @@
+{% assign publications_by_year = posts | group_by: "year" | sort: "name" | reverse %}
+
+{% for year_group in publications_by_year %}
+  <h2 style="margin-top: 3rem; border-bottom: 2px solid var(--c-granit-20); padding-bottom: 0.5rem;">{{ year_group.name }}</h2>
+
+  <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+  {% for publication in year_group.items %}
+    <div class="publication-entry" style="background: var(--bg-primary); border: 1px solid var(--c-granit-40); border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+      <h3 style="margin-bottom: 0.5rem;">
+        <a href="{{ publication.url | relative_url }}">{{ publication.title }}</a>
+      </h3>
+      <p style="margin: 0.25rem 0; color: var(--text-secondary);"><strong>Authors:</strong> {{ publication.authors | join: ", " }}</p>
+      <p style="margin: 0.25rem 0; color: var(--text-secondary);"><strong>Conference:</strong> {{ publication.conference }}</p>
+      {% if publication.abstract %}
+        <div class="publication-abstract" style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--c-granit-20);">
+          <strong>Abstract:</strong> {{ publication.abstract | truncatewords: 30 }}
+          <a href="{{ publication.url | relative_url }}" style="font-weight: 600; color: var(--c-jaspis);">Read more →</a>
+        </div>
+      {% endif %}
+    </div>
+  {% endfor %}
+  </div>
+{% endfor %}
+{% endif %}
+
+{% if paginator.total_pages > 1 %}
+<div class="pagination">
+  {% if paginator.previous_page %}
+    <a href="{{ paginator.previous_page_path | relative_url }}">&laquo; Prev</a>
+  {% endif %}
+  
+  {% for page in (1..paginator.total_pages) %}
+    {% if page == paginator.page %}
+      <span class="current">{{ page }}</span>
+    {% elsif page == 1 %}
+      <a href="{{ paginator.first_page_path | relative_url | default: '/publications/' }}">{{ page }}</a>
+    {% else %}
+      {% assign page_url = '/publications/page/' | append: page | append: '/' %}
+      <a href="{{ page_url | relative_url }}">{{ page }}</a>
+    {% endif %}
+  {% endfor %}
+  
+  {% if paginator.next_page %}
+    <a href="{{ paginator.next_page_path | relative_url }}">Next &raquo;</a>
+  {% endif %}
+</div>
+{% endif %}
+
+<style>
+  .pagination { display: flex; justify-content: center; gap: 1rem; margin-top: 3rem; }
+  .pagination a, .pagination span { padding: 0.5rem 1rem; border-radius: 4px; border: 1px solid var(--c-granit-40); color: var(--text-primary); text-decoration: none; font-weight: 600; }
+  .pagination a:hover { background: var(--c-granit-20); }
+  .pagination .current { background: var(--c-jaspis); color: white; border-color: var(--c-jaspis); }
+</style>

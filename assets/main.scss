@@ -1,7 +1,7 @@
 ---
 ---
 /* Modern Leuphana Brand Style Override */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Roboto:wght@300;400;700&display=swap');
 
 :root {
   /* Leuphana Colors */
@@ -23,11 +23,12 @@
   --bg-secondary: var(--c-granit-20);
   --text-primary: #1a1a1a;
   --text-secondary: var(--c-granit);
-  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-family-body: 'Roboto Condensed', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-family-headings: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 }
 
 body {
-  font-family: var(--font-family);
+  font-family: var(--font-family-body);
   background-color: var(--bg-primary);
   color: var(--text-primary);
   margin: 0;
@@ -37,8 +38,8 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-family);
-  font-weight: 800;
+  font-family: var(--font-family-headings);
+  font-weight: 700;
   color: var(--c-jaspis);
   margin-top: 0;
 }

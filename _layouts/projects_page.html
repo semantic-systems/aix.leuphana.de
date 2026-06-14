@@ -1,0 +1,72 @@
+---
+layout: default
+---
+<article class="post">
+  <header class="post-header">
+    <h1 class="post-title">{{ page.title | escape }}</h1>
+  </header>
+  <div class="post-content">
+<div class="projects-list">
+  <p style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 2rem;">
+    Our latest research projects and collaborations in neuro-symbolic AI and beyond.
+  </p>
+
+  <div class="cards-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;">
+    {% for project in paginator.posts %}
+      <a href="{{ project.url | relative_url }}" class="card-link" style="text-decoration: none; color: inherit; display: block;">
+        <div class="project-card" style="border: 1px solid var(--c-granit-20); border-radius: 8px; overflow: hidden; background: var(--bg-primary); transition: transform 0.2s ease, box-shadow 0.2s ease; height: 100%; display: flex; flex-direction: column;">
+          
+          {% if project.image and project.image != "" %}
+            <div class="card-image-placeholder" style="height: 180px; width: 100%; background-color: var(--c-granit-20); background-image: url('{{ project.image | relative_url }}'); background-size: cover; background-position: center;"></div>
+          {% endif %}
+
+          <div class="card-content" style="padding: 1.25rem; flex-grow: 1;">
+            <h3 style="margin: 0 0 0.5rem 0; font-size: 1.2rem; color: var(--text-primary);">{{ project.title }}</h3>
+            {% if project.status %}
+               <span style="display: inline-block; font-size: 0.8rem; background: var(--c-granit-20); padding: 0.2rem 0.5rem; border-radius: 4px; margin-bottom: 0.5rem;">{{ project.status }}</span>
+            {% endif %}
+            <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">
+              {{ project.excerpt | strip_html | truncatewords: 25 }}
+            </p>
+          </div>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+</div>
+
+{% if paginator.total_pages > 1 %}
+<div class="pagination">
+  {% if paginator.previous_page %}
+    <a href="{{ paginator.previous_page_path | relative_url }}">&laquo; Prev</a>
+  {% endif %}
+  
+  {% for page in (1..paginator.total_pages) %}
+    {% if page == paginator.page %}
+      <span class="current">{{ page }}</span>
+    {% elsif page == 1 %}
+      <a href="{{ paginator.first_page_path | relative_url | default: '/projects/' }}">{{ page }}</a>
+    {% else %}
+      {% assign page_url = '/projects/page/' | append: page | append: '/' %}
+      <a href="{{ page_url | relative_url }}">{{ page }}</a>
+    {% endif %}
+  {% endfor %}
+  
+  {% if paginator.next_page %}
+    <a href="{{ paginator.next_page_path | relative_url }}">Next &raquo;</a>
+  {% endif %}
+</div>
+{% endif %}
+
+<style>
+  .card-link:hover .project-card {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  }
+  .pagination { display: flex; justify-content: flex-start; gap: 0.5rem; margin-top: 3rem; margin-bottom: 2rem; }
+  .pagination a, .pagination span { padding: 0.5rem 1rem; border-radius: 4px; border: 1px solid var(--c-granit-40); color: var(--text-primary); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; min-width: 40px; }
+  .pagination a:hover { background: var(--c-granit-20); }
+  .pagination .current { background: var(--c-jaspis); color: white; border-color: var(--c-jaspis); }
+</style>
+  </div>
+</article>

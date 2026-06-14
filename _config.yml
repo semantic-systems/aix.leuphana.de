@@ -35,6 +35,15 @@ leuphana: "https://www.leuphana.de/en/institutes/iis/artificial-intelligence-and
 theme: minima
 plugins:
   - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-paginate-v2
+
+pagination:
+  enabled: true
+  per_page: 1
+  title: ':title - Page :num'
+
+
 
 # Collections
 collections:
@@ -44,6 +53,12 @@ collections:
   publications:
     output: true
     permalink: /publications/:path/
+  projects:
+    output: true
+    permalink: /projects/:path/
+  demos:
+    output: true
+    permalink: /demos/:path/
 
 # Exclude from processing.
 # The following items will not be processed, by default.

@@ -1,0 +1,23 @@
+---
+layout: default
+---
+<article class="demo-page">
+  <div class="demo-header" style="margin-bottom: 2rem; border-bottom: 2px solid var(--c-granit-20); padding-bottom: 1.5rem;">
+    <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">{{ page.title }}</h1>
+    <div class="demo-meta" style="font-size: 1.1rem; color: var(--text-secondary);">
+      {% if page.demo_url %}
+        <p style="margin: 0.5rem 0;">
+          <strong>Live Demo:</strong> <a href="{{ page.demo_url }}" target="_blank" class="btn btn-primary" style="display: inline-block; padding: 0.3rem 0.8rem; background: var(--c-jaspis); color: white; text-decoration: none; border-radius: 4px;">Launch Demo</a>
+        </p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="demo-content" style="font-size: 1.1rem; max-width: 800px; line-height: 1.8;">
+    {{ content }}
+  </div>
+
+  <div class="back-link" style="margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--c-granit-20);">
+    <a href="{{ '/' | relative_url }}#demos" class="btn btn-secondary" style="display: inline-block; padding: 0.5rem 1rem; background: var(--c-granit-20); color: var(--text-primary); text-decoration: none; border-radius: 4px;">← Back to Home</a>
+  </div>
+</article>
