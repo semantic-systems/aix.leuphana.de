@@ -8,6 +8,9 @@ thumbnail: "/assets/icons/coypu-logo.png" # Square preview image for the main Pr
 image: "/assets/icons/coypu-logo.png" # Large banner image inside the actual project page (optional)
 excerpt: "BMWK project to develop an AI platform using linked knowledge graphs to analyze supply chains, economic ecosystems, and crisis-related risks, particularly for SMEs."
 published: true # Change this to 'true' when you want it to appear on the live website!
+project_members:
+  - name: "Ricardo Usbeck"
+    role: "Project lead"
 links:
   - title: "CoyPu Introduction Video"
     url: "https://coypu.org/media/MST_02_CoyPu_Forschungsprojekt_21-036.mp4"

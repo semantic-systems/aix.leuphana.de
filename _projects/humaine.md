@@ -7,6 +7,11 @@ thumbnail: "/assets/images/" # Square preview image for the main Projects list
 image: "/assets/images/" # Large banner image inside the actual project page (optional)
 excerpt: "EFRE/STEP research infrastructure initiative for human-centered AI, concerned with integrating AI into working processes while improving working and living conditions."
 published: true # Change this to 'true' when you want it to appear on the live website!
+project_members:
+  - name: "Ricardo Usbeck"
+    role: "Scientific Project Manager"
+  - name: "Florian Stamer"
+    role: "Scientific Co-Project Leader"
 funding_organization: "Europäische Union"
 ---
 

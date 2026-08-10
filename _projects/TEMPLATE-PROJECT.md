@@ -8,6 +8,11 @@ thumbnail: "/assets/images/your-thumbnail-image.jpg" # Square preview image for 
 image: "/assets/images/your-banner-image.jpg" # Large banner image inside the actual project page (optional)
 excerpt: "A short 1-2 sentence summary explaining what this project aims to achieve."
 published: false # Change this to 'true' when you want it to appear on the live website!
+# List project members. If a member matches exactly with a name in the Team database, they will be highlighted and linked!
+project_members:
+  - name: "Ricardo Usbeck"
+    role: "Scientific Project Manager"
+  - name: "Anna Ehrenberg"
 # Add related links (e.g., video, social network, publications). Remove or leave empty if none.
 links:
   - title: "Project Video"

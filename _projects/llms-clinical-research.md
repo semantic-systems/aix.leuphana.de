@@ -8,6 +8,9 @@ thumbnail: "/assets/images/" # Square preview image for the main Projects list
 image: "/assets/images/" # Large banner image inside the actual project page (optional)
 excerpt: "BMFTR project with DZHK and UKE, which uses large language models to extract structured clinical information from discharge letters and other medical documents."
 published: true # Change this to 'true' when you want it to appear on the live website!
+project_members:
+  - name: "Ricardo Usbeck"
+    role: "Scientific Project Manager"
 participants:
   - "Leuphana Universität Lüneburg"
   - "Universitätsklinikum Hamburg-Eppendorf"

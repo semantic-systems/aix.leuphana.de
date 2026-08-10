@@ -19,8 +19,8 @@ layout: default
       {% if page.status %}
         <p style="margin: 0.5rem 0;"><strong>Status:</strong> <span style="background: var(--c-granit-20); padding: 0.2rem 0.6rem; border-radius: 4px;">{{ page.status }}</span></p>
       {% endif %}
-      {% if page.team %}
-        <p style="margin: 0.5rem 0;"><strong>Team:</strong> {% include team_links.html persons=page.team %}</p>
+      {% if page.project_members %}
+        <p style="margin: 0.5rem 0;"><strong>Project Members:</strong> {% include team_links.html persons=page.project_members %}</p>
       {% endif %}
       {% if page.github_repo %}
         <p style="margin: 0.5rem 0;">

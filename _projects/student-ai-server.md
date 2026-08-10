@@ -7,6 +7,13 @@ thumbnail: "/assets/images/" # Square preview image for the main Projects list
 image: "/assets/images/" # Large banner image inside the actual project page (optional)
 excerpt: "An SQM project establishes and operates a shared GPU server infrastructure for students’ machine learning and AI projects."
 published: true # Change this to 'true' when you want it to appear on the live website!
+project_members:
+  - name: "Debayan Banerjee"
+    role: "Scientific Project Leader"
+  - name: "Kai Moltzen"
+    role: "Scientific Project Manager"
+  - name: "Ricardo Usbeck"
+    role: "Scientific Project Manager"
 ---
 
 The Artificial Intelligence and Explainability (AIX) research group led by Prof. Dr. Ricardo Usbeck has applied for funding for a student assistant (SHK) to set up and maintain a computing server equipped with graphics processing units (GPUs), hosted at the MIZ. The goal is to improve the education of our disciplinary students in the areas of Artificial Intelligence, Deep Learning, and related entrepreneurial skills.

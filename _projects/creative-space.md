@@ -7,6 +7,13 @@ thumbnail: "/assets/icons/creative_space_logo.png" # Square preview image for th
 image: "/assets/icons/creative_space_logo.png" # Large banner image inside the actual project page (optional)
 excerpt: "An open, project-based experimentation, learning, and advisory space where students from all disciplines explore AI and data literacy through hands-on, curiosity-driven, interdisciplinary collaboration."
 published: true # Change this to 'true' when you want it to appear on the live website!
+project_members:
+  - name: "Ricardo Usbeck"
+    role: "Scientific Project Manager"
+  - name: "Martin Kohler"
+    role: "Scientific Project Manager"
+
+website: "https://creativespace.leuphana.de/"
 ---
 
 Based on the Creative Space concept (open, project-based experimentation spaces in technologically complex research areas like Artificial Intelligence for all students at Leuphana), we want to establish a Creative Space with this project. Especially in the various fields of AI, conveying complex technological backgrounds is difficult (abstraction, complexity reduction without simplification), while at the same time it will be essential for students of all disciplines to engage with these key technologies. A basic AI competence and Data Literacy in this area is helpful to necessary for all disciplines looking into the future.

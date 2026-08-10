@@ -7,6 +7,13 @@ thumbnail: "/assets/icons/provider_logo.png" # Square preview image for the main
 image: "/assets/icons/provider_logo.png" # Large banner image inside the actual project page (optional)
 excerpt: "A BMFTR project to develop dynamic simulations and self-learning LLM agents for anticipating supply shortages. AIX leads work on neuro-symbolic information extraction and explainable event analysis."
 published: true # Change this to 'true' when you want it to appear on the live website!
+project_members:
+  - name: "Ricardo Usbeck"
+    role: "Scientific Project Manager"
+  - name: "Patrick Westphal"
+    role: "Projektmitarbeiter*in"
+  - name: "Julian Burmester"
+    role: "Projektmitarbeiter*in"
 website: "https://projekt-provider.de/"
 funding_organization: "Bundesministerium für Forschung, Technologie und Raumfahrt"
 participants:

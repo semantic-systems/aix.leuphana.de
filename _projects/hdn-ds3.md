@@ -7,6 +7,9 @@ thumbnail: "/assets/images/" # Square preview image for the main Projects list
 image: "/assets/images/" # Large banner image inside the actual project page (optional)
 excerpt: "State-wide joint project building shared digital research infrastructure, computing resources, research-data services, and local support structures for researchers across Lower Saxony."
 published: true # Change this to 'true' when you want it to appear on the live website!
+project_members:
+  - name: "Ricardo Usbeck"
+    role: "Scientific Project Manager"
 funding_organization: "Niedersächsisches Ministerium für Wissenschaft und Kultur"
 ---
 

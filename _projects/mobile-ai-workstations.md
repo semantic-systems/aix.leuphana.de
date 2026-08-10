@@ -7,6 +7,12 @@ thumbnail: "/assets/images/" # Square preview image for the main Projects list
 image: "/assets/images/" # Large banner image inside the actual project page (optional)
 excerpt: "A SQM project provides mobile, GPU-capable workstations to enable equitable student access to AI development."
 published: true # Change this to 'true' when you want it to appear on the live website!
+project_members:
+  - name: "Martin Kohler"
+    role: "Scientific Project Leader"
+  - name: "Ricardo Usbeck"
+    role: "Scientific Project Leader"
+
 ---
 
 Artificial Intelligence is rapidly gaining importance – in research, business, and society. To prepare students of all disciplines specifically for this development, they need access to powerful tools and development environments. Currently, many – especially outside the Business Informatics and Data Science programs – lack suitable hardware to realize their own, more complex AI applications.
