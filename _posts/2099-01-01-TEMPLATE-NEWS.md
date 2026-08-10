@@ -7,7 +7,7 @@ categories: [news] # You can add more categories like [news, event, research]
 thumbnail: "/assets/images/main_building_leuphana.png" # Square preview image for the main News list page
 image: "/assets/images/Luftaufnahme_Leuphana_Universitaet_Lueneburg I.jpg" # Large banner image inside the actual post (optional)
 excerpt: "A 1-2 sentence summary of this news that will show up as a preview on the main page."
-published: true # Change this to 'true' when you want it to appear on the live website!
+published: false # Change this to 'true' when you want it to appear on the live website!
 ---
 
 Write your news content here! 
