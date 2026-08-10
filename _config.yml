@@ -80,4 +80,6 @@ exclude:
   - vendor/gems/
   - vendor/ruby/
   - venv/
+  - fetch_venv/
   - scripts/
+  - fetch_team_members.py

@@ -17,7 +17,7 @@ layout: default
       <h3 style="margin-bottom: 0.5rem;">
         <a href="{{ publication.url | relative_url }}">{{ publication.title }}</a>
       </h3>
-      <p style="margin: 0.25rem 0; color: var(--text-secondary);"><strong>Authors:</strong> {{ publication.authors | join: ", " }}</p>
+      <p style="margin: 0.25rem 0; color: var(--text-secondary);"><strong>Authors:</strong> {% include team_links.html persons=publication.authors %}</p>
       <p style="margin: 0.25rem 0; color: var(--text-secondary);"><strong>Conference:</strong> {{ publication.conference }}</p>
       {% if publication.abstract %}
         <div class="publication-abstract" style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--c-granit-20);">

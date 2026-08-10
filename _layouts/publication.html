@@ -16,7 +16,7 @@ layout: default
       }
     </style>
     <div class="publication-meta" style="font-size: 1.1rem; color: var(--text-secondary);">
-      <p style="margin: 0.5rem 0;"><strong>Authors:</strong> {{ page.authors | join: ", " }}</p>
+      <p style="margin: 0.5rem 0;"><strong>Authors:</strong> {% include team_links.html persons=page.authors %}</p>
       <p style="margin: 0.5rem 0;"><strong>Year:</strong> {{ page.year }}</p>
       
       <div class="publication-links" style="display: flex; flex-wrap: wrap; gap: 0.55rem; margin-top: 1rem;">

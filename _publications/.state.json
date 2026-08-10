@@ -1,9 +1,9 @@
 {
   "summary": {
-    "total_publications": 159,
-    "with_abstract": 155,
+    "total_publications": 160,
+    "with_abstract": 156,
     "without_abstract": 4,
-    "last_updated": "2026-08-07T13:14:38.276065+00:00"
+    "last_updated": "2026-08-10T13:00:47.214433+00:00"
   },
   "publications": {
     "starqagentinvestigating-generalization-in-knowledge-graph-question-answering-via-a-multiagent-collaborative-framework": {
@@ -800,6 +800,11 @@
       "title": "On the distinctiveness of tags in collaborative tagging systems",
       "has_abstract": true,
       "file": "_publications/on-the-distinctiveness-of-tags-in-collaborative-tagging-systems.md"
+    },
+    "amharic-dbpedia-chapter-a-knowledge-graph-for-a-lowresource-language": {
+      "title": "Amharic DBpedia Chapter: A Knowledge Graph for a Low-Resource Language",
+      "has_abstract": true,
+      "file": "_publications/amharic-dbpedia-chapter-a-knowledge-graph-for-a-lowresource-language.md"
     }
   }
 }

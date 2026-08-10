@@ -2,7 +2,7 @@
 name: "Anna Ehrenberg"
 title: "Researcher"
 image: "anna_ehrenberg.png"
-job_category: "research_associate"
+job_category: "research_assistant"
 email: "anna.ehrenberg@leuphana.de"
 
 layout: team_member

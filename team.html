@@ -13,7 +13,7 @@ permalink: /team/
       </p>
     </div>
     <div style="flex: 1; min-width: 300px;">
-      <img src="{{ '/assets/images/AIX_Team.jpg' | relative_url }}" alt="AIX Team" style="width: 100%; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 8px solid white;">
+      <img src="{{ '/assets/images/AIX_team2026.jpg' | relative_url }}" alt="AIX Team" style="width: 100%; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 8px solid white;">
     </div>
   </div>
 
@@ -45,7 +45,7 @@ permalink: /team/
 
 <h2 style="font-size: 2.5rem; text-align: center; margin-bottom: 1rem;">Our Team Members</h2>
 
-{% assign defined_categories = "head,academic_advisor,research_associate,research_assistant,scholarship_holder,external_phd,student_assistant,alumni" | split: "," %}
+{% assign defined_categories = "head,office_management,technical_staff,academic_advisor,research_associate,research_assistant,scholarship_holder,external_phd,student_assistant,alumni" | split: "," %}
 
 {% for cat in defined_categories %}
   {% assign members = site.team | where: "job_category", cat %}
@@ -54,6 +54,10 @@ permalink: /team/
     {% case cat %}
       {% when "head" %}
         <h2 style="margin-top: 3rem; border-bottom: 2px solid var(--c-granit-20); padding-bottom: 0.5rem;">Head</h2>
+      {% when "office_management" %}
+        <h2 style="margin-top: 3rem; border-bottom: 2px solid var(--c-granit-20); padding-bottom: 0.5rem;">Office Management</h2>
+      {% when "technical_staff" %}
+        <h2 style="margin-top: 3rem; border-bottom: 2px solid var(--c-granit-20); padding-bottom: 0.5rem;">Technical and Administrative Staff</h2>
       {% when "academic_advisor" %}
         <h2 style="margin-top: 3rem; border-bottom: 2px solid var(--c-granit-20); padding-bottom: 0.5rem;">Academic Advisor</h2>
       {% when "research_assistant" %}
@@ -86,7 +90,7 @@ permalink: /team/
 {% endfor %}
 
 {% comment %} Handle any other uncategorized members {% endcomment %}
-{% assign all_defined = "head,academic_advisor,research_associate,research_assistant,scholarship_holder,external_phd,student_assistant,alumni" %}
+{% assign all_defined = "head,office_management,technical_staff,academic_advisor,research_associate,research_assistant,scholarship_holder,external_phd,student_assistant,alumni" %}
 {% assign other_members = "" | split: "" %}
 
 {% for member in site.team %}
