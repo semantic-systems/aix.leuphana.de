@@ -1,4 +1,4 @@
----
+<!-- ---
 layout: project
 title: "Neuro-Symbolic LLM Integration"
 status: "Active"
@@ -29,4 +29,4 @@ This project investigates the integration of LLMs with structured Knowledge Grap
 
 ### Current Progress
 
-We have successfully developed a prototype that queries Wikidata in real-time to verify the factual consistency of LLM outputs. Preliminary results show a 40% reduction in hallucinations on complex factual queries compared to standard, ungrounded LLMs.
+We have successfully developed a prototype that queries Wikidata in real-time to verify the factual consistency of LLM outputs. Preliminary results show a 40% reduction in hallucinations on complex factual queries compared to standard, ungrounded LLMs. -->

@@ -22,6 +22,12 @@ layout: default
 
           <div class="card-content" style="padding: 1.25rem; flex-grow: 1;">
             <h3 style="margin: 0 0 0.5rem 0; font-size: 1.2rem; color: var(--text-primary);">{{ project.title }}</h3>
+            {% if project.date %}
+               <span style="display: inline-block; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem; margin-right: 0.5rem;">
+                 <svg style="width: 14px; height: 14px; vertical-align: middle; margin-right: 4px; margin-top: -2px; fill: currentColor;" viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 18H5V10h14v12z"/></svg>
+                 {{ project.date | date: "%B %Y" }} &mdash; {% if project.end_date %}{{ project.end_date | date: "%B %Y" }}{% else %}Present{% endif %}
+               </span>
+            {% endif %}
             {% if project.status %}
                <span style="display: inline-block; font-size: 0.8rem; background: var(--c-granit-20); padding: 0.2rem 0.5rem; border-radius: 4px; margin-bottom: 0.5rem;">{{ project.status }}</span>
             {% endif %}
@@ -35,38 +41,6 @@ layout: default
   </div>
 </div>
 
-{% if paginator.total_pages > 1 %}
-<div class="pagination">
-  {% if paginator.previous_page %}
-    <a href="{{ paginator.previous_page_path | relative_url }}">&laquo; Prev</a>
-  {% endif %}
-  
-  {% for page in (1..paginator.total_pages) %}
-    {% if page == paginator.page %}
-      <span class="current">{{ page }}</span>
-    {% elsif page == 1 %}
-      <a href="{{ paginator.first_page_path | relative_url | default: '/projects/' }}">{{ page }}</a>
-    {% else %}
-      {% assign page_url = '/projects/page/' | append: page | append: '/' %}
-      <a href="{{ page_url | relative_url }}">{{ page }}</a>
-    {% endif %}
-  {% endfor %}
-  
-  {% if paginator.next_page %}
-    <a href="{{ paginator.next_page_path | relative_url }}">Next &raquo;</a>
-  {% endif %}
-</div>
-{% endif %}
-
-<style>
-  .card-link:hover .project-card {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-  }
-  .pagination { display: flex; justify-content: flex-start; gap: 0.5rem; margin-top: 3rem; margin-bottom: 2rem; }
-  .pagination a, .pagination span { padding: 0.5rem 1rem; border-radius: 4px; border: 1px solid var(--c-granit-40); color: var(--text-primary); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; min-width: 40px; }
-  .pagination a:hover { background: var(--c-granit-20); }
-  .pagination .current { background: var(--c-jaspis); color: white; border-color: var(--c-jaspis); }
-</style>
+{% include pagination.html base_url="/projects/" %}
   </div>
 </article>

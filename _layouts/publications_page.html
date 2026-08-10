@@ -30,34 +30,6 @@ layout: default
   </div>
 {% endfor %}
 
-{% if paginator.total_pages > 1 %}
-<div class="pagination">
-  {% if paginator.previous_page %}
-    <a href="{{ paginator.previous_page_path | relative_url }}">&laquo; Prev</a>
-  {% endif %}
-  
-  {% for page in (1..paginator.total_pages) %}
-    {% if page == paginator.page %}
-      <span class="current">{{ page }}</span>
-    {% elsif page == 1 %}
-      <a href="{{ paginator.first_page_path | relative_url | default: '/publications/' }}">{{ page }}</a>
-    {% else %}
-      {% assign page_url = '/publications/page/' | append: page | append: '/' %}
-      <a href="{{ page_url | relative_url }}">{{ page }}</a>
-    {% endif %}
-  {% endfor %}
-  
-  {% if paginator.next_page %}
-    <a href="{{ paginator.next_page_path | relative_url }}">Next &raquo;</a>
-  {% endif %}
-</div>
-{% endif %}
-
-<style>
-  .pagination { display: flex; justify-content: flex-start; gap: 0.5rem; margin-top: 3rem; margin-bottom: 2rem; }
-  .pagination a, .pagination span { padding: 0.5rem 1rem; border-radius: 4px; border: 1px solid var(--c-granit-40); color: var(--text-primary); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; min-width: 40px; }
-  .pagination a:hover { background: var(--c-granit-20); }
-  .pagination .current { background: var(--c-jaspis); color: white; border-color: var(--c-jaspis); }
-</style>
+{% include pagination.html base_url="/publications/" %}
   </div>
 </article>

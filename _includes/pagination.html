@@ -1,0 +1,63 @@
+{% if paginator.total_pages > 1 %}
+<div class="pagination" style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-top: 3rem; margin-bottom: 2rem;">
+  
+  {% if paginator.previous_page %}
+    <a href="{{ paginator.previous_page_path | relative_url }}" style="padding: 0.5rem 1rem; border: 1px solid var(--c-granit-40); border-radius: 4px; text-decoration: none; color: inherit; transition: all 0.2s;">&laquo; Prev</a>
+  {% else %}
+    <span style="padding: 0.5rem 1rem; border: 1px solid var(--c-granit-20); border-radius: 4px; color: var(--c-granit-40); cursor: not-allowed;">&laquo; Prev</span>
+  {% endif %}
+
+  {% assign limit = 2 %}
+  {% assign show_ellipsis_start = false %}
+  {% assign show_ellipsis_end = false %}
+
+  {% for page in (1..paginator.total_pages) %}
+    
+    {% assign show = false %}
+    {% if page == 1 or page == paginator.total_pages %}
+      {% assign show = true %}
+    {% else %}
+      {% assign diff = paginator.page | minus: page %}
+      {% if diff < 0 %}{% assign diff = diff | times: -1 %}{% endif %}
+      {% if diff <= limit %}
+        {% assign show = true %}
+      {% endif %}
+    {% endif %}
+
+    {% if show %}
+      {% if page == paginator.page %}
+        <span class="active" style="padding: 0.5rem 1rem; border: 1px solid var(--c-jaspis); background-color: var(--c-jaspis); color: white; border-radius: 4px; font-weight: bold;">{{ page }}</span>
+      {% else %}
+        {% if page == 1 %}
+          <a href="{{ include.base_url | relative_url }}" style="padding: 0.5rem 1rem; border: 1px solid var(--c-granit-40); border-radius: 4px; text-decoration: none; color: inherit; transition: all 0.2s;">{{ page }}</a>
+        {% else %}
+          <a href="{{ include.base_url | append: 'page/' | append: page | append: '/' | relative_url }}" style="padding: 0.5rem 1rem; border: 1px solid var(--c-granit-40); border-radius: 4px; text-decoration: none; color: inherit; transition: all 0.2s;">{{ page }}</a>
+        {% endif %}
+      {% endif %}
+    {% else %}
+      {% if page < paginator.page and show_ellipsis_start == false %}
+        <span style="padding: 0.5rem; color: var(--c-granit-60); letter-spacing: 2px;">...</span>
+        {% assign show_ellipsis_start = true %}
+      {% elsif page > paginator.page and show_ellipsis_end == false %}
+        <span style="padding: 0.5rem; color: var(--c-granit-60); letter-spacing: 2px;">...</span>
+        {% assign show_ellipsis_end = true %}
+      {% endif %}
+    {% endif %}
+
+  {% endfor %}
+
+  {% if paginator.next_page %}
+    <a href="{{ paginator.next_page_path | relative_url }}" style="padding: 0.5rem 1rem; border: 1px solid var(--c-granit-40); border-radius: 4px; text-decoration: none; color: inherit; transition: all 0.2s;">Next &raquo;</a>
+  {% else %}
+    <span style="padding: 0.5rem 1rem; border: 1px solid var(--c-granit-20); border-radius: 4px; color: var(--c-granit-40); cursor: not-allowed;">Next &raquo;</span>
+  {% endif %}
+  
+</div>
+
+<style>
+  .pagination a:hover {
+    background-color: var(--c-granit-20);
+    border-color: var(--c-granit-60);
+  }
+</style>
+{% endif %}

@@ -1,4 +1,4 @@
----
+<!-- ---
 layout: project
 title: "Disaster Response Knowledge Graphs"
 status: "Completed"
@@ -30,4 +30,4 @@ Our approach utilizes a multi-agent Large Language Model (LLM) architecture.
 
 ### Impact
 
-By moving beyond simple point-based geoparsing and instead resolving the actual *area* of impact into a standard grid, our system allows for immediate cross-referencing with other geospatial data (like population density or infrastructure maps) in a unified Geospatial Knowledge Graph, empowering first responders with actionable intelligence.
+By moving beyond simple point-based geoparsing and instead resolving the actual *area* of impact into a standard grid, our system allows for immediate cross-referencing with other geospatial data (like population density or infrastructure maps) in a unified Geospatial Knowledge Graph, empowering first responders with actionable intelligence. -->
