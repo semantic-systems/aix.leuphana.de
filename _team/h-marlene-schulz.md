@@ -2,7 +2,7 @@
 name: "H. Marlene Schulz"
 title: "Scholarship holder"
 image: "h_marlene_schulz.png"
-job_category: "scholarship_holder"
+job_category: "researcher"
 email: "marlene.schulz@leuphana.de"
 
 layout: team_member

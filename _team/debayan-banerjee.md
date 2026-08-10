@@ -2,7 +2,7 @@
 name: "Debayan Banerjee"
 title: "Researcher"
 image: "debayan_banerjee.png"
-job_category: "academic_advisor"
+job_category: "researcher"
 email: "debayan.banerjee@leuphana.de"
 
 layout: team_member

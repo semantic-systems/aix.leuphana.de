@@ -2,7 +2,7 @@
 name: "Cedric Möller"
 title: "Dr."
 image: "blank.png"
-job_category: "external_phd"
+job_category: "researcher"
 
 layout: team_member
 permalink: /team/cedric-moeller/

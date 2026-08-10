@@ -2,7 +2,7 @@
 name: "Tilahun Abedissa Taffa"
 title: "M.Sc."
 image: "blank.png"
-job_category: "research_assistant"
+job_category: "researcher"
 
 layout: team_member
 permalink: /team/tilahun-abedissa-taffa/

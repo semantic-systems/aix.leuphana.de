@@ -2,7 +2,7 @@
 name: "Patrick Westphal"
 title: "Dr."
 image: "blank.png"
-job_category: "research_assistant"
+job_category: "researcher"
 
 layout: team_member
 permalink: /team/patrick-westphal/

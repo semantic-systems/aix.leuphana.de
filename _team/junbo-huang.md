@@ -2,7 +2,7 @@
 name: "Junbo Huang"
 title: ""
 image: "blank.png"
-job_category: "external_phd"
+job_category: "researcher"
 
 layout: team_member
 permalink: /team/junbo-huang/

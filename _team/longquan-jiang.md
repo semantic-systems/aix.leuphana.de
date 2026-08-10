@@ -2,7 +2,7 @@
 name: "Longquan Jiang"
 title: "M.Sc."
 image: "blank.png"
-job_category: "scholarship_holder"
+job_category: "researcher"
 
 layout: team_member
 permalink: /team/longquan-jiang/

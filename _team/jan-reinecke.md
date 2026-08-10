@@ -2,7 +2,7 @@
 name: "Jan Reinecke"
 title: ""
 image: "blank.png"
-job_category: "external_phd"
+job_category: "researcher"
 
 layout: team_member
 permalink: /team/jan-reinecke/

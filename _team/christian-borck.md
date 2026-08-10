@@ -2,7 +2,7 @@
 name: "Christian Borck"
 title: "M.A."
 image: "blank.png"
-job_category: "research_assistant"
+job_category: "researcher"
 
 layout: team_member
 permalink: /team/christian-borck/
