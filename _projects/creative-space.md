@@ -3,8 +3,8 @@ layout: project
 title: "Creative Space for Human and Artificial Intelligence"
 date: 2025-10-01 # Format exactly like this: YYYY-MM-DD. This controls the sorting order (newest first)
 status: "Ongoing" # e.g. "Ongoing", "Completed", "In Review"
-thumbnail: "/assets/images/blank.png" # Square preview image for the main Projects list
-image: "/assets/images/blank.png" # Large banner image inside the actual project page (optional)
+thumbnail: "/assets/icons/creative_space_logo.png" # Square preview image for the main Projects list
+image: "/assets/icons/creative_space_logo.png" # Large banner image inside the actual project page (optional)
 excerpt: "An open, project-based experimentation, learning, and advisory space where students from all disciplines explore AI and data literacy through hands-on, curiosity-driven, interdisciplinary collaboration."
 published: true # Change this to 'true' when you want it to appear on the live website!
 ---

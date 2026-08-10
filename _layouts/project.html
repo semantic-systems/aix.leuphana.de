@@ -27,9 +27,28 @@ layout: default
           <strong>GitHub:</strong> <a href="{{ page.github_repo }}" target="_blank" style="color: var(--c-blau);">{{ page.github_repo }}</a>
         </p>
       {% endif %}
+      {% if page.funding_organization %}
+        <p style="margin: 0.5rem 0;"><strong>Funding:</strong> {{ page.funding_organization }}</p>
+      {% endif %}
+      {% if page.participants %}
+        <div style="margin: 0.5rem 0;">
+          <strong>Participants:</strong>
+          <ul style="margin: 0.2rem 0 0 1.5rem; padding: 0;">
+            {% for org in page.participants %}
+              <li>{{ org }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
     </div>
-    {% if page.links %}
+    {% if page.links or page.website %}
     <div class="project-links" style="margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.8rem;">
+      {% if page.website %}
+        <a href="{{ page.website }}" target="_blank" class="project-link-chip" style="display: inline-flex; align-items: center; padding: 0.5rem 1rem; background: var(--c-jaspis); color: white; text-decoration: none; border: 1px solid var(--c-jaspis); border-radius: 20px; font-size: 0.95rem; font-weight: 600; transition: all 0.2s ease;">
+          <svg style="width: 16px; height: 16px; margin-right: 8px; fill: currentColor;" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+          Project Website
+        </a>
+      {% endif %}
       {% for link in page.links %}
         <a href="{{ link.url }}" target="_blank" class="project-link-chip" style="display: inline-flex; align-items: center; padding: 0.5rem 1rem; background: var(--bg-secondary); color: var(--text-primary); text-decoration: none; border: 1px solid var(--c-granit-40); border-radius: 20px; font-size: 0.95rem; font-weight: 600; transition: all 0.2s ease;">
           <svg style="width: 16px; height: 16px; margin-right: 8px; fill: currentColor;" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>

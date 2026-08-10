@@ -3,8 +3,8 @@ layout: project
 title: "RESCUE-MATE"
 date: 2024-01-01 # Format exactly like this: YYYY-MM-DD. This controls the sorting order (newest first)
 status: "Ongoing" # e.g. "Ongoing", "Completed", "In Review"
-thumbnail: "/assets/images/blank.png" # Square preview image for the main Projects list
-image: "/assets/images/blank.png" # Large banner image inside the actual project page (optional)
+thumbnail: "/assets/images/" # Square preview image for the main Projects list
+image: "/assets/images/" # Large banner image inside the actual project page (optional)
 excerpt: "A BMFTR project that uses real-time, geospatial, and social-media data to create dynamic crisis situation pictures and decision support for rescue services."
 published: true # Change this to 'true' when you want it to appear on the live website!
 ---

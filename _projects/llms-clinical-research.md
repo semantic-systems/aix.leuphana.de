@@ -4,10 +4,13 @@ title: "LLMs for Clinical-Research Data Extraction"
 date: 2024-09-01 # Format exactly like this: YYYY-MM-DD. This controls the sorting order (newest first)
 end_date: "2026-02-28"
 status: "Completed" # e.g. "Ongoing", "Completed", "In Review"
-thumbnail: "/assets/images/blank.png" # Square preview image for the main Projects list
-image: "/assets/images/blank.png" # Large banner image inside the actual project page (optional)
+thumbnail: "/assets/images/" # Square preview image for the main Projects list
+image: "/assets/images/" # Large banner image inside the actual project page (optional)
 excerpt: "BMFTR project with DZHK and UKE, which uses large language models to extract structured clinical information from discharge letters and other medical documents."
 published: true # Change this to 'true' when you want it to appear on the live website!
+participants:
+  - "Leuphana Universität Lüneburg"
+  - "Universitätsklinikum Hamburg-Eppendorf"
 ---
 
 Acute heart failure including cardiogenic shock is a life-threatening condition with high 30-day mortality up to 60%. In order to understand these critical conditions better, large registries are being established. These are most valuable primarily in generating hypotheses for further assessment, usually performed in randomized controlled trials (RCTs). These trials permit insights into causal relationships between medical interventions (like the use of novel medical drugs or mechanical circulatory support devices like the veno-arterial extracorporeal membrane oxygenation, so-called VA-ECMO) and patient outcomes.

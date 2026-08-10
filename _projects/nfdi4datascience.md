@@ -3,10 +3,11 @@ layout: project
 title: "NFDI4DataScience (NFDI4DS)"
 date: 2024-01-01 # Format exactly like this: YYYY-MM-DD. This controls the sorting order (newest first)
 status: "Ongoing" # e.g. "Ongoing", "Completed", "In Review"
-thumbnail: "/assets/images/blank.png" # Square preview image for the main Projects list
-image: "/assets/images/blank.png" # Large banner image inside the actual project page (optional)
+thumbnail: "/assets/icons/nfdi4ds-logo.png" # Square preview image for the main Projects list
+image: "/assets/icons/nfdi4ds-logo.png" # Large banner image inside the actual project page (optional)
 excerpt: "DFG project on national research data infrastructure connecting publications, datasets, software, and models to make Data Science and AI research more FAIR, reproducible, and searchable."
 published: true # Change this to 'true' when you want it to appear on the live website!
+funding_organization: "Deutsche Forschungsgemeinschaft"
 ---
 
 NFDI4DataScience (NFDI4DS) follows a vision: for Data Science and the advancements in Artificial Intelligence, it is essential to fully support all steps of the complex and interdisciplinary lifecycle for research data, i.e., the collection/creation, processing, analysis, publication, archiving, and reuse of various resources. The paradigm shift in recent years has meant that the most powerful computational methods are increasingly achieved through data-driven approaches, especially Deep Learning. This has led to the establishment of Data Science as an independent and ubiquitous scientific discipline, driven by advances in computer science, but drawing its great significance from the diverse results in almost all scientific disciplines.

@@ -3,10 +3,19 @@ layout: project
 title: "PROVIDER"
 date: 2026-01-01 # Format exactly like this: YYYY-MM-DD. This controls the sorting order (newest first)
 status: "Ongoing" # e.g. "Ongoing", "Completed", "In Review"
-thumbnail: "/assets/images/blank.png" # Square preview image for the main Projects list
-image: "/assets/images/blank.png" # Large banner image inside the actual project page (optional)
+thumbnail: "/assets/icons/provider_logo.png" # Square preview image for the main Projects list
+image: "/assets/icons/provider_logo.png" # Large banner image inside the actual project page (optional)
 excerpt: "A BMFTR project to develop dynamic simulations and self-learning LLM agents for anticipating supply shortages. AIX leads work on neuro-symbolic information extraction and explainable event analysis."
 published: true # Change this to 'true' when you want it to appear on the live website!
+website: "https://projekt-provider.de/"
+funding_organization: "Bundesministerium für Forschung, Technologie und Raumfahrt"
+participants:
+  - "Leuphana Universität Lüneburg"
+  - "DATEV EG Germany"
+  - "IAK Agrar Consulting GmbH"
+  - "Institut für Angewandte Informatik e.V."
+  - "OFFIS – Institut für Informatik"
+  - "Technische Universität Chemnitz"
 ---
 
 The collaborative project PROVIDER develops an AI-supported early warning system for the early detection, analysis, and simulation of potential supply bottlenecks in Germany. The focus is on supply chains and supply systems that are relevant for everyday supply security, but do not necessarily belong to classical critical infrastructure. Many of these goods, logistics, and service chains are highly optimized, internationally interconnected, and particularly susceptible to disruptions from extreme weather events, geopolitical conflicts, production failures, transport issues, or societal crises.

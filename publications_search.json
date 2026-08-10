@@ -1,0 +1,13 @@
+---
+layout: null
+---
+[
+  {% for pub in site.publications %}
+    {
+      "title": {{ pub.title | jsonify }},
+      "url": {{ pub.url | relative_url | jsonify }},
+      "authors": {{ pub.authors | join: ", " | jsonify }},
+      "year": {{ pub.year | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+  {% endfor %}
+]

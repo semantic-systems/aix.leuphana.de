@@ -3,8 +3,8 @@ layout: project
 title: "Student AI Server"
 date: 2025-10-01 # Format exactly like this: YYYY-MM-DD. This controls the sorting order (newest first)
 status: "Ongoing" # e.g. "Ongoing", "Completed", "In Review"
-thumbnail: "/assets/images/blank.png" # Square preview image for the main Projects list
-image: "/assets/images/blank.png" # Large banner image inside the actual project page (optional)
+thumbnail: "/assets/images/" # Square preview image for the main Projects list
+image: "/assets/images/" # Large banner image inside the actual project page (optional)
 excerpt: "An SQM project establishes and operates a shared GPU server infrastructure for students’ machine learning and AI projects."
 published: true # Change this to 'true' when you want it to appear on the live website!
 ---

@@ -1,0 +1,66 @@
+[
+  {
+    "title": "HumAIne - Learning from Humans",
+    "website": "",
+    "funding_organization": "Europäische Union",
+    "participants": []
+  },
+  {
+    "title": "PROVIDER: Proaktive Versorgungssicherheit durch dynamische Simulation mit selbstlernenden LLM-Agenten - Teilvorhaben: Neuro-Symbolische KI für Erklärbare Informationsextraktion und Event-Analyse",
+    "website": "https://projekt-provider.de/",
+    "funding_organization": "Bundesministerium für Forschung, Technologie und Raumfahrt",
+    "participants": [
+      "Leuphana Universität Lüneburg",
+      "DATEV EG Germany",
+      "IAK Agrar Consulting GmbH",
+      "Institut für Angewandte Informatik e.V.",
+      "OFFIS – Institut für Informatik",
+      "Technische Universität Chemnitz"
+    ]
+  },
+  {
+    "title": "Studienqualitätsmittel: Mobile KI-Workstations für den gleichberechtigten Zugang zur KI Entwicklung",
+    "website": "",
+    "funding_organization": "",
+    "participants": []
+  },
+  {
+    "title": "Studienqualitätsmittel: Aufbau Creative Space for Human and Artificial Intelligence",
+    "website": "",
+    "funding_organization": "",
+    "participants": []
+  },
+  {
+    "title": "Studienqualitätsmittel: Einrichtung und Betrieb eines studentischen KI-Servers",
+    "website": "",
+    "funding_organization": "",
+    "participants": []
+  },
+  {
+    "title": "LStartupLab: Leuphana Startup Lab für Innovation, Transformation & Gründung",
+    "website": "",
+    "funding_organization": "",
+    "participants": []
+  },
+  {
+    "title": "HdN - DS³",
+    "website": "",
+    "funding_organization": "Niedersächsisches Ministerium für Wissenschaft und Kultur",
+    "participants": []
+  },
+  {
+    "title": "NFDI4DS - NFDI für Datenwissenschaften und Künstliche Intelligenz",
+    "website": "",
+    "funding_organization": "Deutsche Forschungsgemeinschaft",
+    "participants": []
+  },
+  {
+    "title": "Anwendung großer Sprachmodelle zur Verbesserung der Datenextraktion für klinische Forschung",
+    "website": "",
+    "funding_organization": "",
+    "participants": [
+      "Leuphana Universität Lüneburg",
+      "Universitätsklinikum Hamburg-Eppendorf"
+    ]
+  }
+]

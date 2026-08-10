@@ -6,36 +6,96 @@ layout: default
     <h1 class="post-title">{{ page.title | escape }}</h1>
   </header>
   <div class="post-content">
-{% assign publications_by_year = paginator.posts | group_by: "year" | sort: "name" | reverse %}
-
-{% for year_group in publications_by_year %}
-  <h2 style="margin-top: 3rem; border-bottom: 2px solid var(--c-granit-20); padding-bottom: 0.5rem;">{{ year_group.name }}</h2>
-
-  <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-  {% for publication in year_group.items %}
-    <div class="publication-entry" style="background: var(--bg-primary); border: 1px solid var(--c-granit-40); border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-      <h3 style="margin-bottom: 0.5rem;">
-        <a href="{{ publication.url | relative_url }}">{{ publication.title }}</a>
-      </h3>
-      <p style="margin: 0.25rem 0; color: var(--text-secondary);"><strong>Authors:</strong> {% include team_links.html persons=publication.authors %}</p>
-      {% if publication.is_conference and publication.conference != "" %}
-      <p style="margin: 0.25rem 0; color: var(--text-secondary);"><strong>Conference:</strong> {{ publication.conference }}</p>
-      {% elsif publication.is_journal and publication.journal != "" %}
-      <p style="margin: 0.25rem 0; color: var(--text-secondary);"><strong>Journal:</strong> {{ publication.journal }}</p>
-      {% elsif publication.is_archive %}
-      <p style="margin: 0.25rem 0; color: var(--text-secondary);"><strong>Archive:</strong> Preprint</p>
-      {% endif %}
-      {% if publication.abstract %}
-        <div class="publication-abstract" style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--c-granit-20);">
-          <strong>Abstract:</strong> {{ publication.abstract | truncatewords: 30 }}
-          <a href="{{ publication.url | relative_url }}" style="font-weight: 600; color: var(--c-jaspis);">Read more →</a>
-        </div>
-      {% endif %}
+    
+    <!-- Search Bar -->
+    <div class="search-container" style="margin-bottom: 2rem;">
+      <input type="text" id="pub-search" placeholder="Search publications by title..." style="width: 100%; padding: 0.8rem 1rem; font-size: 1rem; border: 1px solid var(--c-granit-40); border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); outline: none;">
     </div>
-  {% endfor %}
-  </div>
-{% endfor %}
+    
+    <!-- Search Results Container (Hidden by default) -->
+    <div id="search-results" style="display: none; flex-direction: column; gap: 1.5rem; margin-bottom: 2rem;"></div>
 
-{% include pagination.html base_url="/publications/" %}
+    <!-- Original Paginated List -->
+    <div id="paginated-list">
+      {% assign publications_by_year = paginator.posts | group_by: "year" | sort: "name" | reverse %}
+      
+      {% for year_group in publications_by_year %}
+        <h2 style="margin-top: 3rem; border-bottom: 2px solid var(--c-granit-20); padding-bottom: 0.5rem;">{{ year_group.name }}</h2>
+      
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+        {% for publication in year_group.items %}
+          <div class="publication-entry" style="background: var(--bg-primary); border: 1px solid var(--c-granit-40); border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+            <h3 style="margin-bottom: 0.5rem;">
+              <a href="{{ publication.url | relative_url }}">{{ publication.title }}</a>
+            </h3>
+            <p style="margin: 0.25rem 0; color: var(--text-secondary);"><strong>Authors:</strong> {% include team_links.html persons=publication.authors %}</p>
+            {% if publication.is_conference and publication.conference != "" %}
+            <p style="margin: 0.25rem 0; color: var(--text-secondary);"><strong>Conference:</strong> {{ publication.conference }}</p>
+            {% elsif publication.is_journal and publication.journal != "" %}
+            <p style="margin: 0.25rem 0; color: var(--text-secondary);"><strong>Journal:</strong> {{ publication.journal }}</p>
+            {% elsif publication.is_archive %}
+            <p style="margin: 0.25rem 0; color: var(--text-secondary);"><strong>Archive:</strong> Preprint</p>
+            {% endif %}
+            {% if publication.abstract %}
+              <div class="publication-abstract" style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--c-granit-20);">
+                <strong>Abstract:</strong> {{ publication.abstract | truncatewords: 30 }}
+                <a href="{{ publication.url | relative_url }}" style="font-weight: 600; color: var(--c-jaspis);">Read more →</a>
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+        </div>
+      {% endfor %}
+      
+      {% include pagination.html base_url="/publications/" %}
+    </div>
+
   </div>
 </article>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const searchInput = document.getElementById('pub-search');
+  const resultsContainer = document.getElementById('search-results');
+  const paginatedList = document.getElementById('paginated-list');
+  let publications = [];
+
+  // Focus effect for premium feel
+  searchInput.addEventListener('focus', () => searchInput.style.borderColor = 'var(--c-jaspis)');
+  searchInput.addEventListener('blur', () => searchInput.style.borderColor = 'var(--c-granit-40)');
+
+  // Fetch all publications JSON
+  fetch('{{ "/publications_search.json" | relative_url }}')
+    .then(response => response.json())
+    .then(data => { publications = data; })
+    .catch(error => console.error("Error loading search data:", error));
+
+  searchInput.addEventListener('input', function() {
+    const query = this.value.toLowerCase().trim();
+    
+    if (query.length === 0) {
+      resultsContainer.style.display = 'none';
+      paginatedList.style.display = 'block';
+      return;
+    }
+
+    resultsContainer.style.display = 'flex';
+    paginatedList.style.display = 'none';
+    
+    const filtered = publications.filter(pub => pub.title.toLowerCase().includes(query));
+    
+    if (filtered.length === 0) {
+      resultsContainer.innerHTML = '<p style="color: var(--text-secondary); font-style: italic;">No publications found matching your search.</p>';
+      return;
+    }
+
+    resultsContainer.innerHTML = filtered.map(pub => `
+      <div class="publication-entry" style="background: var(--bg-primary); border: 1px solid var(--c-jaspis); border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+        <h3 style="margin-bottom: 0.5rem;"><a href="${pub.url}">${pub.title}</a></h3>
+        <p style="margin: 0.25rem 0; color: var(--text-secondary);"><strong>Year:</strong> ${pub.year}</p>
+        <p style="margin: 0.25rem 0; color: var(--text-secondary);"><strong>Authors:</strong> ${pub.authors}</p>
+      </div>
+    `).join('');
+  });
+});
+</script>
