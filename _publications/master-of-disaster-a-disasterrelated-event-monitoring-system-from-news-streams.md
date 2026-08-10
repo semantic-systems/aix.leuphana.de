@@ -6,6 +6,9 @@ authors:
   - "Junbo Huang"
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.48550/ARXIV.2406.09323"
+is_conference: false
+is_journal: false
+is_archive: true
 ---
 
 > **Abstract:**

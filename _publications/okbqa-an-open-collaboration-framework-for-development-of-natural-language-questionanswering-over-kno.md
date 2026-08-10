@@ -14,6 +14,10 @@ authors:
   - "Ricardo Usbeck"
   - "Myoung-Gu Kang"
   - "Key-Sun Choi"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "ISWC 2017"
 ---
 
 > **Abstract:**

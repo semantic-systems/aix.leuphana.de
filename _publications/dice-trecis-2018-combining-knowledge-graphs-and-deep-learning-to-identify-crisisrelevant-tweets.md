@@ -6,6 +6,10 @@ authors:
   - "Hamada M. Zahera"
   - "Rricha Jalota"
   - "Ricardo Usbeck"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "TREC 2018"
 ---
 
 > **Abstract:**

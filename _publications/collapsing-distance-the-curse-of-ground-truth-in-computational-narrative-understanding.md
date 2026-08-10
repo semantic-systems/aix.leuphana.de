@@ -5,6 +5,10 @@ year: 2026
 authors:
   - "Junbo Huang"
   - "Ricardo Usbeck"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "Text2Story@ECIR 2026"
 ---
 
 > **Abstract:**

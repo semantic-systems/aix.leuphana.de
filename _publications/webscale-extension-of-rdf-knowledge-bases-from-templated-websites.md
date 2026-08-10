@@ -12,6 +12,10 @@ authors:
   - "Paolo Merialdo"
   - "Disheng Qiu"
 doi: "https://doi.org/10.1007/978-3-319-11964-9_5"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "ISWC 2014"
 ---
 
 > **Abstract:**

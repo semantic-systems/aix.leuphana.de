@@ -9,6 +9,9 @@ authors:
   - "Sören Auer"
   - "Ricardo Usbeck"
   - "Nenad Krdzavac"
+is_conference: false
+is_journal: false
+is_archive: false
 ---
 
 *Abstract not available.*

@@ -7,6 +7,10 @@ authors:
   - "Angelie Kraft"
   - "Patrick Westphal"
 doi: "https://doi.org/10.1515/ITIT-2025-0009"
+is_conference: false
+is_journal: true
+is_archive: false
+journal: "it Inf. Technol."
 ---
 
 > **Abstract:**

@@ -10,6 +10,10 @@ authors:
   - "Chris Biemann"
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.18420/INF2022_108"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "GI-Jahrestagung 2022"
 ---
 
 > **Abstract:**

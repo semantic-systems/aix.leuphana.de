@@ -11,6 +11,9 @@ authors:
   - "Ricardo Usbeck"
   - "Gaetano Rossiello"
   - "Uttam Kumar 0002"
+is_conference: false
+is_journal: false
+is_archive: false
 ---
 
 > **Abstract:**

@@ -6,6 +6,9 @@ authors:
   - "Cedric Möller"
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.48550/ARXIV.2506.16348"
+is_conference: false
+is_journal: false
+is_archive: true
 ---
 
 > **Abstract:**

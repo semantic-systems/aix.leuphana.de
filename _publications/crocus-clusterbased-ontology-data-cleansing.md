@@ -7,6 +7,10 @@ authors:
   - "Ricardo Usbeck"
   - "Andreas Both 0001"
   - "Jens Lehmann 0001"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "WaSABi-FEOSW@ESWC 2014"
 ---
 
 > **Abstract:**

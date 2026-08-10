@@ -8,6 +8,9 @@ authors:
   - "Ricardo Usbeck"
   - "Axel-Cyrille Ngonga Ngomo"
   - "Ruben Verborgh"
+is_conference: false
+is_journal: false
+is_archive: false
 ---
 
 > **Abstract:**

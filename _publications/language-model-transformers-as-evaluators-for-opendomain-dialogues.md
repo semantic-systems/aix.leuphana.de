@@ -7,6 +7,10 @@ authors:
   - "Jens Lehmann 0001"
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.18653/V1/2020.COLING-MAIN.599"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "COLING 2020"
 ---
 
 > **Abstract:**

@@ -10,6 +10,10 @@ authors:
   - "Jens Lehmann 0001"
   - "Axel-Cyrille Ngonga Ngomo"
 doi: "https://doi.org/10.3233/SW-160247"
+is_conference: false
+is_journal: true
+is_archive: false
+journal: "Semantic Web"
 ---
 
 > **Abstract:**

@@ -7,6 +7,10 @@ authors:
   - "Ria Hari Gusmita"
   - "Axel-Cyrille Ngonga Ngomo"
   - "Muhammad Saleem 0002"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "Semdeep/NLIWoD@ISWC 2018"
 ---
 
 > **Abstract:**

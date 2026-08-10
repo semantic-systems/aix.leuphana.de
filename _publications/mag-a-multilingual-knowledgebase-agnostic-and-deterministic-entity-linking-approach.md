@@ -8,6 +8,10 @@ authors:
   - "Michael Röder"
   - "Axel-Cyrille Ngonga Ngomo"
 doi: "https://doi.org/10.1145/3148011.3148024"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "K-CAP 2017"
 ---
 
 > **Abstract:**

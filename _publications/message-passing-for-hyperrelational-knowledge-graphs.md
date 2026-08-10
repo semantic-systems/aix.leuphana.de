@@ -9,6 +9,10 @@ authors:
   - "Ricardo Usbeck"
   - "Jens Lehmann 0001"
 doi: "https://doi.org/10.18653/V1/2020.EMNLP-MAIN.596"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "EMNLP 2020"
 ---
 
 > **Abstract:**

@@ -9,6 +9,10 @@ authors:
   - "Ricardo Usbeck"
   - "Chris Biemann"
 doi: "https://doi.org/10.1145/3477495.3531841"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "SIGIR 2022"
 ---
 
 > **Abstract:**

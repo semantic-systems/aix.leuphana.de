@@ -8,6 +8,10 @@ authors:
   - "Myra Spiliopoulou"
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.1145/1988688.1988760"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "WIMS 2011"
 ---
 
 > **Abstract:**

@@ -7,6 +7,9 @@ authors:
   - "Jonathan Huthmann"
   - "Nico Duldhardt"
   - "Axel-Cyrille Ngonga Ngomo"
+is_conference: false
+is_journal: false
+is_archive: true
 ---
 
 > **Abstract:**

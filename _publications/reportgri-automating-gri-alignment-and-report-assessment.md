@@ -9,6 +9,10 @@ authors:
   - "Markus Leippold"
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.1145/3746252.3761469"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "CIKM 2025"
 ---
 
 > **Abstract:**

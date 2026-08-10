@@ -8,6 +8,10 @@ authors:
   - "Ricardo Usbeck"
   - "Axel-Cyrille Ngonga Ngomo"
 doi: "https://doi.org/10.1145/3106426.3106514"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "WI 2017"
 ---
 
 > **Abstract:**

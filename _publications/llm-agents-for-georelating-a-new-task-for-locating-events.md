@@ -7,6 +7,10 @@ authors:
   - "Junbo Huang"
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.1145/3748636.3762733"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "SIGSPATIAL/GIS 2025"
 ---
 
 > **Abstract:**

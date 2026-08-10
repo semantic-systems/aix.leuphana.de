@@ -7,6 +7,10 @@ authors:
   - "Axel-Cyrille Ngonga Ngomo"
   - "Wencan Luo"
   - "Lars Wesemann"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "ISWC 2014"
 ---
 
 > **Abstract:**

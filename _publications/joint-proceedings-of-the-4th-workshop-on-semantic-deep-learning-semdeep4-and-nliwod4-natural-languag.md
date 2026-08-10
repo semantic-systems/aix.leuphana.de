@@ -11,6 +11,9 @@ authors:
   - "Axel-Cyrille Ngonga Ngomo"
   - "Muhammad Saleem 0002"
   - "Ricardo Usbeck"
+is_conference: false
+is_journal: false
+is_archive: false
 ---
 
 > **Abstract:**

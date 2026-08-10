@@ -6,6 +6,10 @@ authors:
   - "Lars Michaelis"
   - "Junbo Huang"
   - "Ricardo Usbeck"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "ESWC Workshops 2023"
 ---
 
 > **Abstract:**

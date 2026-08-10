@@ -6,6 +6,10 @@ authors:
   - "Longquan Jiang 0001"
   - "Xi Yan 0001"
   - "Ricardo Usbeck"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "QALD/SemREC@ISWC 2023"
 ---
 
 > **Abstract:**

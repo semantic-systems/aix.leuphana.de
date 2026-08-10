@@ -11,6 +11,9 @@ authors:
   - "Ricardo Usbeck"
   - "Ruben Verborgh"
   - "Axel-Cyrille Ngonga Ngomo"
+is_conference: false
+is_journal: false
+is_archive: false
 ---
 
 > **Abstract:**

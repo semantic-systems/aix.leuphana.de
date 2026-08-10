@@ -8,6 +8,9 @@ authors:
   - "Ricardo Usbeck"
   - "Christian Biemann"
 doi: "https://doi.org/10.5281/ZENODO.7638511"
+is_conference: false
+is_journal: false
+is_archive: false
 ---
 
 > **Abstract:**

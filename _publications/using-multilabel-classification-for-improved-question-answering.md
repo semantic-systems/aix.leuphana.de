@@ -8,6 +8,9 @@ authors:
   - "Michael Röder"
   - "Jens Lehmann 0001"
   - "Axel-Cyrille Ngonga Ngomo"
+is_conference: false
+is_journal: false
+is_archive: true
 ---
 
 > **Abstract:**

@@ -5,6 +5,10 @@ year: 2022
 authors:
   - "Angelie Kraft"
   - "Ricardo Usbeck"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "D2R2 2022"
 ---
 
 > **Abstract:**

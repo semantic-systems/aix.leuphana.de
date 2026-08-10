@@ -7,6 +7,10 @@ authors:
   - "Longquan Jiang 0001"
   - "Cedric Möller"
   - "Ricardo Usbeck"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "Text2Story@ECIR 2024"
 ---
 
 > **Abstract:**

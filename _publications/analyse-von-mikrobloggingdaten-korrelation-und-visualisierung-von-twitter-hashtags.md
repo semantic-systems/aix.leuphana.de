@@ -5,6 +5,10 @@ year: 2015
 authors:
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.1007/S00287-014-0768-6"
+is_conference: false
+is_journal: true
+is_archive: false
+journal: "Inform. Spektrum"
 ---
 
 > **Abstract:**

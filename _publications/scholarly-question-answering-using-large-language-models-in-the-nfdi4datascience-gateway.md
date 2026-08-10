@@ -11,6 +11,10 @@ authors:
   - "Jennifer D&apos;Souza 0001"
   - "Sören Auer"
 doi: "https://doi.org/10.1007/978-3-031-65794-8_1"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "NSLP 2024"
 ---
 
 > **Abstract:**

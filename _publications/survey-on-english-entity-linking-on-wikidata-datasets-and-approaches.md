@@ -7,6 +7,10 @@ authors:
   - "Jens Lehmann 0001"
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.3233/SW-212865"
+is_conference: false
+is_journal: true
+is_archive: false
+journal: "Semantic Web"
 ---
 
 > **Abstract:**

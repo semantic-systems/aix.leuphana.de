@@ -7,6 +7,10 @@ authors:
   - "Jens Lehmann 0001"
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.1007/978-3-319-46523-4_20"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "ISWC 2016"
 ---
 
 > **Abstract:**

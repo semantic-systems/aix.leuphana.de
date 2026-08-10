@@ -8,6 +8,10 @@ authors:
   - "Sebastian Hellmann 0001"
   - "Daniel Gerber"
   - "Andreas Both 0001"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "LREC 2014"
 ---
 
 > **Abstract:**

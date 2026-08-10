@@ -7,6 +7,10 @@ authors:
   - "Ricardo Usbeck"
   - "Jens Lehmann 0001"
 doi: "https://doi.org/10.18653/V1/2022.FINDINGS-NAACL.195"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "NAACL-HLT 2022"
 ---
 
 > **Abstract:**

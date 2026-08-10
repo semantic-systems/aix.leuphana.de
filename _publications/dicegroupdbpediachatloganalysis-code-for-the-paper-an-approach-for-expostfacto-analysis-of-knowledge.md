@@ -9,6 +9,9 @@ authors:
   - "Axel-Cyrille Ngonga Ngomo"
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.5281/ZENODO.3597626"
+is_conference: false
+is_journal: false
+is_archive: false
 ---
 
 > **Abstract:**

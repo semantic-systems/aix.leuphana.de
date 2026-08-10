@@ -8,6 +8,10 @@ authors:
   - "Kamal Deep Singh"
   - "Pierre Maret"
 doi: "https://doi.org/10.1145/2912845.2912864"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "WIMS 2016"
 ---
 
 > **Abstract:**

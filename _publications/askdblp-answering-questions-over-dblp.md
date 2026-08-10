@@ -10,6 +10,10 @@ authors:
   - "Marcel R. Ackermann"
   - "Debayan Banerjee"
   - "Ricardo Usbeck"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "ISWC 2025"
 ---
 
 > **Abstract:**

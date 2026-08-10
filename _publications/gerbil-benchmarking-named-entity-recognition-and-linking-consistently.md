@@ -7,6 +7,10 @@ authors:
   - "Ricardo Usbeck"
   - "Axel-Cyrille Ngonga Ngomo"
 doi: "https://doi.org/10.3233/SW-170286"
+is_conference: false
+is_journal: true
+is_archive: false
+journal: "Semantic Web"
 ---
 
 > **Abstract:**

@@ -8,6 +8,10 @@ authors:
   - "Andreas Both 0001"
   - "Jens Lehmann 0001"
 doi: "https://doi.org/10.1007/978-3-319-11955-7_2"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "ESWC 2014"
 ---
 
 > **Abstract:**

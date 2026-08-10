@@ -7,6 +7,10 @@ authors:
   - "Paul Molitor"
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.1515/ITIT-2023-0109"
+is_conference: false
+is_journal: true
+is_archive: false
+journal: "it Inf. Technol."
 ---
 
 > **Abstract:**

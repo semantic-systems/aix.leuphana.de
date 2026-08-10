@@ -11,6 +11,10 @@ authors:
   - "Ricardo Usbeck"
   - "Axel-Cyrille Ngonga Ngomo"
 doi: "https://doi.org/10.63317/536JN6G8RJNX"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "LREC 2026"
 ---
 
 > **Abstract:**

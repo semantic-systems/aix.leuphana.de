@@ -7,6 +7,10 @@ authors:
   - "Ricardo Usbeck"
   - "Axel-Cyrille Ngonga Ngomo"
 doi: "https://doi.org/10.1007/978-3-030-00072-1_6"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "SemWebEval@ESWC 2018"
 ---
 
 > **Abstract:**

@@ -10,6 +10,10 @@ authors:
   - "Axel-Cyrille Ngonga Ngomo"
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.3233/SSW210038"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "SEMANTiCS 2021"
 ---
 
 > **Abstract:**

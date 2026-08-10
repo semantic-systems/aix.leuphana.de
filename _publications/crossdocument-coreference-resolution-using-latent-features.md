@@ -6,6 +6,10 @@ authors:
   - "Axel-Cyrille Ngonga Ngomo"
   - "Michael Röder"
   - "Ricardo Usbeck"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "LD4IE@ISWC 2014"
 ---
 
 > **Abstract:**

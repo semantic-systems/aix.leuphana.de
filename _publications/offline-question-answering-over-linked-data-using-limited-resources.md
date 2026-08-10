@@ -9,6 +9,10 @@ authors:
   - "Diego Moussallem"
   - "Axel-Cyrille Ngonga Ngomo"
   - "Ricardo Usbeck"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "SEMANTiCS 2019"
 ---
 
 > **Abstract:**

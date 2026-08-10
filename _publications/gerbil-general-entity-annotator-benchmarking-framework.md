@@ -25,6 +25,10 @@ authors:
   - "Jörg Waitelonis"
   - "Lars Wesemann"
 doi: "https://doi.org/10.1145/2736277.2741626"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "WWW 2015"
 ---
 
 > **Abstract:**

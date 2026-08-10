@@ -10,6 +10,10 @@ authors:
   - "Michael Röder"
   - "Giulio Napolitano"
 doi: "https://doi.org/10.1007/978-3-319-69146-6_6"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "SemWebEval@ESWC 2017"
 ---
 
 > **Abstract:**

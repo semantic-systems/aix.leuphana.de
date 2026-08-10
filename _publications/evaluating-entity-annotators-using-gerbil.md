@@ -7,6 +7,10 @@ authors:
   - "Michael Röder"
   - "Axel-Cyrille Ngonga Ngomo"
 doi: "https://doi.org/10.1007/978-3-319-25639-9_31"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "ESWC 2015"
 ---
 
 > **Abstract:**

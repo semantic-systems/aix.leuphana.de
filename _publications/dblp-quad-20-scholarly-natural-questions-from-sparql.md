@@ -11,6 +11,10 @@ authors:
   - "Debayan Banerjee"
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.1145/3731443.3771376"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "K-CAP 2025"
 ---
 
 > **Abstract:**

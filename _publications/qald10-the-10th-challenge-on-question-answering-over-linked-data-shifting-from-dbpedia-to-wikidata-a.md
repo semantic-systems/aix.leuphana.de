@@ -16,6 +16,10 @@ authors:
   - "Muhammad Saleem 0002"
   - "Andreas Both 0001"
 doi: "https://doi.org/10.3233/SW-233471"
+is_conference: false
+is_journal: true
+is_archive: false
+journal: "Semantic Web"
 ---
 
 > **Abstract:**

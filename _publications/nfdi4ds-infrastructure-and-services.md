@@ -26,6 +26,10 @@ authors:
   - "Sima Attar-Khorasani"
   - "Matthias Lieber"
 doi: "https://doi.org/10.18420/INF2023_103"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "GI-Jahrestagung 2023"
 ---
 
 > **Abstract:**

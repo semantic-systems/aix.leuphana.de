@@ -6,6 +6,10 @@ authors:
   - "Shreya Rajpal"
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.48550/ARXIV.2401.09553"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "QALD/SemREC@ISWC 2023"
 ---
 
 > **Abstract:**

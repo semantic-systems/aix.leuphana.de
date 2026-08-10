@@ -8,6 +8,10 @@ authors:
   - "Ricardo Usbeck"
   - "Kunal Jha"
 doi: "https://doi.org/10.1109/BIGDATA.2017.8257990"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "IEEE BigData 2017"
 ---
 
 > **Abstract:**

@@ -9,6 +9,10 @@ authors:
   - "Tingting Mu"
   - "André Freitas"
 doi: "https://doi.org/10.1145/3184558.3192318"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "WWW 2018"
 ---
 
 > **Abstract:**

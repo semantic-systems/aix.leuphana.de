@@ -18,6 +18,10 @@ authors:
   - "Ricardo Usbeck"
   - "Alexander Panchenko"
 doi: "https://doi.org/10.1007/978-3-031-97141-9_7"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "NLDB 2025"
 ---
 
 > **Abstract:**

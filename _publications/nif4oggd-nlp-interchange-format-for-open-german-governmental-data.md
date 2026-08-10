@@ -10,6 +10,10 @@ authors:
   - "Jens Lehmann 0001"
   - "Martin Brümmer"
   - "Andreas Both 0001"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "LREC 2014"
 ---
 
 > **Abstract:**

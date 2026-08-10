@@ -7,6 +7,10 @@ authors:
   - "Arefa"
   - "Ricardo Usbeck"
   - "Chris Biemann"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "ISWC 2023"
 ---
 
 > **Abstract:**

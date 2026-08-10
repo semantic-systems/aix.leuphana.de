@@ -7,6 +7,10 @@ authors:
   - "Debayan Banerjee"
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.3233/SSW250019"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "SEMANTiCS 2025"
 ---
 
 > **Abstract:**

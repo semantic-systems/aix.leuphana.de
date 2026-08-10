@@ -10,6 +10,10 @@ authors:
   - "Muhammad Saleem 0002"
   - "Axel-Cyrille Ngonga Ngomo"
 doi: "https://doi.org/10.1007/978-3-319-45880-9_25"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "KESW 2016"
 ---
 
 > **Abstract:**

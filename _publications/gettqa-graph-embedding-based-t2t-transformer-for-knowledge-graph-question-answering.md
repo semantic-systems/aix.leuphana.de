@@ -8,6 +8,10 @@ authors:
   - "Ricardo Usbeck"
   - "Chris Biemann"
 doi: "https://doi.org/10.1007/978-3-031-33455-9_17"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "ESWC 2023"
 ---
 
 > **Abstract:**

@@ -9,6 +9,10 @@ authors:
   - "Axel-Cyrille Ngonga Ngomo"
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.1007/978-3-030-39540-7_2"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "CONVERSATIONS 2019"
 ---
 
 > **Abstract:**

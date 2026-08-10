@@ -17,6 +17,10 @@ authors:
   - "Thomas Neumuth"
   - "Sonja Schimmler"
 doi: "https://doi.org/10.18420/INF2023_104"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "GI-Jahrestagung 2023"
 ---
 
 > **Abstract:**

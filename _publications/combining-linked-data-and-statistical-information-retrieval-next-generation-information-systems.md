@@ -5,6 +5,10 @@ year: 2014
 authors:
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.1007/978-3-319-07443-6_58"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "ESWC 2014"
 ---
 
 > **Abstract:**

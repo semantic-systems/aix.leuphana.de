@@ -9,6 +9,10 @@ authors:
   - "Longquan Jiang 0001"
   - "Andreas Both 0001"
   - "Ricardo Usbeck"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "LREC 2022"
 ---
 
 > **Abstract:**

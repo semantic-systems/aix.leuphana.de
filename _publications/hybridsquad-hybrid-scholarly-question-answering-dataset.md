@@ -8,6 +8,9 @@ authors:
   - "Yaregal Assabie"
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.48550/ARXIV.2412.02788"
+is_conference: false
+is_journal: false
+is_archive: true
 ---
 
 > **Abstract:**

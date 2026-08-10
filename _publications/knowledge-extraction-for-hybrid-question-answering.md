@@ -4,6 +4,9 @@ title: "Knowledge Extraction for Hybrid Question Answering"
 year: 2017
 authors:
   - "Ricardo Usbeck"
+is_conference: false
+is_journal: false
+is_archive: false
 ---
 
 > **Abstract:**

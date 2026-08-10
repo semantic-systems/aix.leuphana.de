@@ -5,6 +5,10 @@ year: 2015
 authors:
   - "Ricardo Usbeck"
   - "Axel-Cyrille Ngonga Ngomo"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "CLEF 2015"
 ---
 
 > **Abstract:**

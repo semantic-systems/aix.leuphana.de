@@ -8,6 +8,10 @@ authors:
   - "Cedric Möller"
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.1109/ICSC64641.2025.00010"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "ICSC 2025"
 ---
 
 > **Abstract:**

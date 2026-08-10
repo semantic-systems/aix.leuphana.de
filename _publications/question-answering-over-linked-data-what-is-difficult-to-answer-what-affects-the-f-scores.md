@@ -7,6 +7,10 @@ authors:
   - "Samaneh Nazari Dastjerdi"
   - "Ricardo Usbeck"
   - "Axel-Cyrille Ngonga Ngomo"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "BLINK/NLIWoD3@ISWC 2017"
 ---
 
 > **Abstract:**

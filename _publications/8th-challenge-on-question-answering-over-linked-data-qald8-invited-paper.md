@@ -8,6 +8,10 @@ authors:
   - "Felix Conrads"
   - "Michael Röder"
   - "Giulio Napolitano"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "Semdeep/NLIWoD@ISWC 2018"
 ---
 
 > **Abstract:**

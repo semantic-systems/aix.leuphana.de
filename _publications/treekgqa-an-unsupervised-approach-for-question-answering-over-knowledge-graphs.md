@@ -8,6 +8,10 @@ authors:
   - "Ricardo Usbeck"
   - "Jens Lehmann 0001"
 doi: "https://doi.org/10.1109/ACCESS.2022.3173355"
+is_conference: false
+is_journal: true
+is_archive: false
+journal: "IEEE Access"
 ---
 
 > **Abstract:**

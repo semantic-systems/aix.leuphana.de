@@ -9,6 +9,10 @@ authors:
   - "Ricardo Usbeck"
   - "René Speck"
 doi: "https://doi.org/10.18653/V1/W18-6541"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "INLG 2018"
 ---
 
 > **Abstract:**

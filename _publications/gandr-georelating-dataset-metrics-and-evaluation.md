@@ -6,6 +6,10 @@ authors:
   - "Kai Moltzen"
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.1145/3764912.3770819"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "GeoAI@SIGSPATIAL 2025"
 ---
 
 > **Abstract:**

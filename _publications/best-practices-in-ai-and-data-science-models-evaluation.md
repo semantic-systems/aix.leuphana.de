@@ -7,6 +7,10 @@ authors:
   - "Tilahun Abedissa Taffa"
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.18420/INF2025_105"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "INFORMATIK 2025"
 ---
 
 > **Abstract:**

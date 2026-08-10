@@ -44,10 +44,17 @@ def save_state(state):
     with_abstract = sum(1 for v in pubs.values() if v.get("has_abstract"))
     without_abstract = total - with_abstract
 
+    total_conference = sum(1 for v in pubs.values() if v.get("is_conference"))
+    total_journal = sum(1 for v in pubs.values() if v.get("is_journal"))
+    total_archive = sum(1 for v in pubs.values() if v.get("is_archive"))
+
     state["summary"] = {
         "total_publications": total,
         "with_abstract": with_abstract,
         "without_abstract": without_abstract,
+        "total_conference": total_conference,
+        "total_journal": total_journal,
+        "total_archive": total_archive,
         "last_updated": datetime.now(timezone.utc).isoformat()
     }
 
@@ -99,8 +106,22 @@ def fetch_dblp_publications():
                     "venue": info.get("venue"),
                     "doi": info.get("doi"),
                     "ee": info.get("ee"),
-                    "type": info.get("type")
+                    "type": info.get("type"),
+                    "is_conference": False,
+                    "is_journal": False,
+                    "is_archive": False,
                 }
+                
+                pub_type = info.get("type", "")
+                venue = info.get("venue", "")
+                if pub_type == "Conference and Workshop Papers":
+                    pub["is_conference"] = True
+                    if venue: pub["conference"] = venue
+                elif pub_type == "Journal Articles":
+                    pub["is_journal"] = True
+                    if venue: pub["journal"] = venue
+                elif "Informal" in pub_type:
+                    pub["is_archive"] = True
 
                 authors = info.get("authors", {}).get("author", [])
                 if isinstance(authors, dict):
@@ -170,6 +191,26 @@ def generate_markdown(pub, bibtex, filepath, abstract=""):
     if doi:
         doi_url = doi if doi.startswith("http") else f"https://doi.org/{doi}"
         md += f'doi: "{doi_url}"\n'
+
+    is_conference = pub.get("is_conference", False)
+    is_journal = pub.get("is_journal", False)
+    is_archive = pub.get("is_archive", False)
+    conference_name = pub.get("conference", "")
+    journal_name = pub.get("journal", "")
+
+    md += f"is_conference: {str(is_conference).lower()}\n"
+    md += f"is_journal: {str(is_journal).lower()}\n"
+    md += f"is_archive: {str(is_archive).lower()}\n"
+    
+    if is_conference and conference_name:
+        c_name = conference_name.replace('"', '\\"')
+        year_str = str(year)
+        if year_str and year_str not in c_name:
+            c_name = f"{c_name} {year_str}"
+        md += f'conference: "{c_name}"\n'
+    elif is_journal and journal_name:
+        j_name = journal_name.replace('"', '\\"')
+        md += f'journal: "{j_name}"\n'
 
     md += "---\n\n"
 
@@ -241,9 +282,39 @@ def main():
 
     publications = fetch_dblp_publications()
 
+    # Deduplicate and group by sanitized title to enforce priority: Conference > Journal > Archive
+    groups = {}
+    for pub in publications:
+        title = pub.get("title")
+        if not title: continue
+        fn = sanitize_filename(title)
+        if fn:
+            groups.setdefault(fn, []).append(pub)
+
+    best_pubs = []
+    for fn, group in groups.items():
+        best = None
+        for p in group:
+            if p.get("is_conference"):
+                best = p
+                break
+        if not best:
+            for p in group:
+                if p.get("is_journal"):
+                    best = p
+                    break
+        if not best:
+            for p in group:
+                if p.get("is_archive"):
+                    best = p
+                    break
+        if not best:
+            best = group[0]
+        best_pubs.append(best)
+
     new_count = 0
     skipped = 0
-    for pub in publications:
+    for pub in best_pubs:
         title = pub.get("title")
         if not title:
             continue
@@ -259,7 +330,10 @@ def main():
             pubs_state[filename] = {
                 "title": title,
                 "has_abstract": False,
-                "file": filepath
+                "file": filepath,
+                "is_conference": pub.get("is_conference", False),
+                "is_journal": pub.get("is_journal", False),
+                "is_archive": pub.get("is_archive", False)
             }
 
         # Don't overwrite existing files

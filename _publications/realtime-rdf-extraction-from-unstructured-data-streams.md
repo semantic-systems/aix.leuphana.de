@@ -10,6 +10,10 @@ authors:
   - "Ricardo Usbeck"
   - "Axel-Cyrille Ngonga Ngomo"
 doi: "https://doi.org/10.1007/978-3-642-41335-3_9"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "ISWC 2013"
 ---
 
 > **Abstract:**

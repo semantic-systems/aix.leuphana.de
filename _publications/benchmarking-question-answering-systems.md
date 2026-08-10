@@ -12,6 +12,10 @@ authors:
   - "Christian Demmler"
   - "Christina Unger"
 doi: "https://doi.org/10.3233/SW-180312"
+is_conference: false
+is_journal: true
+is_archive: false
+journal: "Semantic Web"
 ---
 
 > **Abstract:**

@@ -5,6 +5,10 @@ year: 2024
 authors:
   - "Ricardo Usbeck"
   - "Cedric Möller"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "TEXT2KG/DQMLKG@ESWC 2024"
 ---
 
 > **Abstract:**

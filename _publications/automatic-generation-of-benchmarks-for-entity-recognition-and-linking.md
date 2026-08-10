@@ -8,6 +8,9 @@ authors:
   - "Diego Moussallem"
   - "Ricardo Usbeck"
   - "René Speck"
+is_conference: false
+is_journal: false
+is_archive: true
 ---
 
 > **Abstract:**

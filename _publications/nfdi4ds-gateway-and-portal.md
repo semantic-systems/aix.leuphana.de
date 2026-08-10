@@ -12,6 +12,10 @@ authors:
   - "Zongxiong Chen"
   - "Sonja Schimmler"
 doi: "https://doi.org/10.52825/CORDI.V1I.391"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "CoRDI 2023"
 ---
 
 > **Abstract:**

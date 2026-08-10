@@ -6,6 +6,10 @@ authors:
   - "Tilahun Abedissa Taffa"
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.1145/3701716.3715459"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "WWW 2025"
 ---
 
 > **Abstract:**

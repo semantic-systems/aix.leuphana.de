@@ -6,6 +6,10 @@ authors:
   - "Cedric Möller"
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.1007/978-3-031-94575-5_25"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "ESWC 2025"
 ---
 
 > **Abstract:**

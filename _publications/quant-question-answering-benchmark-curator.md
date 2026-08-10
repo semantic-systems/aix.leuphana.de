@@ -10,6 +10,10 @@ authors:
   - "Axel-Cyrille Ngonga Ngomo"
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.1007/978-3-030-33220-4_25"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "SEMANTiCS 2019"
 ---
 
 > **Abstract:**

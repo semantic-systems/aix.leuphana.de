@@ -6,6 +6,10 @@ authors:
   - "Cedric Möller"
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.3233/SSW240009"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "SEMANTICS 2024"
 ---
 
 > **Abstract:**

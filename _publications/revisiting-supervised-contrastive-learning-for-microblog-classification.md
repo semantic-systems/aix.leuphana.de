@@ -6,6 +6,10 @@ authors:
   - "Junbo Huang"
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.18653/V1/2024.EMNLP-MAIN.876"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "EMNLP 2024"
 ---
 
 > **Abstract:**

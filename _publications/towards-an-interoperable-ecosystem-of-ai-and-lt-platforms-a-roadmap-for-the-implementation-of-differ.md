@@ -27,6 +27,10 @@ authors:
   - "Ian Roberts"
   - "Andrejs Vasiljevs"
   - "Andis Lagzdins"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "IWLTP@LREC 2020"
 ---
 
 > **Abstract:**

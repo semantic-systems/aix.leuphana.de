@@ -11,6 +11,10 @@ authors:
   - "Axel-Cyrille Ngonga Ngomo"
   - "René Speck"
 doi: "https://doi.org/10.1016/J.WEBSEM.2015.08.001"
+is_conference: false
+is_journal: true
+is_archive: false
+journal: "J. Web Semant."
 ---
 
 > **Abstract:**

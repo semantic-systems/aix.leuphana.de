@@ -8,6 +8,10 @@ authors:
   - "René Speck"
   - "Axel-Cyrille Ngonga Ngomo"
 doi: "https://doi.org/10.1007/978-3-319-25518-7_2"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "SemWebEval@ESWC 2015"
 ---
 
 > **Abstract:**

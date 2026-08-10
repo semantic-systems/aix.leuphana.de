@@ -6,6 +6,10 @@ authors:
   - "Angelie Kraft"
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.18653/V1/2022.AACL-MAIN.49"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "AACL/IJCNLP 2022"
 ---
 
 > **Abstract:**

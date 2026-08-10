@@ -5,6 +5,10 @@ year: 2023
 authors:
   - "Tilahun Abedissa Taffa"
   - "Ricardo Usbeck"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "QALD/SemREC@ISWC 2023"
 ---
 
 > **Abstract:**

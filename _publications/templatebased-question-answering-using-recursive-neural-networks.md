@@ -8,6 +8,10 @@ authors:
   - "Axel-Cyrille Ngonga Ngomo"
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.1109/ICSC50631.2021.00041"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "ICSC 2021"
 ---
 
 > **Abstract:**

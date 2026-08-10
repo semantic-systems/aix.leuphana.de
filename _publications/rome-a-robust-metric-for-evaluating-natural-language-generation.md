@@ -9,6 +9,10 @@ authors:
   - "Ricardo Usbeck"
   - "Jens Lehmann 0001"
 doi: "https://doi.org/10.18653/V1/2022.ACL-LONG.387"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "ACL 2022"
 ---
 
 > **Abstract:**

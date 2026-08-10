@@ -7,6 +7,10 @@ authors:
   - "Ricardo Usbeck"
   - "Axel-Cyrille Ngonga Ngomo"
 doi: "https://doi.org/10.1007/978-3-319-25010-6_5"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "ISWC 2015"
 ---
 
 > **Abstract:**

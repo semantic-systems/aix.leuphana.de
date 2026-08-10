@@ -8,6 +8,9 @@ authors:
   - "Tassilo Pellegrini"
   - "Harald Sack"
   - "York Sure-Vetter"
+is_conference: false
+is_journal: false
+is_archive: false
 ---
 
 > **Abstract:**

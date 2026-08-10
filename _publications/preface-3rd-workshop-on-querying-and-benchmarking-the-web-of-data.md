@@ -8,6 +8,10 @@ authors:
   - "Axel-Cyrille Ngonga Ngomo"
   - "Ruben Verborgh"
   - "Aidan Hogan"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "QuWeDa@ISWC 2019"
 ---
 
 > **Abstract:**

@@ -6,6 +6,9 @@ authors:
   - "Cedric Möller"
   - "Jens Lehmann 0001"
   - "Ricardo Usbeck"
+is_conference: false
+is_journal: false
+is_archive: true
 ---
 
 > **Abstract:**

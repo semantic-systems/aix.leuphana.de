@@ -6,6 +6,10 @@ authors:
   - "Xi Yan 0001"
   - "Cedric Möller"
   - "Ricardo Usbeck"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "SemTech4STLD@ESWC 2025"
 ---
 
 > **Abstract:**

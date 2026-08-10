@@ -3,808 +3,1187 @@
     "total_publications": 160,
     "with_abstract": 156,
     "without_abstract": 4,
-    "last_updated": "2026-08-10T13:00:47.214433+00:00"
+    "total_conference": 105,
+    "total_journal": 16,
+    "total_archive": 15,
+    "last_updated": "2026-08-10T13:56:59.231259+00:00"
   },
   "publications": {
-    "starqagentinvestigating-generalization-in-knowledge-graph-question-answering-via-a-multiagent-collaborative-framework": {
-      "title": "STaRQ-Agent-Investigating Generalization in Knowledge Graph Question Answering via a Multi-Agent Collaborative Framework",
-      "has_abstract": true,
-      "file": "_publications/starqagentinvestigating-generalization-in-knowledge-graph-question-answering-via-a-multiagent-collaborative-framework.md"
-    },
     "collapsing-distance-the-curse-of-ground-truth-in-computational-narrative-understanding": {
       "title": "Collapsing Distance: The Curse of Ground Truth in Computational Narrative Understanding",
       "has_abstract": true,
-      "file": "_publications/collapsing-distance-the-curse-of-ground-truth-in-computational-narrative-understanding.md"
+      "file": "_publications/collapsing-distance-the-curse-of-ground-truth-in-computational-narrative-understanding.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "from-variance-to-invariance-qualitative-content-analysis-for-narrative-graph-annotation": {
       "title": "From Variance to Invariance: Qualitative Content Analysis for Narrative Graph Annotation",
       "has_abstract": true,
-      "file": "_publications/from-variance-to-invariance-qualitative-content-analysis-for-narrative-graph-annotation.md"
+      "file": "_publications/from-variance-to-invariance-qualitative-content-analysis-for-narrative-graph-annotation.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "texttosparql-generation-with-reinforcement-learning-a-grpobased-approach-on-dblp": {
       "title": "Text-to-SPARQL Generation with Reinforcement Learning: A GRPO-based Approach on DBLP",
       "has_abstract": true,
-      "file": "_publications/texttosparql-generation-with-reinforcement-learning-a-grpobased-approach-on-dblp.md"
+      "file": "_publications/texttosparql-generation-with-reinforcement-learning-a-grpobased-approach-on-dblp.md",
+      "is_conference": false,
+      "is_journal": false,
+      "is_archive": true
     },
     "junior-fellows-and-distinguished-dissertation-of-the-gi-amp-ai-for-crisis": {
       "title": "Junior fellows and distinguished dissertation of the GI &amp; AI for crisis",
       "has_abstract": true,
-      "file": "_publications/junior-fellows-and-distinguished-dissertation-of-the-gi-amp-ai-for-crisis.md"
+      "file": "_publications/junior-fellows-and-distinguished-dissertation-of-the-gi-amp-ai-for-crisis.md",
+      "is_conference": false,
+      "is_journal": true,
+      "is_archive": false
     },
     "reportgri-automating-gri-alignment-and-report-assessment": {
       "title": "ReportGRI: Automating GRI Alignment and Report Assessment",
       "has_abstract": true,
-      "file": "_publications/reportgri-automating-gri-alignment-and-report-assessment.md"
+      "file": "_publications/reportgri-automating-gri-alignment-and-report-assessment.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "analyzing-the-influence-of-knowledge-graph-information-on-relation-extraction": {
       "title": "Analyzing the Influence of Knowledge Graph Information on Relation Extraction",
       "has_abstract": true,
-      "file": "_publications/analyzing-the-influence-of-knowledge-graph-information-on-relation-extraction.md"
+      "file": "_publications/analyzing-the-influence-of-knowledge-graph-information-on-relation-extraction.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "gandr-georelating-dataset-metrics-and-evaluation": {
       "title": "GANDR - Georelating Dataset, Metrics, and Evaluation",
       "has_abstract": true,
-      "file": "_publications/gandr-georelating-dataset-metrics-and-evaluation.md"
+      "file": "_publications/gandr-georelating-dataset-metrics-and-evaluation.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "nfdi4ds-shared-tasks-for-scholarly-document-processing": {
       "title": "NFDI4DS: Shared Tasks for Scholarly Document Processing",
       "has_abstract": true,
-      "file": "_publications/nfdi4ds-shared-tasks-for-scholarly-document-processing.md"
+      "file": "_publications/nfdi4ds-shared-tasks-for-scholarly-document-processing.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "best-practices-in-ai-and-data-science-models-evaluation": {
       "title": "Best Practices in AI and Data Science Models Evaluation",
       "has_abstract": true,
-      "file": "_publications/best-practices-in-ai-and-data-science-models-evaluation.md"
+      "file": "_publications/best-practices-in-ai-and-data-science-models-evaluation.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "llm-agents-for-georelating-a-new-task-for-locating-events": {
       "title": "LLM Agents for Georelating - A New Task for Locating Events",
       "has_abstract": true,
-      "file": "_publications/llm-agents-for-georelating-a-new-task-for-locating-events.md"
+      "file": "_publications/llm-agents-for-georelating-a-new-task-for-locating-events.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "automating-sparql-query-translations-between-dbpedia-and-wikidata": {
       "title": "Automating SPARQL Query Translations Between DBpedia and Wikidata",
       "has_abstract": true,
-      "file": "_publications/automating-sparql-query-translations-between-dbpedia-and-wikidata.md"
+      "file": "_publications/automating-sparql-query-translations-between-dbpedia-and-wikidata.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "hysqa-hybrid-scholarly-question-answering": {
       "title": "HySQA: Hybrid Scholarly Question Answering",
       "has_abstract": true,
-      "file": "_publications/hysqa-hybrid-scholarly-question-answering.md"
+      "file": "_publications/hysqa-hybrid-scholarly-question-answering.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "dblp-quad-20-scholarly-natural-questions-from-sparql": {
       "title": "DBLP QuAD 2.0: Scholarly Natural Questions from SPARQL",
       "has_abstract": true,
-      "file": "_publications/dblp-quad-20-scholarly-natural-questions-from-sparql.md"
+      "file": "_publications/dblp-quad-20-scholarly-natural-questions-from-sparql.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "shortpathqa-a-dataset-for-controllable-fusion-of-large-language-models-with-knowledge-graphs": {
       "title": "ShortPathQA: A Dataset for Controllable Fusion of Large Language Models with Knowledge Graphs",
       "has_abstract": true,
-      "file": "_publications/shortpathqa-a-dataset-for-controllable-fusion-of-large-language-models-with-knowledge-graphs.md"
+      "file": "_publications/shortpathqa-a-dataset-for-controllable-fusion-of-large-language-models-with-knowledge-graphs.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "ontologyguided-hybrid-prompt-learning-for-generalization-in-knowledge-graph-question-answering": {
       "title": "Ontology-Guided, Hybrid Prompt Learning for Generalization in Knowledge Graph Question Answering",
       "has_abstract": true,
-      "file": "_publications/ontologyguided-hybrid-prompt-learning-for-generalization-in-knowledge-graph-question-answering.md"
+      "file": "_publications/ontologyguided-hybrid-prompt-learning-for-generalization-in-knowledge-graph-question-answering.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "shcode-scholarly-hybrid-complex-question-decomposition-and-execution": {
       "title": "SH-CoDE: Scholarly Hybrid Complex Question Decomposition and Execution",
       "has_abstract": true,
-      "file": "_publications/shcode-scholarly-hybrid-complex-question-decomposition-and-execution.md"
+      "file": "_publications/shcode-scholarly-hybrid-complex-question-decomposition-and-execution.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "biomedical-entity-linking-with-tripleaware-pretraining": {
       "title": "Biomedical Entity Linking with Triple-aware Pre-Training",
       "has_abstract": true,
-      "file": "_publications/biomedical-entity-linking-with-tripleaware-pretraining.md"
+      "file": "_publications/biomedical-entity-linking-with-tripleaware-pretraining.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "dblplink-20-an-entity-linker-for-the-dblp-scholarly-knowledge-graph": {
       "title": "DBLPLink 2.0 - An Entity Linker for the DBLP Scholarly Knowledge Graph",
       "has_abstract": true,
-      "file": "_publications/dblplink-20-an-entity-linker-for-the-dblp-scholarly-knowledge-graph.md"
+      "file": "_publications/dblplink-20-an-entity-linker-for-the-dblp-scholarly-knowledge-graph.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "askdblp-answering-questions-over-dblp": {
       "title": "ASK-DBLP: Answering Questions over DBLP",
       "has_abstract": true,
-      "file": "_publications/askdblp-answering-questions-over-dblp.md"
+      "file": "_publications/askdblp-answering-questions-over-dblp.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "bridgegenerate-scholarly-hybrid-question-answering": {
       "title": "Bridge-Generate: Scholarly Hybrid Question Answering",
       "has_abstract": true,
-      "file": "_publications/bridgegenerate-scholarly-hybrid-question-answering.md"
+      "file": "_publications/bridgegenerate-scholarly-hybrid-question-answering.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "discie-discriminative-closed-information-extraction": {
       "title": "DISCIE - Discriminative Closed Information Extraction",
       "has_abstract": true,
-      "file": "_publications/discie-discriminative-closed-information-extraction.md"
+      "file": "_publications/discie-discriminative-closed-information-extraction.md",
+      "is_conference": false,
+      "is_journal": false,
+      "is_archive": true
     },
     "creative-spaces-in-computer-science": {
       "title": "Creative spaces in computer science",
       "has_abstract": true,
-      "file": "_publications/creative-spaces-in-computer-science.md"
-    },
-    "qald10-the-10th-challenge-on-question-answering-over-linked-data-shifting-from-dbpedia-to-wikidata-as-a-kg-for-kgqa": {
-      "title": "QALD-10 - The 10th challenge on question answering over linked data: Shifting from DBpedia to Wikidata as a KG for KGQA",
-      "has_abstract": true,
-      "file": "_publications/qald10-the-10th-challenge-on-question-answering-over-linked-data-shifting-from-dbpedia-to-wikidata-as-a-kg-for-kgqa.md"
+      "file": "_publications/creative-spaces-in-computer-science.md",
+      "is_conference": false,
+      "is_journal": true,
+      "is_archive": false
     },
     "bridging-the-gap-generating-a-comprehensive-biomedical-knowledge-graph-question-answering-dataset": {
       "title": "Bridging the Gap: Generating a Comprehensive Biomedical Knowledge Graph Question Answering Dataset",
       "has_abstract": true,
-      "file": "_publications/bridging-the-gap-generating-a-comprehensive-biomedical-knowledge-graph-question-answering-dataset.md"
+      "file": "_publications/bridging-the-gap-generating-a-comprehensive-biomedical-knowledge-graph-question-answering-dataset.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "event-extraction-alone-is-not-enough": {
       "title": "Event Extraction Alone Is Not Enough",
       "has_abstract": true,
-      "file": "_publications/event-extraction-alone-is-not-enough.md"
+      "file": "_publications/event-extraction-alone-is-not-enough.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "revisiting-supervised-contrastive-learning-for-microblog-classification": {
       "title": "Revisiting Supervised Contrastive Learning for Microblog Classification",
       "has_abstract": true,
-      "file": "_publications/revisiting-supervised-contrastive-learning-for-microblog-classification.md"
+      "file": "_publications/revisiting-supervised-contrastive-learning-for-microblog-classification.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "entity-linking-with-outofknowledgegraph-entity-detection-and-clustering-using-only-knowledge-graphs": {
       "title": "Entity Linking with Out-of-Knowledge-Graph Entity Detection and Clustering Using Only Knowledge Graphs",
       "has_abstract": true,
-      "file": "_publications/entity-linking-with-outofknowledgegraph-entity-detection-and-clustering-using-only-knowledge-graphs.md"
+      "file": "_publications/entity-linking-with-outofknowledgegraph-entity-detection-and-clustering-using-only-knowledge-graphs.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "scholarly-question-answering-using-large-language-models-in-the-nfdi4datascience-gateway": {
       "title": "Scholarly Question Answering Using Large Language Models in the NFDI4DataScience Gateway",
       "has_abstract": true,
-      "file": "_publications/scholarly-question-answering-using-large-language-models-in-the-nfdi4datascience-gateway.md"
+      "file": "_publications/scholarly-question-answering-using-large-language-models-in-the-nfdi4datascience-gateway.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "disciediscriminative-closed-information-extraction": {
       "title": "DISCIE-Discriminative Closed Information Extraction",
       "has_abstract": true,
-      "file": "_publications/disciediscriminative-closed-information-extraction.md"
+      "file": "_publications/disciediscriminative-closed-information-extraction.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "incorporating-type-information-into-zeroshot-relation-extraction": {
       "title": "Incorporating Type Information into Zero-Shot Relation Extraction",
       "has_abstract": true,
-      "file": "_publications/incorporating-type-information-into-zeroshot-relation-extraction.md"
-    },
-    "proceedings-of-the-third-international-workshop-on-linked-datadriven-resilience-research-d2r2apos24-colocated-with-european-semantic-web-conference-2024-eswc-2024-may-27-2024": {
-      "title": "Proceedings of the Third International Workshop on Linked Data-driven Resilience Research (D2R2&apos;24) co-located with European Semantic Web Conference 2024 (ESWC 2024), May 27, 2024",
-      "has_abstract": false,
-      "file": "_publications/proceedings-of-the-third-international-workshop-on-linked-datadriven-resilience-research-d2r2apos24-colocated-with-european-semantic-web-conference-2024-eswc-2024-may-27-2024.md"
+      "file": "_publications/incorporating-type-information-into-zeroshot-relation-extraction.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "bertologynavigator-advanced-question-answering-with-bertbased-semantics": {
       "title": "BERTologyNavigator: Advanced Question Answering with BERT-based Semantics",
       "has_abstract": true,
-      "file": "_publications/bertologynavigator-advanced-question-answering-with-bertbased-semantics.md"
+      "file": "_publications/bertologynavigator-advanced-question-answering-with-bertbased-semantics.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "master-of-disaster-a-disasterrelated-event-monitoring-system-from-news-streams": {
       "title": "Master of Disaster: A Disaster-Related Event Monitoring System From News Streams",
       "has_abstract": true,
-      "file": "_publications/master-of-disaster-a-disasterrelated-event-monitoring-system-from-news-streams.md"
-    },
-    "reporting-and-analysing-the-environmental-impact-of-language-models-on-the-example-of-commonsense-question-answering-with-external-knowledge": {
-      "title": "Reporting and Analysing the Environmental Impact of Language Models on the Example of Commonsense Question Answering with External Knowledge",
-      "has_abstract": true,
-      "file": "_publications/reporting-and-analysing-the-environmental-impact-of-language-models-on-the-example-of-commonsense-question-answering-with-external-knowledge.md"
+      "file": "_publications/master-of-disaster-a-disasterrelated-event-monitoring-system-from-news-streams.md",
+      "is_conference": false,
+      "is_journal": false,
+      "is_archive": true
     },
     "hybridsquad-hybrid-scholarly-question-answering-dataset": {
       "title": "Hybrid-SQuAD: Hybrid Scholarly Question Answering Dataset",
       "has_abstract": true,
-      "file": "_publications/hybridsquad-hybrid-scholarly-question-answering-dataset.md"
+      "file": "_publications/hybridsquad-hybrid-scholarly-question-answering-dataset.md",
+      "is_conference": false,
+      "is_journal": false,
+      "is_archive": true
     },
     "machine-learning-applications": {
       "title": "Machine learning applications",
       "has_abstract": true,
-      "file": "_publications/machine-learning-applications.md"
+      "file": "_publications/machine-learning-applications.md",
+      "is_conference": false,
+      "is_journal": true,
+      "is_archive": false
     },
     "the-role-of-output-vocabulary-in-t2t-lms-for-sparql-semantic-parsing": {
       "title": "The Role of Output Vocabulary in T2T LMs for SPARQL Semantic Parsing",
       "has_abstract": true,
-      "file": "_publications/the-role-of-output-vocabulary-in-t2t-lms-for-sparql-semantic-parsing.md"
+      "file": "_publications/the-role-of-output-vocabulary-in-t2t-lms-for-sparql-semantic-parsing.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "dblpquad-a-question-answering-dataset-over-the-dblp-scholarly-knowledge-graph": {
       "title": "DBLP-QuAD: A Question Answering Dataset over the DBLP Scholarly Knowledge Graph",
       "has_abstract": true,
-      "file": "_publications/dblpquad-a-question-answering-dataset-over-the-dblp-scholarly-knowledge-graph.md"
+      "file": "_publications/dblpquad-a-question-answering-dataset-over-the-dblp-scholarly-knowledge-graph.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "nfdi4ds-gateway-and-portal": {
       "title": "NFDI4DS Gateway and Portal",
       "has_abstract": true,
-      "file": "_publications/nfdi4ds-gateway-and-portal.md"
+      "file": "_publications/nfdi4ds-gateway-and-portal.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "gettqa-graph-embedding-based-t2t-transformer-for-knowledge-graph-question-answering": {
       "title": "GETT-QA: Graph Embedding Based T2T Transformer for Knowledge Graph Question Answering",
       "has_abstract": true,
-      "file": "_publications/gettqa-graph-embedding-based-t2t-transformer-for-knowledge-graph-question-answering.md"
+      "file": "_publications/gettqa-graph-embedding-based-t2t-transformer-for-knowledge-graph-question-answering.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "wikievents-a-novel-resource-for-nlp-downstream-tasks": {
       "title": "WikiEvents - A Novel Resource for NLP Downstream Tasks",
       "has_abstract": true,
-      "file": "_publications/wikievents-a-novel-resource-for-nlp-downstream-tasks.md"
+      "file": "_publications/wikievents-a-novel-resource-for-nlp-downstream-tasks.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "nfdi4ds-transfer-and-application": {
       "title": "NFDI4DS Transfer and Application",
       "has_abstract": true,
-      "file": "_publications/nfdi4ds-transfer-and-application.md"
+      "file": "_publications/nfdi4ds-transfer-and-application.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "nfdi4ds-shared-tasks": {
       "title": "NFDI4DS Shared Tasks",
       "has_abstract": true,
-      "file": "_publications/nfdi4ds-shared-tasks.md"
+      "file": "_publications/nfdi4ds-shared-tasks.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "nfdi4ds-infrastructure-and-services": {
       "title": "NFDI4DS Infrastructure and Services",
       "has_abstract": true,
-      "file": "_publications/nfdi4ds-infrastructure-and-services.md"
+      "file": "_publications/nfdi4ds-infrastructure-and-services.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "qald9es-a-spanish-dataset-for-question-answering-systems": {
       "title": "QALD-9-ES: A Spanish Dataset for Question Answering Systems",
       "has_abstract": true,
-      "file": "_publications/qald9es-a-spanish-dataset-for-question-answering-systems.md"
-    },
-    "a-structure-and-content-promptbased-method-for-knowledge-graph-question-answering-over-scholarly-data": {
-      "title": "A Structure and Content Prompt-based Method for Knowledge Graph Question Answering over Scholarly Data",
-      "has_abstract": true,
-      "file": "_publications/a-structure-and-content-promptbased-method-for-knowledge-graph-question-answering-over-scholarly-data.md"
+      "file": "_publications/qald9es-a-spanish-dataset-for-question-answering-systems.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "dblplink-an-entity-linker-for-the-dblp-scholarly-knowledge-graph": {
       "title": "DBLPLink: An Entity Linker for the DBLP Scholarly Knowledge Graph",
       "has_abstract": true,
-      "file": "_publications/dblplink-an-entity-linker-for-the-dblp-scholarly-knowledge-graph.md"
+      "file": "_publications/dblplink-an-entity-linker-for-the-dblp-scholarly-knowledge-graph.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "leveraging-llms-in-scholarly-knowledge-graph-question-answering": {
       "title": "Leveraging LLMs in Scholarly Knowledge Graph Question Answering",
       "has_abstract": true,
-      "file": "_publications/leveraging-llms-in-scholarly-knowledge-graph-question-answering.md"
-    },
-    "proceedings-of-the-second-international-workshop-on-linked-datadriven-resilience-research-2023-colocated-with-extended-semantic-web-conference-2023-eswc-2023-hersonissos-greece-may-28-2023": {
-      "title": "Proceedings of the Second International Workshop on Linked Data-driven Resilience Research 2023 co-located with Extended Semantic Web Conference 2023 (ESWC 2023), Hersonissos, Greece, May 28, 2023",
-      "has_abstract": true,
-      "file": "_publications/proceedings-of-the-second-international-workshop-on-linked-datadriven-resilience-research-2023-colocated-with-extended-semantic-web-conference-2023-eswc-2023-hersonissos-greece-may-28-2023.md"
-    },
-    "joint-proceedings-of-semrec-2022-and-smart-2022-colocated-with-21st-international-semantic-web-conference-iswc-2022-hybrid-event-hangzhou-china-october-2427-2022": {
-      "title": "Joint Proceedings of SemREC 2022 and SMART 2022 co-located with 21st International Semantic Web Conference (ISWC 2022), Hybrid event, Hangzhou, China, October 24-27, 2022",
-      "has_abstract": true,
-      "file": "_publications/joint-proceedings-of-semrec-2022-and-smart-2022-colocated-with-21st-international-semantic-web-conference-iswc-2022-hybrid-event-hangzhou-china-october-2427-2022.md"
-    },
-    "joint-proceedings-of-scholarly-qald-2023-and-semrec-2023-colocated-with-22nd-international-semantic-web-conference-iswc-2023-athens-greece-november-610-2023": {
-      "title": "Joint Proceedings of Scholarly QALD 2023 and SemREC 2023 co-located with 22nd International Semantic Web Conference ISWC 2023, Athens, Greece, November 6-10, 2023",
-      "has_abstract": true,
-      "file": "_publications/joint-proceedings-of-scholarly-qald-2023-and-semrec-2023-colocated-with-22nd-international-semantic-web-conference-iswc-2023-athens-greece-november-610-2023.md"
+      "file": "_publications/leveraging-llms-in-scholarly-knowledge-graph-question-answering.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "dblpquad-dblp-dump": {
       "title": "DBLP-QuAD DBLP Dump",
       "has_abstract": true,
-      "file": "_publications/dblpquad-dblp-dump.md"
+      "file": "_publications/dblpquad-dblp-dump.md",
+      "is_conference": false,
+      "is_journal": false,
+      "is_archive": false
     },
     "dblpquad": {
       "title": "DBLP-QuAD",
       "has_abstract": true,
-      "file": "_publications/dblpquad.md"
+      "file": "_publications/dblpquad.md",
+      "is_conference": false,
+      "is_journal": false,
+      "is_archive": false
     },
     "amqa-amharic-question-answering-dataset": {
       "title": "AmQA: Amharic Question Answering Dataset",
       "has_abstract": true,
-      "file": "_publications/amqa-amharic-question-answering-dataset.md"
+      "file": "_publications/amqa-amharic-question-answering-dataset.md",
+      "is_conference": false,
+      "is_journal": false,
+      "is_archive": true
     },
     "treekgqa-an-unsupervised-approach-for-question-answering-over-knowledge-graphs": {
       "title": "Tree-KGQA: An Unsupervised Approach for Question Answering Over Knowledge Graphs",
       "has_abstract": true,
-      "file": "_publications/treekgqa-an-unsupervised-approach-for-question-answering-over-knowledge-graphs.md"
-    },
-    "a-formalization-of-one-of-the-main-claims-of-quotaposdunbaraposs-numberapos-deconstructedquot-by-lindenfors-et-al-20211": {
-      "title": "A formalization of one of the main claims of &quot;&apos;Dunbar&apos;s number&apos; deconstructed&quot; by Lindenfors et al. 20211",
-      "has_abstract": false,
-      "file": "_publications/a-formalization-of-one-of-the-main-claims-of-quotaposdunbaraposs-numberapos-deconstructedquot-by-lindenfors-et-al-20211.md"
+      "file": "_publications/treekgqa-an-unsupervised-approach-for-question-answering-over-knowledge-graphs.md",
+      "is_conference": false,
+      "is_journal": true,
+      "is_archive": false
     },
     "survey-on-english-entity-linking-on-wikidata-datasets-and-approaches": {
       "title": "Survey on English Entity Linking on Wikidata: Datasets and approaches",
       "has_abstract": true,
-      "file": "_publications/survey-on-english-entity-linking-on-wikidata-datasets-and-approaches.md"
+      "file": "_publications/survey-on-english-entity-linking-on-wikidata-datasets-and-approaches.md",
+      "is_conference": false,
+      "is_journal": true,
+      "is_archive": false
     },
     "rome-a-robust-metric-for-evaluating-natural-language-generation": {
       "title": "RoMe: A Robust Metric for Evaluating Natural Language Generation",
       "has_abstract": true,
-      "file": "_publications/rome-a-robust-metric-for-evaluating-natural-language-generation.md"
+      "file": "_publications/rome-a-robust-metric-for-evaluating-natural-language-generation.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "the-ethical-risks-of-analyzing-crisis-events-on-social-media-with-machine-learning": {
       "title": "The Ethical Risks of Analyzing Crisis Events on Social Media with Machine Learning",
       "has_abstract": true,
-      "file": "_publications/the-ethical-risks-of-analyzing-crisis-events-on-social-media-with-machine-learning.md"
+      "file": "_publications/the-ethical-risks-of-analyzing-crisis-events-on-social-media-with-machine-learning.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "measuring-gender-bias-in-german-language-generation": {
       "title": "Measuring Gender Bias in German Language Generation",
       "has_abstract": true,
-      "file": "_publications/measuring-gender-bias-in-german-language-generation.md"
+      "file": "_publications/measuring-gender-bias-in-german-language-generation.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "the-lifecycle-of-quotfactsquot-a-survey-of-social-bias-in-knowledge-graphs": {
       "title": "The Lifecycle of &quot;Facts&quot;: A Survey of Social Bias in Knowledge Graphs",
       "has_abstract": true,
-      "file": "_publications/the-lifecycle-of-quotfactsquot-a-survey-of-social-bias-in-knowledge-graphs.md"
+      "file": "_publications/the-lifecycle-of-quotfactsquot-a-survey-of-social-bias-in-knowledge-graphs.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "knowledge-graph-question-answering-leaderboard-a-community-resource-to-prevent-a-replication-crisis": {
       "title": "Knowledge Graph Question Answering Leaderboard: A Community Resource to Prevent a Replication Crisis",
       "has_abstract": true,
-      "file": "_publications/knowledge-graph-question-answering-leaderboard-a-community-resource-to-prevent-a-replication-crisis.md"
+      "file": "_publications/knowledge-graph-question-answering-leaderboard-a-community-resource-to-prevent-a-replication-crisis.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "dialokg-knowledgestructure-aware-taskoriented-dialogue-generation": {
       "title": "DialoKG: Knowledge-Structure Aware Task-Oriented Dialogue Generation",
       "has_abstract": true,
-      "file": "_publications/dialokg-knowledgestructure-aware-taskoriented-dialogue-generation.md"
-    },
-    "qald9plus-a-multilingual-dataset-for-question-answering-over-dbpedia-and-wikidata-translated-by-native-speakers": {
-      "title": "QALD-9-plus: A Multilingual Dataset for Question Answering over DBpedia and Wikidata Translated by Native Speakers",
-      "has_abstract": true,
-      "file": "_publications/qald9plus-a-multilingual-dataset-for-question-answering-over-dbpedia-and-wikidata-translated-by-native-speakers.md"
+      "file": "_publications/dialokg-knowledgestructure-aware-taskoriented-dialogue-generation.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "modern-baselines-for-sparql-semantic-parsing": {
       "title": "Modern Baselines for SPARQL Semantic Parsing",
       "has_abstract": true,
-      "file": "_publications/modern-baselines-for-sparql-semantic-parsing.md"
-    },
-    "knowledge-graph-question-answering-datasets-and-their-generalizability-are-they-enough-for-future-research": {
-      "title": "Knowledge Graph Question Answering Datasets and Their Generalizability: Are They Enough for Future Research?",
-      "has_abstract": true,
-      "file": "_publications/knowledge-graph-question-answering-datasets-and-their-generalizability-are-they-enough-for-future-research.md"
-    },
-    "proceedings-of-the-7th-natural-language-interfaces-for-the-web-of-data-nliwod-colocated-with-the-19th-european-semantic-web-conference-eswc-2022-hersonissos-greece-may-29th-2022": {
-      "title": "Proceedings of the 7th Natural Language Interfaces for the Web of Data (NLIWoD) co-located with the 19th European Semantic Web Conference (ESWC 2022), Hersonissos, Greece, May 29th, 2022",
-      "has_abstract": true,
-      "file": "_publications/proceedings-of-the-7th-natural-language-interfaces-for-the-web-of-data-nliwod-colocated-with-the-19th-european-semantic-web-conference-eswc-2022-hersonissos-greece-may-29th-2022.md"
-    },
-    "proceedings-of-the-semantic-answer-type-and-relation-prediction-task-at-iswc-2021-semantic-web-challenge-smart2021-colocated-with-the-20th-international-semantic-web-conference-iswc-2021-virtual-conference-october-26th-2021": {
-      "title": "Proceedings of the SeMantic Answer Type and Relation Prediction Task at ISWC 2021 Semantic Web Challenge (SMART2021) co-located with the 20th International Semantic Web Conference (ISWC 2021), Virtual Conference, October 26th, 2021",
-      "has_abstract": true,
-      "file": "_publications/proceedings-of-the-semantic-answer-type-and-relation-prediction-task-at-iswc-2021-semantic-web-challenge-smart2021-colocated-with-the-20th-international-semantic-web-conference-iswc-2021-virtual-conference-october-26th-2021.md"
+      "file": "_publications/modern-baselines-for-sparql-semantic-parsing.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "transformer-with-treeorder-encoding-for-neural-program-generation": {
       "title": "Transformer with Tree-order Encoding for Neural Program Generation",
       "has_abstract": true,
-      "file": "_publications/transformer-with-treeorder-encoding-for-neural-program-generation.md"
+      "file": "_publications/transformer-with-treeorder-encoding-for-neural-program-generation.md",
+      "is_conference": false,
+      "is_journal": false,
+      "is_archive": true
     },
     "proxy-indicators-for-the-quality-of-opendomain-dialogues": {
       "title": "Proxy Indicators for the Quality of Open-domain Dialogues",
       "has_abstract": true,
-      "file": "_publications/proxy-indicators-for-the-quality-of-opendomain-dialogues.md"
+      "file": "_publications/proxy-indicators-for-the-quality-of-opendomain-dialogues.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "knowledge-graph-question-answering-using-graphpattern-isomorphism": {
       "title": "Knowledge Graph Question Answering Using Graph-Pattern Isomorphism",
       "has_abstract": true,
-      "file": "_publications/knowledge-graph-question-answering-using-graphpattern-isomorphism.md"
+      "file": "_publications/knowledge-graph-question-answering-using-graphpattern-isomorphism.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "templatebased-question-answering-using-recursive-neural-networks": {
       "title": "Template-based Question Answering using Recursive Neural Networks",
       "has_abstract": true,
-      "file": "_publications/templatebased-question-answering-using-recursive-neural-networks.md"
+      "file": "_publications/templatebased-question-answering-using-recursive-neural-networks.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "survey-on-english-entity-linking-on-wikidata": {
       "title": "Survey on English Entity Linking on Wikidata",
       "has_abstract": true,
-      "file": "_publications/survey-on-english-entity-linking-on-wikidata.md"
+      "file": "_publications/survey-on-english-entity-linking-on-wikidata.md",
+      "is_conference": false,
+      "is_journal": false,
+      "is_archive": true
     },
     "semantic-answer-type-and-relation-prediction-task-smart-2021": {
       "title": "Semantic Answer Type and Relation Prediction Task (SMART 2021)",
       "has_abstract": true,
-      "file": "_publications/semantic-answer-type-and-relation-prediction-task-smart-2021.md"
+      "file": "_publications/semantic-answer-type-and-relation-prediction-task-smart-2021.md",
+      "is_conference": false,
+      "is_journal": false,
+      "is_archive": true
     },
     "language-model-transformers-as-evaluators-for-opendomain-dialogues": {
       "title": "Language Model Transformers as Evaluators for Open-domain Dialogues",
       "has_abstract": true,
-      "file": "_publications/language-model-transformers-as-evaluators-for-opendomain-dialogues.md"
+      "file": "_publications/language-model-transformers-as-evaluators-for-opendomain-dialogues.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "starqagentinvestigating-generalization-in-knowledge-graph-question-answering-via-a-multiagent-collab": {
       "title": "STaRQ-Agent-Investigating Generalization in Knowledge Graph Question Answering via a Multi-Agent Collaborative Framework",
       "has_abstract": true,
-      "file": "_publications/starqagentinvestigating-generalization-in-knowledge-graph-question-answering-via-a-multiagent-collab.md"
+      "file": "_publications/starqagentinvestigating-generalization-in-knowledge-graph-question-answering-via-a-multiagent-collab.md",
+      "is_conference": false,
+      "is_journal": true,
+      "is_archive": false
     },
     "qald10-the-10th-challenge-on-question-answering-over-linked-data-shifting-from-dbpedia-to-wikidata-a": {
       "title": "QALD-10 - The 10th challenge on question answering over linked data: Shifting from DBpedia to Wikidata as a KG for KGQA",
       "has_abstract": true,
-      "file": "_publications/qald10-the-10th-challenge-on-question-answering-over-linked-data-shifting-from-dbpedia-to-wikidata-a.md"
+      "file": "_publications/qald10-the-10th-challenge-on-question-answering-over-linked-data-shifting-from-dbpedia-to-wikidata-a.md",
+      "is_conference": false,
+      "is_journal": true,
+      "is_archive": false
     },
     "proceedings-of-the-third-international-workshop-on-linked-datadriven-resilience-research-d2r2apos24": {
       "title": "Proceedings of the Third International Workshop on Linked Data-driven Resilience Research (D2R2&apos;24) co-located with European Semantic Web Conference 2024 (ESWC 2024), May 27, 2024",
       "has_abstract": false,
-      "file": "_publications/proceedings-of-the-third-international-workshop-on-linked-datadriven-resilience-research-d2r2apos24.md"
+      "file": "_publications/proceedings-of-the-third-international-workshop-on-linked-datadriven-resilience-research-d2r2apos24.md",
+      "is_conference": false,
+      "is_journal": false,
+      "is_archive": false
     },
     "reporting-and-analysing-the-environmental-impact-of-language-models-on-the-example-of-commonsense-qu": {
       "title": "Reporting and Analysing the Environmental Impact of Language Models on the Example of Commonsense Question Answering with External Knowledge",
       "has_abstract": true,
-      "file": "_publications/reporting-and-analysing-the-environmental-impact-of-language-models-on-the-example-of-commonsense-qu.md"
+      "file": "_publications/reporting-and-analysing-the-environmental-impact-of-language-models-on-the-example-of-commonsense-qu.md",
+      "is_conference": false,
+      "is_journal": false,
+      "is_archive": true
     },
     "a-structure-and-content-promptbased-method-for-knowledge-graph-question-answering-over-scholarly-dat": {
       "title": "A Structure and Content Prompt-based Method for Knowledge Graph Question Answering over Scholarly Data",
       "has_abstract": true,
-      "file": "_publications/a-structure-and-content-promptbased-method-for-knowledge-graph-question-answering-over-scholarly-dat.md"
+      "file": "_publications/a-structure-and-content-promptbased-method-for-knowledge-graph-question-answering-over-scholarly-dat.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "proceedings-of-the-second-international-workshop-on-linked-datadriven-resilience-research-2023-coloc": {
       "title": "Proceedings of the Second International Workshop on Linked Data-driven Resilience Research 2023 co-located with Extended Semantic Web Conference 2023 (ESWC 2023), Hersonissos, Greece, May 28, 2023",
       "has_abstract": true,
-      "file": "_publications/proceedings-of-the-second-international-workshop-on-linked-datadriven-resilience-research-2023-coloc.md"
+      "file": "_publications/proceedings-of-the-second-international-workshop-on-linked-datadriven-resilience-research-2023-coloc.md",
+      "is_conference": false,
+      "is_journal": false,
+      "is_archive": false
     },
     "joint-proceedings-of-semrec-2022-and-smart-2022-colocated-with-21st-international-semantic-web-confe": {
       "title": "Joint Proceedings of SemREC 2022 and SMART 2022 co-located with 21st International Semantic Web Conference (ISWC 2022), Hybrid event, Hangzhou, China, October 24-27, 2022",
       "has_abstract": true,
-      "file": "_publications/joint-proceedings-of-semrec-2022-and-smart-2022-colocated-with-21st-international-semantic-web-confe.md"
+      "file": "_publications/joint-proceedings-of-semrec-2022-and-smart-2022-colocated-with-21st-international-semantic-web-confe.md",
+      "is_conference": false,
+      "is_journal": false,
+      "is_archive": false
     },
     "joint-proceedings-of-scholarly-qald-2023-and-semrec-2023-colocated-with-22nd-international-semantic": {
       "title": "Joint Proceedings of Scholarly QALD 2023 and SemREC 2023 co-located with 22nd International Semantic Web Conference ISWC 2023, Athens, Greece, November 6-10, 2023",
       "has_abstract": true,
-      "file": "_publications/joint-proceedings-of-scholarly-qald-2023-and-semrec-2023-colocated-with-22nd-international-semantic.md"
+      "file": "_publications/joint-proceedings-of-scholarly-qald-2023-and-semrec-2023-colocated-with-22nd-international-semantic.md",
+      "is_conference": false,
+      "is_journal": false,
+      "is_archive": false
     },
     "a-formalization-of-one-of-the-main-claims-of-quotaposdunbaraposs-numberapos-deconstructedquot-by-lin": {
       "title": "A formalization of one of the main claims of &quot;&apos;Dunbar&apos;s number&apos; deconstructed&quot; by Lindenfors et al. 20211",
       "has_abstract": false,
-      "file": "_publications/a-formalization-of-one-of-the-main-claims-of-quotaposdunbaraposs-numberapos-deconstructedquot-by-lin.md"
+      "file": "_publications/a-formalization-of-one-of-the-main-claims-of-quotaposdunbaraposs-numberapos-deconstructedquot-by-lin.md",
+      "is_conference": false,
+      "is_journal": true,
+      "is_archive": false
     },
     "qald9plus-a-multilingual-dataset-for-question-answering-over-dbpedia-and-wikidata-translated-by-nati": {
       "title": "QALD-9-plus: A Multilingual Dataset for Question Answering over DBpedia and Wikidata Translated by Native Speakers",
       "has_abstract": true,
-      "file": "_publications/qald9plus-a-multilingual-dataset-for-question-answering-over-dbpedia-and-wikidata-translated-by-nati.md"
+      "file": "_publications/qald9plus-a-multilingual-dataset-for-question-answering-over-dbpedia-and-wikidata-translated-by-nati.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "knowledge-graph-question-answering-datasets-and-their-generalizability-are-they-enough-for-future-re": {
       "title": "Knowledge Graph Question Answering Datasets and Their Generalizability: Are They Enough for Future Research?",
       "has_abstract": true,
-      "file": "_publications/knowledge-graph-question-answering-datasets-and-their-generalizability-are-they-enough-for-future-re.md"
+      "file": "_publications/knowledge-graph-question-answering-datasets-and-their-generalizability-are-they-enough-for-future-re.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "proceedings-of-the-7th-natural-language-interfaces-for-the-web-of-data-nliwod-colocated-with-the-19t": {
       "title": "Proceedings of the 7th Natural Language Interfaces for the Web of Data (NLIWoD) co-located with the 19th European Semantic Web Conference (ESWC 2022), Hersonissos, Greece, May 29th, 2022",
       "has_abstract": true,
-      "file": "_publications/proceedings-of-the-7th-natural-language-interfaces-for-the-web-of-data-nliwod-colocated-with-the-19t.md"
+      "file": "_publications/proceedings-of-the-7th-natural-language-interfaces-for-the-web-of-data-nliwod-colocated-with-the-19t.md",
+      "is_conference": false,
+      "is_journal": false,
+      "is_archive": false
     },
     "proceedings-of-the-semantic-answer-type-and-relation-prediction-task-at-iswc-2021-semantic-web-chall": {
       "title": "Proceedings of the SeMantic Answer Type and Relation Prediction Task at ISWC 2021 Semantic Web Challenge (SMART2021) co-located with the 20th International Semantic Web Conference (ISWC 2021), Virtual Conference, October 26th, 2021",
       "has_abstract": true,
-      "file": "_publications/proceedings-of-the-semantic-answer-type-and-relation-prediction-task-at-iswc-2021-semantic-web-chall.md"
+      "file": "_publications/proceedings-of-the-semantic-answer-type-and-relation-prediction-task-at-iswc-2021-semantic-web-chall.md",
+      "is_conference": false,
+      "is_journal": false,
+      "is_archive": false
     },
     "message-passing-for-hyperrelational-knowledge-graphs": {
       "title": "Message Passing for Hyper-Relational Knowledge Graphs",
       "has_abstract": true,
-      "file": "_publications/message-passing-for-hyperrelational-knowledge-graphs.md"
+      "file": "_publications/message-passing-for-hyperrelational-knowledge-graphs.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "treating-dialogue-quality-evaluation-as-an-anomaly-detection-problem": {
       "title": "Treating Dialogue Quality Evaluation as an Anomaly Detection Problem",
       "has_abstract": true,
-      "file": "_publications/treating-dialogue-quality-evaluation-as-an-anomaly-detection-problem.md"
+      "file": "_publications/treating-dialogue-quality-evaluation-as-an-anomaly-detection-problem.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "towards-an-interoperable-ecosystem-of-ai-and-lt-platforms-a-roadmap-for-the-implementation-of-differ": {
       "title": "Towards an Interoperable Ecosystem of AI and LT Platforms: A Roadmap for the Implementation of Different Levels of Interoperability",
       "has_abstract": true,
-      "file": "_publications/towards-an-interoperable-ecosystem-of-ai-and-lt-platforms-a-roadmap-for-the-implementation-of-differ.md"
+      "file": "_publications/towards-an-interoperable-ecosystem-of-ai-and-lt-platforms-a-roadmap-for-the-implementation-of-differ.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "joint-proceedings-of-workshops-ai4legal2020-nliwod-profiles-2020-quweda-2020-and-semiform2020-coloca": {
       "title": "Joint Proceedings of Workshops AI4LEGAL2020, NLIWOD, PROFILES 2020, QuWeDa 2020 and SEMIFORM2020 Colocated with the 19th International Semantic Web Conference (ISWC 2020), Virtual Conference, November, 2020",
       "has_abstract": true,
-      "file": "_publications/joint-proceedings-of-workshops-ai4legal2020-nliwod-profiles-2020-quweda-2020-and-semiform2020-coloca.md"
+      "file": "_publications/joint-proceedings-of-workshops-ai4legal2020-nliwod-profiles-2020-quweda-2020-and-semiform2020-coloca.md",
+      "is_conference": false,
+      "is_journal": false,
+      "is_archive": false
     },
     "proceedings-of-the-semantic-answer-type-prediction-task-smart-at-iswc-2020-semantic-web-challenge-co": {
       "title": "Proceedings of the SeMantic AnsweR Type prediction task (SMART) at ISWC 2020 Semantic Web Challenge co-located with the 19th International Semantic Web Conference (ISWC 2020), Virtual Conference, November 5th, 2020",
       "has_abstract": true,
-      "file": "_publications/proceedings-of-the-semantic-answer-type-prediction-task-smart-at-iswc-2020-semantic-web-challenge-co.md"
+      "file": "_publications/proceedings-of-the-semantic-answer-type-prediction-task-smart-at-iswc-2020-semantic-web-challenge-co.md",
+      "is_conference": false,
+      "is_journal": false,
+      "is_archive": false
     },
     "dicegroupdbpediachatloganalysis-code-for-the-paper-an-approach-for-expostfacto-analysis-of-knowledge": {
       "title": "dice-group/DBpedia-Chatlog-Analysis - Code for the paper: An Approach for Ex-Post-Facto Analysis of Knowledge Graph-Driven Chatbots - The DBpedia Chatbot",
       "has_abstract": true,
-      "file": "_publications/dicegroupdbpediachatloganalysis-code-for-the-paper-an-approach-for-expostfacto-analysis-of-knowledge.md"
+      "file": "_publications/dicegroupdbpediachatloganalysis-code-for-the-paper-an-approach-for-expostfacto-analysis-of-knowledge.md",
+      "is_conference": false,
+      "is_journal": false,
+      "is_archive": false
     },
     "semantic-answer-type-prediction-task-smart-at-iswc-2020-semantic-web-challenge": {
       "title": "SeMantic AnsweR Type prediction task (SMART) at ISWC 2020 Semantic Web Challenge",
       "has_abstract": true,
-      "file": "_publications/semantic-answer-type-prediction-task-smart-at-iswc-2020-semantic-web-challenge.md"
+      "file": "_publications/semantic-answer-type-prediction-task-smart-at-iswc-2020-semantic-web-challenge.md",
+      "is_conference": false,
+      "is_journal": false,
+      "is_archive": true
     },
     "benchmarking-question-answering-systems": {
       "title": "Benchmarking question answering systems",
       "has_abstract": true,
-      "file": "_publications/benchmarking-question-answering-systems.md"
+      "file": "_publications/benchmarking-question-answering-systems.md",
+      "is_conference": false,
+      "is_journal": true,
+      "is_archive": false
     },
     "an-approach-for-expostfacto-analysis-of-knowledge-graphdriven-chatbots-the-dbpedia-chatbot": {
       "title": "An Approach for Ex-Post-Facto Analysis of Knowledge Graph-Driven Chatbots - The DBpedia Chatbot",
       "has_abstract": true,
-      "file": "_publications/an-approach-for-expostfacto-analysis-of-knowledge-graphdriven-chatbots-the-dbpedia-chatbot.md"
+      "file": "_publications/an-approach-for-expostfacto-analysis-of-knowledge-graphdriven-chatbots-the-dbpedia-chatbot.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "quant-question-answering-benchmark-curator": {
       "title": "QUANT - Question Answering Benchmark Curator",
       "has_abstract": true,
-      "file": "_publications/quant-question-answering-benchmark-curator.md"
+      "file": "_publications/quant-question-answering-benchmark-curator.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "offline-question-answering-over-linked-data-using-limited-resources": {
       "title": "Offline Question Answering over Linked Data using Limited Resources",
       "has_abstract": true,
-      "file": "_publications/offline-question-answering-over-linked-data-using-limited-resources.md"
+      "file": "_publications/offline-question-answering-over-linked-data-using-limited-resources.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "preface-3rd-workshop-on-querying-and-benchmarking-the-web-of-data": {
       "title": "Preface: 3rd Workshop on Querying and Benchmarking the Web of Data",
       "has_abstract": true,
-      "file": "_publications/preface-3rd-workshop-on-querying-and-benchmarking-the-web-of-data.md"
+      "file": "_publications/preface-3rd-workshop-on-querying-and-benchmarking-the-web-of-data.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "proceedings-of-the-posters-and-demo-track-of-the-15th-international-conference-on-semantic-systems-c": {
       "title": "Proceedings of the Posters and Demo Track of the 15th International Conference on Semantic Systems co-located with 15th International Conference on Semantic Systems (SEMANTiCS 2019), Karlsruhe, Germany, September 9th - to - 12th, 2019",
       "has_abstract": true,
-      "file": "_publications/proceedings-of-the-posters-and-demo-track-of-the-15th-international-conference-on-semantic-systems-c.md"
+      "file": "_publications/proceedings-of-the-posters-and-demo-track-of-the-15th-international-conference-on-semantic-systems-c.md",
+      "is_conference": false,
+      "is_journal": false,
+      "is_archive": false
     },
     "proceedings-of-the-quweda-2019-3rd-workshop-on-querying-and-benchmarking-the-web-of-data-colocated-w": {
       "title": "Proceedings of the QuWeDa 2019: 3rd Workshop on Querying and Benchmarking the Web of Data co-located with 18th International Semantic Web Conference (ISWC 2019), Auckland, New Zealand, October 26-30, 2019",
       "has_abstract": true,
-      "file": "_publications/proceedings-of-the-quweda-2019-3rd-workshop-on-querying-and-benchmarking-the-web-of-data-colocated-w.md"
+      "file": "_publications/proceedings-of-the-quweda-2019-3rd-workshop-on-querying-and-benchmarking-the-web-of-data-colocated-w.md",
+      "is_conference": false,
+      "is_journal": false,
+      "is_archive": false
     },
     "gerbil-benchmarking-named-entity-recognition-and-linking-consistently": {
       "title": "GERBIL - Benchmarking Named Entity Recognition and Linking consistently",
       "has_abstract": true,
-      "file": "_publications/gerbil-benchmarking-named-entity-recognition-and-linking-consistently.md"
+      "file": "_publications/gerbil-benchmarking-named-entity-recognition-and-linking-consistently.md",
+      "is_conference": false,
+      "is_journal": true,
+      "is_archive": false
     },
     "entity-linking-in-40-languages-using-mag": {
       "title": "Entity Linking in 40 Languages Using MAG",
       "has_abstract": true,
-      "file": "_publications/entity-linking-in-40-languages-using-mag.md"
+      "file": "_publications/entity-linking-in-40-languages-using-mag.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "the-scalable-question-answering-over-linked-data-sqa-challenge-2018": {
       "title": "The Scalable Question Answering Over Linked Data (SQA) Challenge 2018",
       "has_abstract": true,
-      "file": "_publications/the-scalable-question-answering-over-linked-data-sqa-challenge-2018.md"
+      "file": "_publications/the-scalable-question-answering-over-linked-data-sqa-challenge-2018.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "bengal-an-automatic-benchmark-generator-for-entity-recognition-and-linking": {
       "title": "BENGAL: An Automatic Benchmark Generator for Entity Recognition and Linking",
       "has_abstract": true,
-      "file": "_publications/bengal-an-automatic-benchmark-generator-for-entity-recognition-and-linking.md"
+      "file": "_publications/bengal-an-automatic-benchmark-generator-for-entity-recognition-and-linking.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "9th-challenge-on-question-answering-over-linked-data-qald9-invited-paper": {
       "title": "9th Challenge on Question Answering over Linked Data (QALD-9) (invited paper)",
       "has_abstract": true,
-      "file": "_publications/9th-challenge-on-question-answering-over-linked-data-qald9-invited-paper.md"
+      "file": "_publications/9th-challenge-on-question-answering-over-linked-data-qald9-invited-paper.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "8th-challenge-on-question-answering-over-linked-data-qald8-invited-paper": {
       "title": "8th Challenge on Question Answering over Linked Data (QALD-8) (invited paper)",
       "has_abstract": true,
-      "file": "_publications/8th-challenge-on-question-answering-over-linked-data-qald8-invited-paper.md"
+      "file": "_publications/8th-challenge-on-question-answering-over-linked-data-qald8-invited-paper.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "dice-trecis-2018-combining-knowledge-graphs-and-deep-learning-to-identify-crisisrelevant-tweets": {
       "title": "DICE @ TREC-IS 2018: Combining Knowledge Graphs and Deep Learning to Identify Crisis-Relevant Tweets",
       "has_abstract": true,
-      "file": "_publications/dice-trecis-2018-combining-knowledge-graphs-and-deep-learning-to-identify-crisisrelevant-tweets.md"
+      "file": "_publications/dice-trecis-2018-combining-knowledge-graphs-and-deep-learning-to-identify-crisisrelevant-tweets.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "enhancing-community-interactions-with-datadriven-chatbotsthe-dbpedia-chatbot": {
       "title": "Enhancing Community Interactions with Data-Driven Chatbots-The DBpedia Chatbot",
       "has_abstract": true,
-      "file": "_publications/enhancing-community-interactions-with-datadriven-chatbotsthe-dbpedia-chatbot.md"
+      "file": "_publications/enhancing-community-interactions-with-datadriven-chatbotsthe-dbpedia-chatbot.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "question-answering-mediated-by-visual-clues-and-knowledge-graphs": {
       "title": "Question Answering Mediated by Visual Clues and Knowledge Graphs",
       "has_abstract": true,
-      "file": "_publications/question-answering-mediated-by-visual-clues-and-knowledge-graphs.md"
+      "file": "_publications/question-answering-mediated-by-visual-clues-and-knowledge-graphs.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "why-reinvent-the-wheel-letaposs-build-question-answering-systems-together": {
       "title": "Why Reinvent the Wheel: Let&apos;s Build Question Answering Systems Together",
       "has_abstract": true,
-      "file": "_publications/why-reinvent-the-wheel-letaposs-build-question-answering-systems-together.md"
+      "file": "_publications/why-reinvent-the-wheel-letaposs-build-question-answering-systems-together.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "proceedings-of-the-3rd-international-workshop-on-geospatial-linked-data-and-the-2nd-workshop-on-quer": {
       "title": "Proceedings of the 3rd International Workshop on Geospatial Linked Data and the 2nd Workshop on Querying the Web of Data co-located with 15th Extended Semantic Web Conference (ESWC 2018), Heraklion, Greece, June 3, 2018",
       "has_abstract": true,
-      "file": "_publications/proceedings-of-the-3rd-international-workshop-on-geospatial-linked-data-and-the-2nd-workshop-on-quer.md"
+      "file": "_publications/proceedings-of-the-3rd-international-workshop-on-geospatial-linked-data-and-the-2nd-workshop-on-quer.md",
+      "is_conference": false,
+      "is_journal": false,
+      "is_archive": false
     },
     "joint-proceedings-of-the-4th-workshop-on-semantic-deep-learning-semdeep4-and-nliwod4-natural-languag": {
       "title": "Joint proceedings of the 4th Workshop on Semantic Deep Learning (SemDeep-4) and NLIWoD4: Natural Language Interfaces for the Web of Data (NLIWOD-4) and 9th Question Answering over Linked Data challenge (QALD-9) co-located with 17th International Semantic Web Conference (ISWC 2018), Monterey, California, United States of America, October 8th - 9th, 2018",
       "has_abstract": true,
-      "file": "_publications/joint-proceedings-of-the-4th-workshop-on-semantic-deep-learning-semdeep4-and-nliwod4-natural-languag.md"
+      "file": "_publications/joint-proceedings-of-the-4th-workshop-on-semantic-deep-learning-semdeep4-and-nliwod4-natural-languag.md",
+      "is_conference": false,
+      "is_journal": false,
+      "is_archive": false
     },
     "knowledge-extraction-for-hybrid-question-answering": {
       "title": "Knowledge Extraction for Hybrid Question Answering",
       "has_abstract": true,
-      "file": "_publications/knowledge-extraction-for-hybrid-question-answering.md"
+      "file": "_publications/knowledge-extraction-for-hybrid-question-answering.md",
+      "is_conference": false,
+      "is_journal": false,
+      "is_archive": false
     },
     "survey-on-challenges-of-question-answering-in-the-semantic-web": {
       "title": "Survey on challenges of Question Answering in the Semantic Web",
       "has_abstract": true,
-      "file": "_publications/survey-on-challenges-of-question-answering-in-the-semantic-web.md"
+      "file": "_publications/survey-on-challenges-of-question-answering-in-the-semantic-web.md",
+      "is_conference": false,
+      "is_journal": true,
+      "is_archive": false
     },
     "holistic-and-scalable-ranking-of-rdf-data": {
       "title": "Holistic and scalable ranking of RDF data",
       "has_abstract": true,
-      "file": "_publications/holistic-and-scalable-ranking-of-rdf-data.md"
+      "file": "_publications/holistic-and-scalable-ranking-of-rdf-data.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "7th-open-challenge-on-question-answering-over-linked-data-qald7": {
       "title": "7th Open Challenge on Question Answering over Linked Data (QALD-7)",
       "has_abstract": true,
-      "file": "_publications/7th-open-challenge-on-question-answering-over-linked-data-qald7.md"
+      "file": "_publications/7th-open-challenge-on-question-answering-over-linked-data-qald7.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "mag-a-multilingual-knowledgebase-agnostic-and-deterministic-entity-linking-approach": {
       "title": "MAG: A Multilingual, Knowledge-base Agnostic and Deterministic Entity Linking Approach",
       "has_abstract": true,
-      "file": "_publications/mag-a-multilingual-knowledgebase-agnostic-and-deterministic-entity-linking-approach.md"
+      "file": "_publications/mag-a-multilingual-knowledgebase-agnostic-and-deterministic-entity-linking-approach.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "question-answering-over-linked-data-what-is-difficult-to-answer-what-affects-the-f-scores": {
       "title": "Question Answering Over Linked Data: What is Difficult to Answer? What Affects the F scores?",
       "has_abstract": true,
-      "file": "_publications/question-answering-over-linked-data-what-is-difficult-to-answer-what-affects-the-f-scores.md"
+      "file": "_publications/question-answering-over-linked-data-what-is-difficult-to-answer-what-affects-the-f-scores.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "okbqa-an-open-collaboration-framework-for-development-of-natural-language-questionanswering-over-kno": {
       "title": "OKBQA: an Open Collaboration Framework for Development of Natural Language Question-Answering over Knowledge Bases",
       "has_abstract": true,
-      "file": "_publications/okbqa-an-open-collaboration-framework-for-development-of-natural-language-questionanswering-over-kno.md"
+      "file": "_publications/okbqa-an-open-collaboration-framework-for-development-of-natural-language-questionanswering-over-kno.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "genesis-a-generic-rdf-data-access-interface": {
       "title": "GENESIS: a generic RDF data access interface",
       "has_abstract": true,
-      "file": "_publications/genesis-a-generic-rdf-data-access-interface.md"
+      "file": "_publications/genesis-a-generic-rdf-data-access-interface.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "joint-proceedings-of-the-2nd-rdf-stream-processing-rsp-2017-and-the-querying-the-web-of-data-quweda": {
       "title": "Joint Proceedings of the 2nd RDF Stream Processing (RSP 2017) and the Querying the Web of Data (QuWeDa 2017) Workshops co-located with 14th ESWC 2017 (ESWC 2017), Portoroz, Slovenia, May 28th - to - 29th, 2017",
       "has_abstract": true,
-      "file": "_publications/joint-proceedings-of-the-2nd-rdf-stream-processing-rsp-2017-and-the-querying-the-web-of-data-quweda.md"
+      "file": "_publications/joint-proceedings-of-the-2nd-rdf-stream-processing-rsp-2017-and-the-querying-the-web-of-data-quweda.md",
+      "is_conference": false,
+      "is_journal": false,
+      "is_archive": false
     },
     "joint-proceedings-of-blink2017-2nd-international-workshop-on-benchmarking-linked-data-and-nliwod3-na": {
       "title": "Joint Proceedings of BLINK2017: 2nd International Workshop on Benchmarking Linked Data and NLIWoD3: Natural Language Interfaces for the Web of Data co-located with 16th International Semantic Web Conference (ISWC 2017), Vienna, Austria, October 21st - to - 22nd, 2017",
       "has_abstract": true,
-      "file": "_publications/joint-proceedings-of-blink2017-2nd-international-workshop-on-benchmarking-linked-data-and-nliwod3-na.md"
+      "file": "_publications/joint-proceedings-of-blink2017-2nd-international-workshop-on-benchmarking-linked-data-and-nliwod3-na.md",
+      "is_conference": false,
+      "is_journal": false,
+      "is_archive": false
     },
     "mag-a-multilingual-knowledgebased-agnostic-and-deterministic-entity-linking-approach": {
       "title": "MAG: A Multilingual, Knowledge-based Agnostic and Deterministic Entity Linking Approach",
       "has_abstract": true,
-      "file": "_publications/mag-a-multilingual-knowledgebased-agnostic-and-deterministic-entity-linking-approach.md"
+      "file": "_publications/mag-a-multilingual-knowledgebased-agnostic-and-deterministic-entity-linking-approach.md",
+      "is_conference": false,
+      "is_journal": false,
+      "is_archive": true
     },
     "using-multilabel-classification-for-improved-question-answering": {
       "title": "Using Multi-Label Classification for Improved Question Answering",
       "has_abstract": true,
-      "file": "_publications/using-multilabel-classification-for-improved-question-answering.md"
+      "file": "_publications/using-multilabel-classification-for-improved-question-answering.md",
+      "is_conference": false,
+      "is_journal": false,
+      "is_archive": true
     },
     "automatic-generation-of-benchmarks-for-entity-recognition-and-linking": {
       "title": "Automatic Generation of Benchmarks for Entity Recognition and Linking",
       "has_abstract": true,
-      "file": "_publications/automatic-generation-of-benchmarks-for-entity-recognition-and-linking.md"
+      "file": "_publications/automatic-generation-of-benchmarks-for-entity-recognition-and-linking.md",
+      "is_conference": false,
+      "is_journal": false,
+      "is_archive": true
     },
     "requirements-to-modern-semantic-search-engine": {
       "title": "Requirements to Modern Semantic Search Engine",
       "has_abstract": true,
-      "file": "_publications/requirements-to-modern-semantic-search-engine.md"
+      "file": "_publications/requirements-to-modern-semantic-search-engine.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "cubeqa-question-answering-on-rdf-data-cubes": {
       "title": "CubeQA - Question Answering on RDF Data Cubes",
       "has_abstract": true,
-      "file": "_publications/cubeqa-question-answering-on-rdf-data-cubes.md"
+      "file": "_publications/cubeqa-question-answering-on-rdf-data-cubes.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "a-scalable-approach-for-computing-semantic-relatedness-using-semantic-web-data": {
       "title": "A Scalable Approach for Computing Semantic Relatedness using Semantic Web Data",
       "has_abstract": true,
-      "file": "_publications/a-scalable-approach-for-computing-semantic-relatedness-using-semantic-web-data.md"
+      "file": "_publications/a-scalable-approach-for-computing-semantic-relatedness-using-semantic-web-data.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "selfwiring-question-answering-systems": {
       "title": "Self-Wiring Question Answering Systems",
       "has_abstract": true,
-      "file": "_publications/selfwiring-question-answering-systems.md"
+      "file": "_publications/selfwiring-question-answering-systems.md",
+      "is_conference": false,
+      "is_journal": false,
+      "is_archive": true
     },
     "analyse-von-mikrobloggingdaten-korrelation-und-visualisierung-von-twitter-hashtags": {
       "title": "Analyse von Mikro-Blogging-Daten - Korrelation und Visualisierung von Twitter Hashtags",
       "has_abstract": true,
-      "file": "_publications/analyse-von-mikrobloggingdaten-korrelation-und-visualisierung-von-twitter-hashtags.md"
+      "file": "_publications/analyse-von-mikrobloggingdaten-korrelation-und-visualisierung-von-twitter-hashtags.md",
+      "is_conference": false,
+      "is_journal": true,
+      "is_archive": false
     },
     "defacto-temporal-and-multilingual-deep-fact-validation": {
       "title": "DeFacto - Temporal and multilingual Deep Fact Validation",
       "has_abstract": true,
-      "file": "_publications/defacto-temporal-and-multilingual-deep-fact-validation.md"
+      "file": "_publications/defacto-temporal-and-multilingual-deep-fact-validation.md",
+      "is_conference": false,
+      "is_journal": true,
+      "is_archive": false
     },
     "hawkqald5-trying-to-answer-hybrid-questions-with-various-simple-ranking-techniques": {
       "title": "HAWK@QALD5 - Trying to Answer Hybrid Questions with Various Simple Ranking Techniques",
       "has_abstract": true,
-      "file": "_publications/hawkqald5-trying-to-answer-hybrid-questions-with-various-simple-ranking-techniques.md"
+      "file": "_publications/hawkqald5-trying-to-answer-hybrid-questions-with-various-simple-ranking-techniques.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "developing-a-sustainable-platform-for-entity-annotation-benchmarks": {
       "title": "Developing a Sustainable Platform for Entity Annotation Benchmarks",
       "has_abstract": true,
-      "file": "_publications/developing-a-sustainable-platform-for-entity-annotation-benchmarks.md"
+      "file": "_publications/developing-a-sustainable-platform-for-entity-annotation-benchmarks.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "cetus-a-baseline-approach-to-type-extraction": {
       "title": "CETUS - A Baseline Approach to Type Extraction",
       "has_abstract": true,
-      "file": "_publications/cetus-a-baseline-approach-to-type-extraction.md"
+      "file": "_publications/cetus-a-baseline-approach-to-type-extraction.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "hawk-hybrid-question-answering-using-linked-data": {
       "title": "HAWK - Hybrid Question Answering Using Linked Data",
       "has_abstract": true,
-      "file": "_publications/hawk-hybrid-question-answering-using-linked-data.md"
+      "file": "_publications/hawk-hybrid-question-answering-using-linked-data.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "evaluating-entity-annotators-using-gerbil": {
       "title": "Evaluating Entity Annotators Using GERBIL",
       "has_abstract": true,
-      "file": "_publications/evaluating-entity-annotators-using-gerbil.md"
+      "file": "_publications/evaluating-entity-annotators-using-gerbil.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "mex-vocabulary-a-lightweight-interchange-format-for-machine-learning-experiments": {
       "title": "MEX vocabulary: a lightweight interchange format for machine learning experiments",
       "has_abstract": true,
-      "file": "_publications/mex-vocabulary-a-lightweight-interchange-format-for-machine-learning-experiments.md"
+      "file": "_publications/mex-vocabulary-a-lightweight-interchange-format-for-machine-learning-experiments.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "assess-automatic-selfassessment-using-linked-data": {
       "title": "ASSESS - Automatic Self-Assessment Using Linked Data",
       "has_abstract": true,
-      "file": "_publications/assess-automatic-selfassessment-using-linked-data.md"
+      "file": "_publications/assess-automatic-selfassessment-using-linked-data.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "gerbil-general-entity-annotator-benchmarking-framework": {
       "title": "GERBIL: General Entity Annotator Benchmarking Framework",
       "has_abstract": true,
-      "file": "_publications/gerbil-general-entity-annotator-benchmarking-framework.md"
+      "file": "_publications/gerbil-general-entity-annotator-benchmarking-framework.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "agdistis-agnostic-disambiguation-of-named-entities-using-linked-open-data": {
       "title": "AGDISTIS - Agnostic Disambiguation of Named Entities Using Linked Open Data",
       "has_abstract": true,
-      "file": "_publications/agdistis-agnostic-disambiguation-of-named-entities-using-linked-open-data.md"
+      "file": "_publications/agdistis-agnostic-disambiguation-of-named-entities-using-linked-open-data.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "crocus-clusterbased-ontology-data-cleansing": {
       "title": "CROCUS: Cluster-based Ontology Data Cleansing",
       "has_abstract": true,
-      "file": "_publications/crocus-clusterbased-ontology-data-cleansing.md"
+      "file": "_publications/crocus-clusterbased-ontology-data-cleansing.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "lessons-learned-the-case-of-crocus-clusterbased-ontology-data-cleansing": {
       "title": "Lessons Learned - The Case of CROCUS: Cluster-Based Ontology Data Cleansing",
       "has_abstract": true,
-      "file": "_publications/lessons-learned-the-case-of-crocus-clusterbased-ontology-data-cleansing.md"
+      "file": "_publications/lessons-learned-the-case-of-crocus-clusterbased-ontology-data-cleansing.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "combining-linked-data-and-statistical-information-retrieval-next-generation-information-systems": {
       "title": "Combining Linked Data and Statistical Information Retrieval - Next Generation Information Systems",
       "has_abstract": true,
-      "file": "_publications/combining-linked-data-and-statistical-information-retrieval-next-generation-information-systems.md"
+      "file": "_publications/combining-linked-data-and-statistical-information-retrieval-next-generation-information-systems.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "a-serviceoriented-search-framework-for-full-text-geospatial-and-semantic-search": {
       "title": "A service-oriented search framework for full text, geospatial and semantic search",
       "has_abstract": true,
-      "file": "_publications/a-serviceoriented-search-framework-for-full-text-geospatial-and-semantic-search.md"
+      "file": "_publications/a-serviceoriented-search-framework-for-full-text-geospatial-and-semantic-search.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "towards-an-open-question-answering-architecture": {
       "title": "Towards an open question answering architecture",
       "has_abstract": true,
-      "file": "_publications/towards-an-open-question-answering-architecture.md"
+      "file": "_publications/towards-an-open-question-answering-architecture.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "n-a-collection-of-datasets-for-named-entity-recognition-and-disambiguation-in-the-nlp-interchange-fo": {
       "title": "N³ - A Collection of Datasets for Named Entity Recognition and Disambiguation in the NLP Interchange Format",
       "has_abstract": true,
-      "file": "_publications/n-a-collection-of-datasets-for-named-entity-recognition-and-disambiguation-in-the-nlp-interchange-fo.md"
+      "file": "_publications/n-a-collection-of-datasets-for-named-entity-recognition-and-disambiguation-in-the-nlp-interchange-fo.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "nif4oggd-nlp-interchange-format-for-open-german-governmental-data": {
       "title": "NIF4OGGD - NLP Interchange Format for Open German Governmental Data",
       "has_abstract": true,
-      "file": "_publications/nif4oggd-nlp-interchange-format-for-open-german-governmental-data.md"
+      "file": "_publications/nif4oggd-nlp-interchange-format-for-open-german-governmental-data.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "webscale-extension-of-rdf-knowledge-bases-from-templated-websites": {
       "title": "Web-Scale Extension of RDF Knowledge Bases from Templated Websites",
       "has_abstract": true,
-      "file": "_publications/webscale-extension-of-rdf-knowledge-bases-from-templated-websites.md"
+      "file": "_publications/webscale-extension-of-rdf-knowledge-bases-from-templated-websites.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "crossdocument-coreference-resolution-using-latent-features": {
       "title": "Cross-Document Coreference Resolution Using Latent Features",
       "has_abstract": true,
-      "file": "_publications/crossdocument-coreference-resolution-using-latent-features.md"
+      "file": "_publications/crossdocument-coreference-resolution-using-latent-features.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "multilingual-disambiguation-of-named-entities-using-linked-data": {
       "title": "Multilingual Disambiguation of Named Entities Using Linked Data",
       "has_abstract": true,
-      "file": "_publications/multilingual-disambiguation-of-named-entities-using-linked-data.md"
+      "file": "_publications/multilingual-disambiguation-of-named-entities-using-linked-data.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "agdistis-graphbased-disambiguation-of-named-entities-using-linked-data": {
       "title": "AGDISTIS - Graph-Based Disambiguation of Named Entities Using Linked Data",
       "has_abstract": true,
-      "file": "_publications/agdistis-graphbased-disambiguation-of-named-entities-using-linked-data.md"
+      "file": "_publications/agdistis-graphbased-disambiguation-of-named-entities-using-linked-data.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "investigating-quality-ratersapos-performance-using-interface-evaluation-methods": {
       "title": "Investigating Quality Raters&apos; Performance Using Interface Evaluation Methods",
       "has_abstract": true,
-      "file": "_publications/investigating-quality-ratersapos-performance-using-interface-evaluation-methods.md"
+      "file": "_publications/investigating-quality-ratersapos-performance-using-interface-evaluation-methods.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "analyse-von-mikroblogdaten": {
       "title": "Analyse von Mikro-Blog-Daten",
       "has_abstract": true,
-      "file": "_publications/analyse-von-mikroblogdaten.md"
+      "file": "_publications/analyse-von-mikroblogdaten.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "realtime-rdf-extraction-from-unstructured-data-streams": {
       "title": "Real-Time RDF Extraction from Unstructured Data Streams",
       "has_abstract": true,
-      "file": "_publications/realtime-rdf-extraction-from-unstructured-data-streams.md"
+      "file": "_publications/realtime-rdf-extraction-from-unstructured-data-streams.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "analyse-divergenten-nutzerverhaltens-in-kollaborativen-taggingsystemen": {
       "title": "Analyse divergenten Nutzerverhaltens in kollaborativen Tagging-Systemen",
       "has_abstract": true,
-      "file": "_publications/analyse-divergenten-nutzerverhaltens-in-kollaborativen-taggingsystemen.md"
+      "file": "_publications/analyse-divergenten-nutzerverhaltens-in-kollaborativen-taggingsystemen.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "on-the-distinctiveness-of-tags-in-collaborative-tagging-systems": {
       "title": "On the distinctiveness of tags in collaborative tagging systems",
       "has_abstract": true,
-      "file": "_publications/on-the-distinctiveness-of-tags-in-collaborative-tagging-systems.md"
+      "file": "_publications/on-the-distinctiveness-of-tags-in-collaborative-tagging-systems.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     },
     "amharic-dbpedia-chapter-a-knowledge-graph-for-a-lowresource-language": {
       "title": "Amharic DBpedia Chapter: A Knowledge Graph for a Low-Resource Language",
       "has_abstract": true,
-      "file": "_publications/amharic-dbpedia-chapter-a-knowledge-graph-for-a-lowresource-language.md"
+      "file": "_publications/amharic-dbpedia-chapter-a-knowledge-graph-for-a-lowresource-language.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
     }
   }
 }

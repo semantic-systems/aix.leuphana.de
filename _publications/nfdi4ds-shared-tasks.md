@@ -13,6 +13,10 @@ authors:
   - "Fidan Limani"
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.18420/INF2023_105"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "GI-Jahrestagung 2023"
 ---
 
 > **Abstract:**

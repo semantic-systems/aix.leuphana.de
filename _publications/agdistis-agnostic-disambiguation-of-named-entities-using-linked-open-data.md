@@ -11,6 +11,10 @@ authors:
   - "Sören Auer"
   - "Andreas Both 0001"
 doi: "https://doi.org/10.3233/978-1-61499-419-0-1113"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "ECAI 2014"
 ---
 
 > **Abstract:**

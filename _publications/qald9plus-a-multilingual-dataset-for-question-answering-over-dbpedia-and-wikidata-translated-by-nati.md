@@ -8,6 +8,10 @@ authors:
   - "Ricardo Usbeck"
   - "Andreas Both 0001"
 doi: "https://doi.org/10.1109/ICSC52841.2022.00045"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "ICSC 2022"
 ---
 
 > **Abstract:**

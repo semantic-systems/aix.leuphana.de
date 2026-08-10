@@ -10,6 +10,10 @@ authors:
   - "Christiane Lemke"
   - "Maximilian Speicher"
 doi: "https://doi.org/10.1145/2660517.2660528"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "SEMANTiCS 2014"
 ---
 
 > **Abstract:**

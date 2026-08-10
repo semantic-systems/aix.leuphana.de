@@ -8,6 +8,9 @@ authors:
   - "Natanael Arndt"
   - "Julia Holze"
   - "Sören Auer"
+is_conference: false
+is_journal: false
+is_archive: false
 ---
 
 > **Abstract:**

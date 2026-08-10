@@ -8,6 +8,10 @@ authors:
   - "Ricardo Usbeck"
   - "Chris Biemann"
 doi: "https://doi.org/10.18653/V1/2023.FINDINGS-ACL.774"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "ACL 2023"
 ---
 
 > **Abstract:**

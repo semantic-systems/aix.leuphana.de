@@ -7,6 +7,10 @@ authors:
   - "Axel-Cyrille Ngonga Ngomo"
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.1145/3184558.3186964"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "WWW 2018"
 ---
 
 > **Abstract:**

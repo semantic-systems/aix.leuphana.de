@@ -7,6 +7,10 @@ authors:
   - "Sushil Awale"
   - "Ricardo Usbeck"
   - "Chris Biemann"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "BIR@ECIR 2023"
 ---
 
 > **Abstract:**

@@ -7,6 +7,10 @@ authors:
   - "Jens Lehmann 0001"
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.18653/V1/2021.EMNLP-MAIN.618"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "EMNLP 2021"
 ---
 
 > **Abstract:**

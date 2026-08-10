@@ -8,6 +8,10 @@ authors:
   - "Ulrich Fritsche"
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.48550/ARXIV.2603.01930"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "LREC 2026"
 ---
 
 > **Abstract:**

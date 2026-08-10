@@ -8,6 +8,10 @@ authors:
   - "Andreas Both 0001"
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.3233/SSW230004"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "SEMANTiCS 2023"
 ---
 
 > **Abstract:**

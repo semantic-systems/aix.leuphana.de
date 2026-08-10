@@ -8,6 +8,10 @@ authors:
   - "Jan Seliger"
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.3233/FAIA240615"
+is_conference: true
+is_journal: false
+is_archive: false
+conference: "ECAI 2024"
 ---
 
 > **Abstract:**

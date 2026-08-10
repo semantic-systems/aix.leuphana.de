@@ -7,6 +7,10 @@ authors:
   - "Debayan Banerjee"
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.1109/ACCESS.2026.3681404"
+is_conference: false
+is_journal: true
+is_archive: false
+journal: "IEEE Access"
 ---
 
 > **Abstract:**
