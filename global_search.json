@@ -1,0 +1,27 @@
+---
+layout: null
+---
+[
+  {% assign all_content = site.pages | concat: site.posts | concat: site.projects | concat: site.publications | concat: site.team | concat: site.demos %}
+  {% assign count = 0 %}
+  {% for item in all_content %}
+    {% if item.collection == "team" %}
+      {% assign item_title = item.name %}
+    {% else %}
+      {% assign item_title = item.title %}
+    {% endif %}
+    
+    {% if item_title and item.url %}
+      {% if count > 0 %},{% endif %}
+      {% assign cat = item.collection | default: 'Page' | capitalize %}
+      {% if cat == "Posts" %}{% assign cat = "News" %}{% endif %}
+      {
+        "title"    : "{{ item_title | escape }}",
+        "url"      : "{{ item.url | relative_url }}",
+        "category" : "{{ cat }}",
+        "excerpt"  : "{{ item.excerpt | strip_html | strip_newlines | escape }}"
+      }
+      {% assign count = count | plus: 1 %}
+    {% endif %}
+  {% endfor %}
+]

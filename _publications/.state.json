@@ -1,12 +1,12 @@
 {
   "summary": {
-    "total_publications": 160,
-    "with_abstract": 156,
-    "without_abstract": 4,
-    "total_conference": 105,
-    "total_journal": 16,
-    "total_archive": 15,
-    "last_updated": "2026-08-10T13:56:59.231259+00:00"
+    "total_publications": 147,
+    "with_abstract": 145,
+    "without_abstract": 2,
+    "total_conference": 102,
+    "total_journal": 13,
+    "total_archive": 14,
+    "last_updated": "2026-08-12T12:31:26.401074+00:00"
   },
   "publications": {
     "collapsing-distance-the-curse-of-ground-truth-in-computational-narrative-understanding": {
