@@ -1,4 +1,4 @@
-FROM python:3.11-slim
+FROM mcr.microsoft.com/playwright/python:v1.44.0-jammy
 
 # Set working directory
 WORKDIR /site
@@ -12,8 +12,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Create the publications directory if it doesn't exist
 RUN mkdir -p _publications
 
-# Copy the script
-COPY scripts/fetch_publications.py /site/scripts/
+# Copy the scripts
+COPY scripts/ /site/scripts/
 
-# The CMD runs the python script in an infinite loop, sleeping for 24 hours (86400 seconds) between runs
-CMD ["/bin/bash", "-c", "while true; do python3 /site/scripts/fetch_publications.py; echo 'Sleeping for 24 hours...'; sleep 86400; done"]
+# The CMD runs the python scripts in an infinite loop, sleeping for 24 hours (86400 seconds) between runs
+CMD ["/bin/bash", "-c", "while true; do python3 /site/scripts/fetch_publications.py; python3 /site/scripts/check_broken_links.py; echo 'Sleeping for 24 hours...'; sleep 86400; done"]
