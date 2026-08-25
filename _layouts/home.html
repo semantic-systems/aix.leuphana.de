@@ -9,7 +9,7 @@
 
     {% assign hero_images = "" | split: "" %}
     {% for file in site.static_files %}
-      {% if file.path contains '/assets/images/hero/' %}
+      {% if file.path contains '/assets/images/wallpaper/' %}
         {% assign hero_images = hero_images | push: file.path %}
       {% endif %}
     {% endfor %}

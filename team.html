@@ -70,7 +70,7 @@ permalink: /team/
       {% for member in members %}
         <div class="person-card">
           <a href="{{ member.url | relative_url }}">
-            <img src="{{ '/assets/images/' | append: member.image | relative_url }}" alt="{{ member.name }}" class="profile-pic">
+            <img src="{{ '/assets/images/profile_photo/' | append: member.image | relative_url }}" alt="{{ member.name }}" class="profile-pic">
             <div>
               <h3>{{ member.name }}</h3>
             </div>
@@ -97,7 +97,7 @@ permalink: /team/
     {% for member in other_members %}
       <div class="person-card">
         <a href="{{ member.url | relative_url }}">
-          <img src="{{ '/assets/images/' | append: member.image | relative_url }}" alt="{{ member.name }}" class="profile-pic">
+          <img src="{{ '/assets/images/profile_photo/' | append: member.image | relative_url }}" alt="{{ member.name }}" class="profile-pic">
           <div>
             <h3>{{ member.name }}</h3>
             <p class="role">{{ member.job_category | replace: "_", " " | capitalize }}</p>

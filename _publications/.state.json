@@ -1,12 +1,12 @@
 {
   "summary": {
-    "total_publications": 147,
-    "with_abstract": 145,
+    "total_publications": 148,
+    "with_abstract": 146,
     "without_abstract": 2,
     "total_conference": 102,
     "total_journal": 13,
-    "total_archive": 14,
-    "last_updated": "2026-08-12T12:31:26.401074+00:00"
+    "total_archive": 15,
+    "last_updated": "2026-08-23T22:55:24.710858+00:00"
   },
   "publications": {
     "collapsing-distance-the-curse-of-ground-truth-in-computational-narrative-understanding": {
@@ -1184,6 +1184,14 @@
       "is_conference": true,
       "is_journal": false,
       "is_archive": false
+    },
+    "symstep-symbolic-step-verification-for-logical-reasoning": {
+      "title": "SymStep: Symbolic Step Verification for Logical Reasoning",
+      "has_abstract": true,
+      "file": "_publications/symstep-symbolic-step-verification-for-logical-reasoning.md",
+      "is_conference": false,
+      "is_journal": false,
+      "is_archive": true
     }
   }
 }
