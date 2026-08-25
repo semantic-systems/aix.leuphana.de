@@ -25,7 +25,7 @@ from email.mime.multipart import MIMEMultipart
 from dotenv import load_dotenv
 
 from playwright.sync_api import sync_playwright
-from playwright_stealth import Stealth
+from playwright_stealth import stealth_sync
 
 # Automatically load the .env file in the current directory if it exists
 load_dotenv()
@@ -216,8 +216,7 @@ def main():
             user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
         )
         page = context.new_page()
-        stealth_plugin = Stealth()
-        stealth_plugin.apply_stealth_sync(page) # Apply stealth to avoid bot detection
+        stealth_sync(page) # Apply stealth to avoid bot detection
         
         for file_path in html_files:
             with open(file_path, 'r', encoding='utf-8') as f:
