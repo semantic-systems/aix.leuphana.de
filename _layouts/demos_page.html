@@ -1,0 +1,37 @@
+---
+layout: default
+---
+<article class="post">
+  <header class="post-header">
+    <h1 class="post-title">{{ page.title | escape }}</h1>
+  </header>
+  <div class="post-content">
+<div class="demos-list">
+  <p style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 2rem;">
+    Explore our interactive demos showcasing our research in action.
+  </p>
+
+  <div class="cards-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;">
+    {% for demo in paginator.posts %}
+      <a href="{{ demo.url | relative_url }}" class="card-link" style="text-decoration: none; color: inherit; display: block;">
+        <div class="demo-card" style="border: 1px solid var(--c-granit-20); border-radius: 8px; overflow: hidden; background: var(--bg-primary); transition: transform 0.2s ease, box-shadow 0.2s ease; height: 100%; display: flex; flex-direction: column;">
+          
+          {% if demo.image and demo.image != "" %}
+            <div class="card-image-placeholder" style="height: 180px; width: 100%; background-color: var(--c-granit-20); background-image: url('{{ demo.image | relative_url }}'); background-size: cover; background-position: center;"></div>
+          {% endif %}
+
+          <div class="card-content" style="padding: 1.25rem; flex-grow: 1;">
+            <h3 style="margin: 0 0 0.5rem 0; font-size: 1.2rem; color: var(--text-primary);">{{ demo.title }}</h3>
+            <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">
+              {{ demo.excerpt | strip_html | truncatewords: 25 }}
+            </p>
+          </div>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+</div>
+
+{% include pagination.html base_url="/demos/" %}
+  </div>
+</article>

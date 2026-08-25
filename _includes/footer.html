@@ -1,40 +1,84 @@
 <footer class="site-footer h-card">
-  <data class="u-url" href="/"></data>
+  <data class="u-url" href="{{ '/' | relative_url }}"></data>
 
   <div class="wrapper">
-    <h2 class="footer-heading">{{ site.title | escape }}</h2>
-
     <div class="footer-col-wrapper">
+      
       <div class="footer-col footer-col-1">
-        <ul class="contact-list">
-          <li class="p-name">
-            {%- if site.author -%}
-              {{ site.author | escape }}
-            {%- else -%}
-              {{ site.title | escape }}
-            {%- endif -%}
-          </li>
-          {%- if site.email -%}
-          <li><a class="u-email" href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+        <h2>{{ site.title | escape }}</h2>
+        <p>{{ site.description | escape }}</p>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="footer-links">
+          <li><strong>Quick Links</strong></li>
+          <li><a href="{{ '/team/' | relative_url }}">Team</a></li>
+          <li><a href="{{ '/projects/' | relative_url }}">Projects</a></li>
+          <li><a href="{{ '/publications/' | relative_url }}">Publications</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <ul class="footer-links">
+          <li><strong>Legal</strong></li>
+          <li><a href="{{ '/impressum/' | relative_url }}">Impressum</a></li>
+          <li><a href="{{ '/privacy/' | relative_url }}">Privacy Policy</a></li>
+          <!-- <li><a href="{{ '/accessability/' | relative_url }}">Accessibility</a></li> -->
+        </ul>
+      </div>
+      
+      <div class="footer-col footer-col-4">
+        <ul class="footer-links">
+          <li><strong>Connect</strong></li>
+          {%- if site.github -%}
+            <li><a href="{{ site.github }}" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          {%- endif -%}
+          {%- if site.linkedin -%}
+            <li><a href="{{ site.linkedin }}" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          {%- endif -%}
+          {%- if site.leuphana -%}
+            <li><a href="{{ site.leuphana }}" target="_blank" rel="noopener noreferrer">Leuphana Portal</a></li>
           {%- endif -%}
         </ul>
       </div>
 
-      <div class="footer-col footer-col-2">
-        {%- include social.html -%}
-      </div>
+    </div>
 
-       <div class="footer-col footer-col-3">
-         <p>{{ site.description | escape }}</p>
-       </div>
-
-       <div class="footer-col footer-col-4">
-         <ul class="footer-links">
-           <li><a href="{{ '/accessibility/' | relative_url }}">Accessibility</a></li>
-           <li><a href="{{ '/impressum/' | relative_url }}">Impressum</a></li>
-           <li><a href="{{ '/privacy/' | relative_url }}">Privacy</a></li>
-         </ul>
-       </div>
+    <div class="copyright">
+      &copy; {{ site.time | date: "%Y" }} AIX Research Group - Leuphana University Lüneburg. All rights reserved.
     </div>
   </div>
 </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const bibtexBlocks = document.querySelectorAll('.language-bibtex, .highlighter-rouge');
+  
+  bibtexBlocks.forEach(function(block) {
+    const pre = block.querySelector('pre');
+    if (!pre) return;
+    
+    block.style.position = 'relative';
+
+    const btn = document.createElement('button');
+    btn.className = 'copy-bibtex-btn';
+    btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy';
+    btn.title = 'Copy BibTeX to clipboard';
+
+    btn.addEventListener('click', function() {
+      const text = pre.innerText || pre.textContent;
+      navigator.clipboard.writeText(text).then(function() {
+        const originalHTML = btn.innerHTML;
+        btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+        btn.classList.add('copied');
+        setTimeout(function() {
+          btn.innerHTML = originalHTML;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    });
+
+    block.appendChild(btn);
+  });
+});
+</script>

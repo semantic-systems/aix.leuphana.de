@@ -1,0 +1,39 @@
+---
+layout: default
+---
+<article class="post">
+  <header class="post-header">
+    <h1 class="post-title">{{ page.title | escape }}</h1>
+  </header>
+  <div class="post-content">
+    <ul class="post-list" style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 2rem;">
+      {% for post in paginator.posts %}
+        <li style="display: flex; gap: 1.5rem; background: var(--bg-primary); border: 1px solid var(--c-granit-20); border-radius: 8px; overflow: hidden; padding: 1.5rem; transition: box-shadow 0.2s ease;">
+          {% assign preview_image = post.thumbnail | default: post.image %}
+          {% if preview_image and preview_image != "" %}
+            <div class="post-image" style="flex: 0 0 250px; height: 180px; border-radius: 4px; overflow: hidden; background-color: var(--c-granit-20); display: flex; align-items: center; justify-content: center;">
+              <img src="{{ preview_image | relative_url }}" alt="{{ post.title }}" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+          {% endif %}
+          
+          <div class="post-content-inner" style="flex: 1; display: flex; flex-direction: column;">
+            <span class="post-meta" style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.5rem; display: block;">{{ post.date | date: "%B %-d, %Y" }}</span>
+            <h3 style="margin: 0 0 0.75rem 0; font-size: 1.4rem;">
+              <a class="post-link" href="{{ post.url | relative_url }}" style="color: var(--text-primary); text-decoration: none;">
+                {{ post.title | escape }}
+              </a>
+            </h3>
+            <p style="color: var(--text-secondary); line-height: 1.6; margin: 0; flex-grow: 1;">
+              {{ post.excerpt | strip_html | truncatewords: 40 }}
+            </p>
+            <div style="margin-top: 1rem;">
+              <a href="{{ post.url | relative_url }}" style="color: var(--c-jaspis); font-weight: 600; text-decoration: none;">Read more →</a>
+            </div>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+    
+    {% include pagination.html base_url="/news/" %}
+  </div>
+</article>

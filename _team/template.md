@@ -5,10 +5,11 @@
 # Then fill in the details below
 
 # Required fields
-name: "Debayan Banerjee"
+name: "First Name Last Name"
 title: "Academic/Professional Title"
-image: "debayan_banerjee.png"  # Place image in assets/images/ directory
-job_category: "category"     # Use one of: head, tech_and_admin academic_advisor, research_assistant, research_associate, scholarship_holder, external_phd, student_assistant, alumni
+image: "image-filename.jpg"  # Place image in assets/images/profile_photo/ directory
+job_category: "category"     # Use one of: head, academic_advisor, research_assistant, research_associate, scholarship_holder, external_phd, student_assistant, alumni
+published: false             # Prevents Jekyll from rendering this template into a live webpage
 
 # Optional fields
 bio: |

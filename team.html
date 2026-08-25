@@ -1,0 +1,109 @@
+---
+layout: default
+title: Team
+permalink: /team/
+---
+
+<div class="team-intro-section" style="margin-bottom: 4rem;">
+  <div style="display: flex; flex-wrap: wrap; gap: 3rem; align-items: center; margin-bottom: 4rem; margin-top: 2rem;">
+    <div style="flex: 1; min-width: 300px;">
+      <h1 style="margin-bottom: 1.5rem; font-size: 2.8rem; color: var(--c-jaspis); line-height: 1.2;">Artificial Intelligence and Explainability</h1>
+      <p style="font-size: 1.15rem; line-height: 1.8; color: var(--text-secondary);">
+        The research group Artificial Intelligence and Explainability (AIX), led by Prof. Dr. Ricardo Usbeck, focuses on the topic of neuro-symbolic AI, where neural network-based machine learning is combined with symbolic AI, to arrive at explainable and responsible real-world solutions. This is achieved by leveraging the latest in Natural Language Processing-based technologies, such as Transformer-based models and Large Language Models (LLMs), in combination with Knowledge Graphs and Databases.
+      </p>
+    </div>
+    <div style="flex: 1; min-width: 300px;">
+      <img src="{{ '/assets/images/AIX_team2026.jpg' | relative_url }}" alt="AIX Team" style="width: 100%; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 8px solid white;">
+    </div>
+  </div>
+
+  <div class="team-pillars" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+    <div class="pillar-card" style="background: var(--bg-primary); padding: 2.5rem; border-radius: 12px; border-top: 5px solid var(--c-orange); box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+      <h3 style="color: var(--c-orange); margin-top: 0; font-size: 1.5rem; margin-bottom: 1rem;">Research</h3>
+      <p style="font-size: 1rem; line-height: 1.6; color: var(--text-secondary); margin: 0;">
+        The AIX group currently focuses on the following topics for research: Knowledge Graph Question Answering, Neuro-symbolic AI, Conversational AI, Narrative understanding in Natural Language Processing, Bio-medical Knowledge Graphs, Ethics of AI, and Sustainability in AI. As a complementary interest of the AIX Group, a playground called “Creative Space” has been set up on the Leuphana campus, where students can physically interact with AI-based tools, such as interactive simulations, robots, and similar technologies. We strive to bring solutions to real-world problems.
+      </p>
+    </div>
+
+    <div class="pillar-card" style="background: var(--bg-primary); padding: 2.5rem; border-radius: 12px; border-top: 5px solid var(--c-jaspis); box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+      <h3 style="color: var(--c-jaspis); margin-top: 0; font-size: 1.5rem; margin-bottom: 1rem;">Teaching</h3>
+      <p style="font-size: 1rem; line-height: 1.6; color: var(--text-secondary); margin: 0;">
+        The AIX group currently participates in teaching a variety of related topics in both the Bachelor's and Master's courses at Leuphana. In particular, we offer courses in the Major Business Information Systems, the Minor AI, the Master Management and Data Science as well as in the DataX Module in the Leuphana semester. Our courses cover AI projects, AI seminars, advanced AI lecture focusing on NLP and Knowledge Graphs, methods courses and Explainable AI and Visualisation lectures. We do see AI as not only a technical but a societal challenge and teach it that way.
+      </p>
+    </div>
+
+    <div class="pillar-card" style="background: var(--bg-primary); padding: 2.5rem; border-radius: 12px; border-top: 5px solid var(--c-blau); box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+      <h3 style="color: var(--c-blau); margin-top: 0; font-size: 1.5rem; margin-bottom: 1rem;">Transfer</h3>
+      <p style="font-size: 1rem; line-height: 1.6; color: var(--text-secondary); margin: 0;">
+        The AIX group regularly works on funded projects with collaborating partners such as Siemens, Airbus, Lufthansa, HHLA, HPA, UKE and many more. Currently ongoing projects include topics such as the national research data infrastructure for AI and data science, a medical project on reading doctoral letters, decision-support in crisis situations for the city of Hamburg.
+      </p>
+    </div>
+  </div>
+</div>
+
+<hr style="border: none; border-top: 2px solid var(--c-granit-20); margin: 4rem 0;">
+
+<h2 style="font-size: 2.5rem; text-align: center; margin-bottom: 1rem;">Our Team Members</h2>
+
+{% assign defined_categories = "head,office_management,technical_staff,researcher,student_assistant,alumni" | split: "," %}
+
+{% for cat in defined_categories %}
+  {% assign members = site.team | where: "job_category", cat %}
+  
+  {% if members.size > 0 %}
+    {% case cat %}
+      {% when "head" %}
+        <h2 style="margin-top: 3rem; border-bottom: 2px solid var(--c-granit-20); padding-bottom: 0.5rem;">Head</h2>
+      {% when "office_management" %}
+        <h2 style="margin-top: 3rem; border-bottom: 2px solid var(--c-granit-20); padding-bottom: 0.5rem;">Office Management</h2>
+      {% when "technical_staff" %}
+        <h2 style="margin-top: 3rem; border-bottom: 2px solid var(--c-granit-20); padding-bottom: 0.5rem;">Technical and Administrative Staff</h2>
+      {% when "researcher" %}
+        <h2 style="margin-top: 3rem; border-bottom: 2px solid var(--c-granit-20); padding-bottom: 0.5rem;">Researchers</h2>
+      {% when "student_assistant" %}
+        <h2 style="margin-top: 3rem; border-bottom: 2px solid var(--c-granit-20); padding-bottom: 0.5rem;">Student Assistants and Research Assistants</h2>
+      {% when "alumni" %}
+        <h2 style="margin-top: 3rem; border-bottom: 2px solid var(--c-granit-20); padding-bottom: 0.5rem;">Alumni</h2>
+    {% endcase %}
+
+    <div class="team-grid">
+      {% for member in members %}
+        <div class="person-card">
+          <a href="{{ member.url | relative_url }}">
+            <img src="{{ '/assets/images/profile_photo/' | append: member.image | relative_url }}" alt="{{ member.name }}" class="profile-pic">
+            <div>
+              <h3>{{ member.name }}</h3>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endfor %}
+
+{% comment %} Handle any other uncategorized members {% endcomment %}
+{% assign all_defined = "head,office_management,technical_staff,researcher,student_assistant,alumni" %}
+{% assign other_members = "" | split: "" %}
+
+{% for member in site.team %}
+  {% unless all_defined contains member.job_category %}
+    {% assign other_members = other_members | push: member %}
+  {% endunless %}
+{% endfor %}
+
+{% if other_members.size > 0 %}
+  <h2 style="margin-top: 3rem; border-bottom: 2px solid var(--c-granit-20); padding-bottom: 0.5rem;">Other Members</h2>
+  <div class="team-grid">
+    {% for member in other_members %}
+      <div class="person-card">
+        <a href="{{ member.url | relative_url }}">
+          <img src="{{ '/assets/images/profile_photo/' | append: member.image | relative_url }}" alt="{{ member.name }}" class="profile-pic">
+          <div>
+            <h3>{{ member.name }}</h3>
+            <p class="role">{{ member.job_category | replace: "_", " " | capitalize }}</p>
+          </div>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}

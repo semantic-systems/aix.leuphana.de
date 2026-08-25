@@ -1,0 +1,424 @@
+1. PROVIDER 
+A BMFTR project to develop dynamic simulations and self-learning LLM agents for anticipating supply shortages. AIX leads work on neuro-symbolic information extraction and explainable event analysis. Active
+‌Details:[
+        Proaktive Versorgungssicherheit durch dynamische Simulation mit selbstlernenden LLM-Agenten - Teilvorhaben: Neuro-Symbolische KI für Erklärbare Informationsextraktion und Event-Analyse
+    Usbeck, Ricardo (Wissenschaftliche Projektleiter*in)Westphal, Patrick (Projektmitarbeiter*in)Burmester, Julian (Projektmitarbeiter*in)
+    Professur für Wirtschaftsinformatik, insbesondere Künstliche Intelligenz und Erklärbarkeit
+    DATEV EG GermanyIAK Agrar Consulting GmbHInstitut für Angewandte Informatik e.V.OFFIS – Institut für InformatikTechnische Universität Chemnitz
+    Projekt: Forschung
+
+    Übersicht
+    Fingerprint
+    Projektdetails
+    Beschreibung
+    Das Verbundprojekt PROVIDER entwickelt ein KI-gestütztes Frühwarnsystem zur frühzeitigen Erkennung, Analyse und Simulation möglicher Versorgungsengpässe in Deutschland. Im Mittelpunkt stehen Lieferketten und Versorgungssysteme, die für die alltägliche Versorgungssicherheit relevant sind, jedoch nicht notwendigerweise zur klassischen kritischen Infrastruktur zählen. Viele dieser Waren-, Logistik- und Dienstleistungsketten sind hochgradig optimiert, international verflochten und gegenüber Störungen durch Extremwetterereignisse, geopolitische Konflikte, Produktionsausfälle, Transportprobleme oder gesellschaftliche Krisen besonders anfällig.
+    PROVIDER verfolgt das Ziel, von reaktiven Post-hoc-Analysen zu einem kontinuierlich arbeitenden, vorausschauenden System überzugehen. Dazu werden heterogene Datenquellen, aktuelle Nachrichtenströme, öffentliche Daten, wirtschaftliche Informationen und Wissensgraphen zusammengeführt. Auf dieser Grundlage sollen dynamische Simulationen entstehen, mit denen mögliche Engpässe und Kaskadeneffekte über einen Zeitraum von mehreren Monaten abgeschätzt werden können. Das Projekt kombiniert hierzu Knowledge Graphs, Large Language Models, agentenbasierte Simulation, Deep Reinforcement Learning und Adversarial Resilience Learning.
+    Das Teilvorhaben der Leuphana Universität Lüneburg fokussiert auf neuro-symbolische KI für erklärbare Informationsextraktion und Event-Analyse. Ziel ist es, Methoden zu entwickeln, mit denen relevante Ereignisse aus strukturierten und unstrukturierten Datenquellen, insbesondere aus Nachrichtenströmen, erkannt, semantisch eingeordnet und für die Parametrisierung sowie Auswertung von Simulationen nutzbar gemacht werden können. Ein besonderer Schwerpunkt liegt auf der Nutzung und Anpassung von Large Language Models, der Verknüpfung mit Wissensgraphen sowie der Entwicklung LLM-basierter Agenten, die generisch auf externe Schnittstellen zugreifen können.
+    Darüber hinaus entwickelt die Leuphana im Projekt ein interaktives Auswertungswerkzeug mit natürlichsprachlicher Schnittstelle. Nutzerinnen und Nutzer, die nicht über informatische Fachkenntnisse verfügen, sollen Simulationsergebnisse abfragen, Werte und Werteverläufe visualisieren und die Herkunft sowie Begründung von Ergebnissen nachvollziehen können. Damit trägt das Teilvorhaben dazu bei, komplexe Simulationsergebnisse verständlich, erklärbar und für Entscheidungsprozesse nutzbar zu machen.
+    KurztitelPROVIDER-Projekt
+    AkronymPROVIDER
+    StatusLaufend
+    Zeitraum01.01.26 → 31.12.28
+    Projektbeteiligte
+    Leuphana Universität Lüneburg (Leitung)
+    DATEV EG Germany
+    IAK Agrar Consulting GmbH
+    Institut für Angewandte Informatik e.V.
+    OFFIS – Institut für Informatik
+    Technische Universität Chemnitz
+    Förderorganisation
+    Bundesministerium für Forschung, Technologie und Raumfahrt
+    Mittelherkunft
+    Bundesförderung
+    Förderprogramm/ -linie
+    Projektförderung allgemein (BMFTR)
+    Auf Projekt zugreifen
+    Projekt Webseite
+
+    Fingerprint
+    Erkunden Sie die Forschungsthemen, die von diesem Projekt angesprochen werden. Diese Bezeichnungen werden den ihnen zugrunde liegenden Bewilligungen/Fördermitteln entsprechend generiert. Zusammen bilden sie einen einzigartigen Fingerprint.
+
+    Knowledge Graph
+    Keyphrases
+    100%
+
+    Large Language Model
+    Computer Science
+    100%
+
+    News Flow
+    Keyphrases
+    66%
+
+    Artificial Intelligence
+    Social Sciences
+    66%
+
+    Learning Resilience
+    Keyphrases
+    33%
+
+    Adversarial Resilience Learning
+    Keyphrases
+    33%
+
+    Information Graph
+    Keyphrases
+    33%
+
+    Production Failures
+    Keyphrases
+]
+
+2. RESCUE-MATE 
+A BMFTR project that uses real-time, geospatial, and social-media data to create dynamic crisis situation pictures and decision support for rescue services. Active
+‌
+3. NFDI4DataScience / NFDI4DS 
+DFG project on national research data infrastructure connecting publications, datasets, software, and models to make Data Science and AI research more FAIR, reproducible, and searchable. Active
+Details:[
+        NFDI4DS - NFDI für Datenwissenschaften und Künstliche Intelligenz
+    Usbeck, Ricardo (Wissenschaftliche Projektleiter*in)
+    Professur für Wirtschaftsinformatik, insbesondere Künstliche Intelligenz und Erklärbarkeit
+    Projekt: Forschung
+
+    Übersicht
+    Fingerprint
+    Publikationen (10)
+    Projektdetails
+    Beschreibung
+    NFDI4DataScience (NFDI4DS) folgt einer Vision: für Data Science und die Fortschritte in Künstlicher Intelligenz ist es unabdingbar, alle Schritte des komplexen und interdisziplinären Lebenszyklus für Forschungsdaten vollumfänglich zu unterstützen, also das Sammeln / Erstellen, Verarbeiten, Analysieren, Veröffentlichen, Archivieren und Wiederverwenden der unterschiedlichen Ressourcen. Durch den Paradigmenwechsel in den letzten Jahren werden die leistungsfähigsten Berechnungsmethoden zunehmend durch datengetriebene Ansätze insbesondere auch Deep-Learning-Ansätze erreicht. Dies hat zur Etablierung von Data Science als eigenständige und allgegenwärtige wissenschaftliche Disziplin geführt, die von den Fortschritten in der Informatik angetrieben wird, aber seine hohe Bedeutung aus den vielfältigen Ergebnissen in fast allen wissenschaftlichen Disziplinen schöpft. Die Herausforderungen für Data Science und die Künstliche Intelligenz liegen in der Beherrschung der modernen Data Science-Methoden, indem die Prinzipien von Transparenz, Reproduzierbarkeit und Fairness für die digitalen Objekte umgesetzt werden, d.h. für die Kombination von Code, Modellen und Daten, die für das Training verwendet werden. Aufgrund der herausragenden Bedeutung von Data Science und der Künstlichen Intelligenz für die Informatik sowie für das weitere Spektrum vieler wissenschaftlicher Disziplinen wird NFDI4DS seine Forschungsdateninfrastrukturen öffnen, um alle verfügbaren Ressourcen wie Code, Modelle, Daten oder Veröffentlichungen in die wissenschaftlichen Communities einzubringen: NFDI4DS verfolgt die Entwicklung, Einrichtung und Aufrechterhaltung einer nationalen Forschungsdateninfrastruktur für die Communitys in Data Science und der Künstlichen Intelligenz in Deutschland. Dies bietet darüber hinaus Vorteile für eine breitere Community, die auf Datenanalyselösungen z.B. innerhalb der NFDI angewiesen sind. Es ist oberstes Ziel, dass alle digitalen Artefakte verfügbar gemacht, miteinander verknüpft und innovative Tools und Dienste angeboten werden, um durch die vielfältige Wiederverwendung eine neue und innovative Forschung zu ermöglichen. NFDI4DS beabsichtigt, die Community in Data Science und der Künstlichen Intelligenz, als interdisziplinären Bereich mit Wurzeln in der Informatik, in der Wissenschaft zusammenzubringen und zu vertreten. Wir sind bestrebt, vorhandene Lösungen wiederzuverwenden und eng mit den anderen NFDI-Konsortien als auch anderen Communitys zusammenzuarbeiten. In der Anfangsphase wird sich NFDI4DS auf vier datenwissenschaftlich besonders hervorstechende Anwendungsbereiche konzentrieren: Sprachtechnologie, lebenswissenschaftliche Bereiche, Informations- und Sozialwissenschaften. Das in NFDI4DS verfügbare Fachwissen in Bezug auf Data Science und Künstliche Intelligenz, Infrastrukturentwicklung und weiteres Domänenwissen stellt sicher, dass Metadatenstandards domänenübergreifend interoperabel sind und neue Wege für den Umgang mit digitalen Objekten entstehen.
+    StatusLaufend
+    Zeitraum01.01.24 → 30.09.26
+    Förderorganisation
+
+    Deutsche Forschungsgemeinschaft
+    UN-Ziele für nachhaltige Entwicklung
+    2015 einigten sich UN-Mitgliedstaaten auf 17 globale Ziele für nachhaltige Entwicklung (Sustainable Development Goals, SDGs) zur Beendigung der Armut, zum Schutz des Planeten und zur Förderung des allgemeinen Wohlstands. Die Arbeit dieses Projekts leistet einen Beitrag zu folgendem(n) SDG(s):
+
+    SDG 5 – Gleichberechtigung der Geschlechter
+    SDG 5 – Gleichberechtigung der Geschlechter
+    Mittelherkunft
+    Deutsche Forschungsgemeinschaft (DFG)
+    Förderprogramm/ -linie
+    Nationale Forschungsdateninfrastruktur
+    Auf Projekt zugreifen
+    Gefördert durch die Deutsche Forschungsgemeinschaft (DFG) - Projektnummer: 460234259
+
+    Fingerprint
+    Erkunden Sie die Forschungsthemen, die von diesem Projekt angesprochen werden. Diese Bezeichnungen werden den ihnen zugrunde liegenden Bewilligungen/Fördermitteln entsprechend generiert. Zusammen bilden sie einen einzigartigen Fingerprint.
+
+    Knowledge Graph
+    Computer Science
+    100%
+
+    Artificial Intelligence
+    Computer Science
+    75%
+
+    Large Language Model
+    Computer Science
+    60%
+
+    Question Answering
+    Keyphrases
+    56%
+
+    Large Language Models
+    Keyphrases
+    51%
+
+    Data Science
+    Keyphrases
+    37%
+
+    Knowledge Graph Question Answering
+    Keyphrases
+    37%
+
+    question answering system
+    Computer Science
+
+]
+‌
+4. LLMs for clinical-research data extraction 
+BMFTR project with DZHK and UKE, which uses large language models to extract structured clinical information from discharge letters and other medical documents. Completed
+Details:[
+        Anwendung großer Sprachmodelle zur Verbesserung der Datenextraktion für klinische Forschung
+    Usbeck, Ricardo (Wissenschaftliche Projektleiter*in)
+    Professur für Wirtschaftsinformatik, insbesondere Künstliche Intelligenz und Erklärbarkeit
+    Universitätsklinikum Hamburg-Eppendorf
+    Projekt: Forschung
+
+    Übersicht
+    Fingerprint
+    Projektdetails
+    Beschreibung
+    Acute heart failure including cardiogenic shock is a life-threatening condition with high 30-day mortality up to 60%.
+    In order to understand these critical conditions better, large registries are being established. These are most valuable primarily in generating hypotheses for further assessment. This assessment is usually performed in randomised controlled trials (RCTs) which permit insights into causal relationships between medical interventions (like the use of novel medical drugs or mechanical circulatory support devices like the veno-arterial extracorporeal membrane oxygenation, so-called VA-ECMO) and patient outcomes. Unfortunately, building the registries as well as performing RCTs are labour-intensive endeavours and, thus, both time-consuming and costly.
+    In the applicants’ opinion, leveraging existing data collected from clinical routine is of utmost importance to advance the research in understanding the critical conditions. Also, increasing the rate of patient recruitment by better embedding research-related tasks into clinical routine will reduce RCT durations necessary to obtain sufficient numbers of patients according to power calculations. On top, building larger registries from automatically collected data in a multi-centre setting will be simplified.
+    Applying artificial intelligence (AI) through large language models (LLMs) addresses this need: Much information of interest to the clinical researcher is contained in discharge letters from hospitals in a more or less structured way. Instead of spending labour force to collect these data, applying AI is a valuable and cost-saving alternative.
+    StatusAbgeschlossen
+    Zeitraum01.09.24 → 28.02.26
+    Projektbeteiligte
+    Leuphana Universität Lüneburg (Leitung)
+    Universitätsklinikum Hamburg-Eppendorf
+    Mittelherkunft
+    Bundesförderung
+    Förderprogramm/ -linie
+    Projektförderung allgemein (BMFTR)
+    Fingerprint
+    Erkunden Sie die Forschungsthemen, die von diesem Projekt angesprochen werden. Diese Bezeichnungen werden den ihnen zugrunde liegenden Bewilligungen/Fördermitteln entsprechend generiert. Zusammen bilden sie einen einzigartigen Fingerprint.
+
+    Large Language Models
+    Keyphrases
+    100%
+
+    Data Extraction
+    Keyphrases
+    100%
+
+    Randomized Controlled Trial
+    Keyphrases
+    100%
+
+    Artificial Intelligence
+    Nursing and Health Professions
+    100%
+
+    Venoarterial Extracorporeal Membrane Oxygenation (VA-ECMO)
+    Keyphrases
+    66%
+
+    Clinical Routine
+    Keyphrases
+    66%
+
+    Cardiogenic Shock
+    Nursing and Health Professions
+    50%
+
+    Acute Heart Failure
+    Nursing and Health Professions
+]
+‌
+5. Creative Space for Human and Artificial Intelligence 
+An open, project-based experimentation, learning, and advisory space where students from all disciplines explore AI and data literacy through hands-on, curiosity-driven, interdisciplinary collaboration. Active
+‌Details:[
+        Studienqualitätsmittel: Aufbau Creative Space for Human and Artificial Intelligence
+    Usbeck, Ricardo (Wissenschaftliche Projektleiter*in)Kohler, Martin (Wissenschaftliche Projektleiter*in)
+    Professur für Wirtschaftsinformatik, insbesondere Künstliche Intelligenz und ErklärbarkeitInstitut für Wirtschaftsinformatik
+    Projekt: Lehre und Studium
+
+    Übersicht
+    Fingerprint
+    Projektdetails
+    Beschreibung
+    Auf Grundlage des Creative Space Konzepts (offene, projektbasierte Experimentierräume in technologisch komplexen Forschungsrichtungen wie Künstliche Intelligenz für alle Studierenden der Leuphana) wollen wir mit diesem Projekt einen Creative Space einrichten. Gerade bei den verschiedenen Feldern der KI ist die Vermittlung der komplexen technologischen Hintergründe schwierig (Abstraktion, Komplexitätsreduktion ohne Simplifizierung). während es gleichzeitig essentiell sein wird für Studierende aller Fachrichtungen sich mit diesen Schlüsseltechnologien auseinander zu setzen. Eine grundlegende KI Kompetenzen und Data Literacy in diesem Bereich ist mit Blick auf die Zukunft für alle Fachrichtungen hilfreich bis notwendig während gleichzeitig das Lehrangebot für KI-Übergangsvorlage WechselKompetenzen durch Studierende als eher schlecht eingeschätzt wird. Im Rahmen von Angeboten an der
+    Leuphana wird dies adressiert (DataX, Minor AI, Komplementärstudium) jedoch fehlt ein Ort der experimentell offen ist, als erster Kontaktpunkt und Beratungsort für Studierende fungieren kann und Fähigkeiten und Lehrmodule integriert über Fachgrenzen hinweg.
+    Der Creative Space setzt dabei auf drei Grundprinzipien um die freie, selbtbestimmte und freudvolle
+    Gestaltung von Lern- und Gestaltungserfahrungen von Studierenden zu unterstützen.
+    • Boundary Objects als Objekte für Debatten: Artefakte, die von verschiedenen Disziplinen
+    unterschiedlich interpretiert werden können und daher Diskussionen und interdisziplinäre
+    Kommunikation fördern. Sie dienen als gemeinsamer Bezugspunkt, um eine Brücke zwischen
+    unterschiedlichen Perspektiven zu schlagen und so den Austausch und das Verständnis zu fördern.
+    • Improvisation und Neugiergetriebe Forschung: Bei dieser Herangehensweise steht das spielerische
+    und entdeckungsfreudige Erkunden im Vordergrund. Anstatt sich strikt an vorgegebene Methoden
+    oder Ergebnisse zu halten, werden Studierende dazu ermutigt, durch spontane Ideen und eigene
+    Neugier neue Erkenntnisse zu gewinnen und innovative Projekte zu entwickeln.
+    • Strikte Inter- bis Transdisziplinärität: Durch die Einbeziehung von Wissen und Methoden aus
+    verschiedenen Disziplinen wird eine umfassendere und flexiblere Problemlösung ermöglicht.
+    Transdisziplinarität geht sogar über disziplinäre Grenzen hinaus und integriert nicht-akademische
+    Wissensformen, um praxisnahe und umfassende Lösungen für komplexe Fragestellungen zu
+    entwickeln.
+    KurztitelCreative Space
+    StatusLaufend
+    Zeitraum01.10.25 → 31.12.26
+    Auf Projekt zugreifen
+    https://creativespace.leuphana.de/
+
+    Fingerprint
+    Erkunden Sie die Forschungsthemen, die von diesem Projekt angesprochen werden. Diese Bezeichnungen werden den ihnen zugrunde liegenden Bewilligungen/Fördermitteln entsprechend generiert. Zusammen bilden sie einen einzigartigen Fingerprint.
+
+    Artificial Intelligence
+    Keyphrases
+    100%
+
+    Creative Spaces
+    Keyphrases
+    100%
+
+    Interdisciplinarity
+    Keyphrases
+    50%
+
+    Disciplinary Boundaries
+    Keyphrases
+    50%
+
+    Contact Point
+    Keyphrases
+    50%
+
+    Teaching Module
+    Keyphrases
+    50%
+
+    Transdisciplinarity
+    Social Sciences
+    33%
+
+    Transition Skills
+    Keyphrases
+    25%
+]
+6. Mobile AI Workstations 
+A SQM project provides mobile, GPU-capable workstations to enable equitable student access to AI development. Active
+Details:[
+        Studienqualitätsmittel: Mobile KI-Workstations für den gleichberechtigten Zugang zur KI Entwicklung
+    Kohler, Martin (Wissenschaftliche Projektleiter*in)Usbeck, Ricardo (Wissenschaftliche Projektleiter*in)
+    Institut für WirtschaftsinformatikProfessur für Wirtschaftsinformatik, insbesondere Künstliche Intelligenz und Erklärbarkeit
+    Projekt: Lehre und Studium
+
+    Übersicht
+    Projektdetails
+    Beschreibung
+    Künstliche Intelligenz gewinnt rasant an Bedeutung – in Forschung, Wirtschaft und Gesellschaft. Um Studierende aller Fachrichtungen gezielt auf diese Entwicklung vorzubereiten, benötigen sie Zugang zu leistungsfähigen Werkzeugen und Entwicklungsumgebungen. Aktuell fehlt es vielen – insbesondere außerhalb der Studiengänge Wirtschaftsinformatik und Data Science – an geeigneter Hardware, um eigene, komplexere KI-Anwendungen zu realisieren.
+    Als kleinere Universität mit begrenzten Ressourcen kann die Leuphana derzeit nicht allen Studierenden interdisziplinärer Programme die notwendige Infrastruktur zur Verfügung stellen - insbesondere nicht den Studierenden des Minor AI bzw. Nutzer:innen des Creative Space aus anderen Modulen (z.B. Erprobung von KI im Komplementär, Produktdesign oder Education Tech). Dabei ist es essenziell, dass alle Studierenden die Möglichkeit erhalten, Schlüsseltechnologien wie KI nicht nur theoretisch zu verstehen, sondern praktisch zu erproben.
+    Dieses Projekt setzt genau hier an: Geplant ist die Anschaffung von vier mobilen, voll ausgestatteten KI-Arbeitsstationen. Diese orientieren sich am Konzept eines temporären, nomadischen Experimentierlabors1 und beinhalten einen leistungsstarken NVIDIA SPARK KI-Chip, zwei Monitore, Eingabegeräte sowie Materialien für Gruppenarbeiten – sicher untergebracht in robusten Flight Cases.
+    Dank ihrer Mobilität lassen sich die Stationen flexibel in unterschiedlichste Lehrformate integrieren – von Seminaren und Projekten über Leuphana-weite Veranstaltungen wie Starting Week oder Tag der Lehre bis hin zu öffentlichen Events wie der Minor AI Conference oder Ausstellungen im Kunstraum. So stärken sie nicht nur die Lehre, sondern erhöhen auch die Sichtbarkeit studentischer Arbeiten und der KI-Kompetenz an der Leuphana in Verbindung mit dem Leuphana AI Campus (LAICA).
+    StatusLaufend
+    Zeitraum01.10.25 → 31.12.26
+    UN-Ziele für nachhaltige Entwicklung
+    2015 einigten sich UN-Mitgliedstaaten auf 17 globale Ziele für nachhaltige Entwicklung (Sustainable Development Goals, SDGs) zur Beendigung der Armut, zum Schutz des Planeten und zur Förderung des allgemeinen Wohlstands. Die Arbeit dieses Projekts leistet einen Beitrag zu folgendem(n) SDG(s):
+
+    SDG 4 – Qualitativ hochwertige Bildung
+    SDG 4 – Qualitativ hochwertige Bildung
+    SDG 9 – Industrie, Innovation und Infrastruktur
+    SDG 9 – Industrie, Innovation und Infrastruktur
+    SDG 10 – Weniger Ungleichheiten
+    SDG 10 – Weniger Ungleichheiten
+    Auf Projekt zugreifen
+    https://creativespace.leuphana.de/
+
+
+]
+‌
+7. Student AI Server 
+An SQM project establishes and operates a shared GPU server infrastructure for students’ machine learning and AI projects. Active
+‌Details:[
+        Studienqualitätsmittel: Einrichtung und Betrieb eines studentischen KI-Servers
+    Banerjee, Debayan (Wissenschaftliche Projektleiter*in)Moltzen, Kai (Wissenschaftliche Projektleiter*in)Usbeck, Ricardo (Wissenschaftliche Projektleiter*in)
+    Professur für Wirtschaftsinformatik, insbesondere Künstliche Intelligenz und Erklärbarkeit
+    Projekt: Lehre und Studium
+
+    Übersicht
+    Fingerprint
+    Projektdetails
+    Beschreibung
+    Die Arbeitsgruppe Künstliche Intelligenz und Erklärbarkeit (AIX) unter der Leitung von Prof. Dr. Ricardo Usbeck beantragt die Finanzierung einer studentischen Hilfskraft (SHK) zur Einrichtung und Wartung eines mit Grafikprozessoren (GPUs) ausgestatteten Rechenservers, gehostet im MIZ. Ziel ist die Verbesserung der Ausbildung unserer disziplinären Student*innen in den Bereichen Künstliche Intelligenz, Deep Learning und damit verbundenen unternehmerischen Kompetenzen. Derzeit fehlt es Student*innen der Leuphana an der notwendigen Infrastruktur, um KI-Modelle unter Verwendung von GPU-Computing zu trainieren, zu testen und bereitzustellen. Dieses Projekt schließt diese kritische Lücke. Wir sichern die Finanzierung für die Serverhardware gesondert und werden diese in zwei Instanzen virtualisieren: eine zum Hosten von KI-Demonstrationen, die von Student*innen in unseren Kursen entwickelt wurden, um dadurch die Sichtbarkeit von Projekten und das gegenseitige Lernen zu fördern. Die zweite Instanz wird zur Lehre und praktischen Anwendung im Training und Fine-Tuning von Deep-Learning-Modellen, einschließlich kleiner bis mittelgroßer LLMs, verwendet. Die SHK wird eine intuitive und zugängliche Nutzung des Servers für Student*innen gewährleisten.
+    StatusLaufend
+    Zeitraum01.10.25 → 31.12.26
+    Auf Projekt zugreifen
+    SQM_Antrag_und_Angebote_bewilligt
+    Datei: application/pdf, 80,9 KB
+
+    Typ: Dokument
+
+    Fingerprint
+    Erkunden Sie die Forschungsthemen, die von diesem Projekt angesprochen werden. Diese Bezeichnungen werden den ihnen zugrunde liegenden Bewilligungen/Fördermitteln entsprechend generiert. Zusammen bilden sie einen einzigartigen Fingerprint.
+
+    GPU Servers
+    Keyphrases
+    100%
+
+    Management Faculties
+    Keyphrases
+    100%
+
+    Machine Learning
+    Keyphrases
+    100%
+
+    Teaching Course
+    Keyphrases
+    100%
+
+    Euro
+    Keyphrases
+    100%
+
+    Deep Learning
+    Keyphrases
+    100%
+
+    Deep Learning Method
+    Social Sciences
+    100%
+
+    Learning System
+    Social Sciences
+]
+
+8. LStartupLab – Leuphana Startup Lab for Innovation, Transformation & Entrepreneurship 
+EFRE central startup platform combining qualification programs, innovation spaces, and partner networks, with a particular focus on Data Science and AI. Active
+Details:[
+        Leuphana Startup Lab für Innovation, Transformation & Gründung
+    Funk, Burkhardt (Wissenschaftliche Projektleiter*in)Usbeck, Ricardo (Wissenschaftliche Ko-Projektleiter*in)Seibel, Arthur (Wissenschaftliche Ko-Projektleiter*in)Mah, Dana-Kristin (Wissenschaftliche Ko-Projektleiter*in)Wille, Carsten (Koordinator*in)Japsen, Andrea (Koordinator*in)
+    Professur für Wirtschaftsinformatik, insbesondere Data ScienceProfessur für Wirtschaftsinformatik, insbesondere Künstliche Intelligenz und ErklärbarkeitProfessur für Produktentwicklung und KonstruktionslehreJuniorprofessur für Digitales Lehren und Lernen
+    Projekt: Forschung
+
+    Übersicht
+    Projektdetails
+    Beschreibung
+    Mit dem LStartupLab entsteht an der Leuphana Universität Lüneburg eine zentrale Plattform zur Förderung von Unternehmensgründungen. Das Projekt bündelt auf dem Campus Qualifizierungsprogramme für gründungsinteressierte Angehörige der Leuphana, modern ausgestattete Innovationsräume und ein starkes Netzwerk regionaler und überregionaler Partner. Dabei legt es einen besonderen Schwerpunkt auf Data Science und Künstlicher Intelligenz.
+    AkronymLStartupLab
+    StatusLaufend
+    Zeitraum01.08.25 → 31.07.28
+    Mittelherkunft
+    EU-Förderung
+    Auf Projekt zugreifen
+    https://www.leuphana.de/kooperationen/entrepreneurship/leuphana-startup-lab.html
+]
+‌
+9. HdN – Lower Saxony Digital Science Support Space (DS³) 
+State-wide joint project building shared digital research infrastructure, computing resources, research-data services, and local support structures for researchers across Lower Saxony, funded by the Lower Saxony Ministry of Science and Culture / Volkswagen Foundation. Active
+Details:[
+    HdN - DS³
+    Usbeck, Ricardo (Wissenschaftliche Projektleiter*in)
+    Professur für Wirtschaftsinformatik, insbesondere Künstliche Intelligenz und Erklärbarkeit
+    Projekt: Forschung
+
+    Übersicht
+    Projektdetails
+    StatusLaufend
+    Zeitraum01.07.25 → 30.06.30
+    Förderorganisation
+    Niedersächsisches Ministerium für Wissenschaft und Kultur
+]
+‌
+10. HumAIne - Learning from Humans 
+EFRE/STEP research infrastructure initiative for human-centered AI, concerned with integrating AI into working processes while improving working and living conditions. Active (01.08.)
+Details:[
+    
+]
+‌
+11. CoyPu – Cognitive Economy Intelligence Platform for resilience of economic ecosystems
+BMWK project to develop an AI platform using linked knowledge graphs to analyze supply chains, economic ecosystems, and crisis-related risks, particularly for SMEs. Completed
+Details:[
+        The project "Cognitive Economy Intelligence Platform for Economic Ecosystem Resilience (CoyPu)" addresses AI methods for resilient ecosystems.
+
+        Partners are: the DATEV eG, the Siemens AG, the Infineon Technologies AG, the German Institute for Economic Research (DIW), the Hamburger Informatik Technologie-Center e.V. (HITeC), the Research Center L3S and the Leibniz Information Center Technology and Natural Sciences (TIB) of the University of Hannover, the eccenca GmbH, the Implisense GmbH, the Selbstregulierung Informationswirtschaft e.V.
+
+        SEMS (HITeC e.V.) is the core technology partner for leading the work package on artificial intelligence and explainability. We will explore methods for knowledge extraction, event prediction and explainability. We will rely on a combination of Hybrid AI, deep learning and knowledge graphs. HITeC is the Research and Technology Transfer Center of the Department of Informatics at the University of Hamburg.
+
+        Video: CoyPu Introduction Video - https://coypu.org/media/MST_02_CoyPu_Forschungsprojekt_21-036.mp4
+        Project website: coypu.org
+    Twitter: @CoypuProject
+
+
+    BMWK-Logo
+
+    Duration: 06/2021 - 05/2024
+    Project lead: Prof. Ricardo Usbeck
+    Sponsor: Bundesministerium für Wirtschaft und Klimaschutz
+]

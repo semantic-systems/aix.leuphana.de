@@ -1,23 +1,132 @@
 <header class="site-header" role="banner">
   <div class="wrapper">
     <a class="site-title" rel="author" href="{{ '/' | relative_url }}">
-      <img src="{{ '/assets/logo.svg' | relative_url }}" alt="{{ site.title }}" class="site-logo" style="height:2.25rem;" />
+      <img src="{{ '/assets/logo.svg' | relative_url }}" alt="{{ site.title }}" class="site-logo" />
     </a>
 
-    <nav class="site-nav">
-      <input type="checkbox" id="nav-trigger" class="nav-trigger" />
-      <label for="nav-trigger">
-        <span class="menu-icon">
-          <svg viewBox="0 0 18 15" width="18px" height="15px">
-            <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
-          </svg>
-        </span>
-      </label>
+    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+    <label for="nav-trigger">
+      <span class="menu-icon">
+        <svg viewBox="0 0 18 15" width="18px" height="15px">
+          <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+        </svg>
+      </span>
+    </label>
 
-      <div class="trigger"><a class="page-link" href="{{ '/about/' | relative_url }}">About</a></div>
-      <div class="trigger"><a class="page-link" href="{{ '/team/' | relative_url }}">Team</a></div>
-      <div class="trigger"><a class="page-link" href="{{ '/demos/' | relative_url }}">Demos</a></div>
-      <div class="trigger"><a class="page-link" href="{{ '/publications/' | relative_url }}">Publications</a></div>
+    <nav class="site-nav">
+      <a class="page-link" href="{{ '/team/' | relative_url }}">Team</a>
+      <a class="page-link" href="{{ '/projects/' | relative_url }}">Projects</a>
+      <a class="page-link" href="{{ '/publications/' | relative_url }}">Publications</a>
+      <a class="page-link" href="{{ '/demos/' | relative_url }}">Demos</a>
+      <a class="page-link" href="{{ '/news/' | relative_url }}">News</a>
     </nav>
+
+    <!-- Global Search (Header) -->
+    <div style="float: right; margin-right: 20px; position: relative; z-index: 1001; margin-top: 8px;" id="header-search-wrapper">
+      <div style="position: relative; border-radius: 30px; background: var(--bg-primary); padding: 2px; display: flex; align-items: center; border: 1px solid var(--c-granit-20); transition: all 0.3s ease; width: 300px;" id="search-container">
+        <svg style="margin-left: 12px; width: 20px; height: 20px; fill: var(--c-jaspis);" viewBox="0 0 24 24">
+          <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+        </svg>
+        <input type="text" id="global-search-input" placeholder="Search..." autocomplete="off" style="flex-grow: 1; border: none; outline: none; padding: 0.6rem 0.8rem; font-size: 0.95rem; background: transparent; color: var(--text-primary); font-family: inherit;">
+      </div>
+      
+      <div id="global-search-results" style="display: none; position: absolute; top: calc(100% + 10px); right: 0; width: 450px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.05); max-height: 400px; overflow-y: auto; padding: 0.5rem;">
+        <!-- Results injected here -->
+      </div>
+    </div>
   </div>
 </header>
+
+<!-- Search Backdrop Overlay -->
+<div id="search-backdrop" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); z-index: 999; transition: opacity 0.3s ease;"></div>
+
+<style>
+  @media screen and (max-width: 600px) {
+    #header-search-wrapper { float: none !important; margin: 10px auto !important; width: 90% !important; }
+    #header-search-wrapper > div { width: 100% !important; }
+    #global-search-results { width: 100% !important; left: 0; right: 0; }
+  }
+  @media (prefers-color-scheme: dark) {
+    #global-search-results { background: rgba(30, 30, 30, 0.9) !important; box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.1) !important; }
+  }
+  .search-result-item { display: block; padding: 0.8rem 1rem; border-radius: 8px; text-decoration: none; color: inherit; margin-bottom: 0.2rem; transition: all 0.2s ease; }
+  .search-result-item:hover { background: var(--bg-secondary); transform: translateX(3px); }
+  .search-result-title { font-weight: 600; color: var(--c-jaspis); font-size: 1rem; margin-bottom: 0.2rem; }
+  .search-result-meta { font-size: 0.7rem; text-transform: uppercase; font-weight: 700; color: white; display: inline-block; padding: 0.15rem 0.5rem; border-radius: 10px; margin-bottom: 0.3rem; }
+  .search-result-excerpt { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const searchInput = document.getElementById("global-search-input");
+    const searchResults = document.getElementById("global-search-results");
+    const searchBackdrop = document.getElementById("search-backdrop");
+    const container = document.getElementById("search-container");
+    let globalData = [];
+
+    function showSearch() {
+      container.style.borderColor = "var(--c-jaspis)";
+      container.style.boxShadow = "0 8px 20px rgba(0,0,0,0.15), 0 0 0 3px rgba(255, 102, 0, 0.1)";
+      if (searchInput.value.trim().length >= 2) {
+        searchResults.style.display = "block";
+        searchBackdrop.style.display = "block";
+        document.body.style.overflow = "hidden"; // Prevent scrolling
+      }
+    }
+
+    function hideSearch() {
+      container.style.borderColor = "var(--c-granit-20)";
+      container.style.boxShadow = "none";
+      setTimeout(() => { 
+        searchResults.style.display = "none"; 
+        searchBackdrop.style.display = "none";
+        document.body.style.overflow = ""; // Restore scrolling
+      }, 200);
+    }
+
+    searchInput.addEventListener("focus", showSearch);
+    searchInput.addEventListener("blur", hideSearch);
+    searchBackdrop.addEventListener("click", hideSearch);
+
+    // Fetch JSON
+    fetch("{{ '/global_search.json' | relative_url }}")
+      .then(res => res.json())
+      .then(data => { globalData = data; })
+      .catch(err => console.error("Search index failed to load:", err));
+
+    // Handle input
+    searchInput.addEventListener("input", function() {
+      const query = this.value.toLowerCase().trim();
+      if (query.length < 2) {
+        searchResults.style.display = "none";
+        searchBackdrop.style.display = "none";
+        document.body.style.overflow = "";
+        return;
+      }
+
+      const results = globalData.filter(item => 
+        (item.title && item.title.toLowerCase().includes(query)) || 
+        (item.excerpt && item.excerpt.toLowerCase().includes(query)) ||
+        (item.category && item.category.toLowerCase().includes(query))
+      ).slice(0, 10); // Limit to top 10
+
+      if (results.length > 0) {
+        searchResults.innerHTML = results.map(item => `
+          <a href="${item.url}" class="search-result-item">
+            <div class="search-result-title">${item.title}</div>
+            <div class="search-result-meta" style="background: var(--c-granit-40);">${item.category}</div>
+            <div class="search-result-excerpt">${item.excerpt || ''}</div>
+          </a>
+        `).join('');
+        searchResults.style.display = "block";
+        searchBackdrop.style.display = "block";
+        document.body.style.overflow = "hidden";
+      } else {
+        searchResults.innerHTML = '<div style="padding: 1.5rem; text-align: center; color: var(--text-secondary);">No results found.</div>';
+        searchResults.style.display = "block";
+        searchBackdrop.style.display = "block";
+        document.body.style.overflow = "hidden";
+      }
+    });
+  });
+</script>

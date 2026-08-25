@@ -1,0 +1,35 @@
+{% assign persons_out = "" %}
+{% for person_entry in include.persons %}
+  
+  {% if person_entry.name %}
+    {% assign p_name = person_entry.name %}
+    {% assign p_role = person_entry.role %}
+  {% else %}
+    {% assign p_name = person_entry %}
+    {% assign p_role = "" %}
+  {% endif %}
+
+  {% assign matched = false %}
+  {% for member in site.team %}
+    {% if member.name contains p_name or p_name contains member.name %}
+      {% capture person_link %}<a href="{{ member.url | relative_url }}" class="team-author-link">{{ p_name }}</a>{% endcapture %}
+      {% assign matched = true %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+  
+  {% if matched == false %}
+    {% assign person_link = p_name %}
+  {% endif %}
+  
+  {% if p_role != "" and p_role != nil %}
+    {% assign person_link = person_link | append: " (" | append: p_role | append: ")" %}
+  {% endif %}
+  
+  {% if forloop.last %}
+    {% assign persons_out = persons_out | append: person_link %}
+  {% else %}
+    {% assign persons_out = persons_out | append: person_link | append: ", " %}
+  {% endif %}
+{% endfor %}
+{{ persons_out }}

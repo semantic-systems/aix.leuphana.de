@@ -1,0 +1,32 @@
+{% assign publications_by_year = posts | group_by: "year" | sort: "name" | reverse %}
+
+{% for year_group in publications_by_year %}
+  <h2 style="margin-top: 3rem; border-bottom: 2px solid var(--c-granit-20); padding-bottom: 0.5rem;">{{ year_group.name }}</h2>
+
+  <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+  {% for publication in year_group.items %}
+    <div class="publication-entry" style="background: var(--bg-primary); border: 1px solid var(--c-granit-40); border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+      <h3 style="margin-bottom: 0.5rem;">
+        <a href="{{ publication.url | relative_url }}">{{ publication.title }}</a>
+      </h3>
+      <p style="margin: 0.25rem 0; color: var(--text-secondary);"><strong>Authors:</strong> {% include team_links.html persons=publication.authors %}</p>
+      {% if publication.is_conference and publication.conference != "" %}
+      <p style="margin: 0.25rem 0; color: var(--text-secondary);"><strong>Conference:</strong> {{ publication.conference }}</p>
+      {% elsif publication.is_journal and publication.journal != "" %}
+      <p style="margin: 0.25rem 0; color: var(--text-secondary);"><strong>Journal:</strong> {{ publication.journal }}</p>
+      {% elsif publication.is_archive %}
+      <p style="margin: 0.25rem 0; color: var(--text-secondary);"><strong>Archive:</strong> Preprint</p>
+      {% endif %}
+      {% if publication.abstract %}
+        <div class="publication-abstract" style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--c-granit-20);">
+          <strong>Abstract:</strong> {{ publication.abstract | truncatewords: 30 }}
+          <a href="{{ publication.url | relative_url }}" style="font-weight: 600; color: var(--c-jaspis);">Read more →</a>
+        </div>
+      {% endif %}
+    </div>
+  {% endfor %}
+  </div>
+{% endfor %}
+{% endif %}
+
+{% include pagination.html base_url="/publications/" %}

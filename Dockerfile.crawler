@@ -1,0 +1,19 @@
+FROM python:3.11-slim
+
+# Set working directory
+WORKDIR /site
+
+# Copy requirements first to leverage Docker cache
+COPY requirements.txt .
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Create the publications directory if it doesn't exist
+RUN mkdir -p _publications
+
+# Copy the script
+COPY scripts/fetch_publications.py /site/scripts/
+
+# The CMD runs the python script in an infinite loop, sleeping for 24 hours (86400 seconds) between runs
+CMD ["/bin/bash", "-c", "while true; do python3 /site/scripts/fetch_publications.py; echo 'Sleeping for 24 hours...'; sleep 86400; done"]
