@@ -4,8 +4,8 @@ title: "Welcome Anna Ehrenberg!"
 date: 2025-07-01
 author: "AIX Team"
 categories: [news, team]
-thumbnail: "/assets/images/anna_ehrenberg.png"
-image: "/assets/images/anna_ehrenberg.png"
+thumbnail: "/assets/images/profile_photo/anna_ehrenberg.png"
+# image: "/assets/images/anna_ehrenberg.png"
 ---
 
 The AIX Research Group is growing. We are excited to welcome Anna Ehrenberg as our newest Research Associate. 

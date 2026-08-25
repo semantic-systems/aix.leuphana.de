@@ -6,9 +6,9 @@
 
 # Required fields
 name: "Debayan Banerjee"
-title: "Academic/Professional Title"
+title: "Researcher"
 image: "debayan_banerjee.png"  # Place image in assets/images/ directory
-job_category: "academic_advisor"     # Use one of: head, tech_and_admin, academic_advisor, research_assistant, research_associate, scholarship_holder, external_phd, student_assistant, alumni
+job_category: "researcher"     # Use one of: head, tech_and_admin, academic_advisor, research_assistant, research_associate, scholarship_holder, external_phd, student_assistant, alumni
 
 # Optional fields
 bio: |
