@@ -11,7 +11,7 @@
           {% assign preview_image = demo.thumbnail | default: demo.image %}
           {% assign preview_size = demo.thumbnail_size | default: demo.image_size %}
           {% if preview_image contains 'logo.svg' or preview_image contains 'logo.png' or preview_image == nil or preview_image == "" or preview_image == "/assets/images/" or preview_image == "/assets/images/blank.png" or preview_image == "/assets/images/main_building_leuphana.png" %}
-            <div class="card-image-placeholder default-logo-placeholder" style="{% if preview_image contains 'logo.png' %}background-image: url('{{ preview_image | relative_url }}');{% endif %}{% if preview_size %}background-size: {{ preview_size }};{% endif %}"></div>
+            <div class="card-image-placeholder default-logo-placeholder" style="{% if preview_image contains 'logo.png' %}background-image: url('{{ preview_image | relative_url }}');{% else %}background-image: url('{{ '/assets/logo.svg' | relative_url }}');{% endif %} background-repeat: no-repeat; background-position: center; background-size: {{ preview_size | default: '65%' }}; background-color: var(--bg-secondary);"></div>
           {% else %}
             <div class="card-image-placeholder" style="background-image: url('{{ preview_image | relative_url }}');{% if preview_size %}background-size: {{ preview_size }};{% endif %}"></div>
           {% endif %}
