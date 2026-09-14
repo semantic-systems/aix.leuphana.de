@@ -14,11 +14,30 @@
     </label>
 
     <nav class="site-nav">
-      <a class="page-link" href="{{ '/team/' | relative_url }}">Team</a>
-      <a class="page-link" href="{{ '/projects/' | relative_url }}">Projects</a>
-      <a class="page-link" href="{{ '/publications/' | relative_url }}">Publications</a>
-      <a class="page-link" href="{{ '/demos/' | relative_url }}">Demos</a>
-      <a class="page-link" href="{{ '/news/' | relative_url }}">News</a>
+      {% assign valid_team = site.team | where_exp: "item", "item.published != false" %}
+      {% if valid_team.size > 0 %}
+        <a class="page-link" href="{{ '/team/' | relative_url }}">Team</a>
+      {% endif %}
+
+      {% assign valid_projects = site.projects | where_exp: "item", "item.published != false" %}
+      {% if valid_projects.size > 0 %}
+        <a class="page-link" href="{{ '/projects/' | relative_url }}">Projects</a>
+      {% endif %}
+
+      {% assign valid_pubs = site.publications | where_exp: "item", "item.published != false" %}
+      {% if valid_pubs.size > 0 %}
+        <a class="page-link" href="{{ '/publications/' | relative_url }}">Publications</a>
+      {% endif %}
+
+      {% assign valid_demos = site.demos | where_exp: "item", "item.published != false" %}
+      {% if valid_demos.size > 0 %}
+        <a class="page-link" href="{{ '/demos/' | relative_url }}">Demos</a>
+      {% endif %}
+
+      {% assign valid_posts = site.posts | where_exp: "item", "item.published != false" %}
+      {% if valid_posts.size > 0 %}
+        <a class="page-link" href="{{ '/news/' | relative_url }}">News</a>
+      {% endif %}
     </nav>
 
     <!-- Global Search (Header) -->
@@ -89,7 +108,7 @@
     searchBackdrop.addEventListener("click", hideSearch);
 
     // Fetch JSON
-    fetch("{{ '/global_search.json' | relative_url }}")
+    fetch("{{ '/api/global_search.json' | relative_url }}")
       .then(res => res.json())
       .then(data => { globalData = data; })
       .catch(err => console.error("Search index failed to load:", err));

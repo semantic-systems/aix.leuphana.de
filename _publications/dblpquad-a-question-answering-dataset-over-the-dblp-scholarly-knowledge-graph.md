@@ -14,7 +14,7 @@ conference: "BIR@ECIR 2023"
 ---
 
 > **Abstract:**
-> question-answering benchmarks: SciQA and DBLP-QuAD. We explore both few-shot learning  and fine-tuning strategies, investigate error patterns across  the DBLP Knowledge Graph11
+> In this work we create a question answering dataset over the DBLP scholarly knowledge graph (KG). DBLP is an on-line reference for bibliographic information on major computer science publications that indexes over 4.4 million publications published by more than 2.2 million authors. Our dataset consists of 10,000 question answer pairs with the corresponding SPARQL queries which can be executed over the DBLP KG to fetch the correct answer. DBLP-QuAD is the largest scholarly question answering dataset.
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

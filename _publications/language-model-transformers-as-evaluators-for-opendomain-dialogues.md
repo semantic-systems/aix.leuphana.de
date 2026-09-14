@@ -14,7 +14,7 @@ conference: "COLING 2020"
 ---
 
 > **Abstract:**
-> Our benchmark spans four diverse tasks: opendomain  simulate the dialogues: the prompts  to the model are composed  : Our culturally grounded dialogue evaluation suggests that state-
+> Computer-based systems for communication with humans are a cornerstone of AI research since the 1950s. So far, the most effective way to assess the quality of the dialogues produced by these systems is to use resource-intensive manual labor instead of automated means. In this work, we investigate whether language models (LM) based on transformer neural networks can indicate the quality of a conversation. In a general sense, language models are methods that learn to predict one or more words based on an already given context. Due to their unsupervised nature, they are candidates for efficient, automatic indication of dialogue quality. We demonstrate that human evaluators have a positive correlation between the output of the language models and scores. We also provide some insights into their behavior and inner-working in a conversational context.
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

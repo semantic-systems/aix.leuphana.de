@@ -32,7 +32,7 @@ conference: "INFORMATIK 2025"
 ---
 
 > **Abstract:**
-> of shared tasks, each highlighting challenges unique to the automated processing of the  scholarly  NFDI for Data Science and Artificial Intelligence (NFDI4DS) as part of the non-profit
+> Shared tasks are powerful tools for advancing research through community-based standardised evaluation. As such, they play a key role in promoting findable, accessible, interoperable, and reusable (FAIR), as well as transparent and reproducible research practices. This paper presents an updated overview of twelve shared tasks developed and hosted under the German National Research Data Infrastructure for Data Science and Artificial Intelligence (NFDI4DS) consortium, covering a diverse set of challenges in scholarly document processing. Hosted at leading venues, the tasks foster methodological innovations and contribute open-access datasets, models, and tools for the broader research community, which are integrated into the consortium’s research data infrastructure.
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

@@ -13,7 +13,7 @@ conference: "ESWC 2025"
 ---
 
 > **Abstract:**
-> extract global level relations from a document by utilizing the knowledge graph constructed  from local relations -sentence relations, we analyse the recall on relational facts with different
+> We examine the impact of incorporating knowledge graph information on the performance of relation extraction models across a range of datasets. Our hypothesis is that the positions of entities within a knowledge graph provide important insights for relation extraction tasks. We conduct experiments on multiple datasets, each varying in the number of relations, training examples, and underlying knowledge graphs. Our results demonstrate that integrating knowledge graph information significantly enhances performance, especially when dealing with an imbalance in the number of training examples for each relation. We evaluate the contribution of knowledge graph-based features by combining established relation extraction methods with graph-aware Neural Bellman-Ford networks. These features are tested in both supervised and zero-shot settings, demonstrating consistent performance improvements across various datasets.
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

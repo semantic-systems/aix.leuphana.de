@@ -20,7 +20,7 @@ conference: "GI-Jahrestagung 2023"
 ---
 
 > **Abstract:**
-> This paper was prepared within the NFDI4DS and the BERD@ NFDI consortium in the  context of the work of the National Research Data Infrastructure (NFDI) Association. NFDI is
+> Shared tasks have proven to be successful in proposing innovative solutions for challenging research problems. The NFDI4DS consortium plans to host various shared tasks to tackle problems under the umbrella of scholarly information processing. We discuss three shared tasks in detail: Field of Research Classification, Software Mention Detection, and Tracking State-of-the-Art in Empirical AI. We also briefly mention other shared tasks planned to be released in the future.
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

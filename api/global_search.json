@@ -16,10 +16,10 @@ layout: null
       {% assign cat = item.collection | default: 'Page' | capitalize %}
       {% if cat == "Posts" %}{% assign cat = "News" %}{% endif %}
       {
-        "title"    : "{{ item_title | escape }}",
-        "url"      : "{{ item.url | relative_url }}",
-        "category" : "{{ cat }}",
-        "excerpt"  : "{{ item.excerpt | strip_html | strip_newlines | escape }}"
+        "title"    : {{ item_title | jsonify }},
+        "url"      : {{ item.url | relative_url | jsonify }},
+        "category" : {{ cat | jsonify }},
+        "excerpt"  : {{ item.excerpt | strip_html | strip_newlines | jsonify }}
       }
       {% assign count = count | plus: 1 %}
     {% endif %}

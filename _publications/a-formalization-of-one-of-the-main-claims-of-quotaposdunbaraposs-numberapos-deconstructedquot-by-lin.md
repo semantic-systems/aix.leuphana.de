@@ -11,5 +11,7 @@ is_archive: false
 journal: "Data Sci."
 ---
 
-*Abstract not available.*
+> **Abstract:**
+> Lindenfors et al. claimed in previous work that the cortex size of humans does not relate to their social group size. We present here a formalization of that claim, stating that all things of class “relative neocortex size” that are in the context of a thing of class “social group” never have a relation of type “affects” to a thing of class “social group size” in the same context.
+
 

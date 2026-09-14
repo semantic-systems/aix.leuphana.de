@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function() {
   searchInput.addEventListener('blur', () => searchInput.style.borderColor = 'var(--c-granit-40)');
 
   // Fetch all publications JSON
-  fetch('{{ "/publications_search.json" | relative_url }}')
+  fetch('{{ "/api/publications_search.json" | relative_url }}')
     .then(response => response.json())
     .then(data => { publications = data; })
     .catch(error => console.error("Error loading search data:", error));

@@ -4,6 +4,7 @@ title: "Interactive Knowledge Graph Visualizer"
 demo_url: "https://semantic-systems.github.io/kg-visualizer-demo"
 image: "/assets/images/Redepult.jpg"
 excerpt: "A web-based tool for exploring and visualizing massive RDF Knowledge Graphs in real-time."
+published: false
 ---
 
 <figure style="margin: 2rem 0; text-align: center;">

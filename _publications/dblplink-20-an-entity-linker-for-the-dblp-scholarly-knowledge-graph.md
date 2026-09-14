@@ -13,7 +13,7 @@ conference: "ISWC 2025"
 ---
 
 > **Abstract:**
-> (Banerjee, Arefa, et al., 2023), we develop DBLPLink,  Scholarly Knowledge Graph (Banerjee,  Awale, et al., 2023), we develop DBLP_QuAD, which is a KGQA dataset over the DBLP KG
+> In this work we present an entity linker for DBLP's 2025 version of RDF-based Knowledge Graph. Compared to the 2022 version, DBLP now considers publication venues as a new entity type called dblp:Stream. In the earlier version of DBLPLink, we trained KG-embeddings and re-rankers on a dataset to produce entity linkings. In contrast, in this work, we develop a zero-shot entity linker using LLMs using a novel method, where we re-rank candidate entities based on the log-probabilities of the"yes"token output at the penultimate layer of the LLM.
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

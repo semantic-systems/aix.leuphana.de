@@ -14,6 +14,6 @@ conference: "ESWC 2015"
 ---
 
 > **Abstract:**
-> problem on reproducible experiments for entity annotation. With GERBIL Footnote 1 we aim   In this paper, we presented GERBIL, a platform for the evaluation, publishing and archiving
+> The need to bridge between the unstructured data on the Document Web and the structured data on the Web of Data has led to the development of a considerable number of annotation tools. However, these tools are hard to compare due to the diversity of data sets and measures used for evaluation. We will demonstrate GERBIL, an evaluation framework for semantic entity annotation that provides developers, end users and researchers with easy-to-use interfaces for the agile, fine-grained and uniform evaluation of annotation tools on 11 different data sets within 6 different experimental settings on 6 different measures.
 
 

@@ -16,7 +16,6 @@ is_journal: false
 is_archive: false
 ---
 
-> **Abstract:**
-> , etc.); for possible temporal queries over RDF archives that should be  The analysis reported  that the number of RDF classes  the query writing process and constructing dedicated query
+*Proceedings volume.*
 
 

@@ -15,7 +15,7 @@ conference: "ESWC 2023"
 ---
 
 > **Abstract:**
-> a scholarly Knowledge Graph Question Answering (KGQA) that answers bibliographic natural  language questions by  Biemann, GETT-QA: Graph Embedding Based T2T Transformer for
+> In this work, we present an end-to-end Knowledge Graph Question Answering (KGQA) system named GETT-QA. GETT-QA uses T5, a popular text-to-text pre-trained language model. The model takes a question in natural language as input and produces a simpler form of the intended SPARQL query. In the simpler form, the model does not directly produce entity and relation IDs. Instead, it produces corresponding entity and relation labels. The labels are grounded to KG entity and relation IDs in a subsequent step. To further improve the results, we instruct the model to produce a truncated version of the KG embedding for each entity. The truncated KG embedding enables a finer search for disambiguation purposes. We find that T5 is able to learn the truncated KG embeddings without any change of loss function, improving KGQA performance. As a result, we report strong results for LC-QuAD 2.0 and SimpleQuestions-Wikidata datasets on end-to-end KGQA over Wikidata.
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

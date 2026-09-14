@@ -25,7 +25,7 @@ conference: "NLDB 2025"
 ---
 
 > **Abstract:**
-> datasets. LLMs finetuned on these datasets can extract both factual and structural knowledge   , then a K-encoder processes knowledge graphs which are fused them with the textual
+> In this work, we release the Shortest Path subgraph Question Answering (ShortPathQA) dataset, the first dataset that provides textual questions with pre-computed relevant subgraphs retrieved from the Wikidata Knowledge Graph (KG), standardizing the evaluation framework for Knowledge Graph Question Answering (KGQA). For this purpose, we utilize the Mintaka dataset for both training and testing and additionally create a manual question-answering subset for testing. Our baseline experiments with both supervised approaches and unsupervised Large Language Model (LLM) inference indicate that even a simplified KGQA formulation with given KG subgraphs and candidate answers remains challenging. Our analysis has shown that LLMs are unable to correctly process and utilize graph data structures without detailed prompt engineering or model tuning. This limitation highlights the need for the creation of this dataset as a training ground for the development of methods that enable LLMs to work more effectively with graph data.
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

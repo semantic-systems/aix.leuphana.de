@@ -15,7 +15,6 @@ is_journal: false
 is_archive: false
 ---
 
-> **Abstract:**
-> Next, the integration of the temporal, spatial and semantic  roughly defined as a spatial graph  extended by additional temporal  to formulate queries on the spatial dimension of RDF data
+*Proceedings volume.*
 
 

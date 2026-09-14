@@ -14,7 +14,7 @@ is_archive: false
 ---
 
 > **Abstract:**
-> KGQA dataset called DBLP-QuAD, which  DBLP-QuAD consists of a variety of simple  and complex questions and also tests the compositional generalisation of the models. DBLP-QuAD
+> In this work we create a question answering dataset over the DBLP scholarly knowledge graph (KG). DBLP is an on-line reference for bibliographic information on major computer science publications that indexes over 4.4 million publications, published by more than 2.2 million authors. Our dataset consists of 10,000 question answer pairs with the corresponding SPARQL queries which can be executed over the DBLP KG to fetch the correct answer. To the best of our knowledge, this is the first QA dataset for scholarly KGs. The DBLP KG dump used to create this dataset can be found on this link https://zenodo.org/record/7638511
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

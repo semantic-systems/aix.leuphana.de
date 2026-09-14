@@ -34,6 +34,6 @@ conference: "IWLTP@LREC 2020"
 ---
 
 > **Abstract:**
-> interoperability solutions, digital ecosystem platforms have  interoperable ecosystems might  improve AI analytics and AI  integrating application software”, which can be interoperable not
+> With regard to the wider area of AI/LT platform interoperability, we concentrate on two core aspects: (1) cross-platform search and discovery of resources and services; (2) composition of cross-platform service workflows. We devise five different levels (of increasing complexity) of platform interoperability that we suggest to implement in a wider federation of AI/LT platforms. We illustrate the approach using the five emerging AI/LT platforms AI4EU, ELG, Lynx, QURATOR and SPEAKER.
 
 

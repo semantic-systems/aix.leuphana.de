@@ -12,7 +12,7 @@ is_archive: true
 ---
 
 > **Abstract:**
-> dynamics of manipulation are very close to the dynamics of  if we wish to use it as a  discriminatory criterion, as many other  that whoever listens to the disciple can indeed be
+> This paper introduces a novel method for closed information extraction. The method employs a discriminative approach that incorporates type and entity-specific information to improve relation extraction accuracy, particularly benefiting long-tail relations. Notably, this method demonstrates superior performance compared to state-of-the-art end-to-end generative models. This is especially evident for the problem of large-scale closed information extraction where we are confronted with millions of entities and hundreds of relations. Furthermore, we emphasize the efficiency aspect by leveraging smaller models. In particular, the integration of type-information proves instrumental in achieving performance levels on par with or surpassing those of a larger generative model. This advancement holds promise for more accurate and efficient information extraction techniques.
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

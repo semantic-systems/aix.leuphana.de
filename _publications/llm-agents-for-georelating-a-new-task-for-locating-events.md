@@ -14,7 +14,7 @@ conference: "SIGSPATIAL/GIS 2025"
 ---
 
 > **Abstract:**
-> Accurately identifying disaster-affected areas is crucial for data-driven disaster resilience. In response, we introduce Georelating, a task that infers affected areas from textual reports containing complex locative expressions, moving beyond traditional geoparsing approaches that rely on explicit point locations. Georelating instead combines resolving unnamed regions and reasoning about spatial relations to represent event-affected areas within standardized Discrete Global Grid Systems (DGGSs). We propose addressing Georelating
+> Accurately identifying disaster-affected areas is crucial for data-driven disaster resilience. In response, we introduce Georelating, a task that infers affected areas from textual reports containing complex locative expressions, moving beyond traditional geoparsing approaches that rely on explicit point locations. Georelating instead combines resolving unnamed regions and reasoning about spatial relations to represent event-affected areas within standardized Discrete Global Grid Systems (DGGSs). We propose addressing Georelating with a pipeline capitalizing on the contextual understanding of large language model (LLM) agents to perform geospatial reasoning. Preliminary evaluation highlights the potential of this approach for the foundational geocoding stage and the novel Georelating task. We point out future paths for enhancing Georelating systems toward intuitive and efficient disaster information systems.
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

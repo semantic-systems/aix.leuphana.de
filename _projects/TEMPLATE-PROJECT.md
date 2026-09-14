@@ -4,8 +4,8 @@ title: "REPLACE WITH TITLE: Name of the Project"
 date: 2024-01-01 # Start date of the project (Format: YYYY-MM-DD). This also controls the sorting order.
 end_date: "2026-12-31" # Optional. End date of the project. If empty or removed, it will display as "Present".
 status: "Ongoing" # e.g. "Ongoing", "Completed", "In Review"
-thumbnail: "/assets/images/your-thumbnail-image.jpg" # Square preview image for the main Projects list
-image: "/assets/images/your-banner-image.jpg" # Large banner image inside the actual project page (optional)
+thumbnail: "/assets/logo.svg" # Preview image for the main Projects list (default is AIX logo)
+image: "/assets/logo.svg" # Large banner image inside the actual project page (default is AIX logo, optional)
 excerpt: "A short 1-2 sentence summary explaining what this project aims to achieve."
 published: false # Change this to 'true' when you want it to appear on the live website!
 # List project members. If a member matches exactly with a name in the Team database, they will be highlighted and linked!

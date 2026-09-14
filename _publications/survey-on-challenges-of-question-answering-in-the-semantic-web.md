@@ -17,6 +17,6 @@ journal: "Semantic Web"
 ---
 
 > **Abstract:**
-> Because question answering over knowledge bases (KBQAs)  The purpose of this study  was to conduct a systematic review  It is interesting to note that the ‘Semantic Web’ entry is very
+> Semantic Question Answering (SQA) removes two major access requirements to the Semantic Web: the mastery of a formal query language like SPARQL and knowledge of a specific vocabulary. Because of the complexity of natural language, SQA presents difficult challenges and many research opportunities. Instead of a shared effort, however, many essential components are redeveloped, which is an inefficient use of researcher’s time and resources. This survey analyzes 62 different SQA systems, which are systematically and manually selected using predefined inclusion and exclusion criteria, leading to 72 selected publications out of 1960 candidates. We identify common challenges, structure solutions, and provide recommendations for future systems. This work is based on publications from the end of 2010 to July 2015 and is also compared to older but similar surveys.
 
 

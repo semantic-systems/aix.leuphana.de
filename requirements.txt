@@ -1,5 +1,6 @@
 requests==2.31.0
 pytest==8.1.1
+bibtexparser<2.0.0
 scholarly==1.7.11
 beautifulsoup4==4.12.3
 playwright==1.44.0

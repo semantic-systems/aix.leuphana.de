@@ -13,7 +13,6 @@ is_journal: false
 is_archive: false
 ---
 
-> **Abstract:**
-> , the graph data model should provide a comprehensive query  RDF in the Semantic Web  and Linked Open Data communities has  [189] benchmark several model families on the task of
+*Proceedings volume.*
 
 

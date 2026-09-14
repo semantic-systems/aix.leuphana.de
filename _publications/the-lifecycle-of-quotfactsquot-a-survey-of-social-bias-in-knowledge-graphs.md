@@ -13,7 +13,7 @@ conference: "AACL/IJCNLP 2022"
 ---
 
 > **Abstract:**
-> This thesis focuses primarily on the work of the Valencian poet, Ausias March (1398-1459),  who was revered by the first two generations of Petrarquistas in Golden Age Spain, and in
+> Angelie Kraft, Ricardo Usbeck. Proceedings of the 2nd Conference of the Asia-Pacific Chapter of the Association for Computational Linguistics and the 12th International Joint Conference on Natural Language Processing (Volume 1: Long Papers). 2022.
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

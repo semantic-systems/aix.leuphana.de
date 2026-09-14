@@ -11,16 +11,23 @@
 
       <div class="footer-col footer-col-2">
         <ul class="footer-links">
-          <li><strong>Quick Links</strong></li>
-          <li><a href="{{ '/team/' | relative_url }}">Team</a></li>
-          <li><a href="{{ '/projects/' | relative_url }}">Projects</a></li>
-          <li><a href="{{ '/publications/' | relative_url }}">Publications</a></li>
+          <li><h2>Quick Links</h2></li>
+          {% assign valid_team = site.team | where_exp: "item", "item.published != false" %}
+          {% if valid_team.size > 0 %}<li><a href="{{ '/team/' | relative_url }}">Team</a></li>{% endif %}
+          {% assign valid_projects = site.projects | where_exp: "item", "item.published != false" %}
+          {% if valid_projects.size > 0 %}<li><a href="{{ '/projects/' | relative_url }}">Projects</a></li>{% endif %}
+          {% assign valid_pubs = site.publications | where_exp: "item", "item.published != false" %}
+          {% if valid_pubs.size > 0 %}<li><a href="{{ '/publications/' | relative_url }}">Publications</a></li>{% endif %}
+          {% assign valid_demos = site.demos | where_exp: "item", "item.published != false" %}
+          {% if valid_demos.size > 0 %}<li><a href="{{ '/demos/' | relative_url }}">Demos</a></li>{% endif %}
+          {% assign valid_posts = site.posts | where_exp: "item", "item.published != false" %}
+          {% if valid_posts.size > 0 %}<li><a href="{{ '/news/' | relative_url }}">News</a></li>{% endif %}
         </ul>
       </div>
 
       <div class="footer-col footer-col-3">
         <ul class="footer-links">
-          <li><strong>Legal</strong></li>
+          <li><h2>Legal</h2></li>
           <li><a href="{{ '/impressum/' | relative_url }}">Impressum</a></li>
           <li><a href="{{ '/privacy/' | relative_url }}">Privacy Policy</a></li>
           <!-- <li><a href="{{ '/accessability/' | relative_url }}">Accessibility</a></li> -->
@@ -29,7 +36,7 @@
       
       <div class="footer-col footer-col-4">
         <ul class="footer-links">
-          <li><strong>Connect</strong></li>
+          <li><h2>Connect</h2></li>
           {%- if site.github -%}
             <li><a href="{{ site.github }}" target="_blank" rel="noopener noreferrer">GitHub</a></li>
           {%- endif -%}

@@ -15,6 +15,6 @@ conference: "WIMS 2016"
 ---
 
 > **Abstract:**
-> work is the use of a semantic relatedness measure as the  by the computation of the  relatedness measure between the  role in the scalability and parallelism of the approach. The
+> Computing semantic relatedness is an essential operation for many natural language processing (NLP) tasks, such as Entity Linking (EL) and Question Answering (QA). It is still challenging to find a scalable approach to compute the semantic relatedness using Semantic Web data. Hence, we present for the first time an approach to pre-compute the semantic relatedness between the instances, relations, and classes of an ontology, such that they can be used in real-time applications.
 
 

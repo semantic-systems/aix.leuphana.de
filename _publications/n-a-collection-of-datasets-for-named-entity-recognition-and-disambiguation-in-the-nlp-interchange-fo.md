@@ -15,6 +15,6 @@ conference: "LREC 2014"
 ---
 
 > **Abstract:**
-> entity disambiguation dataset, and conduct an empirical analysis of named entity recognition  and disambiguation,  , as we have “downsampled” the set of URIs returned so that all fall
+> Extracting Linked Data following the Semantic Web principle from unstructured sources has become a key challenge for scientific research. Named Entity Recognition and Disambiguation are two basic operations in this extraction process. One step towards the realization of the Semantic Web vision and the development of highly accurate tools is the availability of data for validating the quality of processes for Named Entity Recognition and Disambiguation as well as for algorithm tuning. This article presents three novel, manually curated and annotated corpora (N3). All of them are based on a free license and stored in the NLP Interchange Format to leverage the Linked Data character of our datasets.
 
 

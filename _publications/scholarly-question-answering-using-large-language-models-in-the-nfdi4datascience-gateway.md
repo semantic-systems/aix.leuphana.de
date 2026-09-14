@@ -18,7 +18,7 @@ conference: "NSLP 2024"
 ---
 
 > **Abstract:**
-> The proceedings aims to bring together researchers working on the processing, analysis,  transformation and making use-of scientific language and research knowledge graphs
+> Abstract This paper introduces a scholarly Question Answering (QA) system on top of the NFDI4DataScience Gateway, employing a Retrieval Augmented Generation-based (RAG) approach. The NFDI4DS Gateway, as a foundational framework, offers a unified and intuitive interface for querying various scientific databases using federated search. The RAG-based scholarly QA, powered by a Large Language Model (LLM), facilitates dynamic interaction with search results, enhancing filtering capabilities and fostering a conversational engagement with the Gateway search. The effectiveness of both the Gateway and the scholarly QA system is demonstrated through experimental analysis.
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

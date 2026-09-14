@@ -11,7 +11,6 @@ is_journal: false
 is_archive: false
 ---
 
-> **Abstract:**
-> In Proceedings of the 7th Natural Language Interfaces for the Web of Data (NLIWoD) co-located  with the 19th European Semantic Web Conference (ESWC 2022), Hersonissos,
+*Proceedings volume.*
 
 

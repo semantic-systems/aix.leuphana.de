@@ -16,7 +16,6 @@ is_journal: false
 is_archive: false
 ---
 
-> **Abstract:**
-> Learning (SemDeep-4) and NLIWoD4: Natural Language Interfaces for the Web of Data (NLIWOD-4)  and 9th Question Answering over Linked Data challenge (QALD-9) co-located with
+*Proceedings volume.*
 
 

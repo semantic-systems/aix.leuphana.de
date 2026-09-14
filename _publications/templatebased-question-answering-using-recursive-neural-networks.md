@@ -15,7 +15,7 @@ conference: "ICSC 2021"
 ---
 
 > **Abstract:**
-> Question-Answer Corpus, an enormous question answer pair corpus produced by  applying a novel neural network  -generation model outperforms the competing template-based
+> Most question answering (QA) systems over Linked Data, i.e. Knowledge Graphs, approach the question answering task as a conversion from a natural language question to its corresponding SPARQL query. A common approach is to use query templates to generate SPARQL queries with slots that need to be filled. Using templates instead of running an extensive NLP pipeline or end-to-end model shifts the QA problem into a classification task, where the system needs to match the input question to the appropriate template. This paper presents an approach to automatically learn and classify natural language questions into corresponding templates using recursive neural networks. Our model was trained on 5000 questions and their respective SPARQL queries from the preexisting LC-QuAD dataset grounded in DBpedia, spanning 5042 entities and 615 predicates. The resulting model was evaluated using the FAIR GERBIL QA framework resulting in 0.419 macro f-measure on LC-QuAD and 0.417 macro f-measure on QALD-7.
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

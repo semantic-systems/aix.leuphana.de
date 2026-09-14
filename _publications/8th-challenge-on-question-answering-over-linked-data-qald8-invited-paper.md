@@ -15,6 +15,6 @@ conference: "Semdeep/NLIWoD@ISWC 2018"
 ---
 
 > **Abstract:**
-> The first dataset is QALD which is multilingual dataset challenge series. In QALD-8, there  were 219 training question-answer  Question answering over linked data: What is difficult to
+> Recent years have seen a growing amount of research on question answering (QA) over Semantic Web data, shaping an interaction paradigm that allows end users to profit from the expressivity of Semantic Web knowledge bases. The Question Answering over Linked Data (QALD) challenge is an open challenge series on question answering over Linked Data. In this invited paper, we present the results and insights of the 8th Open Challenge on Question Answering over Linked Data (QALD-8), evaluating multilingual question answering systems over RDF knowledge graphs.
 
 

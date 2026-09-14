@@ -14,7 +14,7 @@ is_archive: true
 ---
 
 > **Abstract:**
-> -to-sequence transformer for neural machine translation. This  analysis and generation: tree  positional encodings and tree  positional encodings in the vanilla transformer encoder with
+> While a considerable amount of semantic parsing approaches have employed RNN architectures for code generation tasks, there have been only few attempts to investigate the applicability of Transformers for this task. Including hierarchical information of the underlying programming language syntax has proven to be effective for code generation. Since the positional encoding of the Transformer can only represent positions in a flat sequence, we have extended the encoding scheme to allow the attention mechanism to also attend over hierarchical positions in the input. Furthermore, we have realized a decoder based on a restrictive grammar graph model to improve the generation accuracy and ensure the well-formedness of the generated code. While we did not surpass the state of the art, our findings suggest that employing a tree-based positional encoding in combination with a shared natural-language subword vocabulary improves generation performance over sequential positional encodings.
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

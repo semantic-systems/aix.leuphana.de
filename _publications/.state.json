@@ -1,12 +1,12 @@
 {
   "summary": {
     "total_publications": 148,
-    "with_abstract": 146,
-    "without_abstract": 2,
+    "with_abstract": 148,
+    "without_abstract": 0,
     "total_conference": 102,
     "total_journal": 13,
     "total_archive": 15,
-    "last_updated": "2026-08-25T12:11:58.029737+00:00"
+    "last_updated": "2026-09-14T13:47:03.623048+00:00"
   },
   "publications": {
     "collapsing-distance-the-curse-of-ground-truth-in-computational-narrative-understanding": {
@@ -531,7 +531,7 @@
     },
     "proceedings-of-the-third-international-workshop-on-linked-datadriven-resilience-research-d2r2apos24": {
       "title": "Proceedings of the Third International Workshop on Linked Data-driven Resilience Research (D2R2&apos;24) co-located with European Semantic Web Conference 2024 (ESWC 2024), May 27, 2024",
-      "has_abstract": false,
+      "has_abstract": true,
       "file": "_publications/proceedings-of-the-third-international-workshop-on-linked-datadriven-resilience-research-d2r2apos24.md",
       "is_conference": false,
       "is_journal": false,
@@ -579,7 +579,7 @@
     },
     "a-formalization-of-one-of-the-main-claims-of-quotaposdunbaraposs-numberapos-deconstructedquot-by-lin": {
       "title": "A formalization of one of the main claims of &quot;&apos;Dunbar&apos;s number&apos; deconstructed&quot; by Lindenfors et al. 20211",
-      "has_abstract": false,
+      "has_abstract": true,
       "file": "_publications/a-formalization-of-one-of-the-main-claims-of-quotaposdunbaraposs-numberapos-deconstructedquot-by-lin.md",
       "is_conference": false,
       "is_journal": true,

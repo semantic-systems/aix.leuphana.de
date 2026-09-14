@@ -15,7 +15,6 @@ is_journal: false
 is_archive: false
 ---
 
-> **Abstract:**
-> in: Joint Proceedings of BLINK2017: 2nd International Workshop on Benchmarking Linked  Data and NLIWoD3: Natural Language Interfaces for the Web of Data Co-Located with
+*Proceedings volume.*
 
 

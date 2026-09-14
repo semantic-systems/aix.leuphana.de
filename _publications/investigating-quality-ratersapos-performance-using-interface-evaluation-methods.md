@@ -13,6 +13,6 @@ conference: "GI-Jahrestagung 2013"
 ---
 
 > **Abstract:**
-> use of quality appraisal techniques by novice programmers” is the result of my own independent  investigation  conducted to evaluate the programming performance of undergraduate
+> Pharmaceutical research has successfully incorporated a wealth of molecular modeling methods, within a variety of drug discovery programs, to study complex biological and chemical systems. The integration of computational and experimental strategies has been of great value in the identification and development of novel promising compounds. Broadly used in modern drug design, molecular docking methods explore the ligand conformations adopted within the binding sites of macromolecular targets. This approach also estimates the ligand-receptor binding free energy by evaluating critical phenomena involved in the intermolecular recognition process. Today, as a variety of docking algorithms are available, an understanding of the advantages and limitations of each method is of fundamental importance in the development of effective strategies and the generation of relevant results. The purpose of this review is to examine current molecular docking strategies used in drug discovery and medicinal chemistry, exploring the advances in the field and the role played by the integration of structure- and ligand-based methods.
 
 

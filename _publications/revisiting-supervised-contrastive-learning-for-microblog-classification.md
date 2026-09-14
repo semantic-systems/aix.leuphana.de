@@ -13,7 +13,7 @@ conference: "EMNLP 2024"
 ---
 
 > **Abstract:**
-> Detection (SiMiD) that employs microblogs and utilizes user-follower  This section revisits  the datasets used, presents baseline  RDEA [18] uses contrastive self-supervised learning and
+> Microblog content (e.g., Tweets) is noisy due to its informal use of language and its lack of contextual information within each post. To tackle these challenges, state-of-the-art microblog classification models rely on pre-training language models (LMs). However, pre-training dedicated LMs is resource-intensive and not suitable for small labs. Supervised contrastive learning (SCL) has shown its effectiveness with small, available resources. In this work, we examine the effectiveness of fine-tuning transformer-based language models, regularized with a SCL loss for English microblog classification. Despite its simplicity, the evaluation on two English microblog classification benchmarks (TweetEval and Tweet Topic Classification) shows an improvement over baseline models. The result shows that, across all subtasks, our proposed method has a performance gain of up to 11.9 percentage points. All our models are open source.
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

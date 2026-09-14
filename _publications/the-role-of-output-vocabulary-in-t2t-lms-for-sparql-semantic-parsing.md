@@ -15,7 +15,7 @@ conference: "ACL 2023"
 ---
 
 > **Abstract:**
-> This thesis shows that while generative LMs are not ideal for the semantic parsing task in   to our work in Chapter 5, The Role of Output Vocabulary in T2T LMs for SPARQL Semantic
+> In this work, we analyse the role of output vocabulary for text-to-text (T2T) models on the task of SPARQL semantic parsing. We perform experiments within the the context of knowledge graph question answering (KGQA), where the task is to convert questions in natural language to the SPARQL query language. We observe that the query vocabulary is distinct from human vocabulary. Language Models (LMs) are pre-dominantly trained for human language tasks, and hence, if the query vocabulary is replaced with a vocabulary more attuned to the LM tokenizer, the performance of models may improve. We carry out carefully selected vocabulary substitutions on the queries and find absolute gains in the range of 17% on the GrailQA dataset.
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

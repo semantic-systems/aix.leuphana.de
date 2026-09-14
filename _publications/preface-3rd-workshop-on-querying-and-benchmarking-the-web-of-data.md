@@ -14,7 +14,6 @@ is_archive: false
 conference: "QuWeDa@ISWC 2019"
 ---
 
-> **Abstract:**
-> Linked Data querying focuses exclusively on bgp queries [14], this paper is the first to  use a sparql benchmark on a Linked Data  The three well-known rdf interfaces on the Web—sparql
+*Preface.*
 
 

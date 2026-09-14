@@ -13,7 +13,7 @@ conference: "LREC 2020"
 ---
 
 > **Abstract:**
-> an anomaly detection approach where erroneous dialogues  Furthermore, since we are  dealing with dialogues, ie, a  considers dialogues as a series paired up utterances or question
+> Dialogue systems for interaction with humans have been enjoying increased popularity in the research and industry fields. To this day, the best way to estimate their success is through means of human evaluation and not automated approaches, despite the abundance of work done in the field. In this paper, we investigate the effectiveness of perceiving dialogue evaluation as an anomaly detection task. The paper looks into four dialogue modeling approaches and how their objective functions correlate with human annotation scores. A high-level perspective exhibits negative results. However, a more in-depth look shows some potential for using anomaly detection for evaluating dialogues.
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

@@ -16,7 +16,7 @@ conference: "EMNLP 2020"
 ---
 
 > **Abstract:**
-> Hyper-relational knowledge graphs (HKGs) enrich knowledge graphs by extending a triplet  to a hyper-relational  MAYPL (Message pAssing framework for hYper-relational knowledge
+> Hyper-relational knowledge graphs (KGs) (e.g., Wikidata) enable associating additional key-value pairs along with the main triple to disambiguate, or restrict the validity of a fact. In this work, we propose a message passing based graph encoder - StarE capable of modeling such hyper-relational KGs. Unlike existing approaches, StarE can encode an arbitrary number of additional information (qualifiers) along with the main triple while keeping the semantic roles of qualifiers and triples intact. We also demonstrate that existing benchmarks for evaluating link prediction (LP) performance on hyper-relational KGs suffer from fundamental flaws and thus develop a new Wikidata-based dataset - WD50K. Our experiments demonstrate that StarE based LP model outperforms existing approaches across multiple benchmarks. We also confirm that leveraging qualifiers is vital for link prediction with gains up to 25 MRR points compared to triple-based representations.
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

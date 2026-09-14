@@ -10,9 +10,13 @@ layout: default
       {% for post in paginator.posts %}
         <li style="display: flex; gap: 1.5rem; background: var(--bg-primary); border: 1px solid var(--c-granit-20); border-radius: 8px; overflow: hidden; padding: 1.5rem; transition: box-shadow 0.2s ease;">
           {% assign preview_image = post.thumbnail | default: post.image %}
-          {% if preview_image and preview_image != "" %}
+          {% if preview_image and preview_image != "" and preview_image != "/assets/images/" and preview_image != "/assets/images/blank.png" and preview_image != "/assets/images/main_building_leuphana.png" %}
             <div class="post-image" style="flex: 0 0 250px; height: 180px; border-radius: 4px; overflow: hidden; background-color: var(--c-granit-20); display: flex; align-items: center; justify-content: center;">
               <img src="{{ preview_image | relative_url }}" alt="{{ post.title }}" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+          {% else %}
+            <div class="post-image" style="flex: 0 0 250px; height: 180px; border-radius: 4px; overflow: hidden; background-color: var(--bg-secondary); display: flex; align-items: center; justify-content: center; padding: 1.5rem; box-sizing: border-box;">
+              <img src="{{ '/assets/logo.svg' | relative_url }}" alt="{{ post.title }}" style="max-width: 100%; max-height: 100%; object-fit: contain;">
             </div>
           {% endif %}
           

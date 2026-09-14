@@ -4,6 +4,7 @@ title: "NFDI4DataScience (NFDI4DS)"
 date: 2024-01-01 # Format exactly like this: YYYY-MM-DD. This controls the sorting order (newest first)
 status: "Ongoing" # e.g. "Ongoing", "Completed", "In Review"
 thumbnail: "/assets/icons/nfdi4ds-logo.png" # Square preview image for the main Projects list
+thumbnail_size: "120%"
 image: "/assets/icons/nfdi4ds-logo.png" # Large banner image inside the actual project page (optional)
 excerpt: "DFG project on national research data infrastructure connecting publications, datasets, software, and models to make Data Science and AI research more FAIR, reproducible, and searchable."
 published: true # Change this to 'true' when you want it to appear on the live website!

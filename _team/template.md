@@ -7,7 +7,7 @@
 # Required fields
 name: "First Name Last Name"
 title: "Academic/Professional Title"
-image: "image-filename.jpg"  # Place image in assets/images/profile_photo/ directory
+image: "blank.png"  # Default is "blank.png". To use a custom photo, place your image in assets/images/profile_photo/ and specify its filename here
 job_category: "category"     # Use one of: head, academic_advisor, research_assistant, research_associate, scholarship_holder, external_phd, student_assistant, alumni
 published: false             # Prevents Jekyll from rendering this template into a live webpage
 

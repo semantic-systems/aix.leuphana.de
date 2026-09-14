@@ -15,6 +15,6 @@ is_archive: false
 ---
 
 > **Abstract:**
-> a knowledge-driven chatbot, and (2) based on the findings, we suggest solutions to improve  DBpedia Chatbot’ part of interactions with knowledge graph-driven chatbots, we perform an
+> Open-source software repository and code for the paper: An Approach for Ex-Post-Facto Analysis of Knowledge Graph-Driven Chatbots – The DBpedia Chatbot (http://chat.dbpedia.org/).
 
 

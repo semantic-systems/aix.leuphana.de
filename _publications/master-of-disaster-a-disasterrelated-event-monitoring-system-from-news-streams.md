@@ -12,7 +12,7 @@ is_archive: true
 ---
 
 > **Abstract:**
-> supervisor Nitesh Bharosa whether he had a master thesis assignment for me. Consequently,   Also, I would like to thank all participants of the Master of Disaster Game, hosted on March
+> The need for a disaster-related event monitoring system has arisen due to the societal and economic impact caused by the increasing number of severe disaster events. An event monitoring system should be able to extract event-related information from texts, and discriminates event instances. We demonstrate our open-source event monitoring system, namely, Master of Disaster (MoD), which receives news streams, extracts event information, links extracted information to a knowledge graph (KG), in this case Wikidata, and discriminates event instances visually. The goal of event visualization is to group event mentions referring to the same real-world event instance so that event instance discrimination can be achieved by visual screening.
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

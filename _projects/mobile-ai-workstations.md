@@ -3,8 +3,8 @@ layout: project
 title: "Mobile AI Workstations"
 date: 2025-10-01 # Format exactly like this: YYYY-MM-DD. This controls the sorting order (newest first)
 status: "Ongoing" # e.g. "Ongoing", "Completed", "In Review"
-thumbnail: "/assets/images/" # Square preview image for the main Projects list
-image: "/assets/images/" # Large banner image inside the actual project page (optional)
+thumbnail: "/assets/logo.svg" # Square preview image for the main Projects list
+image: "/assets/logo.svg" # Large banner image inside the actual project page (optional)
 excerpt: "A SQM project provides mobile, GPU-capable workstations to enable equitable student access to AI development."
 published: true # Change this to 'true' when you want it to appear on the live website!
 project_members:

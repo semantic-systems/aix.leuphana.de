@@ -13,7 +13,7 @@ is_archive: true
 ---
 
 > **Abstract:**
-> Question Answering (QA) returns concise answers or answer lists from natural language text given a context document. Many resources go into curating QA datasets to advance robust models' development. There is a surge of QA datasets for languages like English, however, this is not true for Amharic. Amharic, the official language of Ethiopia, is the second most spoken Semitic language in the world. There is no published or publicly available Amharic QA dataset. Hence, to foster the research in Amharic QA, we present the first Amharic QA
+> Question Answering (QA) returns concise answers or answer lists from natural language text given a context document. Many resources go into curating QA datasets to advance robust models' development. There is a surge of QA datasets for languages like English, however, this is not true for Amharic. Amharic, the official language of Ethiopia, is the second most spoken Semitic language in the world. There is no published or publicly available Amharic QA dataset. Hence, to foster the research in Amharic QA, we present the first Amharic QA (AmQA) dataset. We crowdsourced 2628 question-answer pairs over 378 Wikipedia articles. Additionally, we run an XLMR Large-based baseline model to spark open-domain QA research interest. The best-performing baseline achieves an F-score of 69.58 and 71.74 in reader-retriever QA and reading comprehension settings respectively.
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

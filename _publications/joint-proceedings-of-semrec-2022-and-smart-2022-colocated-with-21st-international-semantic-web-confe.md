@@ -15,7 +15,6 @@ is_journal: false
 is_archive: false
 ---
 
-> **Abstract:**
-> Performance of our Memory Network based deep deductive reasoner on the SemRec  CaLiGraph data was consistent with our previous findings. In addition, we note that the system
+*Proceedings volume.*
 
 

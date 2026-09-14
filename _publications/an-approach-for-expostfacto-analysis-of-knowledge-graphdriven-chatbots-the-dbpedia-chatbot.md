@@ -16,6 +16,6 @@ conference: "CONVERSATIONS 2019"
 ---
 
 > **Abstract:**
-> A complete datadriven analysis for graph-driven chatbots is performed by Ref. [33].   approach for ex-post-facto analysis of knowledge graph-driven chatbots: The DBpedia chatbot
+> As chatbots are gaining popularity for simplifying access to information and community interaction, it is essential to examine whether these agents are serving their intended purpose and catering to the needs of their users. Therefore, we present an approach to perform an ex-post-facto analysis over the logs of knowledge base-driven dialogue systems. Using the DBpedia Chatbot as our case study, we inspect three aspects of the interactions, (i) user queries and feedback, (ii) the bot’s response to these queries, and (iii) the overall flow of the conversations. We discuss key implications based on our findings. All the source code used for the analysis can be found at https://github.com/dice-group/DBpedia-Chatlog-Analysis .
 
 

@@ -14,6 +14,6 @@ conference: "WWW 2018"
 ---
 
 > **Abstract:**
-> enhancing community interactions in the DBpedia community for potential improvement  through a data-driven method. We  log files of the DBpedia Chatbot and report multiple findings,
+> In this demo, we introduce the DBpedia chatbot, a knowledge-graph-driven chatbot designed to optimize community interaction. The bot was designed for integration into community software to facilitate the answering of recurrent questions. Four main challenges were addressed when building the chatbot, namely (1) understanding user queries, (2) fetching relevant information based on the queries, (3) tailoring the responses based on the standards of each output platform (i.e. Web, Slack, Facebook) as well as (4) developing subsequent user interactions with the DBpedia chatbot. With this demo, we will showcase our solutions to these four challenges.
 
 

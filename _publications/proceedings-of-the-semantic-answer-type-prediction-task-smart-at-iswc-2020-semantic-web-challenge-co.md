@@ -14,7 +14,6 @@ is_journal: false
 is_archive: false
 ---
 
-> **Abstract:**
-> main challenges in the design of KGQA systems is semantic parsing  The tasks for information  retrieval and answer extraction  Answer type prediction was approached as a classification
+*Proceedings volume.*
 
 

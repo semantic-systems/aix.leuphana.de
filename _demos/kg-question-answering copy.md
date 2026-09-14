@@ -2,17 +2,15 @@
 layout: demo
 title: "Interactive Knowledge Graph Visualizer"
 demo_url: "https://semantic-systems.github.io/kg-visualizer-demo"
-image: ""
+thumbnail: "/assets/logo.svg"
+image: "/assets/logo.svg"
 excerpt: "A web-based tool for exploring and visualizing massive RDF Knowledge Graphs in real-time."
+published: false
 ---
 
 <figure style="margin: 2rem 0; text-align: center;">
   {% if page.image and page.image != "" %}
-    <img src="{{ page.image | relative_url }}" alt="Demo Screenshot" style="width: 100%; max-height: 500px; object-fit: contain; border-radius: 8px; border: 1px solid var(--c-granit-40); box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-  {% else %}
-    <div style="background: var(--c-granit-20); height: 400px; display: flex; align-items: center; justify-content: center; border-radius: 8px; border: 2px dashed var(--c-granit-40);">
-      <span style="color: var(--text-secondary); font-style: italic;">[ Placeholder: Screenshot of a complex node-edge graph visualization ]</span>
-    </div>
+    <img src="{{ page.image | relative_url }}" alt="Demo Screenshot" style="width: 100%; max-height: 500px; object-fit: contain; border-radius: 8px; border: 1px solid var(--c-granit-40); box-shadow: 0 4px 12px rgba(0,0,0,0.1); background: var(--bg-secondary); padding: 2rem; box-sizing: border-box;">
   {% endif %}
   <figcaption style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.5rem;">The visualizer rendering a local sub-graph around a specific entity.</figcaption>
 </figure>

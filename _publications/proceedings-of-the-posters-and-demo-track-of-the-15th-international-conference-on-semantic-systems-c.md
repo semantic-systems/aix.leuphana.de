@@ -13,7 +13,6 @@ is_journal: false
 is_archive: false
 ---
 
-> **Abstract:**
-> For modern information systems they are often analysed and  the concept of time into Semantic  Web applications (cf. [ court cases and the archival record sets documenting them, along
+*Proceedings volume.*
 
 

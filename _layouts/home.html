@@ -15,7 +15,7 @@
     {% endfor %}
 
     {% if hero_images.size == 0 %}
-      {% assign hero_images = hero_images | push: '/assets/images/main_building_leuphana.png' %}
+      {% assign hero_images = hero_images | push: '/assets/logo.svg' %}
     {% endif %}
 
     <!-- Custom Hero Section for Home Page -->
@@ -23,7 +23,7 @@
       <!-- Carousel Backgrounds -->
       <div id="hero-bg-carousel" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; background-color: var(--c-granit-60);">
         {% for img in hero_images %}
-          <div class="hero-bg-slide" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url('{{ img | relative_url }}') no-repeat center center/cover; opacity: {% if forloop.first %}1{% else %}0{% endif %}; transition: opacity 1.5s ease-in-out;"></div>
+          <div class="hero-bg-slide" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url('{{ img | relative_url }}') no-repeat center center/{% if img contains 'logo.svg' %}contain{% else %}cover{% endif %}; opacity: {% if forloop.first %}1{% else %}0{% endif %}; transition: opacity 1.5s ease-in-out;"></div>
         {% endfor %}
       </div>
 
@@ -31,8 +31,14 @@
         <h1 style="color: white; font-size: 4rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); margin-bottom: 25px;">AIX Research Group</h1>
         <p class="lead" style="color: var(--c-granit-20); font-size: 1.4rem; text-shadow: 1px 1px 5px rgba(0,0,0,0.5); max-width: 900px; line-height: 1.5;">Artificial Intelligence and Explainability at Leuphana University, led by Prof. Dr. Ricardo Usbeck.</p>
         <div class="hero-actions" style="margin-top: 40px;">
-          <a href="{{ '/projects/' | relative_url }}" class="btn" style="font-size: 1.1rem; padding: 14px 32px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">Discover Our Projects</a>
-          <a href="{{ '/publications/' | relative_url }}" class="btn" style="font-size: 1.1rem; padding: 12px 30px; background-color: transparent; border: 2px solid white; color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.3); margin-left: 15px;">Read Publications</a>
+          {% assign valid_projects = site.projects | where_exp: "item", "item.published != false" %}
+          {% if valid_projects.size > 0 %}
+            <a href="{{ '/projects/' | relative_url }}" class="btn" style="font-size: 1.1rem; padding: 14px 32px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">Discover Our Projects</a>
+          {% endif %}
+          {% assign valid_pubs = site.publications | where_exp: "item", "item.published != false" %}
+          {% if valid_pubs.size > 0 %}
+            <a href="{{ '/publications/' | relative_url }}" class="btn" style="font-size: 1.1rem; padding: 12px 30px; background-color: transparent; border: 2px solid white; color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.3); {% if valid_projects.size > 0 %}margin-left: 15px;{% endif %}">Read Publications</a>
+          {% endif %}
         </div>
       </div>
     </section>
@@ -72,54 +78,82 @@
           .card-excerpt { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.5; margin: 0; flex-grow: 1; }
         </style>
 
-        <h2 class="section-heading">Latest News</h2>
-        <div class="cards-grid">
-          {% for post in site.posts limit:3 %}
-            <a href="{{ post.url | relative_url }}" class="item-card">
-              {% if post.image and post.image != "" %}
-                <div class="card-image-placeholder" style="background-image: url('{{ post.image | relative_url }}');"></div>
-              {% endif %}
-              <div class="card-content">
-                <h3 class="card-title">{{ post.title }}</h3>
-                <div class="card-date">{{ post.date | date: "%B %-d, %Y" }}</div>
-                <p class="card-excerpt">{{ post.excerpt | strip_html | truncatewords: 20 }}</p>
-              </div>
-            </a>
-          {% endfor %}
-        </div>
-        <div style="text-align: right;"><a href="{{ '/news/' | relative_url }}" class="btn btn-secondary">View All News →</a></div>
+        {% assign valid_posts = site.posts | where_exp: "item", "item.published != false" %}
+        {% if valid_posts.size > 0 %}
+          <h2 class="section-heading">Latest News</h2>
+          <div class="cards-grid">
+            {% for post in valid_posts limit:3 %}
+              <a href="{{ post.url | relative_url }}" class="item-card">
+                {% assign preview_image = post.thumbnail | default: post.image %}
+                {% assign preview_size = post.thumbnail_size | default: post.image_size %}
+                {% if preview_image contains 'logo.svg' or preview_image contains 'logo.png' or preview_image == nil or preview_image == "" or preview_image == "/assets/images/" or preview_image == "/assets/images/blank.png" or preview_image == "/assets/images/main_building_leuphana.png" %}
+                  <div class="card-image-placeholder default-logo-placeholder" style="{% if preview_image contains 'logo.png' %}background-image: url('{{ preview_image | relative_url }}');{% endif %}{% if preview_size %}background-size: {{ preview_size }};{% endif %}"></div>
+                {% else %}
+                  <div class="card-image-placeholder" style="background-image: url('{{ preview_image | relative_url }}');{% if preview_size %}background-size: {{ preview_size }};{% endif %}"></div>
+                {% endif %}
+                <div class="card-content">
+                  <h3 class="card-title">{{ post.title }}</h3>
+                  <div class="card-date">{{ post.date | date: "%B %-d, %Y" }}</div>
+                  <p class="card-excerpt">{{ post.excerpt | strip_html | truncatewords: 20 }}</p>
+                </div>
+              </a>
+            {% endfor %}
+          </div>
+          <div style="text-align: right;"><a href="{{ '/news/' | relative_url }}" class="btn btn-secondary">View All News →</a></div>
+        {% endif %}
 
-        <h2 class="section-heading" id="projects">Our Projects</h2>
-        <div class="cards-grid">
-          {% for project in site.projects limit:3 %}
-            <a href="{{ project.url | relative_url }}" class="item-card">
-              {% if project.image and project.image != "" %}
-                <div class="card-image-placeholder" style="background-image: url('{{ project.image | relative_url }}');"></div>
-              {% endif %}
-              <div class="card-content">
-                <h3 class="card-title">{{ project.title }}</h3>
-                {% if project.status %}<span style="align-self: flex-start; font-size: 0.8rem; background: var(--c-granit-20); padding: 0.2rem 0.5rem; border-radius: 4px; margin-bottom: 0.5rem;">{{ project.status }}</span>{% endif %}
-                <p class="card-excerpt">{{ project.excerpt | strip_html | truncatewords: 20 }}</p>
-              </div>
-            </a>
-          {% endfor %}
-        </div>
-        <div style="text-align: right;"><a href="{{ '/projects/' | relative_url }}" class="btn btn-secondary">View All Projects →</a></div>
+        {% assign sorted_projects = site.projects | where_exp: "item", "item.published != false" | sort: "date" | reverse %}
+        {% if sorted_projects.size > 0 %}
+          <h2 class="section-heading" id="projects">Our Projects</h2>
+          <div class="cards-grid">
+            {% for project in sorted_projects limit:3 %}
+              <a href="{{ project.url | relative_url }}" class="item-card">
+                {% assign preview_image = project.thumbnail | default: project.image %}
+                {% assign preview_size = project.thumbnail_size | default: project.image_size %}
+                {% if preview_image contains 'logo.svg' or preview_image contains 'logo.png' or preview_image == nil or preview_image == "" or preview_image == "/assets/images/" or preview_image == "/assets/images/blank.png" or preview_image == "/assets/images/main_building_leuphana.png" %}
+                  <div class="card-image-placeholder default-logo-placeholder" style="{% if preview_image contains 'logo.png' %}background-image: url('{{ preview_image | relative_url }}');{% endif %}{% if preview_size %}background-size: {{ preview_size }};{% endif %}"></div>
+                {% else %}
+                  <div class="card-image-placeholder" style="background-image: url('{{ preview_image | relative_url }}');{% if preview_size %}background-size: {{ preview_size }};{% endif %}"></div>
+                {% endif %}
+                <div class="card-content">
+                  <h3 class="card-title">{{ project.title }}</h3>
+                  <div style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap;">
+                    {% if project.date %}
+                      <span style="font-size: 0.85rem; color: var(--text-secondary);">
+                        {{ project.date | date: "%B %Y" }} &mdash; {% if project.end_date %}{{ project.end_date | date: "%B %Y" }}{% else %}Present{% endif %}
+                      </span>
+                    {% endif %}
+                    {% if project.status %}<span style="font-size: 0.8rem; background: var(--c-granit-20); padding: 0.2rem 0.5rem; border-radius: 4px;">{{ project.status }}</span>{% endif %}
+                  </div>
+                  <p class="card-excerpt">{{ project.excerpt | strip_html | truncatewords: 20 }}</p>
+                </div>
+              </a>
+            {% endfor %}
+          </div>
+          <div style="text-align: right;"><a href="{{ '/projects/' | relative_url }}" class="btn btn-secondary">View All Projects →</a></div>
+        {% endif %}
 
-        <h2 class="section-heading" id="demos">Interactive Demos</h2>
-        <div class="cards-grid">
-          {% for demo in site.demos limit:3 %}
-            <a href="{{ demo.url | relative_url }}" class="item-card">
-              {% if demo.image and demo.image != "" %}
-                <div class="card-image-placeholder" style="background-image: url('{{ demo.image | relative_url }}');"></div>
-              {% endif %}
-              <div class="card-content">
-                <h3 class="card-title">{{ demo.title }}</h3>
-                <p class="card-excerpt">{{ demo.excerpt | strip_html | truncatewords: 20 }}</p>
-              </div>
-            </a>
-          {% endfor %}
-        </div>
+        {% assign valid_demos = site.demos | where_exp: "item", "item.published != false" %}
+        {% if valid_demos.size > 0 %}
+          <h2 class="section-heading" id="demos">Interactive Demos</h2>
+          <div class="cards-grid">
+            {% for demo in valid_demos limit:3 %}
+              <a href="{{ demo.url | relative_url }}" class="item-card">
+                {% assign preview_image = demo.thumbnail | default: demo.image %}
+                {% assign preview_size = demo.thumbnail_size | default: demo.image_size %}
+                {% if preview_image contains 'logo.svg' or preview_image contains 'logo.png' or preview_image == nil or preview_image == "" or preview_image == "/assets/images/" or preview_image == "/assets/images/blank.png" or preview_image == "/assets/images/main_building_leuphana.png" %}
+                  <div class="card-image-placeholder default-logo-placeholder" style="{% if preview_image contains 'logo.png' %}background-image: url('{{ preview_image | relative_url }}');{% endif %}{% if preview_size %}background-size: {{ preview_size }};{% endif %}"></div>
+                {% else %}
+                  <div class="card-image-placeholder" style="background-image: url('{{ preview_image | relative_url }}');{% if preview_size %}background-size: {{ preview_size }};{% endif %}"></div>
+                {% endif %}
+                <div class="card-content">
+                  <h3 class="card-title">{{ demo.title }}</h3>
+                  <p class="card-excerpt">{{ demo.excerpt | strip_html | truncatewords: 20 }}</p>
+                </div>
+              </a>
+            {% endfor %}
+          </div>
+        {% endif %}
 
         {{ content }}
       </div>

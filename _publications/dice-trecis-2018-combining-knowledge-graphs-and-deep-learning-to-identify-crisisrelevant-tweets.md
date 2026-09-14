@@ -13,6 +13,6 @@ conference: "TREC 2018"
 ---
 
 > **Abstract:**
-> vectors, and create the combined source and target data  mainly related to machine learning  more specifically domain  interests are in the areas of machine learning, data mining, data
+> In this paper, we describe our submissions to the TREC Incident Stream (TREC-IS) challenge 2018. We investigated different machine learning approaches to classify crisis-related tweets into different information types. We incorporated knowledge graphs as features into this social media analysis, in addition to bag of words, word embeddings, time data, and event-types. Further, we evaluate state-of-the-art classification models on 31 generated features sets. Our TREC-IS results indicate that a model based on combining knowledge graphs (i.e., Babelfy), word embeddings and textual features outperforms classical machine learning models.
 
 

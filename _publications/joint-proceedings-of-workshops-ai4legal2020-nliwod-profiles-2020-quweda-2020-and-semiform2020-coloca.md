@@ -28,7 +28,6 @@ is_journal: false
 is_archive: false
 ---
 
-> **Abstract:**
-> Graph management [30], Semantic Web applications [2] and  We believe that this is the case  because of scalability, that is,  Compared to the conference version, we extend the work to
+*Proceedings volume.*
 
 

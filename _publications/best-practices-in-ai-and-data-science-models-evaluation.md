@@ -14,7 +14,7 @@ conference: "INFORMATIK 2025"
 ---
 
 > **Abstract:**
-> As a consequence, we regularly come across papers in top Artificial Intelligence (AI)/ML   plots and data leakage in forecast evaluation. Then, in Sect. 4, we provide best practices and
+> Evaluating Artificial Intelligence (AI) and data science models is crucial to ensure their reliability, fairness, and applicability in real-world scenarios. This paper highlights best practices for model evaluation, emphasizing the importance of selecting appropriate metrics aligned with business or research goals. Key considerations include using robust validation strategies (e.g., cross-validation), monitoring for overfitting, and ensuring data splits preserve class distributions. Fairness, interpretability, and reproducibility are essential, particularly in high-stakes domains like healthcare or finance. Additionally, evaluating models across multiple datasets or demographic subgroups helps uncover biases and improve generalizability. Adopting standardized reporting practices and open-source benchmarks further strengthens the evaluation process. By adhering to these practices, practitioners can build more trustworthy and effective AI systems
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

@@ -17,7 +17,7 @@ conference: "SEMANTiCS 2021"
 ---
 
 > **Abstract:**
-> Graph pattern matching has been extensively studied. Most algorithms [22], [23], [40]–[44]   Although OGPs adopt homomorphic semantics, rather than isomorphic semantics as in [22],
+> Knowledge Graph Question Answering (KGQA) systems are often based on machine learning algorithms, requiring thousands of question-answer pairs as training examples or natural language processing pipelines that need module fine-tuning. In this paper, we present a novel QA approach, dubbed TeBaQA. Our approach learns to answer questions based on graph isomorphisms from basic graph patterns of SPARQL queries. Learning basic graph patterns is efficient due to the small number of possible patterns. This novel paradigm reduces the amount of training data necessary to achieve state-of-the-art performance. TeBaQA also speeds up the domain adaption process by transforming the QA system development task into a much smaller and easier data compilation task. In our evaluation, TeBaQA achieves state-of-the-art performance on QALD-8 and delivers comparable results on QALD-9 and LC-QuAD v1. Additionally, we performed a fine-grained evaluation on complex queries that deal with aggregation and superlative questions as well as an ablation study, highlighting future research challenges.
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

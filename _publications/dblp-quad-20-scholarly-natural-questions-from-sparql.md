@@ -18,7 +18,7 @@ conference: "K-CAP 2025"
 ---
 
 > **Abstract:**
-> ACM publications, Cordis, DBLP and institutional data provided  As described in this section  there are a number of problems  A SPARQL endpoint is provided so that searches that cover
+> We present DBLP-QuAD 2.0, designed to evaluate Scholarly Knowledge Graph Question Answering (KGQA) over DBLP. Recent updates in the underlying DBLP KG, including new entities and relationships such as venues, research streams, and citation links, have necessitated a corresponding update to existing KG QA benchmarking resources. While the DBLP-QuAD dataset focused on author and publication-centered queries, DBLP-QuAD 2.0 broadens the coverage to reflect the enriched structure of the updated KG. Specifically, the questions in our dataset are formulated from SPARQL query logs that cover a wide range of entities involving authors, publications, venues, research streams, and citation relationships. DBLP-QuAD 2.0 thus provides a more comprehensive benchmark for evaluating KGQA systems with a baseline.
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

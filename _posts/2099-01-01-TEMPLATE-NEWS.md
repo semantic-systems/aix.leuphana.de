@@ -4,8 +4,8 @@ title: "REPLACE WITH TITLE: Short and catchy title for the news"
 date: 2026-01-01 # Format exactly like this: YYYY-MM-DD. This controls sorting!
 author: "Name of the Author"
 categories: [news] # You can add more categories like [news, event, research]
-thumbnail: "/assets/images/main_building_leuphana.png" # Square preview image for the main News list page
-image: "/assets/images/Luftaufnahme_Leuphana_Universitaet_Lueneburg I.jpg" # Large banner image inside the actual post (optional)
+thumbnail: "/assets/logo.svg" # Preview image for the main News list page (default is AIX logo)
+image: "/assets/logo.svg" # Large banner image inside the actual post (default is AIX logo, optional to replace)
 excerpt: "A 1-2 sentence summary of this news that will show up as a preview on the main page."
 published: false # Change this to 'true' when you want it to appear on the live website!
 ---

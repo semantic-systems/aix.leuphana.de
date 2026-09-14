@@ -14,7 +14,7 @@ conference: "ISWC 2023"
 ---
 
 > **Abstract:**
-> This section presents several key statistics of the dblp Knowledge Graph to give an overview  of its content and dimension. Table 5 shows the number of entities per type, and Table 6
+> In this work, we present a web application named DBLPLink, which performs entity linking over the DBLP scholarly knowledge graph. DBLPLink uses text-to-text pre-trained language models, such as T5, to produce entity label spans from an input text question. Entity candidates are fetched from a database based on the labels, and an entity re-ranker sorts them based on entity embeddings, such as TransE, DistMult and ComplEx. The results are displayed so that users may compare and contrast the results between T5-small, T5-base and the different KG embeddings used. The demo can be accessed at https://ltdemos.informatik.uni-hamburg.de/dblplink/.
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

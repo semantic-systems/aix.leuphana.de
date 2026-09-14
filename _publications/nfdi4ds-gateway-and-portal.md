@@ -19,7 +19,11 @@ conference: "CoRDI 2023"
 ---
 
 > **Abstract:**
-> By offering flexible access methods (SPARQL endpoints, OAI-PMH API), it allows it to be  incorporated in other systems, eg, into the NFDI4DS Gateway and the KGI4NFDI basic service
+> ©NFDI4DataScience (NFDI4DS) is a consortium to support researchers in all stages of the research data lifecycle to conduct their research in line with the FAIR principles. The developed infrastructure targets researchers from a wide range of disciplines in data science and AI.
+> 
+> We present the ideas of the NFDI4DS gateway and the NFDI4DS portal. Two approaches to navigate digital objects (articles, data, machine learning models, workflows, scripts/code, etc.) from various NFDI4DS resources such as the ORKG, the DBLP database, and other research knowledge graphs (KGs). Transparency, reproducibility, and fairness will be fostered by a step-wise integration of existing and newly developed services into the overall system.
+> 
+> With this paper, we want to engage with the community and understand the needs and challenges of researchers in various disciplines regarding data science and AI. Therefore, we will discuss the currently developed prototypes and outline our plans for future development steps.
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

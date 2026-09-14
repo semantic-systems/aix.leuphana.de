@@ -12,7 +12,14 @@ conference: "TEXT2KG/DQMLKG@ESWC 2024"
 ---
 
 > **Abstract:**
-> in zero-shot named entity recognition, this work presents an approach to efficiently and  accurately predict zero-shot relationship  Incorporating type information into zero-shot relation
+> The task of zero-shot relation extraction focuses on the extraction of relations not seen during training time.
+Commonly, additional information about the relation such as the relation name or a description of the relation is
+utilised. In this work, we analyze whether a relation extractor can benefit from the inclusion of fine-grained type
+information about the involved entities. This is based on the intuition that relation descriptions might contain
+ontological information on the domain and range of the entity types that are usually put into relation. For that,
+we follow a cross-encoding setup where we encode both, the entity information and relation information, as one
+sequence and learn to score the representation. We examine this method on several datasets and show that the
+inclusion of the fine-grained type information leads to an improvement in performance.
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

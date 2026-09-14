@@ -9,7 +9,7 @@ projects = [
         "title": "PROVIDER",
         "date": "2026-01-01",
         "status": "Ongoing",
-        "thumbnail": "/assets/images/blank.png",
+        "thumbnail": "/assets/logo.svg",
         "excerpt": "A BMFTR project to develop dynamic simulations and self-learning LLM agents for anticipating supply shortages. AIX leads work on neuro-symbolic information extraction and explainable event analysis.",
         "content": """The collaborative project PROVIDER develops an AI-supported early warning system for the early detection, analysis, and simulation of potential supply bottlenecks in Germany. The focus is on supply chains and supply systems that are relevant for everyday supply security, but do not necessarily belong to classical critical infrastructure. Many of these goods, logistics, and service chains are highly optimized, internationally interconnected, and particularly susceptible to disruptions from extreme weather events, geopolitical conflicts, production failures, transport issues, or societal crises.
 
@@ -31,7 +31,7 @@ Furthermore, Leuphana is developing an interactive evaluation tool with a natura
         "title": "RESCUE-MATE",
         "date": "2024-01-01",
         "status": "Ongoing",
-        "thumbnail": "/assets/images/blank.png",
+        "thumbnail": "/assets/logo.svg",
         "excerpt": "A BMFTR project that uses real-time, geospatial, and social-media data to create dynamic crisis situation pictures and decision support for rescue services.",
         "content": """The RESCUE-MATE project aims to leverage real-time, geospatial, and social media data to construct dynamic situational awareness pictures during crises. By providing advanced decision support systems, the project assists rescue services in making informed and timely decisions during complex emergencies.
 
@@ -46,7 +46,7 @@ Furthermore, Leuphana is developing an interactive evaluation tool with a natura
         "title": "NFDI4DataScience (NFDI4DS)",
         "date": "2024-01-01",
         "status": "Ongoing",
-        "thumbnail": "/assets/images/blank.png",
+        "thumbnail": "/assets/logo.svg",
         "excerpt": "DFG project on national research data infrastructure connecting publications, datasets, software, and models to make Data Science and AI research more FAIR, reproducible, and searchable.",
         "content": """NFDI4DataScience (NFDI4DS) follows a vision: for Data Science and the advancements in Artificial Intelligence, it is essential to fully support all steps of the complex and interdisciplinary lifecycle for research data, i.e., the collection/creation, processing, analysis, publication, archiving, and reuse of various resources. The paradigm shift in recent years has meant that the most powerful computational methods are increasingly achieved through data-driven approaches, especially Deep Learning. This has led to the establishment of Data Science as an independent and ubiquitous scientific discipline, driven by advances in computer science, but drawing its great significance from the diverse results in almost all scientific disciplines.
 
@@ -68,7 +68,7 @@ In the initial phase, NFDI4DS will focus on four application areas that are part
         "title": "LLMs for Clinical-Research Data Extraction",
         "date": "2024-09-01",
         "status": "Completed",
-        "thumbnail": "/assets/images/blank.png",
+        "thumbnail": "/assets/logo.svg",
         "excerpt": "BMFTR project with DZHK and UKE, which uses large language models to extract structured clinical information from discharge letters and other medical documents.",
         "content": """Acute heart failure including cardiogenic shock is a life-threatening condition with high 30-day mortality up to 60%. In order to understand these critical conditions better, large registries are being established. These are most valuable primarily in generating hypotheses for further assessment, usually performed in randomized controlled trials (RCTs). These trials permit insights into causal relationships between medical interventions (like the use of novel medical drugs or mechanical circulatory support devices like the veno-arterial extracorporeal membrane oxygenation, so-called VA-ECMO) and patient outcomes.
 
@@ -88,7 +88,7 @@ Applying artificial intelligence (AI) through large language models (LLMs) addre
         "title": "Creative Space for Human and Artificial Intelligence",
         "date": "2025-10-01",
         "status": "Ongoing",
-        "thumbnail": "/assets/images/blank.png",
+        "thumbnail": "/assets/logo.svg",
         "excerpt": "An open, project-based experimentation, learning, and advisory space where students from all disciplines explore AI and data literacy through hands-on, curiosity-driven, interdisciplinary collaboration.",
         "content": """Based on the Creative Space concept (open, project-based experimentation spaces in technologically complex research areas like Artificial Intelligence for all students at Leuphana), we want to establish a Creative Space with this project. Especially in the various fields of AI, conveying complex technological backgrounds is difficult (abstraction, complexity reduction without simplification), while at the same time it will be essential for students of all disciplines to engage with these key technologies. A basic AI competence and Data Literacy in this area is helpful to necessary for all disciplines looking into the future.
 
@@ -111,7 +111,7 @@ The Creative Space relies on three basic principles to support the free, self-de
         "title": "Mobile AI Workstations",
         "date": "2025-10-01",
         "status": "Ongoing",
-        "thumbnail": "/assets/images/blank.png",
+        "thumbnail": "/assets/logo.svg",
         "excerpt": "A SQM project provides mobile, GPU-capable workstations to enable equitable student access to AI development.",
         "content": """Artificial Intelligence is rapidly gaining importance – in research, business, and society. To prepare students of all disciplines specifically for this development, they need access to powerful tools and development environments. Currently, many – especially outside the Business Informatics and Data Science programs – lack suitable hardware to realize their own, more complex AI applications.
 
@@ -132,7 +132,7 @@ Thanks to their mobility, the stations can be flexibly integrated into various t
         "title": "Student AI Server",
         "date": "2025-10-01",
         "status": "Ongoing",
-        "thumbnail": "/assets/images/blank.png",
+        "thumbnail": "/assets/logo.svg",
         "excerpt": "An SQM project establishes and operates a shared GPU server infrastructure for students’ machine learning and AI projects.",
         "content": """The Artificial Intelligence and Explainability (AIX) research group led by Prof. Dr. Ricardo Usbeck has applied for funding for a student assistant (SHK) to set up and maintain a computing server equipped with graphics processing units (GPUs), hosted at the MIZ. The goal is to improve the education of our disciplinary students in the areas of Artificial Intelligence, Deep Learning, and related entrepreneurial skills.
 
@@ -150,7 +150,7 @@ Currently, students at Leuphana lack the necessary infrastructure to train, test
         "title": "LStartupLab – Leuphana Startup Lab for Innovation, Transformation & Entrepreneurship",
         "date": "2025-08-01",
         "status": "Ongoing",
-        "thumbnail": "/assets/images/blank.png",
+        "thumbnail": "/assets/logo.svg",
         "excerpt": "EFRE central startup platform combining qualification programs, innovation spaces, and partner networks, with a particular focus on Data Science and AI.",
         "content": """With the LStartupLab, a central platform for the promotion of business start-ups is being created at Leuphana University Lüneburg. The project bundles qualification programs for university members interested in founding a company, modernly equipped innovation spaces, and a strong network of regional and national partners on campus. It places a special focus on Data Science and Artificial Intelligence.
 
@@ -165,7 +165,7 @@ Currently, students at Leuphana lack the necessary infrastructure to train, test
         "title": "HdN – Lower Saxony Digital Science Support Space (DS³)",
         "date": "2025-07-01",
         "status": "Ongoing",
-        "thumbnail": "/assets/images/blank.png",
+        "thumbnail": "/assets/logo.svg",
         "excerpt": "State-wide joint project building shared digital research infrastructure, computing resources, research-data services, and local support structures for researchers across Lower Saxony.",
         "content": """The Lower Saxony Digital Science Support Space (DS³) is a state-wide joint project aimed at building a shared digital research infrastructure. Supported by the Lower Saxony Ministry of Science and Culture and the Volkswagen Foundation, this initiative provides comprehensive computing resources, research-data services, and local support structures to empower researchers across Lower Saxony.
 
@@ -180,7 +180,7 @@ Currently, students at Leuphana lack the necessary infrastructure to train, test
         "title": "HumAIne - Learning from Humans",
         "date": "2025-08-01",
         "status": "Ongoing",
-        "thumbnail": "/assets/images/blank.png",
+        "thumbnail": "/assets/logo.svg",
         "excerpt": "EFRE/STEP research infrastructure initiative for human-centered AI, concerned with integrating AI into working processes while improving working and living conditions.",
         "content": """HumAIne is an EFRE/STEP research infrastructure initiative focused on human-centered AI. The project is primarily concerned with integrating Artificial Intelligence into everyday working processes, ensuring that these technological advancements lead to improvements in both working and living conditions for individuals.
 
@@ -195,7 +195,7 @@ Currently, students at Leuphana lack the necessary infrastructure to train, test
         "title": "CoyPu – Cognitive Economy Intelligence Platform for Resilience of Economic Ecosystems",
         "date": "2021-06-01",
         "status": "Completed",
-        "thumbnail": "/assets/images/blank.png",
+        "thumbnail": "/assets/logo.svg",
         "excerpt": "BMWK project to develop an AI platform using linked knowledge graphs to analyze supply chains, economic ecosystems, and crisis-related risks, particularly for SMEs.",
         "content": """The project "Cognitive Economy Intelligence Platform for Economic Ecosystem Resilience (CoyPu)" addresses AI methods for resilient ecosystems.
 

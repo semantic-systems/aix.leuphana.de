@@ -4,8 +4,8 @@ title: "LLMs for Clinical-Research Data Extraction"
 date: 2024-09-01 # Format exactly like this: YYYY-MM-DD. This controls the sorting order (newest first)
 end_date: "2026-02-28"
 status: "Completed" # e.g. "Ongoing", "Completed", "In Review"
-thumbnail: "/assets/images/" # Square preview image for the main Projects list
-image: "/assets/images/" # Large banner image inside the actual project page (optional)
+thumbnail: "/assets/logo.svg" # Square preview image for the main Projects list
+image: "/assets/logo.svg" # Large banner image inside the actual project page (optional)
 excerpt: "BMFTR project with DZHK and UKE, which uses large language models to extract structured clinical information from discharge letters and other medical documents."
 published: true # Change this to 'true' when you want it to appear on the live website!
 project_members:

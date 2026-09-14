@@ -15,6 +15,6 @@ conference: "WIMS 2011"
 ---
 
 > **Abstract:**
-> In a series of experiments we examined the statistical characteristics of tagging system  datasets focusing on the data sparsity problem. Some of the discussion was adapted from the
+> We study in a quantitative way whether the most popular tags in a collaborative tagging system are distinctive features when looking at the underlying content. For any set of annotations being helpful in searching, this property must necessarily hold to a strong degree. Our initial experiments show that the most frequent tags in CiteULike are distinctive features, despite the process of annotating documents is not centrally coordinated nor correction mechanisms like in a Wiki-system are used.
 
 

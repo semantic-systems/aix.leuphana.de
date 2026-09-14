@@ -16,6 +16,6 @@ conference: "WWW 2018"
 ---
 
 > **Abstract:**
-> the Visual Genome and ATOMIC knowledge graph, consisting of more than 19,000 questions  that  This paper introduces a new dataset, VQER, for visual question answering (VQA) and
+> This challenge focuses on the use of semantic representation methods to support Visual Question Answering: given a large image collection, find a set of images matching natural language queries. The task supports advancing the state-of-the-art in Visual Question Answering by focusing on methods which explore the interplay between contemporary machine learning techniques, semantic representation and reasoning mechanisms.
 
 

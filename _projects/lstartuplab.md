@@ -4,6 +4,7 @@ title: "LStartupLab – Leuphana Startup Lab for Innovation, Transformation & En
 date: 2025-08-01 # Format exactly like this: YYYY-MM-DD. This controls the sorting order (newest first)
 status: "Ongoing" # e.g. "Ongoing", "Completed", "In Review"
 thumbnail: "/assets/icons/startup_logo.png" # Square preview image for the main Projects list
+thumbnail_size: "100%"
 image: "/assets/icons/startup_logo.png" # Large banner image inside the actual project page (optional)
 excerpt: "EFRE central startup platform combining qualification programs, innovation spaces, and partner networks, with a particular focus on Data Science and AI."
 published: true # Change this to 'true' when you want it to appear on the live website!

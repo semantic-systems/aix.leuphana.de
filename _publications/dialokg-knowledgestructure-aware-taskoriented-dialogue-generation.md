@@ -14,7 +14,7 @@ conference: "NAACL-HLT 2022"
 ---
 
 > **Abstract:**
-> the knowledge structure is not explicitly represented during the learning process (Tang et  al. Pretrain-finetune based training of task-oriented dialogue systems in a real-world setting. In
+> Task-oriented dialogue generation is challenging since the underlying knowledge is often dynamic and effectively incorporating knowledge into the learning process is hard.It is particularly challenging to generate both humanlike and informative responses in this setting.Recent research primarily focused on various knowledge distillation methods where the underlying relationship between the facts in a knowledge base is not effectively captured.In this paper, we go one step further and demonstrate how the structural information of a knowledge graph can improve the system's inference capabilities.Specifically, we propose DialoKG, a novel task-oriented dialogue system that effectively incorporates knowledge into a language model.Our proposed system views relational knowledge as a knowledge graph and introduces (1) a structure-aware knowledge embedding technique, and (2) a knowledge graph-weighted attention masking strategy to facilitate the system selecting relevant information during the dialogue generation.An empirical evaluation demonstrates the effectiveness of DialoKG over state-of-theart methods on several standard benchmark datasets.
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

@@ -17,6 +17,6 @@ conference: "SEMANTiCS 2014"
 ---
 
 > **Abstract:**
-> When a search request is sent, a semantic search engine tries to understand the contextual   Practically, we incorporated the service-oriented design of an open source catalogue
+> Over the last decade, a growing importance of search engines could be observed. An increasing amount of knowledge is exposed and connected within the Linked Open Data Cloud, which raises users' expectations to be able to search for any information that is directly or indirectly contained. However, diverse data types require tailored search functionalities---such as semantic, geospatial and full text search.
 
 

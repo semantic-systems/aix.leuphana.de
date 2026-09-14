@@ -3,8 +3,8 @@ layout: demo
 title: "REPLACE WITH TITLE: Name of the Interactive Demo"
 date: 2099-01-01 # Format exactly like this: YYYY-MM-DD. This controls the sorting order (newest first)
 demo_url: "https://your-demo-website.com" # The actual link where users can try the demo
-thumbnail: "/assets/images/your-thumbnail-image.jpg" # Square preview image for the main Demos list
-image: "/assets/images/your-screenshot.jpg" # A screenshot of the demo in action (optional)
+thumbnail: "/assets/logo.svg" # Preview image for the main Demos list (default is AIX logo)
+image: "/assets/logo.svg" # A screenshot or banner of the demo (default is AIX logo, optional)
 excerpt: "A short 1-2 sentence summary explaining what this demo does."
 published: false # Change this to 'true' when you want it to appear on the live website!
 ---

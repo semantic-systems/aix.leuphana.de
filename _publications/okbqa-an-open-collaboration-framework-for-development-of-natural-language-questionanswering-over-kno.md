@@ -21,6 +21,6 @@ conference: "ISWC 2017"
 ---
 
 > **Abstract:**
-> An OKBQA repository is implemented and maintained to provide a venue for  developed  for the OKBQA framework (http://repository.okbqa.org). The registration of modules is open to
+> OKBQA is an open collaboration framework for the development of natural language question-answering systems over knowledge bases. Approaches to ease access to Linked Data include graphical query interfaces, agent-based systems, and natural language interfaces. OKBQA provides a standardized pipeline architecture and public repository for modular question answering over Linked Data.
 
 

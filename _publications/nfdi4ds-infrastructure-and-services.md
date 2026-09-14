@@ -33,7 +33,7 @@ conference: "GI-Jahrestagung 2023"
 ---
 
 > **Abstract:**
-> Within the NFDI consortium NFDI4DS [SH23]3, a national research data infrastructure for  data science (DS) and artificial intelligence (AI) is currently being developed. The primary
+> NFDI4DataScience (NFDI4DS) is a consortium founded to support researchers in all stages of the research data lifecycle in order to conduct their research in line with the FAIR principles. The infrastructure developed targets researchers from a wide range of disciplines working in the field of data science and artificial intelligence. NFDI4DS contributes to systematically understanding the needs and challenges of researchers in various disciplines regarding data science and artificial intelligence, keeping in mind ethical, legal and social aspects. The identified needs will be addressed by support structures such as educational videos and challenges. Transparency, reproducibility and FAIRness will be improved by integrating existing and newly developed services into the NFDI4DS infrastructure, and by systematically adding all digital objects (articles, data, machine learning models, workflows, scripts/code, etc.) to the NFDI4DS research knowledge graph. This paper presents the goals of NFDI4DS, and gives an overview on what the consortium is going to contribute to the data science and artificial intelligence communities. It focuses on existing and newly developed services and their integration.
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

@@ -15,6 +15,6 @@ conference: "K-CAP 2017"
 ---
 
 > **Abstract:**
-> by devising MAG, a multilingual knowledge graph-based entity linking approach for 40  languages.  1.1.1 , we devised a multilingual, knowledge-base agnostic and deterministic
+> Entity linking has recently been the subject of a significant body of research. Currently, the best performing approaches rely on trained mono-lingual models. Porting these approaches to other languages is consequently a difficult endeavor as it requires corresponding training data and retraining of the models. We address this drawback by presenting a novel multilingual, knowledge-base agnostic and deterministic approach to entity linking, dubbed MAG. MAG is based on a combination of context-based retrieval on structured knowledge bases and graph algorithms. We evaluate MAG on 23 data sets and in 7 languages. Our results show that the best approach trained on English datasets (PBOH) achieves a micro F-measure that is up to 4 times worse on datasets in other languages. MAG on the other hand achieves state-of-the-art performance on English datasets and reaches a micro F-measure that is up to 0.6 higher than that of PBOH on non-English languages.
 
 

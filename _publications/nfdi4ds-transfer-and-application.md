@@ -24,7 +24,7 @@ conference: "GI-Jahrestagung 2023"
 ---
 
 > **Abstract:**
-> NFDI4DS Registry and RKGs Integration Given the variety of RKGs and their use cases, we  envision an NFDI4DS  More precisely, we plan to launch an NFDI4DS Registry platform that
+> Due to the ever increasing importance of Data Science and Artificial Intelligence methods for a wide range of scientific disciplines, ensuring transparency and reproducibility of DS and AI methods and research findings have become essential. The NFDI4DS project promotes the findability, accessibility, interoperability, and reusability in DS and AI by developing an open integrated research data infrastructure in which all artefacts (e. g., papers, code, models, datasets) will be interlinked in a FAIR and transparent way. One of the key aspects is to build a bridge between NFDI4DS and other research communities which actively apply DS and AI methods. This paper describes the main actions taken to engage with the relevant (sub)communities.
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

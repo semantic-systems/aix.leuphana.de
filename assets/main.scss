@@ -251,6 +251,26 @@ a:hover {
 .person-card h3 { margin:0 0 .5rem; font-size:1.1rem; }
 .person-card .role { color:var(--text-secondary); font-size:.9rem; margin:0; font-weight: 600;}
 
+/* Card Image Placeholders & Fallbacks */
+.card-image-placeholder {
+  height: 180px;
+  width: 100%;
+  background-color: var(--c-granit-20);
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-image-placeholder.default-logo-placeholder {
+  background-color: var(--bg-secondary);
+  background-image: url('/assets/logo.svg');
+  background-size: 65%; /* <-- Adjust this value to manually resize the default logo (e.g. 35%, 45%, 55%, or 90px) */
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 /* Footer */
 .site-footer {
   background-color: var(--c-granit);
@@ -261,7 +281,11 @@ a:hover {
 
 .site-footer h2 {
   color: var(--bg-primary);
+  margin-top: 0;
+  margin-bottom: 0.1rem;
 }
+
+
 
 .footer-col-wrapper {
   display: flex;

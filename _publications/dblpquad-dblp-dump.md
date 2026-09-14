@@ -14,7 +14,7 @@ is_archive: false
 ---
 
 > **Abstract:**
-> DBLP-QuAD. Each example contains the query, the entities, the relations, and the target  SPARQL. For CoT prompting in DBLP-QuAD, a  For each query type in the DBLP-QuAD dataset,
+> This is the RDF dump of DBLP released on August 1, 2022. The DBLP RDF dump is published to allow fair and replicable evaluation of Knowledge Graph Question Answering (KGQA) systems with the DBLP-QuAD dataset.
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

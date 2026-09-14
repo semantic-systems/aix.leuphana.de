@@ -4,6 +4,7 @@ title: "PROVIDER"
 date: 2026-01-01 # Format exactly like this: YYYY-MM-DD. This controls the sorting order (newest first)
 status: "Ongoing" # e.g. "Ongoing", "Completed", "In Review"
 thumbnail: "/assets/icons/provider_logo.png" # Square preview image for the main Projects list
+thumbnail_size: "100%"
 image: "/assets/icons/provider_logo.png" # Large banner image inside the actual project page (optional)
 excerpt: "A BMFTR project to develop dynamic simulations and self-learning LLM agents for anticipating supply shortages. AIX leads work on neuro-symbolic information extraction and explainable event analysis."
 published: true # Change this to 'true' when you want it to appear on the live website!

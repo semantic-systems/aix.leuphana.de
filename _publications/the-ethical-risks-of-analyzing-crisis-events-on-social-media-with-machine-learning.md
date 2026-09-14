@@ -12,7 +12,7 @@ conference: "D2R2 2022"
 ---
 
 > **Abstract:**
-> 2000s and 2010s: The machine and deep learning advancement  ing issues from a broader  spectrum of sources during a crisis.  It uses AI to analyze media coverage and social media
+> Social media platforms provide a continuous stream of real-time news regarding crisis events on a global scale. Several machine learning methods utilize the crowd-sourced data for the automated detection of crises and the characterization of their precursors and aftermaths. Early detection and localization of crisis-related events can help save lives and economies. Yet, the applied automation methods introduce ethical risks worthy of investigation - especially given their high-stakes societal context. This work identifies and critically examines ethical risk factors of social media analyses of crisis events focusing on machine learning methods. We aim to sensitize researchers and practitioners to the ethical pitfalls and promote fairer and more reliable designs.
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

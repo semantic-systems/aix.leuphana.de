@@ -3,7 +3,7 @@ import json
 import yaml
 
 def process_markdown_files():
-    with open("projects_data.json", "r") as f:
+    with open("api/projects_data.json", "r") as f:
         fis_projects = json.load(f)
 
     proj_dir = "_projects"

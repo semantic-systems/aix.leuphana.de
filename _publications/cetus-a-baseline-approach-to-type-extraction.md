@@ -15,6 +15,6 @@ conference: "SemWebEval@ESWC 2015"
 ---
 
 > **Abstract:**
-> The three main goals of this thesis are: a) invalid entity type detection in order to solve the   Another approach for automatic typing is CETUS – a baseline approach for type extraction by
+> The concurrent growth of the Document Web and the Data Web demands accurate information extraction tools to bridge the gap between the two. In particular, the extraction of knowledge on real-world entities is indispensable to populate knowledge bases on the Web of Data. Here, we focus on the recognition of types for entities to populate knowledge bases and enable subsequent knowledge extraction steps. We present CETUS, a baseline approach to entity type extraction. CETUS is based on a three-step pipeline comprising (i) offline, knowledge-driven type pattern extraction from natural-language corpora based on grammar-rules, (ii) an analysis of input text to extract types and (iii) the mapping of the extracted type evidence to a subset of the DOLCE+DnS Ultra Lite ontology classes. We implement and compare two approaches for the third step using the YAGO ontology as well as the FOX entity recognition tool.
 
 

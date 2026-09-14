@@ -3,8 +3,8 @@ layout: project
 title: "HdN – Lower Saxony Digital Science Support Space (DS³)"
 date: 2025-07-01
 status: "Ongoing"
-thumbnail: "/assets/images/"
-image: "/assets/images/"
+thumbnail: "/assets/logo.svg"
+image: "/assets/logo.svg"
 excerpt: "State-wide joint project building shared digital research infrastructure, computing resources, research-data services, and local support structures for researchers across Lower Saxony."
 published: true
 project_members:

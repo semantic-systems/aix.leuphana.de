@@ -12,7 +12,7 @@ conference: "QALD/SemREC@ISWC 2023"
 ---
 
 > **Abstract:**
-> , we collect them and leverage MinerU to conduct multimodal  CLI on knowledge-grounded  scientific question answering,  the constructed knowledge graph, we employ a rigorous LLM-
+> This paper presents a scholarly Knowledge Graph Question Answering (KGQA) that answers bibliographic natural language questions by leveraging a large language model (LLM) in a few-shot manner. The model initially identifies the top-n similar training questions related to a given test question via a BERT-based sentence encoder and retrieves their corresponding SPARQL. Using the top-n similar question-SPARQL pairs as an example and the test question creates a prompt. Then pass the prompt to the LLM and generate a SPARQL. Finally, runs the SPARQL against the underlying KG - ORKG (Open Research KG) endpoint and returns an answer. Our system achieves an F1 score of 99.0%, on SciQA - one of the Scholarly-QALD-23 challenge benchmarks.
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

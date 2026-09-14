@@ -14,7 +14,8 @@ is_journal: false
 is_archive: false
 ---
 
-*Abstract not available.*
+*Proceedings volume.*
+
 
 <details markdown="1" style="margin-top: 1.5rem;">
   <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem; background: var(--c-granit-20); border-radius: 6px;">Show BibTeX</summary>

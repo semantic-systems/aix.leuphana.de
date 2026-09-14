@@ -14,7 +14,6 @@ is_journal: false
 is_archive: false
 ---
 
-> **Abstract:**
-> Joint proceedings of scholarly QALD 2023 and SemREC 2023 co-located with 22nd  international semantic web conference ISWC 2023, Athens, Greece, November 6–10,
+*Proceedings volume.*
 
 

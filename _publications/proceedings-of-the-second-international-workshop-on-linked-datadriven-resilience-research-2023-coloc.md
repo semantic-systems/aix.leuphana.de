@@ -13,7 +13,6 @@ is_journal: false
 is_archive: false
 ---
 
-> **Abstract:**
-> is a critical challenge in modern data-driven systems. With  The semantic web initiative [BLHL01]  further amplified these  ” [Abo23], was completed in 2023 at Inria Paris. I co-supervised
+*Proceedings volume.*
 
 

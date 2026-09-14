@@ -17,6 +17,6 @@ conference: "SemWebEval@ESWC 2017"
 ---
 
 > **Abstract:**
-> Usbeck, R., Ngonga Ngomo, AC, Haarmann, B., Krithara, A., Röder, M., Napolitano, G.:  7th open challenge on question answering over linked data (QALD-7). In: Semantic Web
+> The past years have seen a growing amount of research on question answering (QA) over Semantic Web data, shaping an interaction paradigm that allows end users to profit from the expressive power of Semantic Web standards while, at the same time, hiding their complexity behind an intuitive and easy-to-use interface. On the other hand, the growing amount of data has led to a heterogeneous data landscape where QA systems struggle to keep up with the volume, variety and veracity of the underlying knowledge.
 
 

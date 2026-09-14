@@ -17,6 +17,6 @@ conference: "LREC 2014"
 ---
 
 > **Abstract:**
-> Comparable open-government corpora abroad provide methodological blueprints that   while Germany’s NIF4OGGD converts federal open-data dumps into the NLP Interchange Format,
+> In the last couple of years the amount of structured open government data has increased significantly. Already now, citizens are able to leverage the advantages of open data through increased transparency and better opportunities to take part in governmental decision making processes. Our approach increases the interoperability of existing but distributed open governmental datasets by converting them to the RDF-based NLP Interchange Format (NIF). Furthermore, we integrate the converted data into a geodata store and present a user interface for querying this data via a keyword-based search. The language resource generated in this project is publicly available for download and via a dedicated SPARQL endpoint. Keywords:NLP, NIF, Open Data 1.
 
 

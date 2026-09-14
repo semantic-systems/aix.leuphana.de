@@ -16,7 +16,7 @@ conference: "CIKM 2025"
 ---
 
 > **Abstract:**
-> This automated labeling provides an initial “approximate”  the alignment of a paragraph p  with a given GRI code g,  Our evaluation relies on indirect metrics and single-label test data,
+> Organisations disclose their sustainability performance in corporate sustainability reports (CSRs). CSRs vary widely in structure and depth depending on the reporting framework. Such disparity, together with report complexity and volume, poses significant challenges to transparency, comparability and standardisation. To address this problem, we introduce ReportGRI, an automated system for Global Reporting Initiative (GRI) indexing and qualitative assessment of CSRs. The interactive framework leverages information retrieval techniques and zero-shot prompting to enable GRI disclosure-based report indexing and report coverage assessment by visualising well-covered topics and reporting gaps. The tool facilitates scalable and explainable benchmarking of Environmental, Social and Governance (ESG) reporting quality, enhancing report interpretation, transparency, and corporate accountability. The system is open-sourced on GitHub with an introduction video
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

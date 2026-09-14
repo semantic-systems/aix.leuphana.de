@@ -4,14 +4,13 @@ title: "Neuro-Symbolic LLM Integration"
 status: "Active"
 team: ["Ricardo Usbeck", "Junbo Huang"]
 github_repo: "https://github.com/semantic-systems/neuro-symbolic-llm"
-image: ""
+thumbnail: "/assets/logo.svg"
+image: "/assets/logo.svg"
 excerpt: "Investigating the seamless integration of Large Language Models with Knowledge Graphs to improve factual accuracy and reasoning capabilities."
 ---
 
 <figure style="margin: 2rem 0; text-align: center;">
-  <div style="background: var(--c-granit-20); height: 350px; display: flex; align-items: center; justify-content: center; border-radius: 8px; border: 2px dashed var(--c-granit-40);">
-    <span style="color: var(--text-secondary); font-style: italic;">[ Placeholder: Architectural diagram showing LLM and KG interaction ]</span>
-  </div>
+  <img src="{{ '/assets/logo.svg' | relative_url }}" alt="AIX Logo" style="max-height: 250px; padding: 2rem; background: var(--bg-secondary); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
   <figcaption style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.5rem;">System architecture for the Neuro-Symbolic Reasoner.</figcaption>
 </figure>
 

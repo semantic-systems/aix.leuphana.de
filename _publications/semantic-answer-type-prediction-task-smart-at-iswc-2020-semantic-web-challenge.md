@@ -15,6 +15,6 @@ is_archive: true
 ---
 
 > **Abstract:**
-> In: Proceedings of the 2020 conference on empirical methods in natural language  of the  SeMantic answer type and relation prediction task at ISWC 2021 Semantic Web challenge (
+> Each year the International Semantic Web Conference accepts a set of Semantic Web Challenges to establish competitions that will advance the state of the art solutions in any given problem domain. The SeMantic AnsweR Type prediction task (SMART) was part of ISWC 2020 challenges. Question type and answer type prediction can play a key role in knowledge base question answering systems providing insights that are helpful to generate correct queries or rank the answer candidates. More concretely, given a question in natural language, the task of SMART challenge is, to predict the answer type using a target ontology (e.g., DBpedia or Wikidata).
 
 
