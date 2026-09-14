@@ -15,9 +15,9 @@ links:
   - title: "CoyPu Introduction Video"
     url: "https://coypu.org/media/MST_02_CoyPu_Forschungsprojekt_21-036.mp4"
   - title: "Project website"
-    url: "coypu.org"
-  - title: "Twitter"
-    url: "@CoypuProject"
+    url: "https://coypu.org"
+  # - title: "Twitter"
+    # url: ""
 ---
 <figure style="text-align: center; margin: 2rem 0;">
   <img src="{{ '/assets/icons/coypu-logo.png' | relative_url }}" alt="Description" style="width: 100%; max-width: 600px; height: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
