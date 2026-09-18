@@ -20,6 +20,8 @@ import argparse
 import time
 import random
 import smtplib
+import json
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from dotenv import load_dotenv
@@ -29,6 +31,28 @@ from playwright_stealth import stealth_sync
 
 # Automatically load the .env file in the current directory if it exists
 load_dotenv()
+
+CACHE_FILE = 'link_cache.json'
+CACHE_EXPIRY = 86400  # 1 day in seconds
+
+def load_cache():
+    if os.path.exists(CACHE_FILE):
+        try:
+            with open(CACHE_FILE, 'r', encoding='utf-8') as f:
+                cache = json.load(f)
+                # Filter out expired entries
+                current_time = time.time()
+                return {k: v for k, v in cache.items() if current_time - v.get('timestamp', 0) < CACHE_EXPIRY}
+        except Exception:
+            pass
+    return {}
+
+def save_cache(cache):
+    try:
+        with open(CACHE_FILE, 'w', encoding='utf-8') as f:
+            json.dump(cache, f)
+    except Exception as e:
+        print(f"Failed to save cache: {e}")
 
 def parse_frontmatter(file_path):
     """Extract YAML frontmatter from a Markdown file."""
@@ -122,49 +146,61 @@ def check_link_playwright(url, page):
     except Exception:
         return False
 
-def check_link(url, page=None, base_url="http://localhost:4000"):
-    """Check if a URL is broken."""
+def check_link_http(url, session):
+    """Check if a URL is broken using standard HTTP requests."""
     if url.startswith('mailto:') or url.startswith('tel:'):
-        return True
+        return True, False
+        
+    if url.startswith('https://www.linkedin.com/school/aix-leuphana'):
+        return True, False
         
     if url.startswith('/'):
+        url = url.split('#')[0]
         local_path = os.path.join('_site', url.lstrip('/'))
         if os.path.isdir(local_path):
             local_path = os.path.join(local_path, 'index.html')
         elif not local_path.endswith('.html') and not '.' in os.path.basename(local_path):
             local_path += '.html'
             
-        return os.path.exists(local_path)
+        return os.path.exists(local_path), False
 
     if url.startswith('http://') or url.startswith('https://'):
+        url = url.split('#')[0]
         # Small delay between external requests to avoid triggering WAFs
         time.sleep(random.uniform(0.5, 1.5))
         try:
             headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
-            resp = requests.head(url, headers=headers, allow_redirects=True, timeout=10)
+            resp = session.head(url, headers=headers, allow_redirects=True, timeout=10)
             if resp.status_code >= 400 and resp.status_code != 405:
-                resp = requests.get(url, headers=headers, stream=True, timeout=10)
-                if resp.status_code >= 400 and page is not None:
-                    return check_link_playwright(url, page)
-                return resp.status_code < 400
-            return resp.status_code < 400
+                resp = session.get(url, headers=headers, stream=True, timeout=10)
+                if resp.status_code >= 400:
+                    return False, True # False for HTTP success, True for needs Playwright
+                return resp.status_code < 400, False
+            return resp.status_code < 400, False
         except requests.RequestException:
-            if page is not None:
-                return check_link_playwright(url, page)
-            return False
+            return False, True # False for HTTP success, True for needs Playwright
             
-    return True
+    return True, False
 
-def send_email_notification(smtp_host, smtp_port, smtp_user, smtp_pass, from_email, to_email, user_name, links):
+def send_email_notification(smtp_host, smtp_port, smtp_user, smtp_pass, from_email, to_email, user_name, links_by_page):
     """Send an email notification about broken links via SMTP."""
     msg = MIMEMultipart()
     msg['From'] = f"AIX Link Checker <{from_email}>"
     msg['To'] = to_email
-    msg['Subject'] = "Broken Links Detected on AIX Website"
+    msg['Subject'] = "Action Required: Broken Links Detected on AIX Website"
     
-    body = f"Hello {user_name},\n\nThe automated broken link checker has found some dead links on pages you are responsible for:\n\n"
-    body += "\n".join(links)
-    body += "\n\nPlease update these links in the source Markdown files. Thanks!\n\nAIX Link Checker Bot"
+    body = f"Hello {user_name},\n\n"
+    body += "The automated broken link checker has found some dead links on pages you are responsible for.\n\n"
+    body += "Broken Links Summary:\n"
+    body += "-" * 50 + "\n"
+    
+    for page_url, links in links_by_page.items():
+        body += f"\nPage: {page_url}\n"
+        for link in links:
+            body += f"  ❌ {link}\n"
+            
+    body += "\n" + "-" * 50 + "\n\n"
+    body += "Please update these links in the source Markdown files. Thanks!\n\nAIX Link Checker Bot"
     
     msg.attach(MIMEText(body, 'plain'))
     
@@ -207,37 +243,82 @@ def main():
     print(f"Scanning {len(html_files)} HTML files...")
     
     broken_links = []
-    checked_urls = {}
     
-    # Initialize Playwright exactly once for all files
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        context = browser.new_context(
-            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-        )
-        page = context.new_page()
-        stealth_sync(page) # Apply stealth to avoid bot detection
-        
-        for file_path in html_files:
-            with open(file_path, 'r', encoding='utf-8') as f:
-                soup = BeautifulSoup(f.read(), 'html.parser')
-                
-            for a_tag in soup.find_all('a', href=True):
-                href = a_tag['href']
-                
-                if href in checked_urls:
-                    is_valid = checked_urls[href]
+    cache = load_cache()
+    
+    # Collect all links to check
+    links_to_check = []
+    for file_path in html_files:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            soup = BeautifulSoup(f.read(), 'html.parser')
+            
+        for a_tag in soup.find_all('a', href=True):
+            href = a_tag['href']
+            url_stripped = href.split('#')[0]
+            if url_stripped:
+                links_to_check.append((file_path, href, url_stripped))
+
+    unique_urls = list(set(url for _, _, url in links_to_check))
+    results = {}
+    needs_playwright = []
+    
+    print(f"Total unique URLs to check: {len(unique_urls)}")
+    
+    # Use ThreadPoolExecutor and requests.Session
+    with requests.Session() as session:
+        # We limit max_workers to avoid completely overwhelming servers or being blocked immediately
+        with ThreadPoolExecutor(max_workers=5) as executor:
+            future_to_url = {}
+            for url in unique_urls:
+                if url in cache and cache[url].get('is_valid'):
+                    results[url] = True
                 else:
-                    is_valid = check_link(href, page)
-                    checked_urls[href] = is_valid
-                    
-                if not is_valid:
-                    print(f"Broken link found in {file_path}: {href}")
-                    responsible = find_responsible_person(file_path)
-                    email = author_map.get(responsible) if responsible else None
-                    broken_links.append((file_path, href, email, responsible or "Admin"))
-        
-        browser.close()
+                    future_to_url[executor.submit(check_link_http, url, session)] = url
+            
+            for future in as_completed(future_to_url):
+                url = future_to_url[future]
+                try:
+                    is_valid, needs_pw = future.result()
+                    if needs_pw:
+                        needs_playwright.append(url)
+                    else:
+                        results[url] = is_valid
+                        if is_valid:
+                            cache[url] = {'is_valid': True, 'timestamp': time.time()}
+                except Exception as exc:
+                    print(f"{url} generated an exception: {exc}")
+                    needs_playwright.append(url)
+
+    # Playwright fallback sequentially
+    if needs_playwright:
+        print(f"Using Playwright fallback for {len(needs_playwright)} URLs...")
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
+            context = browser.new_context(
+                user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+            )
+            page = context.new_page()
+            stealth_sync(page)
+            
+            for url in needs_playwright:
+                is_valid = check_link_playwright(url, page)
+                results[url] = is_valid
+                if is_valid:
+                    cache[url] = {'is_valid': True, 'timestamp': time.time()}
+            
+            browser.close()
+
+    save_cache(cache)
+
+    for file_path, original_href, url_stripped in links_to_check:
+        if not results.get(url_stripped, False):
+            print(f"Broken link found in {file_path}: {original_href}")
+            responsible = find_responsible_person(file_path)
+            email = author_map.get(responsible) if responsible else None
+            broken_links.append((file_path, original_href, email, responsible or "Admin"))
+
+    # Remove duplicates from broken_links just in case
+    broken_links = list(set(broken_links))
                 
     if not broken_links:
         print("No broken links found!")
@@ -252,10 +333,13 @@ def main():
         user_email = "Muratbek.Nurmatov@stud.leuphana.de"
         # user_email = email if email else args.admin_email
         if user_email not in issues:
-            issues[user_email] = {"name": responsible, "links": []}
+            issues[user_email] = {"name": responsible, "links_by_page": {}}
             
-        page_url = "/" + os.path.relpath(file_path, '_site').replace('index.html', '')
-        issues[user_email]["links"].append(f"- Broken Link: {href} (on page: {page_url})")
+        page_url = "https://aix.leuphana.de/" + os.path.relpath(file_path, '_site').replace('index.html', '').lstrip('/')
+        if page_url not in issues[user_email]["links_by_page"]:
+            issues[user_email]["links_by_page"][page_url] = []
+            
+        issues[user_email]["links_by_page"][page_url].append(href)
         
     for user_email, data in issues.items():
         if args.test_only and user_email != args.test_only:
@@ -263,15 +347,18 @@ def main():
             
         if args.dry_run:
             print(f"\n--- DRY RUN EMAIL TO {user_email} ---")
-            print(f"Subject: Broken Links Detected on AIX Website")
+            print(f"Subject: Action Required: Broken Links Detected on AIX Website")
             print(f"Hello {data['name']},\n\nThe automated broken link checker has found some dead links:\n")
-            print("\n".join(data["links"]))
-            print("-------------------------------------\n")
+            for page_url, links in data["links_by_page"].items():
+                print(f"\nPage: {page_url}")
+                for link in links:
+                    print(f"  ❌ {link}")
+            print("\n-------------------------------------\n")
         else:
             if args.smtp_pass:
                 send_email_notification(
                     args.smtp_host, args.smtp_port, args.smtp_user, args.smtp_pass,
-                    args.from_email, user_email, data["name"], data["links"]
+                    args.from_email, user_email, data["name"], data["links_by_page"]
                 )
                 time.sleep(1) # Prevent rate limiting
             else:
