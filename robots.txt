@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aix.leuphana.de/sitemap.xml

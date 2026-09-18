@@ -18,8 +18,16 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: AIX
+title: AIX - Artificial Intelligence and Explainability | Leuphana University
 email: aix@leuphana.de
+author:
+  name: AIX Research Group
+  email: aix@leuphana.de
+social:
+  name: AIX Research Group
+  links:
+    - https://www.linkedin.com/school/aix-leuphana/
+    - https://github.com/semantic-systems
 description: >- # this means to ignore newlines until "baseurl:"
   AIX is a research group at led by Prof. Dr. Ricardo Usbeck at Leuphana University that
   focuses on the topic of neuro-symbolic AI, where neural network-based machine learning
@@ -37,6 +45,7 @@ plugins:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-paginate-v2
+  - jekyll-sitemap
 
 pagination:
   enabled: true
