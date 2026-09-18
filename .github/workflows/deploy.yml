@@ -53,7 +53,9 @@ jobs:
           port: 575
           script: |
             cd /opt/jekyll/aix.leuphana.de
-            git pull origin main
+            # Discard any local changes and force the server to match GitHub exactly
+            git fetch origin
+            git reset --hard origin/main
             # Stop and remove the old containers, rebuild and start the new ones
             docker compose down
             docker compose up -d --build
