@@ -11,6 +11,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.crawler
+      network: host
     volumes:
       - .:/site
     env_file:
