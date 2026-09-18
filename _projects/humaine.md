@@ -1,7 +1,7 @@
 ---
 layout: project
 title: "HumAIne - Learning from Humans"
-date: 2025-08-01 # Format exactly like this: YYYY-MM-DD. This controls the sorting order (newest first)
+date: 2026-08-01 # Format exactly like this: YYYY-MM-DD. This controls the sorting order (newest first)
 status: "Ongoing" # e.g. "Ongoing", "Completed", "In Review"
 thumbnail: "/assets/logo.svg" # Square preview image for the main Projects list
 image: "/assets/logo.svg" # Large banner image inside the actual project page (optional)
@@ -10,6 +10,8 @@ published: true # Change this to 'true' when you want it to appear on the live w
 project_members:
   - name: "Ricardo Usbeck"
     role: "Scientific Project Manager"
+  - name: "Ulf Brefeld"
+    role: "Scientific Co-Project Leader"
   - name: "Florian Stamer"
     role: "Scientific Co-Project Leader"
 funding_organization: "Europäische Union"

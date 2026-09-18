@@ -1,12 +1,12 @@
 {
   "summary": {
-    "total_publications": 148,
-    "with_abstract": 148,
+    "total_publications": 151,
+    "with_abstract": 151,
     "without_abstract": 0,
-    "total_conference": 102,
+    "total_conference": 104,
     "total_journal": 13,
-    "total_archive": 15,
-    "last_updated": "2026-09-14T13:47:03.623048+00:00"
+    "total_archive": 16,
+    "last_updated": "2026-09-18T10:09:45.506977+00:00"
   },
   "publications": {
     "collapsing-distance-the-curse-of-ground-truth-in-computational-narrative-understanding": {
@@ -1189,6 +1189,30 @@
       "title": "SymStep: Symbolic Step Verification for Logical Reasoning",
       "has_abstract": true,
       "file": "_publications/symstep-symbolic-step-verification-for-logical-reasoning.md",
+      "is_conference": false,
+      "is_journal": false,
+      "is_archive": true
+    },
+    "geokg-for-geofm-neurosymbolic-integration-of-semanticallyenriched-geospatialtemporal-data-short-pape": {
+      "title": "GeoKG for GeoFM: Neuro-Symbolic Integration of Semantically-Enriched Geospatial-Temporal Data (Short Paper)",
+      "has_abstract": true,
+      "file": "_publications/geokg-for-geofm-neurosymbolic-integration-of-semanticallyenriched-geospatialtemporal-data-short-pape.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
+    },
+    "kgxlquery-extending-sparql-with-semantic-search-and-llm-functionality-for-question-answering-over-he": {
+      "title": "KGXL-Query: Extending SPARQL with Semantic Search and LLM Functionality for Question Answering over Heterogeneous Data",
+      "has_abstract": true,
+      "file": "_publications/kgxlquery-extending-sparql-with-semantic-search-and-llm-functionality-for-question-answering-over-he.md",
+      "is_conference": true,
+      "is_journal": false,
+      "is_archive": false
+    },
+    "how-robust-are-automated-factchecking-systems-a-crossbenchmark-evaluation": {
+      "title": "How Robust Are Automated Fact-Checking Systems? A Cross-Benchmark Evaluation",
+      "has_abstract": true,
+      "file": "_publications/how-robust-are-automated-factchecking-systems-a-crossbenchmark-evaluation.md",
       "is_conference": false,
       "is_journal": false,
       "is_archive": true

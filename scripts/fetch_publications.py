@@ -13,10 +13,105 @@ try:
 except Exception as e:
     scholarly = None
 
+try:
+    from playwright.sync_api import sync_playwright
+except ImportError:
+    sync_playwright = None
+
+try:
+    from playwright_stealth import Stealth
+    stealth = lambda page: Stealth().apply_stealth_sync(page)
+except ImportError:
+    stealth = None
+
 DBLP_API_URL = "https://dblp.org/search/publ/api"
 AUTHOR_QUERY = "author:Ricardo_Usbeck:"
 OUTPUT_DIR = "_publications"
 STATE_FILE = "_publications/.state.json"
+
+class BrowserFetcher:
+    _instance = None
+    
+    @classmethod
+    def get_instance(cls):
+        if cls._instance is None:
+            cls._instance = cls()
+        return cls._instance
+
+    def __init__(self):
+        if not sync_playwright:
+            raise ImportError("Playwright is not installed.")
+        self.playwright = sync_playwright().start()
+        self.browser = self.playwright.chromium.launch(headless=True)
+        self.context = self.browser.new_context(
+            user_agent=HUMAN_HEADERS["User-Agent"],
+            extra_http_headers={
+                "Accept": HUMAN_HEADERS["Accept"],
+                "Accept-Language": HUMAN_HEADERS["Accept-Language"],
+                "Referer": HUMAN_HEADERS["Referer"]
+            }
+        )
+        self.page = self.context.new_page()
+        if stealth:
+            stealth(self.page)
+        
+    def _simulate_human(self):
+        try:
+            for _ in range(random.randint(2, 4)):
+                self.page.mouse.move(random.randint(100, 800), random.randint(100, 800))
+                time.sleep(random.uniform(0.3, 0.8))
+            self.page.mouse.wheel(0, random.randint(200, 800))
+            time.sleep(random.uniform(0.5, 1.5))
+        except Exception:
+            pass
+
+    def get_json(self, url, params=None):
+        if params:
+            from urllib.parse import urlencode
+            url = f"{url}?{urlencode(params)}"
+        try:
+            self.page.goto(url, wait_until="networkidle", timeout=30000)
+            self._simulate_human()
+            text = self.page.evaluate('() => document.body.innerText')
+            return json.loads(text)
+        except Exception:
+            try:
+                resp = self.context.request.get(url)
+                return resp.json()
+            except Exception:
+                return None
+
+    def get_text(self, url, wait_until="domcontentloaded"):
+        try:
+            self.page.goto(url, wait_until=wait_until, timeout=30000)
+            self._simulate_human()
+            return self.page.evaluate('() => document.body.innerText')
+        except Exception:
+            return ""
+
+    def get_html(self, url, wait_until="domcontentloaded"):
+        try:
+            self.page.goto(url, wait_until=wait_until, timeout=30000)
+            self._simulate_human()
+            return self.page.content()
+        except Exception:
+            return ""
+            
+    def close(self):
+        try:
+            self.context.close()
+            self.browser.close()
+            self.playwright.stop()
+        except:
+            pass
+
+HUMAN_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.5",
+    "Connection": "keep-alive",
+    "Referer": "https://www.google.com/"
+}
 
 # ─── Logging helpers ───────────────────────────────────────
 
@@ -89,9 +184,14 @@ def fetch_dblp_publications():
             "f": offset
         }
         try:
-            response = requests.get(DBLP_API_URL, params=params, timeout=15)
-            response.raise_for_status()
-            data = response.json()
+            # Add random sleep before making the request to simulate human speed
+            if offset > 0:
+                time.sleep(random.uniform(2.0, 4.0))
+            
+            fetcher = BrowserFetcher.get_instance()
+            data = fetcher.get_json(DBLP_API_URL, params=params)
+            if not data:
+                break
 
             hits_obj = data.get("result", {}).get("hits", {})
             if total is None:
@@ -154,29 +254,32 @@ def fetch_dblp_bibtex(key):
         return ""
     try:
         bib_url = f"https://dblp.org/rec/{key}.bib"
-        response = requests.get(bib_url, timeout=10)
-        if response.status_code == 200:
-            return response.text
+        fetcher = BrowserFetcher.get_instance()
+        text = fetcher.get_text(bib_url)
+        if text:
+            return text
     except Exception as e:
         log(f"BibTeX fetch failed for {key}: {e}", "WARN")
     return ""
 
 def fetch_abstract_scholarly(title):
-    """Use scholarly to search Google Scholar and return the abstract."""
-    if not scholarly:
-        return ""
+    """Use Playwright to search Google Scholar and return the abstract snippet."""
     try:
-        search_query = scholarly.search_pubs(title)
-        first_result = next(search_query, None)
-        if first_result:
-            return first_result.get('bib', {}).get('abstract', "")
-        return ""
+        url = f"https://scholar.google.com/scholar?q={requests.utils.quote(title)}"
+        fetcher = BrowserFetcher.get_instance()
+        html_content = fetcher.get_html(url)
+        if html_content:
+            if "Please show you're not a robot" in html_content:
+                return "RATE_LIMITED"
+            
+            # Find the first result snippet (usually <div class="gs_rs">)
+            m = re.search(r'<div class="gs_rs".*?>(.*?)</div>', html_content, re.DOTALL)
+            if m:
+                snippet = m.group(1)
+                return clean_abstract_text(snippet)
     except Exception as e:
-        error_str = str(e)
-        log(f"Google Scholar error: {error_str}", "WARN")
-        if "Cannot Fetch from Google Scholar" in error_str or "MaxTriesExceededException" in error_str:
-            return "RATE_LIMITED"
-        return ""
+        log(f"Google Scholar error: {str(e)}", "WARN")
+    return ""
 
 def generate_markdown(pub, bibtex, filepath, abstract=""):
     title = pub.get("title", "Untitled").replace('"', '\\"')
@@ -412,9 +515,10 @@ def fetch_zenodo_abstract(doi):
     rec_id = m.group(1)
     url = f"https://zenodo.org/api/records/{rec_id}"
     try:
-        r = requests.get(url, timeout=10)
-        if r.status_code == 200:
-            desc = r.json().get("metadata", {}).get("description", "")
+        fetcher = BrowserFetcher.get_instance()
+        data = fetcher.get_json(url)
+        if data:
+            desc = data.get("metadata", {}).get("description", "")
             return clean_abstract_text(desc)
     except Exception:
         pass
@@ -427,9 +531,10 @@ def fetch_acl_abstract(doi=None, title=None):
         acl_id = clean_doi.split("/")[-1].lower()
         url = f"https://aclanthology.org/{acl_id}/"
         try:
-            r = requests.get(url, timeout=10)
-            if r.status_code == 200:
-                m = re.search(r'abstract:\s*"((?:[^"\\]|\\.)*)"', r.text)
+            fetcher = BrowserFetcher.get_instance()
+            text = fetcher.get_text(url)
+            if text:
+                m = re.search(r'abstract:\s*"((?:[^"\\]|\\.)*)"', text)
                 if m:
                     raw = m.group(1).encode('utf-8').decode('unicode_escape')
                     return clean_abstract_text(raw)
@@ -439,9 +544,10 @@ def fetch_acl_abstract(doi=None, title=None):
     if title and "Treating Dialogue Quality Evaluation" in title:
         url = "https://aclanthology.org/2020.lrec-1.64/"
         try:
-            r = requests.get(url, timeout=10)
-            if r.status_code == 200:
-                m = re.search(r'abstract:\s*"((?:[^"\\]|\\.)*)"', r.text)
+            fetcher = BrowserFetcher.get_instance()
+            text = fetcher.get_text(url)
+            if text:
+                m = re.search(r'abstract:\s*"((?:[^"\\]|\\.)*)"', text)
                 if m:
                     raw = m.group(1).encode('utf-8').decode('unicode_escape')
                     return clean_abstract_text(raw)
@@ -450,24 +556,23 @@ def fetch_acl_abstract(doi=None, title=None):
     return ""
 
 def fetch_springer_abstract(doi):
-    """Fetch full abstract from SpringerLink metadata using curl."""
+    """Fetch full abstract from SpringerLink metadata using Playwright."""
     if not doi:
         return ""
     clean_doi = doi.replace("https://doi.org/", "").replace("http://doi.org/", "").strip()
     if not (clean_doi.startswith("10.1007/") or clean_doi.startswith("10.1002/")):
         return ""
     
-    # Try direct DOI resolution first (curl follows redirects automatically)
     urls = [f"https://doi.org/{clean_doi}"]
     for prefix in ["chapter", "article", "referenceworkentry"]:
         urls.append(f"https://link.springer.com/{prefix}/{clean_doi}")
 
+    fetcher = BrowserFetcher.get_instance()
     for url in urls:
         try:
-            cmd = ["curl", "-sL", "--max-time", "10", url]
-            res = subprocess.run(cmd, capture_output=True, text=True)
-            if res.returncode == 0 and ("application/ld+json" in res.stdout or "Abs1" in res.stdout):
-                json_matches = re.findall(r'<script[^>]*type=["\']application/ld\+json["\'][^>]*>(.*?)</script>', res.stdout, re.DOTALL)
+            html_content = fetcher.get_html(url)
+            if html_content and ("application/ld+json" in html_content or "Abs1" in html_content):
+                json_matches = re.findall(r'<script[^>]*type=["\']application/ld\+json["\'][^>]*>(.*?)</script>', html_content, re.DOTALL)
                 for j in json_matches:
                     try:
                         data = json.loads(j)
@@ -476,7 +581,7 @@ def fetch_springer_abstract(doi):
                             return clean_abstract_text(desc)
                     except Exception:
                         pass
-                m = re.search(r'<(?:section|div)[^>]*(?:id|aria-labelledby)=["\']Abs1[^"\']*["\'][^>]*>(.*?)</(?:section|div)>', res.stdout, re.DOTALL)
+                m = re.search(r'<(?:section|div)[^>]*(?:id|aria-labelledby)=["\']Abs1[^"\']*["\'][^>]*>(.*?)</(?:section|div)>', html_content, re.DOTALL)
                 if m:
                     clean = clean_abstract_text(m.group(1))
                     if len(clean) > 80:
@@ -492,9 +597,10 @@ def fetch_openalex_abstract(title, doi=None):
         clean_doi = doi.replace("https://doi.org/", "").replace("http://doi.org/", "").strip()
         url = f"https://api.openalex.org/works/doi:{clean_doi}?mailto=aix@leuphana.de"
         try:
-            r = requests.get(url, headers=headers, timeout=10)
-            if r.status_code == 200:
-                inv = r.json().get("abstract_inverted_index")
+            fetcher = BrowserFetcher.get_instance()
+            data = fetcher.get_json(url)
+            if data:
+                inv = data.get("abstract_inverted_index")
                 if inv:
                     w_idx = []
                     for w, positions in inv.items():
@@ -513,9 +619,10 @@ def fetch_openalex_abstract(title, doi=None):
             query = " ".join(words)
             url = f"https://api.openalex.org/works?filter=title.search:{requests.utils.quote(query)}&per-page=3&mailto=aix@leuphana.de"
             try:
-                r = requests.get(url, headers=headers, timeout=10)
-                if r.status_code == 200:
-                    for item in r.json().get("results", []):
+                fetcher = BrowserFetcher.get_instance()
+                data = fetcher.get_json(url)
+                if data:
+                    for item in data.get("results", []):
                         inv = item.get("abstract_inverted_index")
                         if inv:
                             w_idx = []
@@ -537,9 +644,10 @@ def fetch_crossref_abstract(doi):
     clean_doi = doi.replace("https://doi.org/", "").replace("http://doi.org/", "").strip()
     url = f"https://api.crossref.org/works/{clean_doi}?mailto=aix@leuphana.de"
     try:
-        r = requests.get(url, timeout=10)
-        if r.status_code == 200:
-            raw = r.json().get("message", {}).get("abstract")
+        fetcher = BrowserFetcher.get_instance()
+        data = fetcher.get_json(url)
+        if data:
+            raw = data.get("message", {}).get("abstract")
             if raw:
                 return clean_abstract_text(raw)
     except Exception:
@@ -558,24 +666,26 @@ def fetch_abstract_semanticscholar(title, doi=None):
         if doi:
             clean_doi = doi.replace("https://doi.org/", "").replace("http://doi.org/", "").strip()
             url = f"https://api.semanticscholar.org/graph/v1/paper/{clean_doi}?fields=title,abstract"
-            resp = requests.get(url, headers=headers, timeout=10)
-            if resp.status_code == 429:
+            fetcher = BrowserFetcher.get_instance()
+            data = fetcher.get_json(url)
+            if not data or data.get("message") == "Too Many Requests":
                 s2_circuit_broken = True
-                log("Semantic Scholar rate limited (429); disabling for remainder of run.", "WARN")
+                log("Semantic Scholar rate limited; disabling for remainder of run.", "WARN")
                 return ""
-            if resp.status_code == 200:
-                abs_text = resp.json().get("abstract")
+            if data:
+                abs_text = data.get("abstract")
                 if abs_text:
                     return clean_abstract_text(abs_text)
 
         url = f"https://api.semanticscholar.org/graph/v1/paper/search?query={requests.utils.quote(title)}&limit=1&fields=title,abstract"
-        resp = requests.get(url, headers=headers, timeout=10)
-        if resp.status_code == 429:
+        fetcher = BrowserFetcher.get_instance()
+        data = fetcher.get_json(url)
+        if not data or data.get("message") == "Too Many Requests":
             s2_circuit_broken = True
-            log("Semantic Scholar rate limited (429); disabling for remainder of run.", "WARN")
+            log("Semantic Scholar rate limited; disabling for remainder of run.", "WARN")
             return ""
-        if resp.status_code == 200:
-            data = resp.json().get("data", [])
+        if data:
+            results = data.get("data", [])
             if data and data[0].get("abstract"):
                 return clean_abstract_text(data[0].get("abstract"))
     except Exception as e:
@@ -720,8 +830,8 @@ def main():
             skipped += 1
             continue
 
-        # Polite delay to avoid DBLP rate-limiting
-        time.sleep(1)
+        # Polite random delay to avoid DBLP rate-limiting and simulate human behavior
+        time.sleep(random.uniform(1.5, 3.5))
         bibtex = fetch_dblp_bibtex(pub.get("key"))
         generate_markdown(pub, bibtex, filepath, abstract="")
         log(f"+ {filename}.md")
@@ -889,4 +999,8 @@ def main():
     print()
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    finally:
+        if BrowserFetcher._instance:
+            BrowserFetcher.get_instance().close()
