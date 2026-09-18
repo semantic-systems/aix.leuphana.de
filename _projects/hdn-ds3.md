@@ -13,8 +13,6 @@ project_members:
 funding_organization: "Niedersächsisches Ministerium für Wissenschaft und Kultur"
 ---
 
-This is a test of a [broken link](https://this-is-a-completely-fake-and-broken-url-12345.com/broken).
-
 The Lower Saxony Digital Science Support Space (DS³) is a state-wide joint project aimed at building a shared digital research infrastructure. Supported by the Lower Saxony Ministry of Science and Culture and the Volkswagen Foundation, this initiative provides comprehensive computing resources, research-data services, and local support structures to empower researchers across Lower Saxony.
 
 ## Objectives
