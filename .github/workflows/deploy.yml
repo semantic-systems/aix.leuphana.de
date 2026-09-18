@@ -57,3 +57,5 @@ jobs:
             # Stop and remove the old containers, rebuild and start the new ones
             docker compose down
             docker compose up -d --build
+            # Clean up dangling images to prevent disk space exhaustion
+            docker image prune -f
