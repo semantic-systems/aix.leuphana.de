@@ -27,7 +27,11 @@ from email.mime.multipart import MIMEMultipart
 from dotenv import load_dotenv
 
 from playwright.sync_api import sync_playwright
-from playwright_stealth import stealth_sync
+try:
+    from playwright_stealth import Stealth
+    stealth = lambda page: Stealth().apply_stealth_sync(page)
+except ImportError:
+    stealth = None
 
 # Automatically load the .env file in the current directory if it exists
 load_dotenv()
@@ -141,18 +145,18 @@ def check_link_playwright(url, page):
         response = page.goto(url, wait_until="domcontentloaded", timeout=15000)
         time.sleep(random.uniform(1.0, 2.0)) # Stay on page briefly like a human
         if response:
-            return response.status < 400
-        return False
-    except Exception:
-        return False
+            return (response.status < 400), response.status
+        return False, "No Response"
+    except Exception as e:
+        return False, f"Exception: {type(e).__name__}"
 
 def check_link_http(url, session):
     """Check if a URL is broken using standard HTTP requests."""
     if url.startswith('mailto:') or url.startswith('tel:'):
-        return True, False
+        return True, False, 200
         
     if url.startswith('https://www.linkedin.com/school/aix-leuphana'):
-        return True, False
+        return True, False, 200
         
     if url.startswith('/'):
         url = url.split('#')[0]
@@ -162,7 +166,8 @@ def check_link_http(url, session):
         elif not local_path.endswith('.html') and not '.' in os.path.basename(local_path):
             local_path += '.html'
             
-        return os.path.exists(local_path), False
+        exists = os.path.exists(local_path)
+        return exists, False, (200 if exists else 404)
 
     if url.startswith('http://') or url.startswith('https://'):
         url = url.split('#')[0]
@@ -174,13 +179,23 @@ def check_link_http(url, session):
             if resp.status_code >= 400 and resp.status_code != 405:
                 resp = session.get(url, headers=headers, stream=True, timeout=10)
                 if resp.status_code >= 400:
-                    return False, True # False for HTTP success, True for needs Playwright
-                return resp.status_code < 400, False
-            return resp.status_code < 400, False
-        except requests.RequestException:
-            return False, True # False for HTTP success, True for needs Playwright
+                    return False, True, resp.status_code # False for HTTP success, True for needs Playwright
+                return resp.status_code < 400, False, resp.status_code
+            return resp.status_code < 400, False, resp.status_code
+        except requests.RequestException as e:
+            return False, True, type(e).__name__
             
-    return True, False
+    return True, False, 200
+
+def classify_error(status):
+    if status in [401, 403, 405, 429, 503, 999]:
+        return f"Blocked by Website ({status})"
+    elif status in [404, 410]:
+        return f"Actually Broken ({status})"
+    elif isinstance(status, str) and ("Timeout" in status or "TimeoutError" in status):
+        return "Timeout (Likely Blocked or Server Down)"
+    else:
+        return f"Broken / Error ({status})"
 
 def send_email_notification(smtp_host, smtp_port, smtp_user, smtp_pass, from_email, to_email, user_name, links_by_page):
     """Send an email notification about broken links via SMTP."""
@@ -189,15 +204,35 @@ def send_email_notification(smtp_host, smtp_port, smtp_user, smtp_pass, from_ema
     msg['To'] = to_email
     msg['Subject'] = "Action Required: Broken Links Detected on AIX Website"
     
+    blocked_count = 0
+    broken_count = 0
+    other_count = 0
+    for page_url, links in links_by_page.items():
+        for link, classification in links:
+            if "Blocked" in classification:
+                blocked_count += 1
+            elif "Actually Broken" in classification:
+                broken_count += 1
+            else:
+                other_count += 1
+                
+    total_links = blocked_count + broken_count + other_count
+
     body = f"Hello {user_name},\n\n"
     body += "The automated broken link checker has found some dead links on pages you are responsible for.\n\n"
     body += "Broken Links Summary:\n"
     body += "-" * 50 + "\n"
+    body += f"- Total flagged links: {total_links}\n"
+    body += f"- Blocked by website (Anti-Bot): {blocked_count}\n"
+    body += f"- Actually broken (404/410): {broken_count}\n"
+    if other_count > 0:
+        body += f"- Other errors (Timeout/Unknown): {other_count}\n"
+    body += "-" * 50 + "\n"
     
     for page_url, links in links_by_page.items():
         body += f"\nPage: {page_url}\n"
-        for link in links:
-            body += f"  ❌ {link}\n"
+        for link, classification in links:
+            body += f"  ❌ {link}\n      Reason: {classification}\n"
             
     body += "\n" + "-" * 50 + "\n\n"
     body += "Please update these links in the source Markdown files. Thanks!\n\nAIX Link Checker Bot"
@@ -271,18 +306,18 @@ def main():
             future_to_url = {}
             for url in unique_urls:
                 if url in cache and cache[url].get('is_valid'):
-                    results[url] = True
+                    results[url] = {'is_valid': True, 'status': 200}
                 else:
                     future_to_url[executor.submit(check_link_http, url, session)] = url
             
             for future in as_completed(future_to_url):
                 url = future_to_url[future]
                 try:
-                    is_valid, needs_pw = future.result()
+                    is_valid, needs_pw, status = future.result()
                     if needs_pw:
                         needs_playwright.append(url)
                     else:
-                        results[url] = is_valid
+                        results[url] = {'is_valid': is_valid, 'status': status}
                         if is_valid:
                             cache[url] = {'is_valid': True, 'timestamp': time.time()}
                 except Exception as exc:
@@ -298,11 +333,12 @@ def main():
                 user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
             )
             page = context.new_page()
-            stealth_sync(page)
+            if stealth:
+                stealth(page)
             
             for url in needs_playwright:
-                is_valid = check_link_playwright(url, page)
-                results[url] = is_valid
+                is_valid, status = check_link_playwright(url, page)
+                results[url] = {'is_valid': is_valid, 'status': status}
                 if is_valid:
                     cache[url] = {'is_valid': True, 'timestamp': time.time()}
             
@@ -311,11 +347,13 @@ def main():
     save_cache(cache)
 
     for file_path, original_href, url_stripped in links_to_check:
-        if not results.get(url_stripped, False):
-            print(f"Broken link found in {file_path}: {original_href}")
+        res = results.get(url_stripped, {'is_valid': False, 'status': 'Unknown'})
+        if not res['is_valid']:
+            classification = classify_error(res['status'])
+            print(f"Broken link found in {file_path}: {original_href} [{classification}]")
             responsible = find_responsible_person(file_path)
             email = author_map.get(responsible) if responsible else None
-            broken_links.append((file_path, original_href, email, responsible or "Admin"))
+            broken_links.append((file_path, original_href, email, responsible or "Admin", classification))
 
     # Remove duplicates from broken_links just in case
     broken_links = list(set(broken_links))
@@ -324,11 +362,14 @@ def main():
         print("No broken links found!")
         return
         
-    print(f"Found {len(broken_links)} broken links.")
+    blocked = sum(1 for x in broken_links if "Blocked" in x[4])
+    broken = sum(1 for x in broken_links if "Actually Broken" in x[4])
+    others = len(broken_links) - blocked - broken
+    print(f"Found {len(broken_links)} flagged links: {blocked} Blocked, {broken} Actually Broken, {others} Other.")
     
     # Group by email to avoid spamming
     issues = {}
-    for file_path, href, email, responsible in broken_links:
+    for file_path, href, email, responsible, classification in broken_links:
         # TEMPORARY: Hardcode recipient to Muratbek for testing purposes
         user_email = "Muratbek.Nurmatov@stud.leuphana.de"
         # user_email = email if email else args.admin_email
@@ -339,20 +380,33 @@ def main():
         if page_url not in issues[user_email]["links_by_page"]:
             issues[user_email]["links_by_page"][page_url] = []
             
-        issues[user_email]["links_by_page"][page_url].append(href)
+        issues[user_email]["links_by_page"][page_url].append((href, classification))
         
     for user_email, data in issues.items():
         if args.test_only and user_email != args.test_only:
             continue
             
         if args.dry_run:
+            blocked_count = 0
+            broken_count = 0
+            other_count = 0
+            for page_url, links in data["links_by_page"].items():
+                for link, classification in links:
+                    if "Blocked" in classification:
+                        blocked_count += 1
+                    elif "Actually Broken" in classification:
+                        broken_count += 1
+                    else:
+                        other_count += 1
+            
             print(f"\n--- DRY RUN EMAIL TO {user_email} ---")
             print(f"Subject: Action Required: Broken Links Detected on AIX Website")
             print(f"Hello {data['name']},\n\nThe automated broken link checker has found some dead links:\n")
+            print(f"Summary: {blocked_count} Blocked, {broken_count} Actually Broken, {other_count} Other\n")
             for page_url, links in data["links_by_page"].items():
                 print(f"\nPage: {page_url}")
-                for link in links:
-                    print(f"  ❌ {link}")
+                for link, classification in links:
+                    print(f"  ❌ {link}\n      Reason: {classification}")
             print("\n-------------------------------------\n")
         else:
             if args.smtp_pass:
