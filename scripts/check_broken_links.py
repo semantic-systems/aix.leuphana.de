@@ -192,8 +192,13 @@ def classify_error(status):
         return f"Blocked by Website ({status})"
     elif status in [404, 410]:
         return f"Actually Broken ({status})"
-    elif isinstance(status, str) and ("Timeout" in status or "TimeoutError" in status):
-        return "Timeout (Likely Blocked or Server Down)"
+    elif isinstance(status, str):
+        if "Timeout" in status or "TimeoutError" in status:
+            return "Timeout (Likely Blocked or Server Down)"
+        elif any(err in status for err in ["ConnectionError", "NameResolutionError", "Exception", "Error"]):
+            return f"Actually Broken (DNS/Connection Failed)"
+        else:
+            return f"Broken / Error ({status})"
     else:
         return f"Broken / Error ({status})"
 
