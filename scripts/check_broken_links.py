@@ -15,15 +15,18 @@ import requests
 from bs4 import BeautifulSoup
 import yaml
 import glob
+import fnmatch
 import re
 import argparse
 import time
 import random
 import smtplib
 import json
+from email.utils import parseaddr
+from urllib.parse import urlsplit, unquote
+from html import unescape
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
 from dotenv import load_dotenv
 
 from playwright.sync_api import sync_playwright
@@ -38,6 +41,10 @@ load_dotenv()
 
 CACHE_FILE = 'link_cache.json'
 CACHE_EXPIRY = 86400  # 1 day in seconds
+NOTIFICATION_STATE_FILE = 'link_notification_state.json'
+OWNER_FILE = 'scripts/link_owners.yml'
+SITE_URL = 'https://aix.leuphana.de'
+REMINDER_SECONDS = 7 * 86400
 
 def load_cache():
     if os.path.exists(CACHE_FILE):
@@ -66,75 +73,141 @@ def parse_frontmatter(file_path):
     match = re.match(r'^---\s*\n(.*?)\n---\s*\n', content, re.DOTALL)
     if match:
         try:
-            return yaml.safe_load(match.group(1))
+            return yaml.safe_load(match.group(1)) or {}
         except yaml.YAMLError:
             pass
     return {}
 
-def build_author_map():
-    """Build a mapping of team member names to their email addresses."""
-    author_map = {}
-    team_files = glob.glob('_team/*.md') + glob.glob('_team/*.markdown')
-    for tf in team_files:
-        fm = parse_frontmatter(tf)
-        name = fm.get('name')
+def valid_email(value):
+    if not isinstance(value, str):
+        return False
+    name, address = parseaddr(value.strip())
+    return (not name and address == value.strip()
+            and re.fullmatch(r'[^@\s]+@[^@\s]+\.[^@\s]+', address) is not None
+            and not address.lower().endswith(('@example.org', '@example.com')))
+
+def build_team_map():
+    """Team profile filename is the stable owner ID; display names may change."""
+    team = {}
+    for path in sorted(glob.glob('_team/*.md') + glob.glob('_team/*.markdown')):
+        fm = parse_frontmatter(path)
+        slug = os.path.splitext(os.path.basename(path))[0]
         email = fm.get('email')
-        if name and email:
-            author_map[name.strip()] = email.strip()
-    return author_map
+        team[slug] = {'name': fm.get('name', slug), 'email': email.strip().lower() if valid_email(email) else None}
+    return team
 
-def find_source_file_for_html(html_path):
-    """Attempt to find the source markdown file for a given HTML file in _site/."""
-    rel_path = os.path.relpath(html_path, '_site')
-    parts = rel_path.split(os.sep)
-    
-    if len(parts) >= 2 and parts[-1] == 'index.html':
-        collection = parts[0]
-        slug = parts[-2]
-        
-        source_dirs = {
-            'projects': '_projects',
-            'team': '_team',
-            'news': '_posts',
-            'demos': '_demos',
-            'publications': '_publications'
-        }
-        
-        if collection in source_dirs:
-            source_dir = source_dirs[collection]
-            if collection == 'news':
-                matches = glob.glob(f"{source_dir}/*-{slug}.*")
-                if matches:
-                    return matches[0]
-            else:
-                matches = glob.glob(f"{source_dir}/{slug}.*")
-                if matches:
-                    return matches[0]
-    
-    return None
+def load_owner_assignments():
+    if not os.path.exists(OWNER_FILE):
+        return {}
+    with open(OWNER_FILE, encoding='utf-8') as stream:
+        data = yaml.safe_load(stream) or {}
+    pages = data.get('pages', {})
+    if not isinstance(pages, dict):
+        raise ValueError(f'{OWNER_FILE}: pages must be a mapping of source paths to owner IDs')
+    return pages
 
-def find_responsible_person(html_path):
-    """Find the responsible person's name for a given page."""
-    source_file = find_source_file_for_html(html_path)
-    if not source_file:
+def page_path(html_path):
+    relative = os.path.relpath(html_path, '_site').replace(os.sep, '/')
+    if relative == 'index.html':
+        return '/'
+    if relative.endswith('/index.html'):
+        return '/' + relative[:-len('index.html')]
+    return '/' + relative
+
+def normalize_permalink(value):
+    if not value:
         return None
-        
+    path = '/' + str(value).lstrip('/')
+    if path.endswith('/'):
+        return path
+    if path.endswith('.html'):
+        return path
+    return path + '/'
+
+def build_source_index():
+    """Map generated page paths to source files, including fixed permalinks."""
+    index = {}
+    directories = {'_team': 'team', '_projects': 'projects', '_publications': 'publications', '_demos': 'demos'}
+    for directory, route in directories.items():
+        for path in sorted(glob.glob(f'{directory}/*.md') + glob.glob(f'{directory}/*.markdown')):
+            fm = parse_frontmatter(path)
+            if fm.get('published') is False:
+                continue
+            slug = os.path.splitext(os.path.basename(path))[0]
+            index[f'/{route}/{slug}/'] = path
+            permalink = fm.get('permalink')
+            if permalink:
+                resolved = str(permalink).replace(':path', slug).replace(':title', slug)
+                index[normalize_permalink(resolved)] = path
+    for path in sorted(glob.glob('_posts/*.md') + glob.glob('_posts/*.markdown')):
+        fm = parse_frontmatter(path)
+        if fm.get('published') is False:
+            continue
+        stem = os.path.splitext(os.path.basename(path))[0]
+        match = re.match(r'^(\d{4})-(\d{2})-(\d{2})-(.+)$', stem)
+        if not match:
+            continue
+        year, month, day, slug = match.groups()
+        index[f'/{year}/{month}/{day}/{slug}.html'] = path
+        index[f'/news/{slug}/'] = path
+        if fm.get('permalink'):
+            index[normalize_permalink(fm['permalink'])] = path
+    return index
+
+def find_source_file_for_html(html_path, source_index):
+    return source_index.get(page_path(html_path))
+
+def owners_for_source(source_file, team_map, assignments):
+    if not source_file:
+        return [], 'no source file found'
     fm = parse_frontmatter(source_file)
-    
-    if 'author' in fm:
-        return fm['author']
-        
-    if 'project_members' in fm and isinstance(fm['project_members'], list) and len(fm['project_members']) > 0:
-        member = fm['project_members'][0]
-        if isinstance(member, dict) and 'name' in member:
-            return member['name']
-        elif isinstance(member, str):
-            return member
-            
-    if 'name' in fm:
-        return fm['name']
-        
-    return None
+    owner_ids = assignments.get(source_file)
+    if owner_ids is None:
+        for pattern, ids in assignments.items():
+            if '*' in pattern and fnmatch.fnmatchcase(source_file, pattern):
+                owner_ids = ids
+                break
+    if owner_ids is None:
+        owner_ids = fm.get('link_check_owners', fm.get('link_check_owner'))
+    if owner_ids is None and source_file.startswith('_team/'):
+        owner_ids = os.path.splitext(os.path.basename(source_file))[0]
+    if isinstance(owner_ids, str):
+        owner_ids = [owner_ids]
+    if not isinstance(owner_ids, list) or not owner_ids:
+        return [], 'no owner assigned'
+    recipients = []
+    missing = []
+    for owner_id in owner_ids:
+        person = team_map.get(owner_id)
+        if not person or not person['email']:
+            missing.append(str(owner_id))
+        elif person['email'] not in [entry['email'] for entry in recipients]:
+            recipients.append(person)
+    return recipients, ('missing owner email: ' + ', '.join(missing)) if missing else None
+
+def link_in_source(source_file, href):
+    """Links supplied only by shared layouts belong to the site admins."""
+    if not source_file:
+        return False
+    with open(source_file, encoding='utf-8') as stream:
+        source = unescape(stream.read())
+    decoded = unescape(href)
+    path = unquote(urlsplit(decoded).path)
+    return decoded in source or (path and len(path) > 1 and path in source)
+
+def load_notification_state():
+    try:
+        with open(NOTIFICATION_STATE_FILE, encoding='utf-8') as stream:
+            state = json.load(stream)
+            return state if isinstance(state, dict) else {}
+    except (OSError, ValueError):
+        return {}
+
+def save_notification_state(state):
+    temporary = NOTIFICATION_STATE_FILE + '.tmp'
+    with open(temporary, 'w', encoding='utf-8') as stream:
+        json.dump(state, stream, indent=2, sort_keys=True)
+    os.replace(temporary, NOTIFICATION_STATE_FILE)
 
 def check_link_playwright(url, page):
     """Fallback check using playwright."""
@@ -196,63 +269,27 @@ def classify_error(status):
         if "Timeout" in status or "TimeoutError" in status:
             return "Timeout (Likely Blocked or Server Down)"
         elif any(err in status for err in ["ConnectionError", "NameResolutionError", "Exception", "Error"]):
-            return f"Actually Broken (DNS/Connection Failed)"
+            return "Connection failure (needs review)"
         else:
             return f"Broken / Error ({status})"
     else:
         return f"Broken / Error ({status})"
 
-def send_email_notification(smtp_host, smtp_port, smtp_user, smtp_pass, from_email, to_email, user_name, links_by_page):
-    """Send an email notification about broken links via SMTP."""
-    msg = MIMEMultipart()
-    msg['From'] = f"AIX Link Checker <{from_email}>"
+def send_email_notification(args, to_email, subject, body):
+    msg = MIMEText(body, 'plain', 'utf-8')
+    msg['From'] = f"AIX Link Checker <{args.from_email}>"
     msg['To'] = to_email
-    msg['Subject'] = "Action Required: Broken Links Detected on AIX Website"
-    
-    blocked_count = 0
-    broken_count = 0
-    other_count = 0
-    for page_url, links in links_by_page.items():
-        for link, classification in links:
-            if "Blocked" in classification:
-                blocked_count += 1
-            elif "Actually Broken" in classification:
-                broken_count += 1
-            else:
-                other_count += 1
-                
-    total_links = blocked_count + broken_count + other_count
-
-    body = f"Hello {user_name},\n\n"
-    body += "The automated broken link checker has found some dead links on pages you are responsible for.\n\n"
-    body += "Broken Links Summary:\n"
-    body += "-" * 50 + "\n"
-    body += f"- Total flagged links: {total_links}\n"
-    body += f"- Blocked by website (Anti-Bot): {blocked_count}\n"
-    body += f"- Actually broken (404/410): {broken_count}\n"
-    if other_count > 0:
-        body += f"- Other errors (Timeout/Unknown): {other_count}\n"
-    body += "-" * 50 + "\n"
-    
-    for page_url, links in links_by_page.items():
-        body += f"\nPage: {page_url}\n"
-        for link, classification in links:
-            body += f"  ❌ {link}\n      Reason: {classification}\n"
-            
-    body += "\n" + "-" * 50 + "\n\n"
-    body += "Please update these links in the source Markdown files. Thanks!\n\nAIX Link Checker Bot"
-    
-    msg.attach(MIMEText(body, 'plain'))
-    
+    msg['Subject'] = subject
     try:
-        server = smtplib.SMTP(smtp_host, smtp_port)
-        server.starttls() # Secure the connection
-        server.login(smtp_user, smtp_pass)
-        server.send_message(msg)
-        server.quit()
+        with smtplib.SMTP(args.smtp_host, args.smtp_port, timeout=20) as server:
+            server.starttls()
+            server.login(args.smtp_user, args.smtp_pass)
+            server.send_message(msg)
         print(f"Sent email successfully to {to_email}")
-    except Exception as e:
-        print(f"Failed to send email to {to_email}: {e}")
+        return True
+    except Exception as exc:
+        print(f"Failed to send email to {to_email}: {exc}")
+        return False
 
 def main():
     parser = argparse.ArgumentParser(description="Check for broken links in the _site directory.")
@@ -261,52 +298,64 @@ def main():
     parser.add_argument("--smtp-user", default="creativespace")
     parser.add_argument("--smtp-pass", help="SMTP Password", default=os.environ.get('SMTP_PASSWORD', ''))
     parser.add_argument("--from-email", default="creativespace-noreply@leuphana.de")
-    parser.add_argument("--admin-email", help="Fallback admin email", default="admin@leuphana.de")
+    parser.add_argument("--admin-emails", "--admin-email", dest="admin_emails",
+                        default=os.environ.get('LINK_CHECK_ADMIN_EMAILS', 'Muratbek.Nurmatov@stud.leuphana.de'),
+                        help="Comma-separated admin recipients (also accepts LINK_CHECK_ADMIN_EMAILS)")
     parser.add_argument("--dry-run", action="store_true", help="Print emails instead of sending them")
-    parser.add_argument("--test-only", help="Only send emails to this specific address (for testing)", default=None)
+    parser.add_argument("--test-only", help="Only send emails addressed to this recipient", default=None)
+    parser.add_argument("--ownership-report", action="store_true", help="Print page ownership without checking links or sending mail")
     args = parser.parse_args()
+
+    admin_emails = list(dict.fromkeys(email.strip().lower() for email in args.admin_emails.split(',') if valid_email(email.strip())))
+    if args.test_only:
+        args.test_only = args.test_only.strip().lower()
+    if not admin_emails:
+        parser.error('Provide at least one valid admin address with --admin-emails or LINK_CHECK_ADMIN_EMAILS')
+
+    team_map = build_team_map()
+    assignments = load_owner_assignments()
+    source_index = build_source_index()
+    print(f"Found {sum(bool(person['email']) for person in team_map.values())} team profiles with usable email addresses.")
+    if args.ownership_report:
+        missing = 0
+        for source_file in sorted(set(source_index.values())):
+            recipients, reason = owners_for_source(source_file, team_map, assignments)
+            if reason:
+                missing += 1
+            addresses = ', '.join(person['email'] for person in recipients) or 'admins only'
+            print(f'{source_file}: {addresses}' + (f' [{reason}]' if reason else ''))
+        print(f'Ownership review: {missing} page(s) need an owner or a usable email.')
+        return
 
     if not os.path.exists('_site'):
         print("Error: _site/ directory not found. Please run 'jekyll build' first.")
         return
-
-    print("Building author map...")
-    author_map = build_author_map()
-    print(f"Found {len(author_map)} team members with email addresses.")
 
     html_files = []
     for root, _, files in os.walk('_site'):
         for f in files:
             if f.endswith('.html'):
                 html_files.append(os.path.join(root, f))
-                
+    html_files.sort()
     print(f"Scanning {len(html_files)} HTML files...")
-    
-    broken_links = []
-    
+
     cache = load_cache()
-    
-    # Collect all links to check
     links_to_check = []
     for file_path in html_files:
         with open(file_path, 'r', encoding='utf-8') as f:
             soup = BeautifulSoup(f.read(), 'html.parser')
-            
         for a_tag in soup.find_all('a', href=True):
             href = a_tag['href']
             url_stripped = href.split('#')[0]
             if url_stripped:
                 links_to_check.append((file_path, href, url_stripped))
 
-    unique_urls = list(set(url for _, _, url in links_to_check))
+    unique_urls = sorted(set(url for _, _, url in links_to_check))
     results = {}
     needs_playwright = []
-    
     print(f"Total unique URLs to check: {len(unique_urls)}")
-    
-    # Use ThreadPoolExecutor and requests.Session
+
     with requests.Session() as session:
-        # We limit max_workers to avoid completely overwhelming servers or being blocked immediately
         with ThreadPoolExecutor(max_workers=5) as executor:
             future_to_url = {}
             for url in unique_urls:
@@ -314,7 +363,6 @@ def main():
                     results[url] = {'is_valid': True, 'status': 200}
                 else:
                     future_to_url[executor.submit(check_link_http, url, session)] = url
-            
             for future in as_completed(future_to_url):
                 url = future_to_url[future]
                 try:
@@ -329,7 +377,6 @@ def main():
                     print(f"{url} generated an exception: {exc}")
                     needs_playwright.append(url)
 
-    # Playwright fallback sequentially
     if needs_playwright:
         print(f"Using Playwright fallback for {len(needs_playwright)} URLs...")
         with sync_playwright() as p:
@@ -346,82 +393,127 @@ def main():
                 results[url] = {'is_valid': is_valid, 'status': status}
                 if is_valid:
                     cache[url] = {'is_valid': True, 'timestamp': time.time()}
-            
             browser.close()
 
-    save_cache(cache)
+    if not args.dry_run:
+        save_cache(cache)
 
-    for file_path, original_href, url_stripped in links_to_check:
-        res = results.get(url_stripped, {'is_valid': False, 'status': 'Unknown'})
-        if not res['is_valid']:
-            classification = classify_error(res['status'])
-            print(f"Broken link found in {file_path}: {original_href} [{classification}]")
-            responsible = find_responsible_person(file_path)
-            email = author_map.get(responsible) if responsible else None
-            broken_links.append((file_path, original_href, email, responsible or "Admin", classification))
-
-    # Remove duplicates from broken_links just in case
-    broken_links = list(set(broken_links))
-                
-    if not broken_links:
-        print("No broken links found!")
-        return
-        
-    blocked = sum(1 for x in broken_links if "Blocked" in x[4])
-    broken = sum(1 for x in broken_links if "Actually Broken" in x[4])
-    others = len(broken_links) - blocked - broken
-    print(f"Found {len(broken_links)} flagged links: {blocked} Blocked, {broken} Actually Broken, {others} Other.")
-    
-    # Group by email to avoid spamming
-    issues = {}
-    for file_path, href, email, responsible, classification in broken_links:
-        # TEMPORARY: Hardcode recipient to Muratbek for testing purposes
-        user_email = "Muratbek.Nurmatov@stud.leuphana.de"
-        # user_email = email if email else args.admin_email
-        if user_email not in issues:
-            issues[user_email] = {"name": responsible, "links_by_page": {}}
-            
-        page_url = "https://aix.leuphana.de/" + os.path.relpath(file_path, '_site').replace('index.html', '').lstrip('/')
-        if page_url not in issues[user_email]["links_by_page"]:
-            issues[user_email]["links_by_page"][page_url] = []
-            
-        issues[user_email]["links_by_page"][page_url].append((href, classification))
-        
-    for user_email, data in issues.items():
-        if args.test_only and user_email != args.test_only:
+    owner_reports = {}
+    admin_records = []
+    seen_issues = set()
+    current_keys = set()
+    now = time.time()
+    previous_state = load_notification_state()
+    next_state = {}
+    for file_path, href, url in links_to_check:
+        result = results.get(url, {'is_valid': False, 'status': 'Unknown'})
+        if result['is_valid']:
             continue
-            
-        if args.dry_run:
-            blocked_count = 0
-            broken_count = 0
-            other_count = 0
-            for page_url, links in data["links_by_page"].items():
-                for link, classification in links:
-                    if "Blocked" in classification:
-                        blocked_count += 1
-                    elif "Actually Broken" in classification:
-                        broken_count += 1
-                    else:
-                        other_count += 1
-            
-            print(f"\n--- DRY RUN EMAIL TO {user_email} ---")
-            print(f"Subject: Action Required: Broken Links Detected on AIX Website")
-            print(f"Hello {data['name']},\n\nThe automated broken link checker has found some dead links:\n")
-            print(f"Summary: {blocked_count} Blocked, {broken_count} Actually Broken, {other_count} Other\n")
-            for page_url, links in data["links_by_page"].items():
-                print(f"\nPage: {page_url}")
-                for link, classification in links:
-                    print(f"  ❌ {link}\n      Reason: {classification}")
-            print("\n-------------------------------------\n")
+        page_url = SITE_URL + page_path(file_path)
+        issue_id = (page_url, href)
+        if issue_id in seen_issues:
+            continue
+        seen_issues.add(issue_id)
+        status = result['status']
+        classification = classify_error(status)
+        source_file = find_source_file_for_html(file_path, source_index)
+        confirmed = status in (404, 410)
+        recipients = []
+        reason = None
+        if not confirmed:
+            reason = 'unconfirmed response; administrator review needed'
+        elif not link_in_source(source_file, href):
+            reason = 'link comes from shared layout or source could not be identified'
         else:
-            if args.smtp_pass:
-                send_email_notification(
-                    args.smtp_host, args.smtp_port, args.smtp_user, args.smtp_pass,
-                    args.from_email, user_email, data["name"], data["links_by_page"]
-                )
-                time.sleep(1) # Prevent rate limiting
-            else:
-                print(f"Skipping email to {user_email}: --smtp-pass not provided.")
+            recipients, reason = owners_for_source(source_file, team_map, assignments)
+
+        issue = {'page': page_url, 'href': href, 'classification': classification,
+                 'source': source_file or '(shared/site page)', 'reason': reason,
+                 'recipients': [person['email'] for person in recipients]}
+        admin_records.append(issue)
+        for person in recipients:
+            address = person['email']
+            key = json.dumps([address, page_url, href], ensure_ascii=False)
+            current_keys.add(key)
+            prior = previous_state.get(key, {})
+            if not isinstance(prior, dict):
+                prior = {}
+            elif prior:
+                next_state[key] = prior
+            if now - prior.get('last_sent', 0) < REMINDER_SECONDS:
+                continue
+            report = owner_reports.setdefault(address, {'name': person['name'], 'issues': []})
+            report['issues'].append((key, issue))
+
+    if not admin_records:
+        print('No flagged links found!')
+        if not args.dry_run and not args.test_only:
+            save_notification_state({})
+        return
+
+    print(f"Found {len(admin_records)} flagged page/link pairs; {sum(record['classification'].startswith('Actually Broken') for record in admin_records)} confirmed 404/410 responses.")
+    delivery_failures = []
+    for address, report in sorted(owner_reports.items()):
+        if address in admin_emails:
+            # The admin summary already contains these issues.
+            continue
+        if args.test_only and address != args.test_only:
+            continue
+        lines = [f"Hello {report['name']},", '',
+                 'Confirmed broken links were found on pages assigned to you:', '']
+        for _, issue in report['issues']:
+            lines.extend([f"Page: {issue['page']}", f"Source: {issue['source']}",
+                          f"Link: {issue['href']}", f"Reason: {issue['classification']}", ''])
+        lines.append('Please update the source file, then the next scan will clear the issue.')
+        body = '\n'.join(lines)
+        subject = 'Action required: broken links on your AIX pages'
+        if args.dry_run:
+            print(f"\n--- DRY RUN TO {address} ---\nSubject: {subject}\n{body}")
+            continue
+        if not args.smtp_pass:
+            delivery_failures.append(f'{address}: SMTP password missing')
+            continue
+        if send_email_notification(args, address, subject, body):
+            for key, _ in report['issues']:
+                next_state[key] = {'last_sent': now}
+        else:
+            delivery_failures.append(address)
+
+    summary = [f'AIX link checker summary: {len(admin_records)} flagged page/link pairs.',
+               'Only confirmed 404/410 links from page source are sent to assigned owners.', '']
+    shared_links = {}
+    for issue in admin_records:
+        if issue['reason'] == 'link comes from shared layout or source could not be identified':
+            entry = shared_links.setdefault(issue['href'], {'count': 0, 'classification': issue['classification']})
+            entry['count'] += 1
+            continue
+        routing = ', '.join(issue['recipients']) if issue['recipients'] else 'admins only'
+        summary.extend([f"Page: {issue['page']}", f"Source: {issue['source']}",
+                        f"Link: {issue['href']}", f"Status: {issue['classification']}",
+                        f"Routing: {routing}"])
+        if issue['reason']:
+            summary.append(f"Review: {issue['reason']}")
+        summary.append('')
+    if shared_links:
+        summary.append('Shared layout/site links (one entry per URL):')
+        for href, entry in sorted(shared_links.items()):
+            summary.append(f"{href} — {entry['classification']} on {entry['count']} page(s)")
+        summary.append('')
+    if delivery_failures:
+        summary.extend(['Owner email delivery failures:', *delivery_failures, ''])
+    summary_body = '\n'.join(summary)
+    for address in admin_emails:
+        if args.test_only and address != args.test_only:
+            continue
+        if args.dry_run:
+            print(f"\n--- DRY RUN ADMIN SUMMARY TO {address} ---\n{summary_body}")
+        elif args.smtp_pass:
+            send_email_notification(args, address, 'AIX link checker: daily issue summary', summary_body)
+        else:
+            print(f'Skipping admin summary to {address}: SMTP password missing')
+
+    if not args.dry_run and not args.test_only:
+        save_notification_state({key: value for key, value in next_state.items() if key in current_keys})
 
 if __name__ == "__main__":
     main()

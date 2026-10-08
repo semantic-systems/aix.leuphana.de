@@ -1,7 +1,7 @@
 ---
 name: "Muratbek Nurmatov"
-title: "AI server Assistent"
-image: "blank.png"
+title: "Student Assistant - AI Server Administration"
+image: "muratbek_nurmatov.jpg"
 job_category: "student_assistant"
 
 layout: team_member
@@ -9,9 +9,11 @@ permalink: /team/muratbek-nurmatov/
 email: "Muratbek.Nurmatov@stud.leuphana.de"
 ---
 
+Website: [textmurat.com](https://textmurat.com/)
+
 ## About Me
 
-Master Student of Management & Data Science.
+M.Sc. Student of Management & Data Science with 3+ years of experience in backend development.
 
 ## Contact
 

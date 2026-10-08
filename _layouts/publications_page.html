@@ -9,11 +9,11 @@ layout: default
     
     <!-- Search Bar -->
     <div class="search-container" style="margin-bottom: 2rem;">
-      <input type="text" id="pub-search" placeholder="Search publications by title..." style="width: 100%; padding: 0.8rem 1rem; font-size: 1rem; border: 1px solid var(--c-granit-40); border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); outline: none;">
+      <input type="search" id="pub-search" aria-label="Search publications by title or author" placeholder="Search publications by title or author..." style="width: 100%; padding: 0.8rem 1rem; font-size: 1rem; border: 1px solid var(--c-granit-40); border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); outline: none;">
     </div>
     
     <!-- Search Results Container (Hidden by default) -->
-    <div id="search-results" style="display: none; flex-direction: column; gap: 1.5rem; margin-bottom: 2rem;"></div>
+    <div id="search-results" aria-live="polite" style="display: none; flex-direction: column; gap: 1.5rem; margin-bottom: 2rem;"></div>
 
     <!-- Original Paginated List -->
     <div id="paginated-list">
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function() {
   // Fetch all publications JSON
   fetch('{{ "/api/publications_search.json" | relative_url }}')
     .then(response => response.json())
-    .then(data => { publications = data; })
+    .then(data => { publications = Array.isArray(data) ? data : []; searchInput.dispatchEvent(new Event('input')); })
     .catch(error => console.error("Error loading search data:", error));
 
   searchInput.addEventListener('input', function() {
@@ -82,20 +82,37 @@ document.addEventListener("DOMContentLoaded", function() {
     resultsContainer.style.display = 'flex';
     paginatedList.style.display = 'none';
     
-    const filtered = publications.filter(pub => pub.title.toLowerCase().includes(query));
+    const filtered = publications.filter(pub =>
+      [pub.title, pub.authors].some(value => String(value || '').toLowerCase().includes(query))
+    );
     
     if (filtered.length === 0) {
       resultsContainer.innerHTML = '<p style="color: var(--text-secondary); font-style: italic;">No publications found matching your search.</p>';
       return;
     }
 
-    resultsContainer.innerHTML = filtered.map(pub => `
-      <div class="publication-entry" style="background: var(--bg-primary); border: 1px solid var(--c-jaspis); border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-        <h3 style="margin-bottom: 0.5rem;"><a href="${pub.url}">${pub.title}</a></h3>
-        <p style="margin: 0.25rem 0; color: var(--text-secondary);"><strong>Year:</strong> ${pub.year}</p>
-        <p style="margin: 0.25rem 0; color: var(--text-secondary);"><strong>Authors:</strong> ${pub.authors}</p>
-      </div>
-    `).join('');
+    resultsContainer.replaceChildren();
+    filtered.forEach(pub => {
+      const card = document.createElement('div');
+      card.className = 'publication-entry';
+      card.style.cssText = 'background: var(--bg-primary); border: 1px solid var(--c-jaspis); border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.1);';
+      const heading = document.createElement('h3');
+      heading.style.marginBottom = '0.5rem';
+      const link = document.createElement('a');
+      link.href = pub.url;
+      link.textContent = pub.title || 'Untitled publication';
+      heading.append(link);
+      card.append(heading);
+      for (const [label, value] of [['Year', pub.year], ['Authors', pub.authors]]) {
+        const row = document.createElement('p');
+        row.style.cssText = 'margin: 0.25rem 0; color: var(--text-secondary);';
+        const strong = document.createElement('strong');
+        strong.textContent = `${label}: `;
+        row.append(strong, document.createTextNode(String(value || '')));
+        card.append(row);
+      }
+      resultsContainer.append(card);
+    });
   });
 });
 </script>

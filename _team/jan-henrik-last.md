@@ -6,11 +6,12 @@ job_category: "technical_staff"
 
 layout: team_member
 permalink: /team/jan-henrik-last/
+email: "muratbek.kebtarum@gmail.com"
 ---
-
+Website: [brokenlink124.com](https://https://brokenlink124.com/)
 ## About Me
 
 Profile details coming soon.
-
+ 
 ## Contact
 

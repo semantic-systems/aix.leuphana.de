@@ -17,6 +17,62 @@ layout: default
     {{ content }}
   </div>
 
+  {% assign profile_name = page.name | remove_first: 'Prof. Dr. ' | remove_first: 'Dr. ' | strip | downcase %}
+  {% assign published_projects = site.projects | where_exp: 'item', 'item.published != false' | sort: 'date' | reverse %}
+  {% assign project_count = 0 %}
+  {% capture project_links %}
+    {% for project in published_projects %}
+      {% assign member_matches = false %}
+      {% for person in project.project_members %}
+        {% assign person_name = person.name | default: person | strip | downcase %}
+        {% if person_name == profile_name %}
+          {% assign member_matches = true %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+      {% if member_matches %}
+        {% assign project_count = project_count | plus: 1 %}
+        <li><a href="{{ project.url | relative_url }}">{{ project.title | escape }}</a></li>
+      {% endif %}
+    {% endfor %}
+  {% endcapture %}
+
+  {% assign published_publications = site.publications | where_exp: 'item', 'item.published != false' | sort: 'year' | reverse %}
+  {% assign publication_count = 0 %}
+  {% capture publication_links %}
+    {% for publication in published_publications %}
+      {% assign author_matches = false %}
+      {% for author in publication.authors %}
+        {% assign author_name = author.name | default: author | strip | downcase %}
+        {% if author_name == profile_name %}
+          {% assign author_matches = true %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+      {% if author_matches %}
+        {% assign publication_count = publication_count | plus: 1 %}
+        <li><a href="{{ publication.url | relative_url }}">{{ publication.title | escape }}</a>{% if publication.year %} ({{ publication.year }}){% endif %}</li>
+      {% endif %}
+    {% endfor %}
+  {% endcapture %}
+
+  {% if project_count > 0 or publication_count > 0 %}
+    <div class="team-member-work" style="margin-top: 3rem; max-width: 800px;">
+      {% if project_count > 0 %}
+        <section aria-labelledby="member-projects">
+          <h2 id="member-projects">Projects</h2>
+          <ul>{{ project_links }}</ul>
+        </section>
+      {% endif %}
+      {% if publication_count > 0 %}
+        <section aria-labelledby="member-publications">
+          <h2 id="member-publications">Publications</h2>
+          <ul>{{ publication_links }}</ul>
+        </section>
+      {% endif %}
+    </div>
+  {% endif %}
+
   <div class="back-link" style="margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--c-granit-20);">
     <a href="{{ '/team/' | relative_url }}" class="btn btn-secondary">← Back to Team</a>
   </div>

@@ -11,6 +11,12 @@ layout: default
     Our latest research projects and collaborations in neuro-symbolic AI and beyond.
   </p>
 
+  <div style="margin-bottom: 2rem;">
+    <input type="search" id="project-search" aria-label="Search projects by title or project member" placeholder="Search projects by title or project member..." style="width: 100%; padding: 0.8rem 1rem; font-size: 1rem; border: 1px solid var(--c-granit-40); border-radius: 8px;">
+  </div>
+  <div id="project-search-results" aria-live="polite" style="display: none; flex-direction: column; gap: 1rem; margin-bottom: 2rem;"></div>
+  <div id="project-paginated-list">
+
   <div class="cards-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;">
     {% for project in paginator.posts %}
       <a href="{{ project.url | relative_url }}" class="card-link" style="text-decoration: none; color: inherit; display: block;">
@@ -47,4 +53,71 @@ layout: default
 
 {% include pagination.html base_url="/projects/" %}
   </div>
+  </div>
 </article>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const input = document.getElementById('project-search');
+  const results = document.getElementById('project-search-results');
+  const list = document.getElementById('project-paginated-list');
+  let projects = [];
+
+  function render() {
+    const query = input.value.toLocaleLowerCase().trim();
+    if (!query) {
+      results.style.display = 'none';
+      list.style.display = 'block';
+      return;
+    }
+    list.style.display = 'none';
+    results.style.display = 'flex';
+    const matches = projects.filter(project => {
+      const members = (project.members || []).map(member =>
+        typeof member === 'string' ? member : member.name || ''
+      );
+      return [project.title, ...members].some(value =>
+        String(value || '').toLocaleLowerCase().includes(query)
+      );
+    });
+    results.replaceChildren();
+    if (!matches.length) {
+      const empty = document.createElement('p');
+      empty.textContent = 'No projects found matching your search.';
+      results.append(empty);
+      return;
+    }
+    matches.forEach(project => {
+      const card = document.createElement('div');
+      card.className = 'project-card';
+      card.style.cssText = 'border: 1px solid var(--c-granit-20); border-radius: 8px; padding: 1.25rem; background: var(--bg-primary);';
+      const heading = document.createElement('h3');
+      const link = document.createElement('a');
+      link.href = project.url;
+      link.textContent = project.title || 'Untitled project';
+      heading.append(link);
+      card.append(heading);
+      const members = (project.members || []).map(member =>
+        typeof member === 'string' ? member : member.name || ''
+      ).filter(Boolean);
+      if (members.length) {
+        const people = document.createElement('p');
+        people.textContent = `Project members: ${members.join(', ')}`;
+        card.append(people);
+      }
+      if (project.excerpt) {
+        const excerpt = document.createElement('p');
+        excerpt.textContent = project.excerpt;
+        card.append(excerpt);
+      }
+      results.append(card);
+    });
+  }
+
+  input.addEventListener('input', render);
+  fetch('{{ "/api/projects_search.json" | relative_url }}')
+    .then(response => response.json())
+    .then(data => { projects = Array.isArray(data) ? data : []; render(); })
+    .catch(error => console.error('Error loading project search data:', error));
+});
+</script>

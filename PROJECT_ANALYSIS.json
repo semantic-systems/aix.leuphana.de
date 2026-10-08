@@ -1,0 +1,162 @@
+{
+  "analysis_metadata": {
+    "project": "AIX Research Group Website",
+    "analyzed_on": "2026-10-02",
+    "scope": "Repository files outside the nested test/aix.leuphana.de mirror; includes source, configuration, content collections, scripts, generated data, dependencies, and deployment setup.",
+    "method": "Static inspection of repository files and lightweight file/count checks. No build or tests were run.",
+    "limitations": [
+      "Local YAML parsing was unavailable, so front matter was inspected using text-level checks rather than full semantic validation.",
+      "The nested test/aix.leuphana.de directory contains a large mirror of the project; its provenance and intended use are not documented in the inspected project overview."
+    ]
+  },
+  "executive_summary": "This repository is a Jekyll website for Leuphana University's Artificial Intelligence and Explainability research group. It combines static institutional pages with collections for team profiles, projects, interactive demos, publications, and news. The site includes client-side global/publication search, Docker-based local preview, and a crawler container for publication refresh and broken-link checking. Main maintenance risks are inconsistent documentation/configuration, brittle data-fetching and content-generation scripts, possible issues with client-side HTML interpolation, the nested duplicate site tree, and content quality/accessibility gaps.",
+  "project_structure": {
+    "framework": "Jekyll 4.2 with Liquid templates and the Minima theme, customized with SCSS and local layouts/includes.",
+    "counts": {
+      "team_markdown_files": 33,
+      "project_markdown_files": 15,
+      "demo_markdown_files": 3,
+      "publication_markdown_files": 151,
+      "news_markdown_files": 1,
+      "page_files": 10,
+      "layouts": 12,
+      "includes": 9,
+      "python_scripts": 13,
+      "root_files_excluding_git_and_nested_test_mirror": 330,
+      "nested_test_mirror_files": 8910
+    },
+    "directories": {
+      "_team": "Team-member profiles rendered as individual pages and grouped on the team page.",
+      "_projects": "Research project content and project listing pages.",
+      "_demos": "Interactive demo descriptions and detail pages.",
+      "_publications": "Publication records, primarily sourced/managed through DBLP scripts.",
+      "_posts": "Jekyll news posts.",
+      "pages": "Top-level routes for about, team, projects, publications, news, demos, privacy, legal notice, accessibility, and 404.",
+      "_layouts": "Layouts for page collections and individual records.",
+      "_includes": "Shared header, footer, lists, social links, pagination, and team-link rendering.",
+      "assets": "SCSS, logos, photos, project imagery, icons, and a corporate design PDF.",
+      "scripts": "Python scraping, content generation/migration, duplicate cleanup, and broken-link tools.",
+      "api": "Jekyll-generated JSON indexes for global search, project data, and publication search.",
+      "test/aix.leuphana.de": "Large duplicate-looking project tree; presence appears to account for most repository files."
+    }
+  },
+  "architecture": {
+    "content_flow": "Markdown files with YAML front matter feed Jekyll collections/pages. Liquid layouts and includes render HTML. Jekyll emits JSON files consumed by browser-side search widgets.",
+    "search": {
+      "global": "_includes/header.html fetches /api/global_search.json and searches title, excerpt, and category in-browser.",
+      "publications": "_layouts/publications_page.html fetches /api/publications_search.json and filters publication titles in-browser.",
+      "projects": "A projects_data.json output exists, but the inspected project templates do not clearly establish its current consumer."
+    },
+    "automation": "docker-compose.yml runs a Jekyll preview service and a crawler service. Dockerfile.crawler loops once per day through publication fetching followed by broken-link checks.",
+    "deployment": "README describes GitHub Pages and GitHub Actions deployment, but no workflow files were present in the inspected file listing, so deployment implementation could not be verified."
+  },
+  "dependencies": {
+    "ruby": ["jekyll ~> 4.2", "webrick ~> 1.7", "minima", "jekyll-feed", "jekyll-paginate-v2", "jekyll-seo-tag", "jekyll-sitemap"],
+    "python": ["requests", "pytest", "bibtexparser < 2.0", "scholarly", "beautifulsoup4", "playwright", "playwright-stealth", "python-dotenv", "PyYAML"],
+    "external_data_sources": ["DBLP publication API/pages", "Leuphana FIS project pages", "external web pages checked by the link checker"],
+    "secrets": "SMTP password is read from SMTP_PASSWORD / .env in scripts; no credential value was observed in inspected output."
+  },
+  "findings": [
+    {
+      "id": "F-001",
+      "severity": "high",
+      "category": "search data integrity",
+      "finding": "api/publications_search.json is only 330 bytes, while the client expects a populated array of publication records. This is suspicious relative to the 151 publication markdown files and may leave publication search empty or incorrectly generated.",
+      "evidence": ["api/publications_search.json", "_layouts/publications_page.html", "_publications/"],
+      "recommendation": "Inspect the Liquid source that generates this JSON, confirm it includes all intended publications, then verify the generated output after a Jekyll build."
+    },
+    {
+      "id": "F-002",
+      "severity": "medium",
+      "category": "content metadata",
+      "finding": "The README says every project/demo must have a date for correct sorting. Text-level inspection found two project files and two demo files without a date in the front matter. Some project dates may be absent or not parsed consistently by pagination.",
+      "evidence": ["README.md", "_projects/neuro-symbolic-reasoner.md", "_projects/disaster-response-kg.md", "_demos/kg-question-answering copy.md", "_demos/kg-question-answering.md"],
+      "recommendation": "Validate front matter and add explicit dates or adjust documentation/template rules where date sorting is not intended."
+    },
+    {
+      "id": "F-003",
+      "severity": "medium",
+      "category": "documentation drift",
+      "finding": "TEAM_AND_PUBLICATIONS_README.md documents publication templates and fields such as github_repo/github_page, but the inspected _publications directory contains 151 generated/curated files and no obvious template file. The publication renderer also uses DBLP-oriented metadata and abstracts, so the guide appears stale or describes a different workflow.",
+      "evidence": ["TEAM_AND_PUBLICATIONS_README.md", "_publications/", "_layouts/publication.html", "scripts/fetch_publications.py"],
+      "recommendation": "Update the guide to reflect the current DBLP ingestion workflow and actual supported metadata."
+    },
+    {
+      "id": "F-004",
+      "severity": "medium",
+      "category": "duplicated repository content",
+      "finding": "The test/aix.leuphana.de subtree has 8,910 files compared with 330 files in the project outside that mirror. It appears to duplicate the site and can inflate repository size, obscure canonical sources, and increase maintenance effort.",
+      "evidence": ["test/aix.leuphana.de/", "README.md"],
+      "recommendation": "Document the purpose of the mirror and whether it is a fixture, deployment artifact, or accidental copy; avoid making fixes in both copies unless required."
+    },
+    {
+      "id": "F-005",
+      "severity": "medium",
+      "category": "client-side security and robustness",
+      "finding": "Search results are inserted into innerHTML using title, category, excerpt, and URL values from JSON. If content includes HTML-significant text, markup can be injected into the page. Publication search has the same pattern for title/authors/url.",
+      "evidence": ["_includes/header.html", "_layouts/publications_page.html", "api/global_search.json", "api/publications_search.json"],
+      "recommendation": "Render result nodes with textContent and validated href assignments, or centrally escape generated values before interpolation."
+    },
+    {
+      "id": "F-006",
+      "severity": "medium",
+      "category": "automation reliability",
+      "finding": "Crawler startup runs publication fetching and link checking in an infinite loop without explicit per-task error handling at the container command level. A failure or long-running network operation can delay or prevent subsequent daily runs. Several scripts also scrape page HTML with selectors that may break when upstream sites change.",
+      "evidence": ["Dockerfile.crawler", "docker-compose.yml", "scripts/fetch_publications.py", "scripts/fetch_project_metadata.py", "scripts/check_broken_links.py"],
+      "recommendation": "Add structured logs, bounded timeouts/retries, per-job failure isolation, and a documented manual invocation path."
+    },
+    {
+      "id": "F-007",
+      "severity": "medium",
+      "category": "accessibility and legal content",
+      "finding": "The accessibility page says its declaration applies to leuphana.de and describes a 2021 assessment, which may not accurately describe this AIX subsite. The filename is misspelled as accessability.markdown even though its route is /accessibility/.",
+      "evidence": ["pages/accessability.markdown"],
+      "recommendation": "Review and publish an accessibility statement specific to this site, update its review date, and consider correcting the source filename without changing the public route."
+    },
+    {
+      "id": "F-008",
+      "severity": "low",
+      "category": "content consistency",
+      "finding": "The about content exists both as pages/about.markdown and as a detailed introduction in pages/team.html. This creates two places to maintain the same research, teaching, and transfer descriptions.",
+      "evidence": ["pages/about.markdown", "pages/team.html"],
+      "recommendation": "Choose a canonical source or extract shared content into a data/include file."
+    },
+    {
+      "id": "F-009",
+      "severity": "low",
+      "category": "configuration and documentation consistency",
+      "finding": "README describes publishing to feature/site-redesign-and-pagination or main, but the current branch and actual GitHub Actions workflow were not inspected/verified. The same README suggests a date-based sort rule broadly, while publications paginate by year and team pages do not use dates.",
+      "evidence": ["README.md", "_config.yml", "pages/publications.html", "pages/projects.html", "pages/demos.html"],
+      "recommendation": "Clarify branch/deployment instructions and scope sorting guidance to the relevant collections."
+    },
+    {
+      "id": "F-010",
+      "severity": "low",
+      "category": "maintainability",
+      "finding": "scripts/generate_projects_auto.py contains an absolute developer-specific project path, making it non-portable. Multiple scripts directly rewrite or delete content/state files and use regex-based front matter edits.",
+      "evidence": ["scripts/generate_projects_auto.py", "scripts/remove_duplicates.py", "scripts/migrate_dedup.py", "scripts/migrate_pub_types.py"],
+      "recommendation": "Use paths relative to the repository/script location, back up generated state before migrations, and parse/update front matter with a YAML-aware library."
+    }
+  ],
+  "strengths": [
+    "Clear Jekyll collections and individual profile/project/publication layouts support structured content.",
+    "Docker-based preview and crawler setup lower the setup burden for local work.",
+    "The site uses shared includes and reusable collection layouts.",
+    "Publication and link-checking automation reduce manual maintenance for a large content set.",
+    "robots.txt, sitemap plugin, SEO plugin, and feed plugin support basic discoverability."
+  ],
+  "recommended_priorities": [
+    "Confirm and repair generation of api/publications_search.json, then verify all search indexes against their collections.",
+    "Run a Jekyll build and resolve front matter/build warnings, especially missing project/demo dates.",
+    "Harden search result rendering against HTML injection and malformed JSON values.",
+    "Clarify or reduce the nested duplicate site tree after establishing its purpose.",
+    "Modernize the accessibility statement and update the team/publication documentation to match current workflows.",
+    "Make crawler scripts portable and resilient to upstream network/site changes."
+  ],
+  "verification_status": {
+    "tests_run": false,
+    "build_run": false,
+    "runtime_behavior_verified": false,
+    "reason": "The request was for project analysis; static inspection was used and no tests/build were requested."
+  }
+}

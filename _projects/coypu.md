@@ -8,6 +8,7 @@ thumbnail: "/assets/icons/coypu-logo.png" # Square preview image for the main Pr
 image: "/assets/icons/coypu-logo.png" # Large banner image inside the actual project page (optional)
 excerpt: "BMWK project to develop an AI platform using linked knowledge graphs to analyze supply chains, economic ecosystems, and crisis-related risks, particularly for SMEs."
 published: true # Change this to 'true' when you want it to appear on the live website!
+link_check_owner: "muratbek-nurmatov"
 project_members:
   - name: "Ricardo Usbeck"
     role: "Project lead"
@@ -16,8 +17,8 @@ links:
     url: "https://coypu.org/media/MST_02_CoyPu_Forschungsprojekt_21-036.mp4"
   - title: "Project website"
     url: "https://coypu.org"
-  # - title: "Twitter"
-    # url: ""
+  - title: "Broken link"
+    url: "https://brokenlink123.org/broken-link"
 ---
 <figure style="text-align: center; margin: 2rem 0;">
   <img src="{{ '/assets/icons/coypu-logo.png' | relative_url }}" alt="Description" style="width: 100%; max-width: 600px; height: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">

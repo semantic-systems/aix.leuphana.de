@@ -1,0 +1,14 @@
+# Explicit responsibility for content pages. Keys are source file paths.
+# Values are team profile filename stems (without .md), never display names.
+# Example:
+# pages:
+#   _projects/example-project.md:
+#     - jane-doe
+#   _publications/example-paper.md:
+#     - jane-doe
+#     - alex-example
+# A wildcard such as _publications/*.md can assign a whole collection only
+# when the same person really maintains every page in it. Specific paths win.
+# Team profiles are assigned to their own profile by default.
+# Unlisted content and owners without a usable team email go to the admin summary.
+pages: {}

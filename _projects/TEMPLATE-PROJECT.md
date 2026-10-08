@@ -1,41 +1,25 @@
 ---
 layout: project
-title: "REPLACE WITH TITLE: Name of the Project"
-date: 2024-01-01 # Start date of the project (Format: YYYY-MM-DD). This also controls the sorting order.
-end_date: "2026-12-31" # Optional. End date of the project. If empty or removed, it will display as "Present".
-status: "Ongoing" # e.g. "Ongoing", "Completed", "In Review"
-thumbnail: "/assets/logo.svg" # Preview image for the main Projects list (default is AIX logo)
-image: "/assets/logo.svg" # Large banner image inside the actual project page (default is AIX logo, optional)
-excerpt: "A short 1-2 sentence summary explaining what this project aims to achieve."
-published: false # Change this to 'true' when you want it to appear on the live website!
-# List project members. If a member matches exactly with a name in the Team database, they will be highlighted and linked!
+title: "Example research project"
+date: 2099-01-01
+status: "Ongoing"
+thumbnail: "/assets/logo.svg"
+excerpt: "A short description of the project's goal and expected result."
+published: false
+link_check_owner: "first-last" # Person maintaining this page; team profile filename without .md.
 project_members:
-  - name: "Ricardo Usbeck"
-    role: "Scientific Project Manager"
-  - name: "Anna Ehrenberg"
-# Add related links (e.g., video, social network, publications). Remove or leave empty if none.
-links:
-  - title: "Project Video"
-    url: "https://youtube.com/"
-  - title: "Publications"
-    url: "https://google.com/"
+  - name: "First Last"
+    role: "Project lead"
+website: "https://example.org"
 ---
 
-Explain the background and goals of the project here.
+Explain the problem this project addresses and what the team is doing. Replace all example values before publishing; remove fields that do not apply.
 
 ## Objectives
-- Objective 1
-- Objective 2
 
-## Methodology
-Describe how you are solving the problem.
+- Describe one concrete objective.
+- Describe another concrete objective.
 
-**Images inside the text:**
-If you want a beautifully formatted image with dynamic width, height, and a caption, use this HTML block:
+## Partners and results
 
-{% highlight html %}
-<figure style="text-align: center; margin: 2rem 0;">
-  <img src="{{ '/assets/images/your-image.jpg' | relative_url }}" alt="Description" style="width: 100%; max-width: 600px; height: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-  <figcaption style="font-size: 0.9rem; color: gray; margin-top: 0.5rem;">Your caption goes here</figcaption>
-</figure>
-{% endhighlight %}
+Add partners, funding, results, and relevant links when confirmed. Add `end_date: YYYY-MM-DD` when the project is complete.

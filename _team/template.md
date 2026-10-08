@@ -1,50 +1,17 @@
 ---
-# Team Member Template
-# This is a template for creating individual team member pages
-# Copy this file and rename it to [first-name-last-name].md
-# Then fill in the details below
-
-# Required fields
-name: "First Name Last Name"
-title: "Academic/Professional Title"
-image: "blank.png"  # Default is "blank.png". To use a custom photo, place your image in assets/images/profile_photo/ and specify its filename here
-job_category: "category"     # Use one of: head, academic_advisor, research_assistant, research_associate, scholarship_holder, external_phd, student_assistant, alumni
-published: false             # Prevents Jekyll from rendering this template into a live webpage
-
-# Optional fields
-bio: |
-  Write a short biography here. This can include your academic background, research interests, and professional experience.
-
-research_interests:
-  - Interest 1
-  - Interest 2
-  - Interest 3
-
-email: "email@example.com"
-website: "https://personal-website.com"
-github: "github-username"
-linkedin: "linkedin-profile-url"
-office: "Office Location"
-
-# Layout settings (do not modify)
 layout: team_member
-permalink: /team/:title/
+name: "First Last"
+title: "Researcher"
+image: "blank.png"
+job_category: "researcher"
+published: false
+email: "first.last@example.org"
 ---
 
-## About Me
+## About
 
-{{ page.bio }}
-
-## Research Interests
-
-{% for interest in page.research_interests %}
-- {{ interest }}
-{% endfor %}
+Write a short introduction: role, research interests, and current work. Replace or remove the example contact details before publishing.
 
 ## Contact
 
-- Email: {{ page.email }}
-{% if page.website %}- Website: [{{ page.name }}]({{ page.website }}){% endif %}
-{% if page.github %}- GitHub: [{{ page.github }}](https://github.com/{{ page.github }}){% endif %}
-{% if page.linkedin %}- LinkedIn: [{{ page.name }}]({{ page.linkedin }}){% endif %}
-{% if page.office %}- Office: {{ page.office }}{% endif %}
+Add a link to a personal website, GitHub profile, or other relevant contact channel if appropriate.
