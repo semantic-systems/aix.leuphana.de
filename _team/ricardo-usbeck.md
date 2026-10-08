@@ -18,7 +18,7 @@ research_interests:
   - Ethics of AI
   - Sustainability in AI
 
-email: "ricardo.usbeck@leuphana.de"
+
 website: "https://www.leuphana.de/en/institutes/iis/artificial-intelligence-and-explainability.html"
 github: "ricardousbeck"
 linkedin: "https://www.linkedin.com/in/ricardo-usbeck/"

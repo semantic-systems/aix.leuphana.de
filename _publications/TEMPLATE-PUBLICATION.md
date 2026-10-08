@@ -21,3 +21,7 @@ Add a short plain-language description of the paper if useful. Replace all examp
 ## Summary
 
 In one short paragraph, explain what problem the paper studies, what method it uses, and what it contributes. Add links to code, data, or a demo only when they belong to this paper and are publicly available.
+
+> **Abstract:**
+> Keep this short and to the point. Strive for one paragraph; the abstract should never be longer than two paragraphs. The final version submitted should be in PDF format with file size less than 3 MB. Manuscripts must be formatted with 2.54-cm (1 in) margins on all sides. Please use 12 point Times New Roman font for the main text and 10 point Times New Roman font for the figure captions, table text and captions, and the reference list. Place the text in newspaper-style columns with a 0.635 cm (0.25 in) space between columns. The boldfaced session/paper number should appear to the left of the Title. In the example above, this paper is in the third session, first presentation (i.e., 2.1). A poster would have a “P ” preceding the session and paper number, e.g., P2.1. This should be provided by the annual meeting committee (or can be requested from them).
+

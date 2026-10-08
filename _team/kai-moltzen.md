@@ -48,7 +48,7 @@ prizes:
   - name: "Award for Completing the Course of Study 'Management and Data Science' with Outstanding Success"
     date: "14.06.2025"
 
-email: "kai.moltzen@leuphana.de"
+
 phone: "+49.4131.677-2417"
 office: "C4.308b"
 address: "Universitätsallee 1, 21335 Lüneburg"
