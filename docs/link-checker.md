@@ -1,6 +1,8 @@
 # Broken-link notifications
 
-The crawler checks links in the generated `_site/` HTML each day. It sends **confirmed 404/410 links found in a page's own source** to the people explicitly responsible for that page. Admins receive a daily issue summary, including links supplied by shared layouts, uncertain responses, pages with no owner, and email delivery failures. The script does not infer responsibility from the first project member or from a paper's authors.
+The crawler checks links in the generated `_site/` HTML each day. It sends **confirmed 404/410 links and DNS lookup failures found in a page's own source** to the people explicitly responsible for that page. A DNS lookup failure includes `net::ERR_NAME_NOT_RESOLVED`; the owner should check the URL and domain because the failure may be temporary. Admins receive a daily issue summary, including links supplied by shared layouts, other uncertain responses, pages with no owner, and email delivery failures. The script does not infer responsibility from the first project member or from a paper's authors.
+
+Links whose host is `doi.org` or a subdomain such as `www.doi.org` or `dx.doi.org` are skipped entirely. DOI resolver sites often reject automated checks; skipped DOI links do not appear in owner or admin emails.
 
 ## Assign an owner
 
@@ -42,7 +44,7 @@ If one person truly maintains an entire collection, a wildcard key such as `_pub
 
 In the crawler's `.env`, set `SMTP_PASSWORD` and a comma-separated `LINK_CHECK_ADMIN_EMAILS`. The latter defaults to the current admin/test recipient if omitted; set it explicitly for the production admin list. The existing SMTP host, port, sender, and login are command-line defaults in the script and can be overridden with its CLI options. Keep secrets out of tracked files.
 
-Admins receive one summary per scan when there are flagged links. It lists owners for confirmed page links, unresolved ownership, shared links, uncertain responses, and failed owner deliveries. Owners receive one action email for new confirmed failures and, if still broken, a reminder after seven days. The reminder history lives in ignored `link_notification_state.json`; keep that file on the crawler's persistent volume to avoid repeated first-time alerts after restarts.
+Admins receive one summary per scan when there are flagged links. It lists owners for confirmed page links and DNS lookup failures, unresolved ownership, shared links, other uncertain responses, and failed owner deliveries. Owners receive one action email for new 404/410 or DNS lookup failures and, if the issue remains, a reminder after seven days. The reminder history lives in ignored `link_notification_state.json`; keep that file on the crawler's persistent volume to avoid repeated first-time alerts after restarts.
 
 ## Preview routing before sending
 

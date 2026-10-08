@@ -45,6 +45,19 @@ NOTIFICATION_STATE_FILE = 'link_notification_state.json'
 OWNER_FILE = 'scripts/link_owners.yml'
 SITE_URL = 'https://aix.leuphana.de'
 REMINDER_SECONDS = 7 * 86400
+DNS_FAILURE = 'DNS_NAME_NOT_RESOLVED'
+
+def is_dns_resolution_error(error):
+    message = str(error).lower()
+    return any(marker in message for marker in (
+        'err_name_not_resolved', 'nameresolutionerror', 'gaierror',
+        'name or service not known', 'nodename nor servname provided',
+        'failed to resolve', 'dns_probe_finished_nxdomain',
+    ))
+
+def is_doi_resolver_link(url):
+    host = urlsplit(url).hostname
+    return bool(host and (host.lower() == 'doi.org' or host.lower().endswith('.doi.org')))
 
 def load_cache():
     if os.path.exists(CACHE_FILE):
@@ -221,6 +234,8 @@ def check_link_playwright(url, page):
             return (response.status < 400), response.status
         return False, "No Response"
     except Exception as e:
+        if is_dns_resolution_error(e):
+            return False, DNS_FAILURE
         return False, f"Exception: {type(e).__name__}"
 
 def check_link_http(url, session):
@@ -256,12 +271,16 @@ def check_link_http(url, session):
                 return resp.status_code < 400, False, resp.status_code
             return resp.status_code < 400, False, resp.status_code
         except requests.RequestException as e:
+            if is_dns_resolution_error(e):
+                return False, True, DNS_FAILURE
             return False, True, type(e).__name__
             
     return True, False, 200
 
 def classify_error(status):
-    if status in [401, 403, 405, 429, 503, 999]:
+    if status == DNS_FAILURE:
+        return "DNS name could not be resolved (check URL/domain)"
+    elif status in [401, 403, 405, 429, 503, 999]:
         return f"Blocked by Website ({status})"
     elif status in [404, 410]:
         return f"Actually Broken ({status})"
@@ -347,12 +366,13 @@ def main():
         for a_tag in soup.find_all('a', href=True):
             href = a_tag['href']
             url_stripped = href.split('#')[0]
-            if url_stripped:
+            if url_stripped and not is_doi_resolver_link(url_stripped):
                 links_to_check.append((file_path, href, url_stripped))
 
     unique_urls = sorted(set(url for _, _, url in links_to_check))
     results = {}
     needs_playwright = []
+    dns_failures_from_http = set()
     print(f"Total unique URLs to check: {len(unique_urls)}")
 
     with requests.Session() as session:
@@ -369,6 +389,8 @@ def main():
                     is_valid, needs_pw, status = future.result()
                     if needs_pw:
                         needs_playwright.append(url)
+                        if status == DNS_FAILURE:
+                            dns_failures_from_http.add(url)
                     else:
                         results[url] = {'is_valid': is_valid, 'status': status}
                         if is_valid:
@@ -390,6 +412,10 @@ def main():
             
             for url in needs_playwright:
                 is_valid, status = check_link_playwright(url, page)
+                if not is_valid and url in dns_failures_from_http and (
+                    status == 'No Response' or str(status).startswith('Exception:')
+                ):
+                    status = DNS_FAILURE
                 results[url] = {'is_valid': is_valid, 'status': status}
                 if is_valid:
                     cache[url] = {'is_valid': True, 'timestamp': time.time()}
@@ -417,10 +443,10 @@ def main():
         status = result['status']
         classification = classify_error(status)
         source_file = find_source_file_for_html(file_path, source_index)
-        confirmed = status in (404, 410)
+        owner_actionable = status in (404, 410, DNS_FAILURE)
         recipients = []
         reason = None
-        if not confirmed:
+        if not owner_actionable:
             reason = 'unconfirmed response; administrator review needed'
         elif not link_in_source(source_file, href):
             reason = 'link comes from shared layout or source could not be identified'
@@ -451,7 +477,9 @@ def main():
             save_notification_state({})
         return
 
-    print(f"Found {len(admin_records)} flagged page/link pairs; {sum(record['classification'].startswith('Actually Broken') for record in admin_records)} confirmed 404/410 responses.")
+    http_failures = sum(record['classification'].startswith('Actually Broken') for record in admin_records)
+    dns_failures = sum(record['classification'].startswith('DNS name') for record in admin_records)
+    print(f"Found {len(admin_records)} flagged page/link pairs; {http_failures} confirmed 404/410 responses and {dns_failures} DNS lookup failures.")
     delivery_failures = []
     for address, report in sorted(owner_reports.items()):
         if address in admin_emails:
@@ -460,7 +488,8 @@ def main():
         if args.test_only and address != args.test_only:
             continue
         lines = [f"Hello {report['name']},", '',
-                 'Confirmed broken links were found on pages assigned to you:', '']
+                 'Links needing attention were found on pages assigned to you:',
+                 'A DNS lookup failure may be temporary; check the URL before changing it.', '']
         for _, issue in report['issues']:
             lines.extend([f"Page: {issue['page']}", f"Source: {issue['source']}",
                           f"Link: {issue['href']}", f"Reason: {issue['classification']}", ''])
@@ -480,7 +509,7 @@ def main():
             delivery_failures.append(address)
 
     summary = [f'AIX link checker summary: {len(admin_records)} flagged page/link pairs.',
-               'Only confirmed 404/410 links from page source are sent to assigned owners.', '']
+               'Confirmed 404/410 links and DNS lookup failures from page source are sent to assigned owners.', '']
     shared_links = {}
     for issue in admin_records:
         if issue['reason'] == 'link comes from shared layout or source could not be identified':
