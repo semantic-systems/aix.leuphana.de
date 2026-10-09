@@ -9,7 +9,7 @@ permalink: /team/muratbek-nurmatov/
 email: "im.nurmatov@gmail.com"
 ---
 
-Website: [textmurat.com](https://textmurat.com/)
+Website: [textmurat2.com](https://textmurat2.com/)
 
 ## About Me
 
