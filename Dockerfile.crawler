@@ -1,19 +1,18 @@
-FROM mcr.microsoft.com/playwright/python:v1.63.0-jammy
+FROM mcr.microsoft.com/playwright/python:v1.63.0-noble
 
-# Set working directory
 WORKDIR /site
 
-# Copy requirements first to leverage Docker cache
-COPY requirements.txt .
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ruby-full build-essential libffi-dev libyaml-dev zlib1g-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-# Install dependencies
+ENV BUNDLE_PATH=/opt/bundle
+COPY Gemfile Gemfile.lock ./
+RUN gem install bundler -v 2.4.19 --no-document && bundle install --jobs 4 --retry 3
+
+COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Create the publications directory if it doesn't exist
-RUN mkdir -p _publications
-
-# Copy the scripts
 COPY scripts/ /site/scripts/
 
-# The CMD runs the python scripts in an infinite loop, sleeping for 24 hours (86400 seconds) between runs
-CMD ["/bin/bash", "-c", "while true; do python3 /site/scripts/fetch_publications.py; python3 /site/scripts/check_broken_links.py; echo 'Sleeping for 24 hours...'; sleep 86400; done"]
+CMD ["/bin/bash", "/site/scripts/run_daily_crawler.sh"]

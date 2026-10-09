@@ -123,8 +123,8 @@ def load_owner_assignments():
         raise ValueError(f'{OWNER_FILE}: pages must be a mapping of source paths to owner IDs')
     return pages
 
-def page_path(html_path):
-    relative = os.path.relpath(html_path, '_site').replace(os.sep, '/')
+def page_path(html_path, site_dir='_site'):
+    relative = os.path.relpath(html_path, site_dir).replace(os.sep, '/')
     if relative == 'index.html':
         return '/'
     if relative.endswith('/index.html'):
@@ -171,8 +171,8 @@ def build_source_index():
             index[normalize_permalink(fm['permalink'])] = path
     return index
 
-def find_source_file_for_html(html_path, source_index):
-    return source_index.get(page_path(html_path))
+def find_source_file_for_html(html_path, source_index, site_dir='_site'):
+    return source_index.get(page_path(html_path, site_dir))
 
 def page_is_stale(html_path, source_file, html_signature=None):
     """Avoid comparing generated HTML with a newer or concurrently rebuilt source."""
@@ -267,14 +267,14 @@ def check_link_playwright(url, page):
             return False, DNS_FAILURE
         return False, f"Exception: {type(e).__name__}"
 
-def check_link_http(url, session):
+def check_link_http(url, session, site_dir='_site'):
     """Check if a URL is broken using standard HTTP requests."""
     if url.startswith('mailto:') or url.startswith('tel:'):
         return True, False, 200
         
     if url.startswith('/'):
         url = url.split('#')[0]
-        local_path = os.path.join('_site', url.lstrip('/'))
+        local_path = os.path.join(site_dir, url.lstrip('/'))
         if os.path.isdir(local_path):
             local_path = os.path.join(local_path, 'index.html')
         elif not local_path.endswith('.html') and not '.' in os.path.basename(local_path):
@@ -337,7 +337,7 @@ def send_email_notification(args, to_email, subject, body):
         return False
 
 def main():
-    parser = argparse.ArgumentParser(description="Check for broken links in the _site directory.")
+    parser = argparse.ArgumentParser(description="Check links in a built Jekyll site.")
     parser.add_argument("--smtp-host", default="sysmail.leuphana.de")
     parser.add_argument("--smtp-port", type=int, default=587)
     parser.add_argument("--smtp-user", default="creativespace")
@@ -347,6 +347,7 @@ def main():
                         default=os.environ.get('LINK_CHECK_ADMIN_EMAILS', 'Muratbek.Nurmatov@stud.leuphana.de'),
                         help="Comma-separated admin recipients (also accepts LINK_CHECK_ADMIN_EMAILS)")
     parser.add_argument("--dry-run", action="store_true", help="Print emails instead of sending them")
+    parser.add_argument("--site-dir", default='_site', help="Directory containing a freshly built site (default: _site)")
     parser.add_argument("--test-only", help="Only send emails addressed to this recipient", default=None)
     parser.add_argument("--ownership-report", action="store_true", help="Print page ownership without checking links or sending mail")
     args = parser.parse_args()
@@ -372,12 +373,13 @@ def main():
         print(f'Ownership review: {missing} page(s) need an owner or a usable email.')
         return
 
-    if not os.path.exists('_site'):
-        print("Error: _site/ directory not found. Please run 'jekyll build' first.")
+    site_dir = args.site_dir
+    if not os.path.isdir(site_dir):
+        print(f"Error: {site_dir}/ directory not found. Please run 'jekyll build' first.")
         return
 
     html_files = []
-    for root, _, files in os.walk('_site'):
+    for root, _, files in os.walk(site_dir):
         for f in files:
             if f.endswith('.html'):
                 html_files.append(os.path.join(root, f))
@@ -389,9 +391,9 @@ def main():
     html_signatures = {}
     stale_pages = {}
     for file_path in html_files:
-        source_file = find_source_file_for_html(file_path, source_index)
+        source_file = find_source_file_for_html(file_path, source_index, site_dir)
         if page_is_stale(file_path, source_file):
-            stale_pages[SITE_URL + page_path(file_path)] = source_file
+            stale_pages[SITE_URL + page_path(file_path, site_dir)] = source_file
             continue
         html_stat = os.stat(file_path)
         html_signatures[file_path] = (html_stat.st_mtime_ns, html_stat.st_size)
@@ -416,7 +418,7 @@ def main():
                 if url in cache and cache[url].get('is_valid'):
                     results[url] = {'is_valid': True, 'status': 200}
                 else:
-                    future_to_url[executor.submit(check_link_http, url, session)] = url
+                    future_to_url[executor.submit(check_link_http, url, session, site_dir)] = url
             for future in as_completed(future_to_url):
                 url = future_to_url[future]
                 try:
@@ -467,8 +469,8 @@ def main():
     next_state = {}
     unconfirmed_count = 0
     for file_path, href, url in links_to_check:
-        page_url = SITE_URL + page_path(file_path)
-        source_file = find_source_file_for_html(file_path, source_index)
+        page_url = SITE_URL + page_path(file_path, site_dir)
+        source_file = find_source_file_for_html(file_path, source_index, site_dir)
         if page_is_stale(file_path, source_file, html_signatures[file_path]):
             stale_pages[page_url] = source_file
             continue
@@ -513,9 +515,9 @@ def main():
     # A page may have changed after its first link was processed. Discard all
     # findings for it before any email is sent, including earlier findings.
     for file_path, signature in html_signatures.items():
-        source_file = find_source_file_for_html(file_path, source_index)
+        source_file = find_source_file_for_html(file_path, source_index, site_dir)
         if page_is_stale(file_path, source_file, signature):
-            stale_pages[SITE_URL + page_path(file_path)] = source_file
+            stale_pages[SITE_URL + page_path(file_path, site_dir)] = source_file
     if stale_pages:
         admin_records = [issue for issue in admin_records if issue['page'] not in stale_pages]
         owner_reports = {
@@ -528,7 +530,7 @@ def main():
         current_keys = {key for key in current_keys if json.loads(key)[1] not in stale_pages}
 
     if stale_pages:
-        print(f"Skipped {len(stale_pages)} page(s) whose Markdown source is newer than the generated HTML or whose HTML changed during the scan. Rebuild _site/ and scan again.")
+        print(f"Skipped {len(stale_pages)} page(s) whose Markdown source is newer than the generated HTML or whose HTML changed during the scan. Rebuild {site_dir}/ and scan again.")
 
     http_failures = sum(record['classification'].startswith('Actually Broken') for record in admin_records)
     dns_failures = sum(record['classification'].startswith('DNS name') for record in admin_records)
@@ -572,7 +574,7 @@ def main():
         admin_subject = 'AIX link checker: no broken links'
     if stale_pages:
         summary.extend([f'Scan incomplete: {len(stale_pages)} page(s) have outdated generated HTML.',
-                        'Rebuild _site/ and run the checker again.', ''])
+                        f'Rebuild {site_dir}/ and run the checker again.', ''])
     shared_links = {}
     for issue in admin_records:
         if issue['reason'] == 'link comes from shared layout or source could not be identified':
