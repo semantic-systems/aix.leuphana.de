@@ -18,7 +18,6 @@ links:
   - title: "Project website"
     url: "https://coypu.org"
   - title: "Broken link"
-    url: "https://brokenlink1235.org/broken-link"
 ---
 <figure style="text-align: center; margin: 2rem 0;">
   <img src="{{ '/assets/icons/coypu-logo.png' | relative_url }}" alt="Description" style="width: 100%; max-width: 600px; height: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">

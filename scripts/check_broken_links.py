@@ -174,6 +174,19 @@ def build_source_index():
 def find_source_file_for_html(html_path, source_index):
     return source_index.get(page_path(html_path))
 
+def page_is_stale(html_path, source_file, html_signature=None):
+    """Avoid comparing generated HTML with a newer or concurrently rebuilt source."""
+    if not source_file:
+        return False
+    try:
+        html_stat = os.stat(html_path)
+        source_stat = os.stat(source_file)
+    except OSError:
+        return True
+    if source_stat.st_mtime_ns > html_stat.st_mtime_ns:
+        return True
+    return html_signature is not None and html_signature != (html_stat.st_mtime_ns, html_stat.st_size)
+
 def owners_for_source(source_file, team_map, assignments):
     if not source_file:
         return [], 'no source file found'
@@ -219,6 +232,18 @@ def load_notification_state():
             return state if isinstance(state, dict) else {}
     except (OSError, ValueError):
         return {}
+
+def state_for_stale_pages(state, stale_page_urls):
+    """A skipped page has not been checked, so retain its reminder history."""
+    retained = {}
+    for key, value in state.items():
+        try:
+            parts = json.loads(key)
+        except (TypeError, ValueError):
+            continue
+        if isinstance(parts, list) and len(parts) == 3 and parts[1] in stale_page_urls:
+            retained[key] = value
+    return retained
 
 def save_notification_state(state):
     temporary = NOTIFICATION_STATE_FILE + '.tmp'
@@ -361,7 +386,15 @@ def main():
 
     cache = load_cache()
     links_to_check = []
+    html_signatures = {}
+    stale_pages = {}
     for file_path in html_files:
+        source_file = find_source_file_for_html(file_path, source_index)
+        if page_is_stale(file_path, source_file):
+            stale_pages[SITE_URL + page_path(file_path)] = source_file
+            continue
+        html_stat = os.stat(file_path)
+        html_signatures[file_path] = (html_stat.st_mtime_ns, html_stat.st_size)
         with open(file_path, 'r', encoding='utf-8') as f:
             soup = BeautifulSoup(f.read(), 'html.parser')
         for a_tag in soup.find_all('a', href=True):
@@ -433,17 +466,20 @@ def main():
     previous_state = load_notification_state()
     next_state = {}
     for file_path, href, url in links_to_check:
+        page_url = SITE_URL + page_path(file_path)
+        source_file = find_source_file_for_html(file_path, source_index)
+        if page_is_stale(file_path, source_file, html_signatures[file_path]):
+            stale_pages[page_url] = source_file
+            continue
         result = results.get(url, {'is_valid': False, 'status': 'Unknown'})
         if result['is_valid']:
             continue
-        page_url = SITE_URL + page_path(file_path)
         issue_id = (page_url, href)
         if issue_id in seen_issues:
             continue
         seen_issues.add(issue_id)
         status = result['status']
         classification = classify_error(status)
-        source_file = find_source_file_for_html(file_path, source_index)
         owner_actionable = status in (404, 410, DNS_FAILURE)
         recipients = []
         reason = None
@@ -472,7 +508,27 @@ def main():
             report = owner_reports.setdefault(address, {'name': person['name'], 'issues': []})
             report['issues'].append((key, issue))
 
-    if not admin_records:
+    # A page may have changed after its first link was processed. Discard all
+    # findings for it before any email is sent, including earlier findings.
+    for file_path, signature in html_signatures.items():
+        source_file = find_source_file_for_html(file_path, source_index)
+        if page_is_stale(file_path, source_file, signature):
+            stale_pages[SITE_URL + page_path(file_path)] = source_file
+    if stale_pages:
+        admin_records = [issue for issue in admin_records if issue['page'] not in stale_pages]
+        owner_reports = {
+            address: {'name': report['name'],
+                      'issues': [(key, issue) for key, issue in report['issues']
+                                 if issue['page'] not in stale_pages]}
+            for address, report in owner_reports.items()
+        }
+        owner_reports = {address: report for address, report in owner_reports.items() if report['issues']}
+        current_keys = {key for key in current_keys if json.loads(key)[1] not in stale_pages}
+
+    if stale_pages:
+        print(f"Skipped {len(stale_pages)} page(s) whose Markdown source is newer than the generated HTML or whose HTML changed during the scan. Rebuild _site/ and scan again.")
+
+    if not admin_records and not stale_pages:
         print('No flagged links found!')
         if not args.dry_run and not args.test_only:
             save_notification_state({})
@@ -511,6 +567,11 @@ def main():
 
     summary = [f'AIX link checker summary: {len(admin_records)} flagged page/link pairs.',
                'Confirmed 404/410 links and DNS lookup failures from page source are sent to assigned owners.', '']
+    if stale_pages:
+        summary.append('Skipped pages with stale or concurrently rebuilt HTML; rebuild _site/ and scan again:')
+        for page_url, source_file in sorted(stale_pages.items()):
+            summary.append(f'{page_url} — {source_file}')
+        summary.append('')
     shared_links = {}
     for issue in admin_records:
         if issue['reason'] == 'link comes from shared layout or source could not be identified':
@@ -543,7 +604,9 @@ def main():
             print(f'Skipping admin summary to {address}: SMTP password missing')
 
     if not args.dry_run and not args.test_only:
-        save_notification_state({key: value for key, value in next_state.items() if key in current_keys})
+        active_state = {key: value for key, value in next_state.items() if key in current_keys}
+        active_state.update(state_for_stale_pages(previous_state, set(stale_pages)))
+        save_notification_state(active_state)
 
 if __name__ == "__main__":
     main()

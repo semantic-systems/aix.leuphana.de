@@ -4,6 +4,8 @@ The crawler checks links in the generated `_site/` HTML each day. It sends **con
 
 Links whose host is `doi.org` or `linkedin.com` (including subdomains such as `www.linkedin.com` and `dx.doi.org`) are skipped entirely. These sites often reject automated checks; skipped links do not appear in owner or admin emails.
 
+The checker compares each generated page with its Markdown source. If the source is newer than the HTML, or the HTML changes while a scan is running, that page is skipped and the admin summary asks for a rebuild. Its notification history is kept until a later scan of a fresh build. This prevents an old URL left in `_site/` from being reported as a current page link or mistaken for a shared layout link. After editing a page, wait for Jekyll to finish rebuilding `_site/` before running the checker.
+
 ## Assign an owner
 
 An owner is the filename stem of a profile in `_team/`. For example, `_team/jane-doe.md` has owner ID `jane-doe`. That profile must have a real `email` field in its YAML front matter. The email field is already used as contact information elsewhere on the site; do not insert an unapproved or placeholder address.
