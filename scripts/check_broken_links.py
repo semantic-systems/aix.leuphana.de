@@ -55,9 +55,13 @@ def is_dns_resolution_error(error):
         'failed to resolve', 'dns_probe_finished_nxdomain',
     ))
 
-def is_doi_resolver_link(url):
+def is_ignored_link(url):
     host = urlsplit(url).hostname
-    return bool(host and (host.lower() == 'doi.org' or host.lower().endswith('.doi.org')))
+    if not host:
+        return False
+    host = host.lower()
+    return any(host == domain or host.endswith('.' + domain)
+               for domain in ('doi.org', 'linkedin.com'))
 
 def load_cache():
     if os.path.exists(CACHE_FILE):
@@ -243,9 +247,6 @@ def check_link_http(url, session):
     if url.startswith('mailto:') or url.startswith('tel:'):
         return True, False, 200
         
-    if url.startswith('https://www.linkedin.com/school/aix-leuphana'):
-        return True, False, 200
-        
     if url.startswith('/'):
         url = url.split('#')[0]
         local_path = os.path.join('_site', url.lstrip('/'))
@@ -366,7 +367,7 @@ def main():
         for a_tag in soup.find_all('a', href=True):
             href = a_tag['href']
             url_stripped = href.split('#')[0]
-            if url_stripped and not is_doi_resolver_link(url_stripped):
+            if url_stripped and not is_ignored_link(url_stripped):
                 links_to_check.append((file_path, href, url_stripped))
 
     unique_urls = sorted(set(url for _, _, url in links_to_check))

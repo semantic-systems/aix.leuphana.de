@@ -2,7 +2,7 @@
 
 The crawler checks links in the generated `_site/` HTML each day. It sends **confirmed 404/410 links and DNS lookup failures found in a page's own source** to the people explicitly responsible for that page. A DNS lookup failure includes `net::ERR_NAME_NOT_RESOLVED`; the owner should check the URL and domain because the failure may be temporary. Admins receive a daily issue summary, including links supplied by shared layouts, other uncertain responses, pages with no owner, and email delivery failures. The script does not infer responsibility from the first project member or from a paper's authors.
 
-Links whose host is `doi.org` or a subdomain such as `www.doi.org` or `dx.doi.org` are skipped entirely. DOI resolver sites often reject automated checks; skipped DOI links do not appear in owner or admin emails.
+Links whose host is `doi.org` or `linkedin.com` (including subdomains such as `www.linkedin.com` and `dx.doi.org`) are skipped entirely. These sites often reject automated checks; skipped links do not appear in owner or admin emails.
 
 ## Assign an owner
 

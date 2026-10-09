@@ -8,7 +8,7 @@ thumbnail: "/assets/icons/coypu-logo.png" # Square preview image for the main Pr
 image: "/assets/icons/coypu-logo.png" # Large banner image inside the actual project page (optional)
 excerpt: "BMWK project to develop an AI platform using linked knowledge graphs to analyze supply chains, economic ecosystems, and crisis-related risks, particularly for SMEs."
 published: true # Change this to 'true' when you want it to appear on the live website!
-link_check_owner: "muratbek-nurmatov"
+link_check_owner: "jan-henrik-last"
 project_members:
   - name: "Ricardo Usbeck"
     role: "Project lead"

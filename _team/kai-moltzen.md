@@ -3,6 +3,7 @@ name: "Kai Moltzen"
 title: "Research Associate in GeoAI"
 image: "kai-moltzen.png"
 job_category: "researcher"
+email: "kai"
 
 bio: |
   Following my Bachelor's in Engineering and Management (B. Eng.) at Esslingen University of Applied Sciences, I completed an M.Sc. in Data Science at Leuphana University Lüneburg. Alongside my studies, I gained industry experience through internships and working student positions at Mercedes-Benz, Ulixes Robotersysteme, and Markt-Pilot.
