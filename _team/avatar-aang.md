@@ -8,7 +8,7 @@ image: "aang.jpeg"
 job_category: "researcher" # Example of a category used by the team page; not Aang's real affiliation.
 published: true
 permalink: /team/avatar-aang/
-email: "im.nurmatov@gmail.com"
+email: ""
 
 # These optional fields demonstrate how longer profile details can be stored.
 # The body below chooses what visitors actually see on the page.

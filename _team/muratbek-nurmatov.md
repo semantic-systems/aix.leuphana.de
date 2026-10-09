@@ -6,7 +6,7 @@ job_category: "student_assistant"
 
 layout: team_member
 permalink: /team/muratbek-nurmatov/
-email: "Muratbek.Nurmatov@stud.leuphana.de"
+email: "im.nurmatov@gmail.com"
 ---
 
 Website: [textmurat.com](https://textmurat.com/)
