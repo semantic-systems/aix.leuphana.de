@@ -1,10 +1,10 @@
 # Broken-link notifications
 
-The crawler checks links in the generated `_site/` HTML each day. It sends **confirmed 404/410 links and DNS lookup failures found in a page's own source** to the people explicitly responsible for that page. A DNS lookup failure includes `net::ERR_NAME_NOT_RESOLVED`; the owner should check the URL and domain because the failure may be temporary. Admins receive a daily issue summary, including links supplied by shared layouts, other uncertain responses, pages with no owner, and email delivery failures. The script does not infer responsibility from the first project member or from a paper's authors.
+The crawler checks links in the generated `_site/` HTML each day. It sends **confirmed 404/410 links and DNS lookup failures found in a page's own source** to the people explicitly responsible for that page. A DNS lookup failure includes `net::ERR_NAME_NOT_RESOLVED`; the owner should check the URL and domain because the failure may be temporary. Admins receive a daily email listing only these broken links, including links supplied by shared layouts and pages with no owner. Other uncertain responses are logged but left out of the email. The script does not infer responsibility from the first project member or from a paper's authors.
 
 Links whose host is `doi.org` or `linkedin.com` (including subdomains such as `www.linkedin.com` and `dx.doi.org`) are skipped entirely. These sites often reject automated checks; skipped links do not appear in owner or admin emails.
 
-The checker compares each generated page with its Markdown source. If the source is newer than the HTML, or the HTML changes while a scan is running, that page is skipped and the admin summary asks for a rebuild. Its notification history is kept until a later scan of a fresh build. This prevents an old URL left in `_site/` from being reported as a current page link or mistaken for a shared layout link. After editing a page, wait for Jekyll to finish rebuilding `_site/` before running the checker.
+The checker compares each generated page with its Markdown source. If the source is newer than the HTML, or the HTML changes while a scan is running, that page is skipped. The admin email shows only the number of skipped pages and asks for a rebuild. It does not claim the full site is clean until every page is checked. Notification history for skipped pages is kept until a later scan of a fresh build. This prevents an old URL left in `_site/` from being reported as a current page link or mistaken for a shared layout link. After editing a page, wait for Jekyll to finish rebuilding `_site/` before running the checker.
 
 ## Assign an owner
 
@@ -46,7 +46,7 @@ If one person truly maintains an entire collection, a wildcard key such as `_pub
 
 In the crawler's `.env`, set `SMTP_PASSWORD` and a comma-separated `LINK_CHECK_ADMIN_EMAILS`. The latter defaults to the current admin/test recipient if omitted; set it explicitly for the production admin list. The existing SMTP host, port, sender, and login are command-line defaults in the script and can be overridden with its CLI options. Keep secrets out of tracked files.
 
-Admins receive one summary per scan when there are flagged links. It lists owners for confirmed page links and DNS lookup failures, unresolved ownership, shared links, other uncertain responses, and failed owner deliveries. Owners receive one action email for new 404/410 or DNS lookup failures and, if the issue remains, a reminder after seven days. The reminder history lives in ignored `link_notification_state.json`; keep that file on the crawler's persistent volume to avoid repeated first-time alerts after restarts.
+Admins receive one email per scan. It lists broken links, their routing, and any failed owner deliveries. If none are found and all pages were checked, it says “No broken links found right now.” If pages were skipped, it says the scan is incomplete and gives the count without listing every page. Owners receive one action email for new 404/410 or DNS lookup failures and, if the issue remains, a reminder after seven days. The reminder history lives in ignored `link_notification_state.json`; keep that file on the crawler's persistent volume to avoid repeated first-time alerts after restarts.
 
 ## Preview routing before sending
 

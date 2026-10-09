@@ -465,6 +465,7 @@ def main():
     now = time.time()
     previous_state = load_notification_state()
     next_state = {}
+    unconfirmed_count = 0
     for file_path, href, url in links_to_check:
         page_url = SITE_URL + page_path(file_path)
         source_file = find_source_file_for_html(file_path, source_index)
@@ -481,11 +482,12 @@ def main():
         status = result['status']
         classification = classify_error(status)
         owner_actionable = status in (404, 410, DNS_FAILURE)
+        if not owner_actionable:
+            unconfirmed_count += 1
+            continue
         recipients = []
         reason = None
-        if not owner_actionable:
-            reason = 'unconfirmed response; administrator review needed'
-        elif not link_in_source(source_file, href):
+        if not link_in_source(source_file, href):
             reason = 'link comes from shared layout or source could not be identified'
         else:
             recipients, reason = owners_for_source(source_file, team_map, assignments)
@@ -528,15 +530,9 @@ def main():
     if stale_pages:
         print(f"Skipped {len(stale_pages)} page(s) whose Markdown source is newer than the generated HTML or whose HTML changed during the scan. Rebuild _site/ and scan again.")
 
-    if not admin_records and not stale_pages:
-        print('No flagged links found!')
-        if not args.dry_run and not args.test_only:
-            save_notification_state({})
-        return
-
     http_failures = sum(record['classification'].startswith('Actually Broken') for record in admin_records)
     dns_failures = sum(record['classification'].startswith('DNS name') for record in admin_records)
-    print(f"Found {len(admin_records)} flagged page/link pairs; {http_failures} confirmed 404/410 responses and {dns_failures} DNS lookup failures.")
+    print(f"Found {len(admin_records)} broken page/link pairs: {http_failures} HTTP 404/410 and {dns_failures} DNS lookup failures. {unconfirmed_count} other errors omitted from email.")
     delivery_failures = []
     for address, report in sorted(owner_reports.items()):
         if address in admin_emails:
@@ -565,13 +561,18 @@ def main():
         else:
             delivery_failures.append(address)
 
-    summary = [f'AIX link checker summary: {len(admin_records)} flagged page/link pairs.',
-               'Confirmed 404/410 links and DNS lookup failures from page source are sent to assigned owners.', '']
+    if admin_records:
+        summary = [f'{len(admin_records)} broken link(s) found.', '']
+        admin_subject = 'AIX link checker: broken links found'
+    elif stale_pages:
+        summary = ['No broken links found on the pages checked.']
+        admin_subject = 'AIX link checker: scan incomplete'
+    else:
+        summary = ['No broken links found right now.']
+        admin_subject = 'AIX link checker: no broken links'
     if stale_pages:
-        summary.append('Skipped pages with stale or concurrently rebuilt HTML; rebuild _site/ and scan again:')
-        for page_url, source_file in sorted(stale_pages.items()):
-            summary.append(f'{page_url} — {source_file}')
-        summary.append('')
+        summary.extend([f'Scan incomplete: {len(stale_pages)} page(s) have outdated generated HTML.',
+                        'Rebuild _site/ and run the checker again.', ''])
     shared_links = {}
     for issue in admin_records:
         if issue['reason'] == 'link comes from shared layout or source could not be identified':
@@ -597,9 +598,9 @@ def main():
         if args.test_only and address != args.test_only:
             continue
         if args.dry_run:
-            print(f"\n--- DRY RUN ADMIN SUMMARY TO {address} ---\n{summary_body}")
+            print(f"\n--- DRY RUN ADMIN SUMMARY TO {address} ---\nSubject: {admin_subject}\n{summary_body}")
         elif args.smtp_pass:
-            send_email_notification(args, address, 'AIX link checker: daily issue summary', summary_body)
+            send_email_notification(args, address, admin_subject, summary_body)
         else:
             print(f'Skipping admin summary to {address}: SMTP password missing')
 
