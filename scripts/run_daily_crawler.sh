@@ -4,6 +4,11 @@ set -u
 cd /site
 site_snapshot=/tmp/aix-link-check-site
 
+if ! bundle check; then
+    echo 'Jekyll gems are unavailable in the crawler container; link checks cannot start.'
+    exit 1
+fi
+
 while true; do
     run_started=$(date +%s)
     echo "Starting daily publication fetch, site build, and link check at $(date -u '+%Y-%m-%d %H:%M:%S UTC')"

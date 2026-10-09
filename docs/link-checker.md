@@ -66,4 +66,6 @@ This still performs network checks, but prints the proposed emails and does not 
 
 The daily crawler builds into `/tmp/aix-link-check-site` and passes that directory through `--site-dir`. The repository's GitHub Actions workflow deploys pushes to `main` and runs `docker compose up -d --build` on the VPS, so it rebuilds the crawler image automatically. The separate CI Jekyll build validates the site in GitHub Actions; the crawler still creates its own fresh build on the VPS before every link scan.
 
-The daily crawler in `Dockerfile.crawler` already invokes this script. It needs a current `_site/` build to scan. If an owner is missing or has no usable email, the admin summary says why; add the correct team profile email or change the assignment, then review the next scan.
+The crawler image keeps its installed Ruby gems and Bundler configuration under `/opt`. This avoids the repository's local `.bundle/config` (`vendor/bundle`) taking precedence when the repository is mounted into the container. If the gems are missing, the crawler exits with a clear error instead of sleeping for 24 hours without checking links.
+
+For a manual run without `--site-dir`, build `_site/` first. If an owner is missing or has no usable email, the admin summary says why; add the correct team profile email or change the assignment, then review the next scan.

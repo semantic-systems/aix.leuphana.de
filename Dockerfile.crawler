@@ -6,7 +6,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ruby-full build-essential libffi-dev libyaml-dev zlib1g-dev \
     && rm -rf /var/lib/apt/lists/*
 
-ENV BUNDLE_PATH=/opt/bundle
+ENV BUNDLE_PATH=/opt/bundle \
+    BUNDLE_APP_CONFIG=/opt/bundle-config
 COPY Gemfile Gemfile.lock ./
 RUN gem install bundler -v 2.4.19 --no-document && bundle install --jobs 4 --retry 3
 
