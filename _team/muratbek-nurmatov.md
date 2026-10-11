@@ -6,10 +6,9 @@ job_category: "student_assistant"
 
 layout: team_member
 permalink: /team/muratbek-nurmatov/
-email: "im.nurmatov@gmail.com"
+email: "Muratbek.Nurmatov@stud.leuphana.de"
 ---
 
-Website: [textmurat2.com](https://textmurat2.com/)
 ## About Me
 
 M.Sc. Student of Management & Data Science with 3+ years of experience in backend development.
