@@ -1,0 +1,1023 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Meeting Point Planner</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root {
+  --bg: #f4f5f7; --surface: #ffffff; --surface-2: #f7f8fa; --text: #1b2029; --muted: #667085; --subtle: #98a2b3;
+  --border: #e4e7ec; --border-strong: #d0d5dd;
+  --accent: #c8102e; --accent-hover: #a50d26; --accent-soft: #fdecef; --accent-text: #a50d26;
+  --ok: #067647; --ok-soft: #e7f6ee; --warn: #b54708; --warn-soft: #fef4e6; --bad: #b42318; --bad-soft: #fdeceb;
+  --hover: #f2f4f7; --selected: #fff7e6; --shadow: 0 1px 2px rgba(16,24,40,.05);
+  --focus: 0 0 0 3px rgba(200,16,46,.22);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111418; --surface: #1a1e24; --surface-2: #20252c; --text: #e8eaee; --muted: #a0a8b6; --subtle: #6f7887;
+    --border: #2b313a; --border-strong: #3a414c;
+    --accent: #f0445c; --accent-hover: #ff6378; --accent-soft: #3a1d23; --accent-text: #ff8495;
+    --ok: #4cc38a; --ok-soft: #15301f; --warn: #f2a54a; --warn-soft: #36270f; --bad: #ff7b6e; --bad-soft: #3a1a17;
+    --hover: #232830; --selected: #33291a; --shadow: none; --focus: 0 0 0 3px rgba(240,68,92,.35);
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111418; --surface: #1a1e24; --surface-2: #20252c; --text: #e8eaee; --muted: #a0a8b6; --subtle: #6f7887;
+  --border: #2b313a; --border-strong: #3a414c;
+  --accent: #f0445c; --accent-hover: #ff6378; --accent-soft: #3a1d23; --accent-text: #ff8495;
+  --ok: #4cc38a; --ok-soft: #15301f; --warn: #f2a54a; --warn-soft: #36270f; --bad: #ff7b6e; --bad-soft: #3a1a17;
+  --hover: #232830; --selected: #33291a; --shadow: none; --focus: 0 0 0 3px rgba(240,68,92,.35);
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+h1, h2, h3 { margin: 0; font-weight: 650; letter-spacing: -.01em; }
+a { color: inherit; }
+.muted { color: var(--muted); } .small { font-size: 12px; } .num { font-variant-numeric: tabular-nums; }
+
+/* layout */
+.topbar { background: var(--surface); border-bottom: 1px solid var(--border); }
+.topbar-inner { max-width: 1440px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; gap: 12px; }
+.logo { width: 30px; height: 30px; border-radius: 8px; background: var(--accent); display: grid; place-items: center; flex: none; }
+.topbar h1 { font-size: 17px; }
+.topbar p { margin: 0; color: var(--muted); font-size: 13px; }
+.layout { max-width: 1440px; margin: 0 auto; padding: 24px; display: grid; grid-template-columns: 400px minmax(0, 1fr); gap: 24px; align-items: start; }
+.sidebar { display: grid; grid-template-columns: minmax(0, 1fr); min-width: 0; gap: 16px; position: sticky; top: 16px; max-height: calc(100vh - 32px); overflow-y: auto; padding-bottom: 4px; }
+.content { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; min-width: 0; }
+@media (max-width: 520px) { th, td { padding: 8px 10px; } .rank { display: none; } .toolbar { padding: 12px 10px; } .grid-3 { grid-template-columns: 1fr 1fr; } .grid-3 > :first-child { grid-column: 1 / -1; } .p-info .kv { grid-template-columns: 1fr; gap: 2px; } }
+@media (max-width: 1000px) {
+  .layout { grid-template-columns: minmax(0, 1fr); padding: 16px; gap: 16px; }
+  .sidebar { position: static; max-height: none; overflow: visible; }
+  .topbar-inner { padding: 12px 16px; }
+}
+
+/* cards */
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); }
+.card-body { padding: 16px; }
+.card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px 0; }
+.card-head h2 { font-size: 15px; display: flex; align-items: center; gap: 8px; }
+.step { width: 22px; height: 22px; border-radius: 50%; background: var(--accent-soft); color: var(--accent-text); font-size: 12px; font-weight: 700; display: inline-grid; place-items: center; flex: none; }
+.hint { color: var(--muted); font-size: 12.5px; margin: 6px 0 0; }
+
+/* form controls */
+label.field { display: grid; gap: 4px; font-size: 12px; font-weight: 550; color: var(--muted); min-width: 0; }
+input, select, button { font: inherit; color: var(--text); }
+input[type=text], input[type=date], input[type=time], input[type=number], select {
+  width: 100%; min-width: 0; height: 36px; padding: 0 10px; background: var(--surface); border: 1px solid var(--border-strong); border-radius: 8px;
+  transition: border-color .15s, box-shadow .15s;
+}
+select { padding-right: 28px; }
+input::placeholder { color: var(--subtle); }
+input:focus, select:focus { outline: none; border-color: var(--accent); box-shadow: var(--focus); }
+button { height: 36px; padding: 0 12px; border-radius: 8px; border: 1px solid var(--border-strong); background: var(--surface); cursor: pointer; font-weight: 550; white-space: nowrap; transition: background .15s, border-color .15s; }
+button:hover { background: var(--hover); }
+button:focus-visible { outline: none; box-shadow: var(--focus); }
+button:disabled { opacity: .5; cursor: not-allowed; }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; height: 42px; width: 100%; font-size: 15px; }
+.btn-primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+.btn-ghost { border-color: transparent; background: transparent; color: var(--muted); height: 30px; padding: 0 8px; font-size: 13px; }
+.btn-ghost:hover { background: var(--hover); color: var(--text); }
+.btn-add { width: 100%; border-style: dashed; color: var(--muted); }
+.btn-add:hover { color: var(--text); }
+.icon-btn { width: 30px; height: 30px; padding: 0; display: inline-grid; place-items: center; border-color: transparent; background: transparent; color: var(--subtle); font-size: 18px; line-height: 1; }
+.icon-btn:hover { color: var(--bad); background: var(--bad-soft); }
+.grid-3 { display: grid; grid-template-columns: 1.4fr 1fr .8fr; gap: 10px; }
+
+/* partners */
+.partners { display: grid; gap: 10px; margin: 12px 0; }
+.partner { border: 1px solid var(--border); border-radius: 10px; padding: 10px; background: var(--surface-2); border-left: 4px solid var(--pc, var(--border)); }
+.p-head { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
+.p-head input { height: 30px; border-color: transparent; background: transparent; font-weight: 650; padding: 0 6px; margin-left: -6px; }
+.p-head input:hover { border-color: var(--border); }
+.p-head input:focus { background: var(--surface); }
+.p-loc { display: flex; gap: 6px; }
+.p-info { margin-top: 8px; font-size: 12.5px; display: grid; gap: 6px; }
+.p-info .kv { display: grid; grid-template-columns: 88px 1fr; gap: 8px; align-items: center; }
+.p-info .kv > span:first-child { color: var(--muted); }
+.p-info select { height: 30px; font-size: 12.5px; }
+.p-info details summary { cursor: pointer; color: var(--muted); list-style: none; width: fit-content; }
+.p-info details summary::-webkit-details-marker { display: none; }
+.p-info details summary::before { content: "▸ "; }
+.p-info details[open] summary::before { content: "▾ "; }
+.p-info details select { margin-top: 6px; }
+.msg { display: flex; gap: 6px; align-items: center; }
+.msg.bad { color: var(--bad); } .msg.warn { color: var(--warn); } .msg.busy { color: var(--muted); }
+.spinner { width: 12px; height: 12px; border: 2px solid var(--border-strong); border-top-color: var(--accent); border-radius: 50%; animation: spin .8s linear infinite; flex: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.pill { display: inline-block; padding: 0 7px; border-radius: 999px; font-size: 11px; font-weight: 600; background: var(--hover); color: var(--muted); line-height: 18px; vertical-align: 1px; white-space: nowrap; }
+.pill.ok { background: var(--ok-soft); color: var(--ok); } .pill.warn { background: var(--warn-soft); color: var(--warn); } .pill.bad { background: var(--bad-soft); color: var(--bad); }
+.pill.accent { background: var(--accent); color: #fff; }
+
+/* progress */
+.progress { height: 4px; background: var(--hover); border-radius: 2px; overflow: hidden; margin-top: 12px; }
+.progress > div { height: 100%; width: 0; background: var(--accent); transition: width .25s; }
+#progressText { font-size: 12.5px; color: var(--muted); margin-top: 8px; }
+#progressText:empty, .progress[hidden] { display: none; }
+
+/* settings */
+details.settings > summary { cursor: pointer; list-style: none; padding: 14px 16px; font-weight: 600; display: flex; justify-content: space-between; }
+details.settings > summary::-webkit-details-marker { display: none; }
+details.settings > summary::after { content: "▸"; color: var(--muted); }
+details.settings[open] > summary::after { content: "▾"; }
+.settings-body { padding: 0 16px 16px; display: grid; gap: 10px; }
+.row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+/* summary tiles */
+.tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 760px) { .tiles { grid-template-columns: 1fr; } }
+.tile { text-align: left; height: auto; padding: 14px 16px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface); box-shadow: var(--shadow); display: grid; gap: 2px; white-space: normal; font-weight: 400; }
+.tile:hover { border-color: var(--border-strong); background: var(--surface); }
+.tile.active { border-color: var(--accent); box-shadow: var(--focus); }
+.tile .t-label { font-size: 12px; color: var(--muted); font-weight: 550; }
+.tile .t-name { font-size: 16px; font-weight: 650; }
+.tile .t-val { font-size: 13px; color: var(--muted); }
+
+/* map */
+#map { height: 340px; border-radius: 12px; border: 1px solid var(--border); z-index: 0; }
+.leaflet-container { background: var(--surface-2); font: inherit; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .leaflet-tile-pane { filter: brightness(.8) contrast(1.05) saturate(.85); } }
+:root[data-theme="dark"] .leaflet-tile-pane { filter: brightness(.8) contrast(1.05) saturate(.85); }
+
+/* tabs + segmented */
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); padding: 0 16px; }
+.tab { height: 44px; border: 0; border-radius: 0; background: transparent; padding: 0 4px; margin-right: 16px; color: var(--muted); border-bottom: 2px solid transparent; font-size: 14px; }
+.tab:hover { background: transparent; color: var(--text); }
+.tab[aria-selected="true"] { color: var(--text); border-bottom-color: var(--accent); }
+.toolbar { display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center; padding: 12px 16px; }
+.ctl { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--muted); }
+.seg { display: inline-flex; padding: 2px; background: var(--hover); border-radius: 8px; }
+.seg button { height: 28px; border: 0; background: transparent; padding: 0 10px; font-size: 12.5px; color: var(--muted); border-radius: 6px; }
+.seg button:hover { color: var(--text); background: transparent; }
+.seg button[aria-pressed="true"] { background: var(--surface); color: var(--text); box-shadow: 0 1px 2px rgba(16,24,40,.12); }
+
+/* tables */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+th, td { padding: 10px 16px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: middle; }
+th { font-size: 12px; font-weight: 600; color: var(--muted); background: var(--surface-2); white-space: nowrap; }
+th.r, td.r { text-align: right; white-space: nowrap; }
+tbody tr:last-child td { border-bottom: 0; }
+th button.sort { height: auto; padding: 0; border: 0; background: none; font: inherit; color: inherit; display: inline-flex; gap: 4px; align-items: center; }
+th button.sort:hover { color: var(--text); }
+th.sorted { color: var(--text); }
+th .arrow { font-size: 10px; opacity: 0; }
+th.sorted .arrow { opacity: 1; }
+td.sorted { font-weight: 650; }
+tr.clickable { cursor: pointer; }
+tr.clickable:hover td { background: var(--hover); }
+tr.selected td { background: var(--selected); }
+tr.selected:hover td { background: var(--selected); }
+tr.incomplete td { color: var(--muted); }
+.rank { width: 44px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.sub { display: block; font-size: 12px; color: var(--muted); font-weight: 400; }
+.dot { width: 10px; height: 10px; border-radius: 50%; background: var(--pc); display: inline-block; margin-right: 8px; vertical-align: 0; flex: none; }
+.empty { padding: 40px 16px; text-align: center; color: var(--muted); }
+.empty b { display: block; color: var(--text); font-size: 14px; margin-bottom: 4px; }
+.foot { padding: 12px 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
+.foot:empty { display: none; }
+
+footer { max-width: 1440px; margin: 0 auto; padding: 0 24px 28px; color: var(--muted); font-size: 12px; }
+@media (max-width: 1000px) { footer { padding: 0 16px 24px; } }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="logo" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"/><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/></svg></div>
+    <div>
+      <h1>Meeting Point Planner</h1>
+      <p>Which partner city's ICE station gives the least total travel for everyone?</p>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+<aside class="sidebar">
+  <section class="card">
+    <div class="card-head"><h2><span class="step">1</span>When</h2></div>
+    <div class="card-body">
+      <div class="grid-3">
+        <label class="field">Date<input type="date" id="mDate"></label>
+        <label class="field">Arrive by<input type="time" id="mTime"></label>
+        <label class="field">Buffer (min)<input type="number" id="mBuffer" min="0" max="120" step="5"></label>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-head">
+      <h2><span class="step">2</span>Partners</h2>
+      <div>
+        <button class="btn-ghost" id="btnImport" title="Import partners from a JSON or CSV file">Import</button>
+        <button class="btn-ghost" id="btnExport" title="Save partners as a JSON file">Export</button>
+        <input type="file" id="fileImport" accept=".json,.csv,.txt" hidden>
+      </div>
+    </div>
+    <div class="card-body" style="padding-top:8px">
+      <p class="hint" style="margin:0">A city starts from its main station. A named place or street address starts from that exact spot.</p>
+      <div class="partners" id="partners"></div>
+      <button class="btn-add" id="btnAdd">+ Add partner</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><h2><span class="step">3</span>Compare</h2></div>
+    <div class="card-body">
+      <button class="btn-primary" id="btnCompute">Compare meeting points</button>
+      <div class="progress" hidden><div id="progressBar"></div></div>
+      <div id="progressText"></div>
+    </div>
+  </section>
+
+  <details class="card settings">
+    <summary>Advanced settings</summary>
+    <div class="settings-body">
+      <label class="field">Transitous / MOTIS API<input type="text" id="sTransitous"></label>
+      <label class="field">Nominatim (geocoding)<input type="text" id="sNominatim"></label>
+      <label class="field">OSRM (road routing)<input type="text" id="sOsrm"></label>
+      <label class="field">Geocoding countries (ISO codes, empty = worldwide)<input type="text" id="sCountries"></label>
+      <div class="row-2">
+        <label class="field">Min. ICE departures / day<input type="number" id="sMinIce" min="1" max="50"></label>
+        <label class="field">Max. walk to first stop (min)<input type="number" id="sWalk" min="5" max="60" step="5"></label>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button id="btnResetSettings">Reset settings</button><button id="btnClearCache">Clear cached lookups</button></div>
+    </div>
+  </details>
+</aside>
+
+<main class="content">
+  <div id="map"></div>
+
+  <div class="tiles" id="tiles" hidden></div>
+
+  <section class="card">
+    <div class="tabs" role="tablist" aria-label="Ranking">
+      <button class="tab" role="tab" id="tab-time" data-tab="time" aria-controls="rankPanel">Travel time</button>
+      <button class="tab" role="tab" id="tab-dist" data-tab="dist" aria-controls="rankPanel">Distance</button>
+    </div>
+    <div id="rankPanel" role="tabpanel">
+      <div class="toolbar" id="rankToolbar"></div>
+      <div class="table-wrap" id="rankTable"></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-head" style="padding-bottom:12px">
+      <div><h2 id="detailTitle">Trips per partner</h2><div class="small muted" id="detailSub"></div></div>
+    </div>
+    <div class="table-wrap" id="detail"></div>
+    <div class="foot" id="dataNote"></div>
+  </section>
+</main>
+</div>
+
+<footer>
+  Timetables and live data: <a href="https://transitous.org/" target="_blank" rel="noopener">Transitous</a>
+  (<a href="https://transitous.org/sources/" target="_blank" rel="noopener">data sources</a>, incl. DELFI / DB ·
+  <a href="https://transitous.org/donate/" target="_blank" rel="noopener">donate</a>) ·
+  Geocoding: <a href="https://nominatim.org/" target="_blank" rel="noopener">Nominatim</a> ·
+  Road routing: <a href="https://project-osrm.org/" target="_blank" rel="noopener">OSRM</a> ·
+  Map data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a>.
+  Free community services: please keep usage light.
+  Provided by the <a href="/">AIX group, Leuphana University Lüneburg</a>.
+</footer>
+
+<script>
+'use strict';
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const uid = () => Math.random().toString(36).slice(2, 10);
+const TZ = 'Europe/Berlin';
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch { return false; } },
+  del(k) { try { localStorage.removeItem(k); } catch {} }
+};
+function havKm(a, b) {
+  const R = 6371, toR = Math.PI / 180;
+  const dLat = (b.lat - a.lat) * toR, dLon = (b.lon - a.lon) * toR;
+  const x = Math.sin(dLat / 2) ** 2 + Math.cos(a.lat * toR) * Math.cos(b.lat * toR) * Math.sin(dLon / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(x));
+}
+const norm = s => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ß/g, 'ss');
+function fmtMin(m) { if (m == null) return '–'; m = Math.round(m); if (m < 60) return m + ' min'; return Math.floor(m / 60) + ' h ' + String(m % 60).padStart(2, '0') + ' min'; }
+function fmtKm(k) { return k == null ? '–' : (k < 10 ? k.toFixed(1) : Math.round(k).toLocaleString('en')) + ' km'; }
+const timeFmt = new Intl.DateTimeFormat('de-DE', { timeZone: TZ, hour: '2-digit', minute: '2-digit' });
+const dayFmt = new Intl.DateTimeFormat('de-DE', { timeZone: TZ, day: '2-digit', month: '2-digit' });
+const fmtTime = iso => iso ? timeFmt.format(new Date(iso)) : '–';
+function localIso(iso) { // YYYY-MM-DDTHH:MM:SS in Berlin time (for bahn.de links)
+  const p = Object.fromEntries(new Intl.DateTimeFormat('en-CA', { timeZone: TZ, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23' }).formatToParts(new Date(iso)).map(x => [x.type, x.value]));
+  return `${p.year}-${p.month}-${p.day}T${p.hour}:${p.minute}:${p.second}`;
+}
+function decodePolyline(str, precision = 6) {
+  const factor = 10 ** precision, out = [];
+  let i = 0, lat = 0, lon = 0;
+  while (i < str.length) {
+    for (const k of [0, 1]) {
+      let shift = 0, result = 0, b;
+      do { b = str.charCodeAt(i++) - 63; result |= (b & 0x1f) << shift; shift += 5; } while (b >= 0x20 && i <= str.length);
+      const d = (result & 1) ? ~(result >> 1) : (result >> 1);
+      if (k === 0) lat += d; else lon += d;
+    }
+    out.push([lat / factor, lon / factor]);
+  }
+  return out;
+}
+function lineKm(pts) { let s = 0; for (let i = 1; i < pts.length; i++) s += havKm({ lat: pts[i-1][0], lon: pts[i-1][1] }, { lat: pts[i][0], lon: pts[i][1] }); return s; }
+function simplify(pts, max = 120) { if (pts.length <= max) return pts; const step = (pts.length - 1) / (max - 1); const out = []; for (let i = 0; i < max; i++) out.push(pts[Math.round(i * step)]); return out.map(p => [+p[0].toFixed(5), +p[1].toFixed(5)]); }
+
+/* ---------- state ---------- */
+const DEFAULT_SETTINGS = {
+  transitous: 'https://api.transitous.org',
+  nominatim: 'https://nominatim.openstreetmap.org',
+  osrm: 'https://router.project-osrm.org',
+  countries: 'de,at,ch,nl,be,lu,fr,dk,pl,cz',
+  minIce: 3,
+  walkMin: 30
+};
+function defaultDate() {
+  const d = new Date(); d.setDate(d.getDate() + 7);
+  if (d.getDay() === 6) d.setDate(d.getDate() + 2); else if (d.getDay() === 0) d.setDate(d.getDate() + 1);
+  return d.toLocaleDateString('en-CA');
+}
+const saved = store.get('mp.state.v1', null);
+const state = Object.assign({ partners: [], date: defaultDate(), time: '10:00', buffer: 0, distMode: 'road', tab: 'time' }, saved || {});
+state.sort = Object.assign({ time: 'total', dist: 'total' }, state.sort || {});
+state.settings = Object.assign({}, DEFAULT_SETTINGS, (saved && saved.settings) || {});
+if (!state.partners.length) state.partners = [{ id: uid(), name: '', query: '' }, { id: uid(), name: '', query: '' }];
+if (!saved || state.date < new Date().toLocaleDateString('en-CA')) state.date = defaultDate();
+let results = null;        // last computation
+let selectedCand = null;   // candidate id shown in detail
+function save() {
+  const slim = { ...state, partners: state.partners.map(p => { const { busy, ...rest } = p; return rest; }) };
+  store.set('mp.state.v1', slim);
+}
+
+/* ---------- cache (localStorage, TTL) ---------- */
+const CACHE_KEY = 'mp.cache.v1';
+let cacheObj = store.get(CACHE_KEY, {});
+function cacheGet(k) { const e = cacheObj[k]; if (!e) return undefined; if (e.x < Date.now()) { delete cacheObj[k]; return undefined; } return e.v; }
+function cacheSet(k, v, ttlMs) {
+  cacheObj[k] = { v, x: Date.now() + ttlMs, t: Date.now() };
+  const keys = Object.keys(cacheObj);
+  if (keys.length > 700) keys.sort((a, b) => cacheObj[a].t - cacheObj[b].t).slice(0, keys.length - 600).forEach(k2 => delete cacheObj[k2]);
+  if (!store.set(CACHE_KEY, cacheObj)) { // quota: drop half
+    keys.sort((a, b) => cacheObj[a].t - cacheObj[b].t).slice(0, Math.floor(keys.length / 2)).forEach(k2 => delete cacheObj[k2]);
+    store.set(CACHE_KEY, cacheObj);
+  }
+}
+const H = 3600e3, DAY = 24 * H;
+
+/* ---------- HTTP ---------- */
+async function getJSON(url, retries = 3) {
+  for (let a = 0; ; a++) {
+    let r;
+    try { r = await fetch(url, { headers: { Accept: 'application/json' } }); }
+    catch (e) { if (a < retries) { await sleep(1500 * 2 ** a); continue; } throw new Error('Network error (' + new URL(url).host + ')'); }
+    if (r.ok) return r.json();
+    if ((r.status === 429 || r.status >= 500) && a < retries) { await sleep(2500 * 2 ** a); continue; }
+    let msg = ''; try { msg = (await r.text()).slice(0, 300); } catch {}
+    let nice = msg; try { const j = JSON.parse(msg); nice = j.error || j.message || msg; } catch {}
+    const err = new Error(`${new URL(url).host}: ${nice || 'HTTP ' + r.status}`); err.status = r.status; err.body = msg; throw err;
+  }
+}
+// Nominatim: max 1 request / second
+let nomChain = Promise.resolve(), nomLast = 0;
+function nominatimSearch(q) {
+  const cc = state.settings.countries.trim();
+  const key = 'nom|' + cc + '|' + q.trim().toLowerCase();
+  const hit = cacheGet(key); if (hit) return Promise.resolve(hit);
+  const url = new URL(state.settings.nominatim.replace(/\/$/, '') + '/search');
+  url.search = new URLSearchParams({ q, format: 'jsonv2', addressdetails: '1', limit: '5', 'accept-language': 'de,en', ...(cc ? { countrycodes: cc } : {}) });
+  const p = nomChain.then(async () => {
+    const wait = nomLast + 1100 - Date.now(); if (wait > 0) await sleep(wait);
+    nomLast = Date.now();
+    const res = await getJSON(url.toString(), 1);
+    cacheSet(key, res, 30 * DAY);
+    return res;
+  });
+  nomChain = p.catch(() => {});
+  return p;
+}
+// Transitous: polite spacing between requests
+let tLast = 0;
+async function transitous(path, params) {
+  const url = new URL(state.settings.transitous.replace(/\/$/, '') + path);
+  url.search = new URLSearchParams(params);
+  const wait = tLast + 250 - Date.now(); tLast = Math.max(Date.now(), tLast + 250); if (wait > 0) await sleep(wait);
+  return getJSON(url.toString());
+}
+async function osrmTable(sources, dests) {
+  if (!sources.length || !dests.length) return null;
+  const coords = [...sources, ...dests].map(p => `${p.lon.toFixed(6)},${p.lat.toFixed(6)}`).join(';');
+  const key = 'osrm|' + coords + '|' + sources.length;
+  const hit = cacheGet(key); if (hit) return hit;
+  const url = `${state.settings.osrm.replace(/\/$/, '')}/table/v1/driving/${coords}?annotations=distance,duration` +
+    `&sources=${sources.map((_, i) => i).join(';')}&destinations=${dests.map((_, i) => i + sources.length).join(';')}`;
+  const d = await getJSON(url, 2);
+  if (d.code !== 'Ok') throw new Error('OSRM: ' + (d.message || d.code));
+  const out = { dist: d.distances, dur: d.durations };
+  cacheSet(key, out, 30 * DAY);
+  return out;
+}
+
+/* ---------- ICE stations ---------- */
+let iceStations = null;
+async function fetchStopsTiled(min, max, depth = 0) {
+  try {
+    return await transitous('/api/v1/map/stops', { min: min.join(','), max: max.join(','), modes: 'HIGHSPEED_RAIL', grouped: 'true' });
+  } catch (e) {
+    if (depth < 3 && /too many/i.test(e.body || '')) {
+      const mLat = (min[0] + max[0]) / 2, mLon = (min[1] + max[1]) / 2, parts = [];
+      for (const [a, b] of [[[min[0], min[1]], [mLat, mLon]], [[min[0], mLon], [mLat, max[1]]], [[mLat, min[1]], [max[0], mLon]], [[mLat, mLon], [max[0], max[1]]]])
+        parts.push(...await fetchStopsTiled(a, b, depth + 1));
+      return parts;
+    }
+    throw e;
+  }
+}
+async function loadIceStations() {
+  if (iceStations) return iceStations;
+  const key = 'ice-list2|' + state.settings.transitous;
+  let raw = cacheGet(key);
+  if (!raw) {
+    setProgress(null, 'Loading list of high-speed (ICE) stations…');
+    raw = (await fetchStopsTiled([44.0, -2.0], [58.5, 24.0]))
+      .filter(s => (s.modes || []).includes('HIGHSPEED_RAIL'))
+      .map(s => ({ id: s.stopId, name: s.name.replace(/\s*\((DE|D)\)\s*$/, ''), lat: s.lat, lon: s.lon, imp: s.importance || 0 }));
+    cacheSet(key, raw, 7 * DAY);
+  }
+  // merge duplicates from different feeds (within 500 m); prefer the German DELFI stop id
+  const sorted = [...raw].sort((a, b) => (b.id.startsWith('de-DELFI') - a.id.startsWith('de-DELFI')) || (b.imp - a.imp));
+  const out = [];
+  for (const s of sorted) {
+    const near = out.find(o => havKm(o, s) < 0.5);
+    if (near) { near.ids.push(s.id); near.imp = Math.max(near.imp, s.imp); }
+    else out.push({ ...s, ids: [s.id] });
+  }
+  iceStations = out;
+  return out;
+}
+function meetingTarget() { // Date of latest acceptable arrival
+  const d = new Date(`${state.date}T${state.time || '10:00'}:00`);
+  return new Date(d.getTime() - (Number(state.buffer) || 0) * 60e3);
+}
+function meetingDayStart() { return new Date(`${state.date}T00:00:00`); }
+async function hasIceService(st) {
+  const key = 'iceok|' + st.id + '|' + state.date + '|' + state.settings.minIce;
+  const hit = cacheGet(key); if (hit !== undefined) return hit;
+  let ok = false, errored = false;
+  for (const id of st.ids.slice(0, 3)) {
+    try {
+      const d = await transitous('/api/v5/stoptimes', { stopId: id, time: meetingDayStart().toISOString(), window: '86400', n: '30', mode: 'HIGHSPEED_RAIL' });
+      const n = (d.stopTimes || []).filter(x => x.mode === 'HIGHSPEED_RAIL').length;
+      if (n >= state.settings.minIce) { ok = true; break; }
+    } catch { errored = true; }
+  }
+  if (errored && !ok) return true; // could not verify: keep it rather than drop it
+  cacheSet(key, ok, 3 * DAY);
+  return ok;
+}
+
+/* ---------- resolving partners ---------- */
+const CITY_TYPES = new Set(['city', 'town', 'village', 'municipality', 'hamlet', 'city_district']);
+function classify(r) {
+  const a = r.address || {};
+  if (a.road || a.house_number || a.pedestrian) return 'point';
+  if (CITY_TYPES.has(r.addresstype) || ((r.category === 'place' || r.category === 'boundary') && r.place_rank <= 16)) return 'city';
+  return 'point';
+}
+function geoFromNominatim(r) {
+  const a = r.address || {};
+  return {
+    lat: +r.lat, lon: +r.lon, label: r.display_name, kind: classify(r),
+    city: r.addresstype && CITY_TYPES.has(r.addresstype) ? r.name : (a.city || a.town || a.village || a.municipality || r.name),
+    short: r.name || r.display_name.split(',')[0]
+  };
+}
+async function findMainStation(g) {
+  const ice = await loadIceStations();
+  const cityWord = norm(g.city).split(/[\s(,/-]+/)[0];
+  const isMain = n => /\b(hbf|hauptbahnhof|central|centrale|centraal|hlavni|glowny|hl\.\s?n)/i.test(norm(n));
+  // 1) an ICE-served main station of that city
+  let c = ice.filter(s => havKm(s, g) < 15 && isMain(s.name) && norm(s.name).includes(cityWord)).sort((a, b) => havKm(a, g) - havKm(b, g));
+  if (c.length) return c[0];
+  // 2) an ICE-served station carrying the city's name close to the centre (e.g. "Lüneburg")
+  c = ice.filter(s => havKm(s, g) < 6 && norm(s.name).includes(cityWord)).sort((a, b) => b.imp - a.imp);
+  if (c.length) return c[0];
+  // 3) any rail station named like the city's main station (no ICE service)
+  const RAIL = ['HIGHSPEED_RAIL', 'LONG_DISTANCE', 'REGIONAL_FAST_RAIL', 'REGIONAL_RAIL', 'SUBURBAN', 'RAIL'];
+  for (const text of [`${g.city} Hbf`, `${g.city} Bahnhof`, g.city]) {
+    try {
+      const res = await transitous('/api/v1/geocode', { text, type: 'STOP', place: `${g.lat},${g.lon}`, numResults: '15' });
+      const hits = res.filter(s => (s.modes || []).some(m => RAIL.includes(m)) && havKm(s, g) < 15)
+        .sort((a, b) => (isMain(b.name) - isMain(a.name)) || ((b.importance || 0) - (a.importance || 0)));
+      if (hits.length) return { id: hits[0].id, ids: [hits[0].id], name: hits[0].name, lat: hits[0].lat, lon: hits[0].lon };
+    } catch {}
+  }
+  return null;
+}
+async function findIceOptions(origin) {
+  const ice = await loadIceStations();
+  const near = ice.map(s => ({ s, d: havKm(s, origin) })).sort((a, b) => a.d - b.d).slice(0, 12);
+  const verified = [];
+  for (const { s } of near) {
+    if (verified.length >= 5) break;
+    if (near[0] && havKm(s, origin) > Math.max(150, havKm(near[0].s, origin) * 3)) break;
+    if (await hasIceService(s)) verified.push(s);
+  }
+  let warn = '';
+  if (!verified.length) { verified.push(...near.slice(0, 3).map(x => x.s)); warn = 'no ICE departures found on the meeting day'; }
+  let road = null;
+  try { road = await osrmTable([origin], verified); } catch {}
+  const opts = verified.map((s, i) => {
+    const same = origin.stopIds && (s.ids.some(id => origin.stopIds.includes(id)) || havKm(s, origin) < 0.3);
+    const km = same ? 0 : (road && road.dist[0][i] != null ? road.dist[0][i] / 1000 : null);
+    return { id: s.id, ids: s.ids, name: s.name, lat: s.lat, lon: s.lon, roadKm: km, airKm: havKm(s, origin) };
+  }).sort((a, b) => (a.roadKm ?? a.airKm * 1.3) - (b.roadKm ?? b.airKm * 1.3));
+  return { opts, warn };
+}
+async function resolvePartner(p, { keepGeo = false } = {}) {
+  p.busy = true; p.error = null; renderPartners();
+  try {
+    if (!keepGeo) {
+      const q = (p.query || '').trim();
+      if (!q) throw new Error('Enter a location');
+      const res = await nominatimSearch(q);
+      if (!res.length) throw new Error('Location not found');
+      p.geoOptions = res.map(geoFromNominatim);
+      p.geoIdx = 0;
+      p.resolvedQuery = q;
+    }
+    const g = p.geoOptions[p.geoIdx];
+    if (g.kind === 'city') {
+      const st = await findMainStation(g);
+      p.origin = st ? { lat: st.lat, lon: st.lon, name: st.name, kind: 'station', stopId: st.id, stopIds: st.ids }
+                    : { lat: g.lat, lon: g.lon, name: g.city, kind: 'point' };
+    } else {
+      p.origin = { lat: g.lat, lon: g.lon, name: g.short, kind: 'point' };
+    }
+    if (!p.name) p.name = g.kind === 'city' ? g.city : g.short;
+    const { opts, warn } = await findIceOptions(p.origin);
+    p.iceOptions = opts; p.iceId = opts[0] && opts[0].id; p.iceWarn = warn;
+  } catch (e) {
+    p.error = e.message || String(e);
+  } finally {
+    p.busy = false; save(); renderPartners(); renderMap();
+  }
+}
+const isResolved = p => p.origin && p.iceId && p.resolvedQuery === (p.query || '').trim();
+
+/* ---------- trips ---------- */
+const RAIL_MODES = new Set(['HIGHSPEED_RAIL', 'LONG_DISTANCE', 'NIGHT_RAIL', 'REGIONAL_FAST_RAIL', 'REGIONAL_RAIL', 'SUBURBAN', 'RAIL', 'SUBWAY', 'METRO', 'TRAM']);
+function summarize(it) {
+  let tripKm = 0, railKm = 0, geom = [];
+  const trains = [], alerts = [];
+  let rt = false, cancelled = false;
+  for (const l of it.legs) {
+    const pts = l.legGeometry && l.legGeometry.points ? decodePolyline(l.legGeometry.points, l.legGeometry.precision || 6) : [];
+    const km = pts.length > 1 ? lineKm(pts) : (l.distance || 0) / 1000;
+    tripKm += km; if (RAIL_MODES.has(l.mode)) railKm += km;
+    geom.push(...pts);
+    if (l.mode !== 'WALK' && l.mode !== 'BIKE' && l.mode !== 'CAR') trains.push(l.displayName || l.routeShortName || l.mode);
+    if (l.realTime) rt = true;
+    if (l.cancelled) cancelled = true;
+    for (const a of l.alerts || []) if (a.headerText && !alerts.includes(a.headerText)) alerts.push(a.headerText);
+  }
+  const transit = it.legs.filter(l => l.mode !== 'WALK');
+  const last = transit[transit.length - 1];
+  const delayMin = last && last.realTime && last.scheduledEndTime ? Math.round((new Date(last.endTime) - new Date(last.scheduledEndTime)) / 60e3) : null;
+  return {
+    durMin: it.duration / 60, dep: it.startTime, arr: it.endTime, transfers: it.transfers ?? Math.max(0, transit.length - 1),
+    trains, tripKm, railKm, rt, delayMin, cancelled, alerts: alerts.slice(0, 3), geom: simplify(geom)
+  };
+}
+async function planTrip(p, c, target) {
+  const from = p.origin.kind === 'station' ? p.origin.stopId : `${p.origin.lat.toFixed(6)},${p.origin.lon.toFixed(6)}`;
+  const key = `plan4|${from}|${c.id}|${target.toISOString()}|${state.settings.walkMin}`;
+  const hit = cacheGet(key); if (hit !== undefined) return { ...hit, cached: true };
+  const params = {
+    fromPlace: from, toPlace: c.id, time: target.toISOString(), arriveBy: 'true', numItineraries: '5',
+    maxPreTransitTime: String(state.settings.walkMin * 60), maxPostTransitTime: '900'
+  };
+  const d = await transitous('/api/v5/plan', params);
+  const limit = target.getTime() + 60e3;
+  const all = [...(d.itineraries || []), ...(d.direct || [])]
+    .filter(it => new Date(it.endTime).getTime() <= limit && new Date(it.startTime).getTime() >= Date.now() - 2 * 60e3 && !it.legs.some(l => l.cancelled));
+  // prefer trips that leave on the meeting day; only fall back to the evening before
+  const dayStart = meetingDayStart().getTime();
+  const sameDay = all.filter(it => new Date(it.startTime).getTime() >= dayStart);
+  const its = sameDay.length ? sameDay : all;
+  // fastest trip; among trips at most 10 min slower, take the one arriving latest (less waiting)
+  const minDur = Math.min(...its.map(it => it.duration));
+  let best = null;
+  for (const it of its) if (it.duration <= minDur + 600 && (!best || it.endTime > best.endTime || (it.endTime === best.endTime && it.duration < best.duration))) best = it;
+  const res = best ? { ...summarize(best), dayBefore: new Date(best.startTime).getTime() < dayStart }
+                   : { none: true, reason: (d.itineraries || []).length ? 'no trip that leaves from now on and arrives in time' : 'no connection found' };
+  const soon = target.getTime() - Date.now() < 2 * DAY;
+  cacheSet(key, res, soon ? 20 * 60e3 : 12 * H);
+  return res;
+}
+
+/* ---------- comparison ---------- */
+function setProgress(frac, text) {
+  if (frac != null) { $('#progressBar').style.width = Math.round(frac * 100) + '%'; $('.progress').hidden = !computing; }
+  if (text != null) $('#progressText').textContent = text;
+}
+let computing = false;
+async function compute() {
+  if (computing) return;
+  computing = true; $('#btnCompute').disabled = true; $('#btnCompute').textContent = 'Comparing…';
+  try {
+    // resolve whatever is not resolved yet
+    const todo = state.partners.filter(p => (p.query || '').trim() && !isResolved(p));
+    for (let i = 0; i < todo.length; i++) { setProgress(i / Math.max(1, todo.length), `Looking up ${todo[i].query}…`); await resolvePartner(todo[i]); }
+    const parts = state.partners.filter(p => isResolved(p) && !p.error);
+    if (parts.length < 2) { setProgress(0, 'Add at least two partners with a location that was found.'); return; }
+    const candMap = new Map();
+    for (const p of parts) {
+      const o = p.iceOptions.find(x => x.id === p.iceId) || p.iceOptions[0];
+      if (!candMap.has(o.id)) candMap.set(o.id, { ...o, hosts: [] });
+      candMap.get(o.id).hosts.push(p.name || p.query);
+    }
+    const cands = [...candMap.values()];
+    const target = meetingTarget();
+    const same = (p, c) => p.origin.kind === 'station' && (c.ids.some(id => p.origin.stopIds.includes(id)) || havKm(c, p.origin) < 0.3);
+
+    // how many uncached trip queries?
+    let needed = 0;
+    for (const p of parts) for (const c of cands) {
+      if (same(p, c)) continue;
+      const from = p.origin.kind === 'station' ? p.origin.stopId : `${p.origin.lat.toFixed(6)},${p.origin.lon.toFixed(6)}`;
+      if (cacheGet(`plan4|${from}|${c.id}|${target.toISOString()}|${state.settings.walkMin}`) === undefined) needed++;
+    }
+    if (needed > 150 && !confirm(`This needs ${needed} trip queries to Transitous, a free volunteer service that asks for at most ~720 per day. Continue?`)) return;
+
+    setProgress(0, 'Road distances…');
+    let road = null;
+    try { road = await osrmTable(parts.map(p => p.origin), cands); } catch (e) { console.warn(e); }
+
+    const cells = {}; // cells[cand][partner]
+    const tasks = [];
+    let done = 0; const total = parts.length * cands.length;
+    cands.forEach((c, ci) => {
+      cells[c.id] = {};
+      parts.forEach((p, pi) => {
+        const roadKm = same(p, c) ? 0 : (road && road.dist[pi][ci] != null ? road.dist[pi][ci] / 1000 : null);
+        if (same(p, c)) { cells[c.id][p.id] = { host: true, roadKm: 0, trip: { durMin: 0, tripKm: 0, railKm: 0, trains: [], transfers: 0 } }; done++; return; }
+        tasks.push(async () => {
+          let trip;
+          try { trip = await planTrip(p, c, target); } catch (e) { trip = { none: true, reason: e.message, error: true }; }
+          cells[c.id][p.id] = { roadKm, trip };
+          done++; setProgress(done / total, `Trip queries: ${done} / ${total}`);
+        });
+      });
+    });
+    setProgress(done / total, `Trip queries: ${done} / ${total}`);
+    let i = 0;
+    await Promise.all([0, 1].map(async () => { while (i < tasks.length) await tasks[i++](); }));
+
+    // aggregate
+    const rows = cands.map(c => {
+      const per = parts.map(p => ({ p, ...cells[c.id][p.id] }));
+      const ok = per.filter(x => !x.trip.none);
+      const sum = f => per.reduce((s, x) => s + (f(x) ?? 0), 0);
+      const maxBy = f => per.reduce((m, x) => (f(x) != null && (!m || f(x) > f(m))) ? x : m, null);
+      return {
+        c, per,
+        missing: per.length - ok.length,
+        roadMissing: per.filter(x => x.roadKm == null).length,
+        road: sum(x => x.roadKm), trip: sum(x => x.trip.none ? null : x.trip.tripKm), time: sum(x => x.trip.none ? null : x.trip.durMin),
+        maxRoad: maxBy(x => x.roadKm), maxTrip: maxBy(x => x.trip.none ? null : x.trip.tripKm), maxTime: maxBy(x => x.trip.none ? null : x.trip.durMin),
+        anyRt: ok.some(x => x.trip.rt), anyIssue: ok.some(x => x.trip.delayMin > 4 || (x.trip.alerts || []).length)
+      };
+    });
+    results = { rows, parts, target, at: new Date(), cached: tasks.length - needed };
+    const bestTime = [...rows].sort((a, b) => (a.missing - b.missing) || (a.time - b.time))[0];
+    selectedCand = bestTime && bestTime.c.id;
+    const errs = rows.flatMap(r => r.per.filter(x => x.trip.error).map(x => x.trip.reason));
+    setProgress(1, `Done: ${parts.length} partners × ${cands.length} candidate stations. ${needed} new trip queries.` +
+      (errs.length ? ` ${errs.length} queries failed, e.g. "${errs[0]}".` : ''));
+    renderResults(); renderMap();
+  } catch (e) {
+    console.error(e); setProgress(null, 'Error: ' + (e.message || e));
+  } finally {
+    computing = false; $('#btnCompute').disabled = false; $('#btnCompute').textContent = 'Compare meeting points';
+    $('.progress').hidden = true;
+  }
+}
+
+/* ---------- partner colours & labels ---------- */
+const PALETTE = ['#2563eb', '#16a34a', '#9333ea', '#ea580c', '#0891b2', '#db2777', '#65a30d', '#7c3aed', '#0d9488', '#b45309'];
+const colorOf = p => PALETTE[Math.max(0, state.partners.indexOf(p)) % PALETTE.length];
+const shortLabel = s => String(s || '').split(',').slice(0, 3).map(x => x.trim()).join(', ');
+const pname = p => p.name || p.query || 'Partner';
+const originLabel = p => p.origin.kind === 'station' ? p.origin.name : shortLabel(p.geoOptions && p.geoOptions[p.geoIdx] ? p.geoOptions[p.geoIdx].label : p.origin.name);
+
+/* ---------- rendering: partners ---------- */
+function partnerInfo(p) {
+  if (p.busy) return `<div class="msg busy"><span class="spinner" aria-hidden="true"></span>Looking up…</div>`;
+  if (p.error) return `<div class="msg bad">${esc(p.error)}</div>`;
+  if (!p.origin || !p.geoOptions) return '';
+  if (p.resolvedQuery !== (p.query || '').trim()) return `<div class="msg warn">Location changed. Press Find or Enter to update it.</div>`;
+  const kind = p.origin.kind === 'station' ? '<span class="pill ok">main station</span>' : '<span class="pill">exact location</span>';
+  const ice = `<select data-pid="${p.id}" data-f="ice" aria-label="ICE station offered by ${esc(pname(p))}">${(p.iceOptions || []).map(o =>
+    `<option value="${esc(o.id)}" ${o.id === p.iceId ? 'selected' : ''}>${esc(o.name)} · ${o.roadKm != null ? fmtKm(o.roadKm) : '≈ ' + fmtKm(o.airKm)}</option>`).join('')}</select>`;
+  const alt = p.geoOptions.length > 1
+    ? `<details><summary>Not the right place?</summary><select data-pid="${p.id}" data-f="geo" aria-label="Choose the matching place">${
+        p.geoOptions.map((g, i) => `<option value="${i}" ${i === p.geoIdx ? 'selected' : ''}>${esc(shortLabel(g.label))}</option>`).join('')}</select></details>` : '';
+  return `<div class="kv"><span>Starts at</span><span>${esc(originLabel(p))} ${kind}</span></div>
+    <div class="kv"><span>ICE station</span>${ice}</div>
+    ${p.iceWarn ? `<div class="msg warn">${esc(p.iceWarn)}</div>` : ''}${alt}`;
+}
+function renderPartners() {
+  const box = $('#partners');
+  const a = document.activeElement;
+  const focused = a && a.dataset && a.dataset.pid ? { id: a.dataset.pid, f: a.dataset.f, s: a.selectionStart } : null;
+  box.innerHTML = state.partners.map((p, idx) => {
+    const info = partnerInfo(p);
+    return `<div class="partner" style="--pc:${colorOf(p)}">
+      <div class="p-head">
+        <input type="text" placeholder="Partner ${idx + 1}" value="${esc(p.name)}" data-pid="${p.id}" data-f="name" aria-label="Partner name">
+        <button class="icon-btn" data-pid="${p.id}" data-act="del" title="Remove partner" aria-label="Remove ${esc(pname(p))}">×</button>
+      </div>
+      <div class="p-loc">
+        <input type="text" placeholder="City, place or street address" value="${esc(p.query)}" data-pid="${p.id}" data-f="query" aria-label="Location of ${esc(pname(p))}">
+        <button data-pid="${p.id}" data-act="find" ${p.busy ? 'disabled' : ''}>Find</button>
+      </div>
+      ${info ? `<div class="p-info">${info}</div>` : ''}
+    </div>`;
+  }).join('');
+  if (focused) {
+    const el = box.querySelector(`[data-pid="${focused.id}"][data-f="${focused.f}"]`);
+    if (el) { el.focus(); if (focused.s != null && el.setSelectionRange) try { el.setSelectionRange(focused.s, focused.s); } catch {} }
+  }
+}
+$('#partners').addEventListener('input', e => {
+  const t = e.target, p = state.partners.find(x => x.id === t.dataset.pid); if (!p) return;
+  if (t.dataset.f === 'name') { p.name = t.value; save(); }
+  if (t.dataset.f === 'query') { p.query = t.value; save(); }
+});
+$('#partners').addEventListener('change', e => {
+  const t = e.target, p = state.partners.find(x => x.id === t.dataset.pid); if (!p) return;
+  if (t.dataset.f === 'query') renderPartners();
+  if (t.dataset.f === 'name') { renderMap(); if (results) renderResults(); }
+  if (t.dataset.f === 'geo') { p.geoIdx = +t.value; resolvePartner(p, { keepGeo: true }); }
+  if (t.dataset.f === 'ice') { p.iceId = t.value; save(); renderMap(); }
+});
+$('#partners').addEventListener('keydown', e => {
+  if (e.key === 'Enter' && e.target.dataset.f === 'query') { const p = state.partners.find(x => x.id === e.target.dataset.pid); if (p) resolvePartner(p); }
+});
+$('#partners').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  const p = state.partners.find(x => x.id === b.dataset.pid); if (!p) return;
+  if (b.dataset.act === 'find') resolvePartner(p);
+  if (b.dataset.act === 'del') { state.partners = state.partners.filter(x => x !== p); save(); renderPartners(); renderMap(); }
+});
+$('#btnAdd').onclick = () => {
+  state.partners.push({ id: uid(), name: '', query: '' }); save(); renderPartners();
+  const ins = $('#partners').querySelectorAll('input[data-f="query"]'); ins[ins.length - 1].focus();
+};
+
+/* ---------- ranking ---------- */
+const METRICS = {
+  time: { total: r => r.time, max: r => r.maxTime, val: x => x.trip.none ? null : x.trip.durMin, fmt: fmtMin, miss: r => r.missing, missText: 'without connection' },
+  road: { total: r => r.road, max: r => r.maxRoad, val: x => x.roadKm, fmt: fmtKm, miss: r => r.roadMissing, missText: 'without road route' },
+  trip: { total: r => r.trip, max: r => r.maxTrip, val: x => x.trip.none ? null : x.trip.tripKm, fmt: fmtKm, miss: r => r.missing, missText: 'without connection' }
+};
+const metricOf = tab => tab === 'time' ? 'time' : state.distMode;
+const sortOf = tab => (state.sort && state.sort[tab]) || 'total';
+function maxVal(M, r) { const m = M.max(r); return m ? M.val(m) : Infinity; }
+function ranked(mk, by) {
+  const M = METRICS[mk];
+  const prim = r => by === 'total' ? M.total(r) : maxVal(M, r);
+  const sec = r => by === 'total' ? maxVal(M, r) : M.total(r);
+  return [...results.rows].sort((a, b) => (M.miss(a) - M.miss(b)) || (prim(a) - prim(b)) || (sec(a) - sec(b)));
+}
+function seg(ctl, value, options) {
+  return `<div class="seg" role="group" data-ctl="${ctl}">${options.map(([v, l]) => `<button type="button" data-v="${v}" aria-pressed="${v === value}">${l}</button>`).join('')}</div>`;
+}
+function renderToolbar() {
+  const tab = state.tab;
+  $('#rankToolbar').innerHTML =
+    `<div class="ctl"><span>Sort by</span>${seg('sort', sortOf(tab), [['total', 'Total'], ['max', 'Longest trip']])}</div>` +
+    (tab === 'dist' ? `<div class="ctl"><span>Measure</span>${seg('measure', state.distMode, [['road', 'Road'], ['trip', 'DB route']])}</div>` : '');
+  for (const t of document.querySelectorAll('.tab')) { const on = t.dataset.tab === tab; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; }
+  $('#rankPanel').setAttribute('aria-labelledby', 'tab-' + tab);
+}
+function renderTable() {
+  const el = $('#rankTable');
+  if (!results) {
+    el.innerHTML = `<div class="empty"><b>No comparison yet</b>Add at least two partners, then press <i>Compare meeting points</i>.</div>`;
+    return;
+  }
+  const tab = state.tab, mk = metricOf(tab), by = sortOf(tab), M = METRICS[mk];
+  const rows = ranked(mk, by);
+  const th = (key, label) => `<th class="r ${by === key ? 'sorted' : ''}" aria-sort="${by === key ? 'ascending' : 'none'}"><button class="sort" data-sort="${key}">${label}<span class="arrow" aria-hidden="true">▲</span></button></th>`;
+  el.innerHTML = `<table><thead><tr><th class="rank">#</th><th>Meeting point</th>${th('total', 'Total')}${th('max', 'Longest trip')}</tr></thead><tbody>${
+    rows.map((r, i) => {
+      const m = M.max(r), miss = M.miss(r);
+      const complete = !miss;
+      const pills = [];
+      if (i === 0 && !miss) pills.push('<span class="pill accent">Best</span>');
+      if (miss) pills.push(`<span class="pill bad">${miss} ${M.missText}</span>`);
+      if (tab === 'time' && r.anyIssue) pills.push('<span class="pill warn">delays or notices</span>');
+      const okCount = r.per.length - miss;
+      return `<tr class="clickable ${r.c.id === selectedCand ? 'selected' : ''} ${complete ? '' : 'incomplete'}" data-cid="${esc(r.c.id)}" tabindex="0" aria-selected="${r.c.id === selectedCand}">
+        <td class="rank">${i + 1}</td>
+        <td><b>${esc(r.c.name)}</b> ${pills.join(' ')}<span class="sub">Host: ${esc(r.c.hosts.join(', '))}</span></td>
+        <td class="r num ${by === 'total' ? 'sorted' : ''}">${M.fmt(M.total(r))}<span class="sub">avg ${M.fmt(M.total(r) / Math.max(1, okCount))}</span></td>
+        <td class="r num ${by === 'max' ? 'sorted' : ''}">${m ? M.fmt(M.val(m)) : '–'}<span class="sub">${m ? esc(pname(m.p)) : ''}</span></td>
+      </tr>`;
+    }).join('')}</tbody></table>`;
+}
+function renderTiles() {
+  const el = $('#tiles');
+  if (!results) { el.hidden = true; return; }
+  const defs = [
+    { label: 'Least total travel time', tab: 'time', by: 'total', mk: 'time' },
+    { label: 'Fairest: shortest longest trip', tab: 'time', by: 'max', mk: 'time' },
+    { label: `Least total distance (${state.distMode === 'road' ? 'road' : 'DB route'})`, tab: 'dist', by: 'total', mk: state.distMode }
+  ];
+  el.hidden = false;
+  el.innerHTML = defs.map((d, i) => {
+    const r = ranked(d.mk, d.by)[0], M = METRICS[d.mk];
+    if (!r) return '';
+    const v = d.by === 'total' ? M.total(r) : maxVal(M, r);
+    const active = state.tab === d.tab && sortOf(d.tab) === d.by;
+    return `<button class="tile ${active ? 'active' : ''}" data-i="${i}" data-cid="${esc(r.c.id)}">
+      <span class="t-label">${esc(d.label)}</span><span class="t-name">${esc(r.c.name)}</span>
+      <span class="t-val num">${d.by === 'total' ? 'Total' : 'Longest trip'} ${M.fmt(v)}${M.miss(r) ? ' · incomplete' : ''}</span></button>`;
+  }).join('');
+  el.onclick = e => {
+    const b = e.target.closest('.tile'); if (!b) return;
+    const d = defs[+b.dataset.i];
+    state.tab = d.tab; state.sort[d.tab] = d.by; selectedCand = b.dataset.cid; save();
+    renderResults(); renderMap();
+  };
+}
+function statusPills(t) {
+  const tags = [];
+  if (t.rt) tags.push('<span class="pill ok">live</span>');
+  if (t.delayMin != null && t.delayMin > 0) tags.push(`<span class="pill warn">+${t.delayMin} min</span>`);
+  if (t.cancelled) tags.push('<span class="pill bad">cancellation</span>');
+  if (t.dayBefore) tags.push('<span class="pill bad">departs day before</span>');
+  for (const a of t.alerts || []) tags.push(`<span class="pill warn" title="${esc(a)}">${esc(a.length > 32 ? a.slice(0, 30) + '…' : a)}</span>`);
+  if (!tags.length) tags.push('<span class="pill">timetable</span>');
+  return tags.join(' ');
+}
+function renderDetail() {
+  const r = results && results.rows.find(x => x.c.id === selectedCand);
+  if (!r) {
+    $('#detailTitle').textContent = 'Trips per partner'; $('#detailSub').textContent = '';
+    $('#detail').innerHTML = `<div class="empty">${results ? 'Select a meeting point in the ranking.' : 'Each partner’s trip appears here after you compare.'}</div>`;
+    $('#dataNote').innerHTML = '';
+    return;
+  }
+  const target = results.target;
+  $('#detailTitle').textContent = `Trips to ${r.c.name}`;
+  $('#detailSub').textContent = `Arrive by ${fmtTime(target.toISOString())} · ${target.toLocaleDateString('en-GB', { timeZone: TZ, weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })} · Host: ${r.c.hosts.join(', ')}`;
+  $('#detail').innerHTML = `<table><thead><tr><th>Partner</th><th>Trip</th><th class="r">Travel time</th><th class="r">Road</th><th class="r">DB route</th><th>Status</th><th></th></tr></thead><tbody>${
+    r.per.map(x => {
+      const t = x.trip;
+      const who = `<td><span class="dot" style="--pc:${colorOf(x.p)}"></span><b>${esc(pname(x.p))}</b><span class="sub">${esc(originLabel(x.p))}</span></td>`;
+      if (x.host) return `<tr>${who}<td class="muted">Already at the station</td><td class="r num">0 min</td><td class="r num">0 km</td><td class="r num">0 km</td><td><span class="pill">host</span></td><td></td></tr>`;
+      if (t.none) return `<tr>${who}<td colspan="2"><span class="msg bad">${esc(t.reason)}</span></td><td class="r num">${fmtKm(x.roadKm)}</td><td class="r num">–</td><td></td><td></td></tr>`;
+      const depDay = dayFmt.format(new Date(t.dep)) !== dayFmt.format(target) ? ` <span class="muted">(${dayFmt.format(new Date(t.dep))})</span>` : '';
+      const bahn = `https://www.bahn.de/buchung/fahrplan/suche#sts=true&so=${encodeURIComponent(x.p.origin.name)}&zo=${encodeURIComponent(r.c.name)}&hd=${encodeURIComponent(localIso(t.dep))}&hza=D&kl=2`;
+      return `<tr>${who}
+        <td class="num"><span style="white-space:nowrap">${fmtTime(t.dep)}${depDay} → ${fmtTime(t.arr)}</span><span class="sub">${t.transfers} change${t.transfers === 1 ? '' : 's'} · ${esc(t.trains.join(', '))}</span></td>
+        <td class="r num"><b>${fmtMin(t.durMin)}</b></td>
+        <td class="r num">${fmtKm(x.roadKm)}</td>
+        <td class="r num">${fmtKm(t.tripKm)}<span class="sub">rail ${fmtKm(t.railKm)}</span></td>
+        <td>${statusPills(t)}</td>
+        <td class="r"><a href="${esc(bahn)}" target="_blank" rel="noopener" class="small" title="Check this trip on bahn.de">bahn.de ↗</a></td></tr>`;
+    }).join('')}</tbody></table>`;
+  $('#dataNote').textContent = `The fastest trip arriving in time is used${state.buffer ? ` (meeting time minus ${state.buffer} min buffer)` : ''}. ` +
+    `Timetable: DB/DELFI via Transitous, queried ${results.at.toLocaleString('de-DE', { timeZone: TZ })}; live delays only exist for the next hours. ` +
+    `Road = shortest driving route (OSRM); DB route = length along the trip. Confirm final plans on bahn.de, especially during construction work.`;
+}
+function renderResults() { renderToolbar(); renderTiles(); renderTable(); renderDetail(); }
+
+$('#rankTable').addEventListener('click', e => {
+  const s = e.target.closest('button[data-sort]');
+  if (s) { state.sort[state.tab] = s.dataset.sort; save(); renderResults(); return; }
+  const tr = e.target.closest('tr[data-cid]'); if (!tr) return;
+  selectedCand = tr.dataset.cid; renderResults(); renderMap();
+});
+$('#rankTable').addEventListener('keydown', e => {
+  const tr = e.target.closest('tr[data-cid]');
+  if (tr && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); selectedCand = tr.dataset.cid; renderResults(); renderMap(); $(`#rankTable tr[data-cid="${CSS.escape(selectedCand)}"]`)?.focus(); }
+});
+$('#rankToolbar').addEventListener('click', e => {
+  const b = e.target.closest('button[data-v]'); if (!b) return;
+  const ctl = b.closest('[data-ctl]').dataset.ctl;
+  if (ctl === 'sort') state.sort[state.tab] = b.dataset.v;
+  if (ctl === 'measure') state.distMode = b.dataset.v;
+  save(); renderResults();
+});
+document.querySelector('.tabs').addEventListener('click', e => {
+  const b = e.target.closest('.tab'); if (!b) return;
+  state.tab = b.dataset.tab; save(); renderResults();
+});
+document.querySelector('.tabs').addEventListener('keydown', e => {
+  if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+  state.tab = state.tab === 'time' ? 'dist' : 'time'; save(); renderResults();
+  document.getElementById('tab-' + state.tab).focus();
+});
+
+/* ---------- map ---------- */
+const map = L.map('map', { scrollWheelZoom: false }).setView([51.2, 10.4], 6);
+map.on('focus', () => map.scrollWheelZoom.enable()); map.on('blur', () => map.scrollWheelZoom.disable());
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>' }).addTo(map);
+const layer = L.layerGroup().addTo(map);
+let lastBoundsKey = '';
+function renderMap() {
+  layer.clearLayers();
+  const bounds = [];
+  const sel = results && results.rows.find(r => r.c.id === selectedCand);
+  if (sel) sel.per.forEach(x => {
+    const g = x.trip && x.trip.geom, col = colorOf(x.p);
+    if (g && g.length > 1) L.polyline(g, { color: col, weight: 3.5, opacity: .85 }).addTo(layer).bindTooltip(`${esc(pname(x.p))}: ${fmtMin(x.trip.durMin)}`, { sticky: true });
+    else if (!x.host) L.polyline([[x.p.origin.lat, x.p.origin.lon], [sel.c.lat, sel.c.lon]], { color: col, weight: 2, dashArray: '4 6', opacity: .7 }).addTo(layer);
+  });
+  const cands = new Map();
+  state.partners.forEach(p => {
+    if (!p.origin) return;
+    L.circleMarker([p.origin.lat, p.origin.lon], { radius: 7, color: '#fff', weight: 2, fillColor: colorOf(p), fillOpacity: 1 }).addTo(layer)
+      .bindTooltip(`<b>${esc(pname(p))}</b><br>${esc(originLabel(p))}`);
+    bounds.push([p.origin.lat, p.origin.lon]);
+    const o = (p.iceOptions || []).find(x => x.id === p.iceId);
+    if (o) cands.set(o.id, o);
+  });
+  for (const c of cands.values()) {
+    const isSel = sel && sel.c.id === c.id, s = isSel ? 20 : 14;
+    L.marker([c.lat, c.lon], {
+      icon: L.divIcon({ className: '', iconSize: [s, s], html: `<div style="width:100%;height:100%;background:${isSel ? '#c8102e' : '#fff'};border:3px solid #c8102e;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.35)"></div>` }),
+      zIndexOffset: isSel ? 1000 : 500, keyboard: false
+    }).addTo(layer).bindTooltip(`${isSel ? 'Selected meeting point' : 'ICE station'}: <b>${esc(c.name)}</b>`);
+    bounds.push([c.lat, c.lon]);
+  }
+  const bk = JSON.stringify(bounds);
+  if (bounds.length && bk !== lastBoundsKey) { map.fitBounds(bounds, { padding: [30, 30], maxZoom: 11 }); lastBoundsKey = bk; }
+}
+
+/* ---------- meeting inputs, settings, import/export ---------- */
+function bindInputs() {
+  $('#mDate').value = state.date; $('#mTime').value = state.time; $('#mBuffer').value = state.buffer;
+  $('#mDate').onchange = e => { state.date = e.target.value; save(); };
+  $('#mTime').onchange = e => { state.time = e.target.value; save(); };
+  $('#mBuffer').onchange = e => { state.buffer = Math.max(0, +e.target.value || 0); save(); };
+  const s = state.settings;
+  const ids = { sTransitous: 'transitous', sNominatim: 'nominatim', sOsrm: 'osrm', sCountries: 'countries', sMinIce: 'minIce', sWalk: 'walkMin' };
+  for (const [id, k] of Object.entries(ids)) {
+    const el = document.getElementById(id); el.value = s[k];
+    el.onchange = () => { s[k] = el.type === 'number' ? Math.max(1, +el.value || DEFAULT_SETTINGS[k]) : el.value.trim(); if (k === 'transitous') iceStations = null; save(); };
+  }
+}
+$('#btnResetSettings').onclick = () => { state.settings = { ...DEFAULT_SETTINGS }; iceStations = null; save(); bindInputs(); };
+$('#btnClearCache').onclick = () => { cacheObj = {}; store.del(CACHE_KEY); iceStations = null; setProgress(null, 'Cached lookups cleared.'); };
+$('#btnCompute').onclick = compute;
+$('#btnExport').onclick = () => {
+  const data = { meeting: { date: state.date, time: state.time, buffer: state.buffer }, partners: state.partners.map(p => ({ name: p.name, location: p.query, iceStation: (p.iceOptions || []).find(o => o.id === p.iceId)?.name })) };
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }));
+  a.download = 'meeting-partners.json'; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+};
+$('#btnImport').onclick = () => $('#fileImport').click();
+$('#fileImport').onchange = async e => {
+  const f = e.target.files[0]; if (!f) return;
+  const text = await f.text(); e.target.value = '';
+  let list = [];
+  try {
+    if (/^\s*[\[{]/.test(text)) {
+      const d = JSON.parse(text);
+      const arr = Array.isArray(d) ? d : d.partners || [];
+      list = arr.map(x => ({ name: x.name || '', query: x.location || x.query || '' }));
+      if (d.meeting) Object.assign(state, { date: d.meeting.date || state.date, time: d.meeting.time || state.time, buffer: d.meeting.buffer ?? state.buffer });
+    } else {
+      list = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean).filter(l => !/^name\s*[,;]/i.test(l)).map(l => {
+        const m = l.split(/[;\t]|,(?=(?:[^"]*"[^"]*")*[^"]*$)/); const clean = s => (s || '').replace(/^"|"$/g, '').trim();
+        return m.length > 1 ? { name: clean(m[0]), query: clean(m.slice(1).join(',')) } : { name: '', query: clean(m[0]) };
+      });
+    }
+  } catch (err) { alert('Could not read file: ' + err.message); return; }
+  if (!list.length) { alert('No partners found in file.'); return; }
+  state.partners = list.map(x => ({ id: uid(), ...x }));
+  results = null; selectedCand = null; save(); bindInputs(); renderPartners(); renderMap(); renderResults();
+};
+
+bindInputs();
+renderPartners();
+renderMap();
+renderResults();
+if (location.protocol === 'file:') setProgress(null, 'Tip: address lookups may fail when the page is opened as a local file. Use the hosted version at https://aix.leuphana.de/tools/meeting-planner/ or serve the folder with "python3 -m http.server".');
+</script>
+</body>
+</html>
