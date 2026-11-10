@@ -11,7 +11,7 @@ layout: null
       {% assign item_title = item.title %}
     {% endif %}
     
-    {% if item_title and item.url %}
+    {% if item_title and item.url and item.search != false %}
       {% if count > 0 %},{% endif %}
       {% assign cat = item.collection | default: 'Page' | capitalize %}
       {% if cat == "Posts" %}{% assign cat = "News" %}{% endif %}

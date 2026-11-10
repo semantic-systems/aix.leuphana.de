@@ -92,3 +92,10 @@ exclude:
   - fetch_venv/
   - scripts/
   - fetch_team_members.py
+
+# Internal tools: served as-is, kept out of the sitemap (see robots.txt as well)
+defaults:
+  - scope:
+      path: "tools"
+    values:
+      sitemap: false

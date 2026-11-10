@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /tools/meeting-planner/
 
 Sitemap: https://aix.leuphana.de/sitemap.xml
