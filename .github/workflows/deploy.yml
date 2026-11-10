@@ -48,18 +48,31 @@ jobs:
     steps:
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.3
+        env:
+          # Optional repository secret; when set, it is written to the server's .env
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           port: 575
+          envs: SMTP_PASSWORD
           script: |
             # Stop at the first failing command so a broken deploy fails this job
             set -eu
             cd /opt/jekyll/aix.leuphana.de
+            # .env holds secrets and is not tracked by git: keep the server's copy across the reset
+            if [ -f .env ]; then cp .env "$HOME/.aix-env.keep"; fi
             # Discard any local changes and force the server to match GitHub exactly
             git fetch origin
             git reset --hard origin/main
+            if [ ! -f .env ] && [ -f "$HOME/.aix-env.keep" ]; then mv "$HOME/.aix-env.keep" .env; fi
+            rm -f "$HOME/.aix-env.keep"
+            # The SMTP_PASSWORD repository secret, when set, replaces that line in .env (other lines are kept)
+            if [ -n "${SMTP_PASSWORD:-}" ]; then
+              (umask 077; { grep -v '^SMTP_PASSWORD=' .env 2>/dev/null || true; printf 'SMTP_PASSWORD=%s\n' "$SMTP_PASSWORD"; } > .env.new)
+              mv .env.new .env
+            fi
             # Build the crawler image before stopping anything. Its build needs host
             # networking, which newer Docker Compose versions refuse to grant
             # ("pass --allow=network.host"), so it is built with plain docker build.
