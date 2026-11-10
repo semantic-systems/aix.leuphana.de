@@ -74,5 +74,16 @@ jobs:
               if [ "$i" -eq 30 ]; then echo "Site did not come up"; docker compose logs --tail 50 jekyll; exit 1; fi
               sleep 10
             done
+            # Both services are long-running (the crawler loops daily), so fail the job if
+            # any of them has already exited. Checked after the wait so startup crashes show up.
+            expected=$(docker compose config --services | sort | tr '\n' ' ')
+            running=$(docker compose ps --services --status running | sort | tr '\n' ' ')
+            if [ "$running" != "$expected" ]; then
+              echo "Not all services are running. Expected: $expected Running: $running"
+              docker compose ps --all
+              docker compose logs --tail 50
+              exit 1
+            fi
+            echo "All services running: $running"
             # Clean up dangling images to prevent disk space exhaustion
             docker image prune -f
