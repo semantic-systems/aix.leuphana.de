@@ -4,34 +4,38 @@ title: Impressum
 permalink: /impressum/
 ---
 
-IMPRESSUM
+## Anbieter
 
-Die Stiftung Universität Lüneburg (Stiftung des öffentlichen Rechts) hat die Trägerschaft über die Leuphana Universität Lüneburg (Körperschaft des öffentlichen Rechts) inne. Die Stiftung unterhält und fördert die Universität bei der Wahrnehmung der öffentlichen Aufgaben der Universität, insbesondere der Pflege und Entwicklung der Wissenschaften, der Vorbereitung der Studierenden auf berufliche Tätigkeiten, der Förderung des Wisens- und Technologietransfers sowie von Unternehmensgründungen aus der Hochschule heraus und der Unterrichtung der Öffentlichkeit über die Erfüllung ihrer Aufgaben.
-Sie wird durch den Präsidenten Sascha Spoun gesetzlich vertreten.
+Diese Website ist ein Angebot der Forschungsgruppe Artificial Intelligence and Explainability (AIX) der Leuphana Universität Lüneburg.
 
-Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz:
-DE 811 305 548
+Leuphana Universität Lüneburg<br>
+Universitätsallee 1<br>
+21335 Lüneburg<br>
+Telefon: +49 4131 677-0<br>
+E-Mail: [info@leuphana.de](mailto:info@leuphana.de)
 
-Inhaltlich verantwortlich i.S.d. § 18 II MStV sind die bei den jeweiligen Dokumenten im Impressum angegebenen Personen.
-Allgemeine Inhalte, sofern nicht anders angegeben, werden i.S.d. § 18 II MStV vertreten vom Pressesprecher der Leuphana Universität Lüneburg:
+Die Stiftung Universität Lüneburg (Stiftung des öffentlichen Rechts) ist Trägerin der Leuphana Universität Lüneburg (Körperschaft des öffentlichen Rechts). Sie wird durch den Präsidenten Prof. Dr. Sascha Spoun gesetzlich vertreten.
 
-Dr. Markus Lemmens
-Pressesprecher
+Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz: DE 811 305 548
 
-Martin Gierczak
-Stellvertretender Pressesprecher
+## Inhaltlich verantwortlich
 
-Henning Zühlsdorf
-Redaktion 
+Verantwortlich für die Inhalte dieser Website im Sinne des § 18 Abs. 2 MStV:
 
- 
-RECHTLICHE HINWEISE (DISCLAIMER)
-Bitte beachten Sie die wichtigen rechtlichen Hinweise zu den Inhalten dieser Website, zum Urheberrecht und zu externen Links.
-Haftung für Inhalte und externe Links
+Prof. Dr. Ricardo Usbeck<br>
+Leiter der Forschungsgruppe AIX<br>
+Leuphana Universität Lüneburg<br>
+Universitätsallee 1, 21335 Lüneburg<br>
+E-Mail: [aix@leuphana.de](mailto:aix@leuphana.de)
 
-Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar. Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.
+Für die allgemeinen Inhalte der Universität gilt das [Impressum der Leuphana Universität Lüneburg](https://www.leuphana.de/impressum.html).
 
-URHEBERRECHT
-Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung der Leuphana Universität Lüneburg. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet. Davon ausgenommen sind nur die Pressemitteilungen der Leuphana Universität Lüneburg sowie die im Internet veröffentlichten Reden. Ihr Inhalt kann ohne besondere Genehmigung verwendet werden.
+## Haftung für Inhalte und externe Links
+
+Diese Website enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar. Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.
+
+## Urheberrecht
+
+Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung der Leuphana Universität Lüneburg. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet.
 
 Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter beachtet. Insbesondere werden Inhalte Dritter als solche gekennzeichnet. Sollten Sie trotzdem auf eine Urheberrechtsverletzung aufmerksam werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Inhalte umgehend entfernen.

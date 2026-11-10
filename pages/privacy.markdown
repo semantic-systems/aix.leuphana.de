@@ -1,85 +1,76 @@
 ---
 layout: page
-title: Privacy
+title: Privacy Policy
 permalink: /privacy/
 ---
 
-# Privacy Policy
+This page explains which personal data is processed when you use aix.leuphana.de, the website of the research group Artificial Intelligence and Explainability (AIX). Last updated: November 2026.
 
-## Data Protection at a Glance
+## Controller
 
-### General Information
+Leuphana Universität Lüneburg<br>
+represented by the President<br>
+Universitätsallee 1, 21335 Lüneburg, Germany<br>
+Phone: +49 4131 677-0, email: [info@leuphana.de](mailto:info@leuphana.de)
 
-The following information provides a simple overview of what happens to your personal data when you visit our website. Personal data refers to any data that can be used to personally identify you. For detailed information on data protection, please refer to our privacy policy listed below this text.
+Contact for this website: Prof. Dr. Ricardo Usbeck, AIX research group, [aix@leuphana.de](mailto:aix@leuphana.de)
 
-### Data Collection on Our Website
+## Data protection officer
 
-**Who is responsible for data collection on this website?**
+Leuphana Universität Lüneburg<br>
+Datenschutzbeauftragter<br>
+Universitätsallee 1, 21335 Lüneburg, Germany<br>
+Email: [dsb@leuphana.de](mailto:dsb@leuphana.de)
 
-Data processing on this website is carried out by the website operator. You can find their contact details in the imprint of this website.
+## Visiting this website
 
-**How do we collect your data?**
+The website runs on a server operated by Leuphana University. Every time you open a page, the server records:
 
-Your data is collected when you provide it to us. This could be data you enter in a contact form, for example.
+- your IP address
+- date and time of the request
+- the requested page or file
+- the page you came from (referrer), if your browser sends it
+- your browser and operating system, as your browser reports them
 
-Other data is automatically collected by our IT systems when you visit the website. This is primarily technical data (e.g., internet browser, operating system, or time of page access). This data is collected automatically as soon as you enter our website.
+We use these log files only to run the website securely and to find and fix errors. They are deleted after 7 days at the latest. The data is not passed on to anyone, unless we are legally required to do so.
 
-**What do we use your data for?**
+Legal basis: § 3 sentence 1 no. 1 NDSG in conjunction with Art. 6(1)(e) GDPR.
 
-Some of the data is collected to ensure the proper functioning of the website. Other data may be used to analyze your user behavior.
+## No cookies, no tracking
 
-**What rights do you have regarding your data?**
+This website sets no cookies and uses no analytics, advertising or social media plugins. All fonts, scripts and images are delivered from our own server. The search in the page header runs in your browser and uses an index file from this website, so your search terms are not sent anywhere.
 
-You have the right to receive information about the origin, recipient, and purpose of your stored personal data free of charge at any time. You also have the right to request the correction, blocking, or deletion of this data. For this purpose, as well as for further questions regarding data protection, you can contact us at the address provided in the imprint. Furthermore, you have the right to lodge a complaint with the competent supervisory authority.
+## Meeting Point Planner
 
-### Analysis Tools and Third-Party Tools
+The page [/tools/meeting-planner/](/tools/meeting-planner/) helps plan project meetings. It works in your browser and does not send your input to our server.
 
-When visiting our website, your surfing behavior may be statistically evaluated. This is done primarily with cookies and so-called analysis programs. The analysis of your surfing behavior is usually anonymous; the surfing behavior cannot be traced back to you. You can object to this analysis or prevent it by not using certain tools. Detailed information can be found in the following privacy policy.
+**Stored in your browser.** The partner list, meeting time and settings are saved in your browser's local storage, so they are still there next time. They never leave your device and you can delete them at any time by clearing your browser's site data. Storing them is necessary for the function you asked for (§ 25(2) no. 2 TDDDG).
 
-You can object to this analysis. We will inform you about the objection options in this privacy policy.
+**External services.** To find places, routes and maps, your browser contacts the following services directly. They receive your IP address and the data needed for the request:
 
-## General Notes and Mandatory Information
+| Service | What it receives | When | Operator and privacy policy |
+|---|---|---|---|
+| OpenStreetMap map tiles | the map area you look at | when the page opens and when you move the map | OpenStreetMap Foundation, United Kingdom ([privacy policy](https://wiki.osmfoundation.org/wiki/Privacy_Policy)) |
+| Nominatim | the locations you enter | when you press *Find* | OpenStreetMap Foundation, United Kingdom ([privacy policy](https://wiki.osmfoundation.org/wiki/Privacy_Policy)) |
+| Transitous | coordinates of the locations, the stations and the meeting date and time | when you look up a partner or compare meeting points | volunteer project, logs are kept for up to 2 days ([privacy policy](https://transitous.org/privacy/)) |
+| OSRM | coordinates of the locations and stations | when road distances are calculated | Project OSRM, public demo server ([website](https://project-osrm.org/)) |
 
-### Data Protection
+We have no influence on how these operators process the data. The United Kingdom has an adequate level of data protection according to the European Commission. If you do not want this data to be transferred, do not use the planner. Entering a city or an institution instead of a private address is enough for the planner to work.
 
-The operators of these pages take the protection of your personal data very seriously. We treat your personal data confidentially and in accordance with the statutory data protection regulations and this privacy policy.
+Legal basis: § 3 sentence 1 no. 1 NDSG in conjunction with Art. 6(1)(e) GDPR.
 
-When you use this website, various personal data is collected. Personal data refers to data that can be used to personally identify you. This privacy policy explains what data we collect and what we use it for. It also explains how and for what purpose this is done.
+## Contact by email
 
-We would like to point out that data transmission over the Internet (e.g., when communicating by email) may have security vulnerabilities. Complete protection of data from access by third parties is not possible.
+If you email us, we use your message and address only to answer you. We delete them when your request is settled, unless we are required to keep them.
 
-### Note on the Responsible Entity
+Legal basis: § 3 sentence 1 no. 1 NDSG in conjunction with Art. 6(1)(e) GDPR.
 
-The responsible entity for data processing on this website is:
+## Links to other websites
 
-Leuphana University Lüneburg
-Universitätsallee 1
-21335 Lüneburg
-Germany
+Pages on this site link to other websites, for example GitHub, LinkedIn, publishers or Deutsche Bahn. These are plain links: no data is sent to these sites until you click a link. After that, the privacy policy of that website applies.
 
-Phone: +49 4131 677-0
-Email: info@leuphana.de
+## Your rights
 
-The responsible entity is the natural or legal person who alone or jointly with others decides on the purposes and means of processing personal data (e.g., names, email addresses, etc.).
+You have the right to access your personal data (Art. 15 GDPR), to have it corrected (Art. 16), deleted (Art. 17) or its processing restricted (Art. 18), and to object to its processing (Art. 21). To use these rights, contact us or the data protection officer at the addresses above.
 
-### Revocation of Your Consent to Data Processing
-
-Many data processing operations are only possible with your express consent. You can revoke consent you have already given at any time. An informal email to us is sufficient. The legality of the data processing carried out until the revocation remains unaffected by the revocation.
-
-### Right to Lodge a Complaint with the Competent Supervisory Authority
-
-In the event of violations of data protection law, the data subject has the right to lodge a complaint with the competent supervisory authority. The competent supervisory authority for data protection issues is the state data protection officer of the federal state in which our company is based. A list of data protection officers and their contact details can be found at the following link: https://www.bfdi.bund.de/DE/Infothek/Anschriften_Links/anschriften_links-node.html.
-
-### Right to Data Portability
-
-You have the right to have data that we process automatically based on your consent or in fulfillment of a contract handed over to you or to a third party in a common, machine-readable format. If you request the direct transfer of the data to another responsible party, this will only be done to the extent that it is technically feasible.
-
-### SSL or TLS Encryption
-
-For security reasons and to protect the transmission of confidential content, such as orders or inquiries that you send to us as the site operator, this site uses SSL or TLS encryption. You can recognize an encrypted connection by the fact that the address line of the browser changes from "http://" to "https://" and by the lock symbol in your browser line.
-
-If SSL or TLS encryption is activated, the data you transmit to us cannot be read by third parties.
-
-### Information, Blocking, Deletion
-
-Within the framework of the applicable legal provisions, you have the right to free information about your stored personal data, its origin and recipient, and the purpose of data processing, and, if applicable, a right to correction, blocking, or deletion of this data. For this purpose, as well as for further questions regarding personal data, you can contact us at any time at the address provided in the imprint.
+You can also complain to the supervisory authority: Die Landesbeauftragte für den Datenschutz Niedersachsen, Prinzenstraße 5, 30159 Hannover, Germany ([lfd.niedersachsen.de](https://www.lfd.niedersachsen.de)).
