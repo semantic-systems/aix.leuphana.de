@@ -1,6 +1,6 @@
 # Team profiles
 
-Each `_team/` file creates an individual page and a card on `/team/`. Use the [team template](../_team/template.md) for a new person. [Avatar Aang's example](../_team/avatar-aang.md) shows a complete page with a portrait, structured details, headings, lists, and links. It is a fictional example currently marked `published: true`, so it may appear on the team page until switched off; do not copy its character facts into a real profile.
+Each `_team/` file creates an individual page and a card on `/team/`. Use the [team template](../_team/template.md) for a new person. [Avatar Aang's example](../_team/avatar-aang.md) shows a complete page with a portrait, structured details, headings, lists, and links. It is a fictional example marked `published: false`, so it never appears on the live team page; preview it locally with `--unpublished`, and do not copy its character facts into a real profile.
 
 ## Add a person
 
