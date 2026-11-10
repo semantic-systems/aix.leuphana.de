@@ -1,6 +1,6 @@
 # Publications
 
-The site contains one Markdown file per paper in `_publications/`. Many records come from `scripts/fetch_publications.py`, which reads DBLP and tracks its work in `_publications/.state.json`. Start with the [setup guide](getting-started.md) if you are new to editing the site.
+The site contains one Markdown file per paper in `_publications/`. Many records come from `scripts/fetch_publications.py`, which reads DBLP and tracks its work in `_publications/.state.json`. It uses only open interfaces that allow scripts: DBLP's SPARQL endpoint (`sparql.dblp.org`) for the publication list, and the Zenodo, ACL Anthology, OpenAlex, Crossref and Semantic Scholar APIs for abstracts and BibTeX details. It identifies itself with a user agent naming this website and waits between requests. It never overwrites an existing file and skips papers whose title is already on the site. Optional: set `S2_API_KEY` in the crawler's `.env` (a free key from Semantic Scholar) so that Semantic Scholar does not rate-limit it. Start with the [setup guide](getting-started.md) if you are new to editing the site.
 
 ## Check before adding
 
