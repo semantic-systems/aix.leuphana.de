@@ -7,3 +7,11 @@ link_notification_state.json
 link_notification_state.json.tmp
 vendor
 venv/
+# Secrets and runtime state (never commit)
+.env
+link_cache.json
+# OS / editor / Python artefacts
+.DS_Store
+.idea/
+*.pyc
+.env.new

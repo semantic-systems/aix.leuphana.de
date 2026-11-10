@@ -6,7 +6,7 @@ name: "Avatar Aang"
 title: "Avatar and Air Nomad"
 image: "aang.jpeg"
 job_category: "researcher" # Example of a category used by the team page; not Aang's real affiliation.
-published: true
+published: false # fictional example profile: keep off the live team page
 permalink: /team/avatar-aang/
 email: ""
 

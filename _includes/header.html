@@ -130,11 +130,13 @@
       ).slice(0, 10); // Limit to top 10
 
       if (results.length > 0) {
+        // Titles and excerpts include automatically fetched publication data: escape before inserting
+        const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
         searchResults.innerHTML = results.map(item => `
-          <a href="${item.url}" class="search-result-item">
-            <div class="search-result-title">${item.title}</div>
-            <div class="search-result-meta" style="background: var(--c-granit-40);">${item.category}</div>
-            <div class="search-result-excerpt">${item.excerpt || ''}</div>
+          <a href="${esc(item.url)}" class="search-result-item">
+            <div class="search-result-title">${esc(item.title)}</div>
+            <div class="search-result-meta" style="background: var(--c-granit-40);">${esc(item.category)}</div>
+            <div class="search-result-excerpt">${esc(item.excerpt)}</div>
           </a>
         `).join('');
         searchResults.style.display = "block";

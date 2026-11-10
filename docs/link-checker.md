@@ -44,7 +44,7 @@ If one person truly maintains an entire collection, a wildcard key such as `_pub
 
 ## Configure admins and email
 
-In the crawler's `.env`, set `SMTP_PASSWORD` and a comma-separated `LINK_CHECK_ADMIN_EMAILS`. The latter defaults to the current admin/test recipient if omitted; set it explicitly for the production admin list. The existing SMTP host, port, sender, and login are command-line defaults in the script and can be overridden with its CLI options. Keep secrets out of tracked files.
+In the crawler's `.env`, set `SMTP_PASSWORD` and a comma-separated `LINK_CHECK_ADMIN_EMAILS`. The latter defaults to the current admin/test recipient if omitted; set it explicitly for the production admin list. The existing SMTP host, port, sender, and login are command-line defaults in the script and can be overridden with its CLI options. `.env` is git-ignored and must never be committed. On the server, the deploy workflow keeps the existing `.env` and, when the `SMTP_PASSWORD` repository secret is set, replaces the `SMTP_PASSWORD` line with that secret. To change the password, update the secret and redeploy.
 
 Admins receive one email per scan. It lists broken links, their routing, and any failed owner deliveries. If none are found and all pages were checked, it says “No broken links found right now.” If pages were skipped, it says the scan is incomplete and gives the count without listing every page. Owners receive one action email for new 404/410 or DNS lookup failures and, if the issue remains, a reminder after seven days. The reminder history lives in ignored `link_notification_state.json`; keep that file on the crawler's persistent volume to avoid repeated first-time alerts after restarts.
 

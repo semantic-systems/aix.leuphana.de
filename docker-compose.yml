@@ -17,4 +17,6 @@ services:
     volumes:
       - .:/site
     env_file:
-      - .env
+      # Not tracked by git (holds SMTP_PASSWORD); without it the crawler runs but sends no email
+      - path: .env
+        required: false

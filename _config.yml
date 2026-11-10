@@ -29,7 +29,7 @@ social:
     - https://www.linkedin.com/school/aix-leuphana/
     - https://github.com/semantic-systems
 description: >- # this means to ignore newlines until "baseurl:"
-  AIX is a research group at led by Prof. Dr. Ricardo Usbeck at Leuphana University that
+  AIX is a research group led by Prof. Dr. Ricardo Usbeck at Leuphana University that
   focuses on the topic of neuro-symbolic AI, where neural network-based machine learning
   is combined with symbolic AI, to arrive at explainable and responsible real-world solutions
 baseurl: "" # the subpath of your site, e.g. /blog
@@ -92,6 +92,20 @@ exclude:
   - fetch_venv/
   - scripts/
   - fetch_team_members.py
+  # Repository internals that must not be published on the website
+  - README.md
+  - TEAM_AND_PUBLICATIONS_README.md
+  - PROJECT_ANALYSIS.json
+  - link_cache.json
+  - link_notification_state.json
+  - Dockerfile.crawler
+  - docker-compose.yml
+  - requirements.txt
+  - docs/
+  - tests/
+  - test/
+  - _projects/list_of_projects.txt
+  - "assets/Leuphana Styleguide Corporate Design.pdf"
 
 # Internal tools: served as-is, kept out of the sitemap (see robots.txt as well)
 defaults:

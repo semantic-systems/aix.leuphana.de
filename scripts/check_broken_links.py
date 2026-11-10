@@ -290,7 +290,8 @@ def check_link_http(url, session, site_dir='_site'):
         try:
             headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
             resp = session.head(url, headers=headers, allow_redirects=True, timeout=10)
-            if resp.status_code >= 400 and resp.status_code != 405:
+            # Many servers reject HEAD (405 or other 4xx/5xx): retry every failed HEAD with GET
+            if resp.status_code >= 400:
                 resp = session.get(url, headers=headers, stream=True, timeout=10)
                 if resp.status_code >= 400:
                     return False, True, resp.status_code # False for HTTP success, True for needs Playwright
