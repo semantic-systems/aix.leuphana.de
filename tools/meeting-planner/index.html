@@ -115,6 +115,12 @@ sitemap: false
 .mp .settings-body { padding: 0 16px 16px; display: grid; gap: 10px; }
 .mp .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
+/* stale results */
+.mp .stale-note { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 12px 16px; border-radius: 12px; background: var(--warn-soft); color: var(--warn); border: 1px solid #F6D59A; font-weight: 700; }
+.mp .stale-note[hidden] { display: none; }
+.mp .stale-note button { height: 34px; }
+.mp .content.is-stale .tiles, .mp .content.is-stale #rankTable, .mp .content.is-stale #detail { opacity: .5; }
+
 /* summary tiles */
 .mp .tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
 @media (max-width: 760px) { .mp .tiles { grid-template-columns: 1fr; } }
@@ -239,6 +245,11 @@ sitemap: false
 <div class="content">
   <div id="map"></div>
 
+  <div class="stale-note" id="staleNote" role="status" hidden>
+    <span>The inputs changed since this comparison, so these results may be out of date.</span>
+    <button class="btn-secondary" id="btnRecompute">Compare again</button>
+  </div>
+
   <div class="tiles" id="tiles" hidden></div>
 
   <section class="card">
@@ -302,6 +313,14 @@ function localIso(iso) { // YYYY-MM-DDTHH:MM:SS in Berlin time (for bahn.de link
   const p = Object.fromEntries(new Intl.DateTimeFormat('en-CA', { timeZone: TZ, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23' }).formatToParts(new Date(iso)).map(x => [x.type, x.value]));
   return `${p.year}-${p.month}-${p.day}T${p.hour}:${p.minute}:${p.second}`;
 }
+// Meeting dates and times are always Berlin time, whatever the visitor's own time zone is.
+function berlinOffsetMs(utcMs) { const l = localIso(utcMs); return Date.parse(l + 'Z') - Math.floor(utcMs / 1000) * 1000; }
+function berlinTime(dateStr, timeStr = '00:00') { // Date for a Berlin wall-clock time
+  const naive = Date.parse(`${dateStr}T${timeStr}:00Z`);
+  const first = naive - berlinOffsetMs(naive);
+  return new Date(naive - berlinOffsetMs(first)); // second pass handles DST changeover days
+}
+const berlinToday = () => localIso(Date.now()).slice(0, 10);
 function decodePolyline(str, precision = 6) {
   const factor = 10 ** precision, out = [];
   let i = 0, lat = 0, lon = 0;
@@ -328,17 +347,17 @@ const DEFAULT_SETTINGS = {
   minIce: 3,
   walkMin: 30
 };
-function defaultDate() {
-  const d = new Date(); d.setDate(d.getDate() + 7);
-  if (d.getDay() === 6) d.setDate(d.getDate() + 2); else if (d.getDay() === 0) d.setDate(d.getDate() + 1);
-  return d.toLocaleDateString('en-CA');
+function defaultDate() { // one week from today (Berlin), moved off weekends
+  const d = new Date(Date.parse(berlinToday() + 'T12:00:00Z') + 7 * 864e5);
+  if (d.getUTCDay() === 6) d.setUTCDate(d.getUTCDate() + 2); else if (d.getUTCDay() === 0) d.setUTCDate(d.getUTCDate() + 1);
+  return d.toISOString().slice(0, 10);
 }
 const saved = store.get('mp.state.v1', null);
 const state = Object.assign({ partners: [], date: defaultDate(), time: '10:00', buffer: 0, distMode: 'road', tab: 'time' }, saved || {});
 state.sort = Object.assign({ time: 'total', dist: 'total' }, state.sort || {});
 state.settings = Object.assign({}, DEFAULT_SETTINGS, (saved && saved.settings) || {});
 if (!state.partners.length) state.partners = [{ id: uid(), name: '', query: '' }, { id: uid(), name: '', query: '' }];
-if (!saved || state.date < new Date().toLocaleDateString('en-CA')) state.date = defaultDate();
+if (!saved || state.date < berlinToday()) state.date = defaultDate();
 let results = null;        // last computation
 let selectedCand = null;   // candidate id shown in detail
 function save() {
@@ -378,7 +397,7 @@ async function getJSON(url, retries = 3) {
 let nomChain = Promise.resolve(), nomLast = 0;
 function nominatimSearch(q) {
   const cc = state.settings.countries.trim();
-  const key = 'nom|' + cc + '|' + q.trim().toLowerCase();
+  const key = 'nom|' + state.settings.nominatim + '|' + cc + '|' + q.trim().toLowerCase();
   const hit = cacheGet(key); if (hit) return Promise.resolve(hit);
   const url = new URL(state.settings.nominatim.replace(/\/$/, '') + '/search');
   url.search = new URLSearchParams({ q, format: 'jsonv2', addressdetails: '1', limit: '5', 'accept-language': 'de,en', ...(cc ? { countrycodes: cc } : {}) });
@@ -403,7 +422,7 @@ async function transitous(path, params) {
 async function osrmTable(sources, dests) {
   if (!sources.length || !dests.length) return null;
   const coords = [...sources, ...dests].map(p => `${p.lon.toFixed(6)},${p.lat.toFixed(6)}`).join(';');
-  const key = 'osrm|' + coords + '|' + sources.length;
+  const key = 'osrm|' + state.settings.osrm + '|' + coords + '|' + sources.length;
   const hit = cacheGet(key); if (hit) return hit;
   const url = `${state.settings.osrm.replace(/\/$/, '')}/table/v1/driving/${coords}?annotations=distance,duration` +
     `&sources=${sources.map((_, i) => i).join(';')}&destinations=${dests.map((_, i) => i + sources.length).join(';')}`;
@@ -451,13 +470,12 @@ async function loadIceStations() {
   iceStations = out;
   return out;
 }
-function meetingTarget() { // Date of latest acceptable arrival
-  const d = new Date(`${state.date}T${state.time || '10:00'}:00`);
-  return new Date(d.getTime() - (Number(state.buffer) || 0) * 60e3);
+function meetingTarget() { // latest acceptable arrival (Berlin time)
+  return new Date(berlinTime(state.date, state.time || '10:00').getTime() - (Number(state.buffer) || 0) * 60e3);
 }
-function meetingDayStart() { return new Date(`${state.date}T00:00:00`); }
+function meetingDayStart() { return berlinTime(state.date, '00:00'); }
 async function hasIceService(st) {
-  const key = 'iceok|' + st.id + '|' + state.date + '|' + state.settings.minIce;
+  const key = 'iceok|' + state.settings.transitous + '|' + st.id + '|' + state.date + '|' + state.settings.minIce;
   const hit = cacheGet(key); if (hit !== undefined) return hit;
   let ok = false, errored = false;
   for (const id of st.ids.slice(0, 3)) {
@@ -556,7 +574,7 @@ async function resolvePartner(p, { keepGeo = false } = {}) {
   } catch (e) {
     p.error = e.message || String(e);
   } finally {
-    p.busy = false; save(); renderPartners(); renderMap();
+    p.busy = false; save(); renderPartners(); if (!computing) markStale(); renderMap();
   }
 }
 const isResolved = p => p.origin && p.iceId && p.resolvedQuery === (p.query || '').trim();
@@ -585,26 +603,27 @@ function summarize(it) {
     trains, tripKm, railKm, rt, delayMin, cancelled, alerts: alerts.slice(0, 3), geom: simplify(geom)
   };
 }
+const planFrom = p => p.origin.kind === 'station' ? p.origin.stopId : `${p.origin.lat.toFixed(6)},${p.origin.lon.toFixed(6)}`;
+const planKey = (p, c, target) => `plan5|${state.settings.transitous}|${planFrom(p)}|${c.id}|${target.toISOString()}|${state.settings.walkMin}`;
 async function planTrip(p, c, target) {
-  const from = p.origin.kind === 'station' ? p.origin.stopId : `${p.origin.lat.toFixed(6)},${p.origin.lon.toFixed(6)}`;
-  const key = `plan4|${from}|${c.id}|${target.toISOString()}|${state.settings.walkMin}`;
+  const from = planFrom(p);
+  const key = planKey(p, c, target);
   const hit = cacheGet(key); if (hit !== undefined) return { ...hit, cached: true };
   const params = {
     fromPlace: from, toPlace: c.id, time: target.toISOString(), arriveBy: 'true', numItineraries: '5',
     maxPreTransitTime: String(state.settings.walkMin * 60), maxPostTransitTime: '900'
   };
   const d = await transitous('/api/v5/plan', params);
-  const limit = target.getTime() + 60e3;
+  const limit = target.getTime(); // arrive by the deadline, no grace period
   const all = [...(d.itineraries || []), ...(d.direct || [])]
     .filter(it => new Date(it.endTime).getTime() <= limit && new Date(it.startTime).getTime() >= Date.now() - 2 * 60e3 && !it.legs.some(l => l.cancelled));
   // prefer trips that leave on the meeting day; only fall back to the evening before
   const dayStart = meetingDayStart().getTime();
   const sameDay = all.filter(it => new Date(it.startTime).getTime() >= dayStart);
   const its = sameDay.length ? sameDay : all;
-  // fastest trip; among trips at most 10 min slower, take the one arriving latest (less waiting)
-  const minDur = Math.min(...its.map(it => it.duration));
+  // fastest trip; among equally fast ones, the one arriving latest (less waiting)
   let best = null;
-  for (const it of its) if (it.duration <= minDur + 600 && (!best || it.endTime > best.endTime || (it.endTime === best.endTime && it.duration < best.duration))) best = it;
+  for (const it of its) if (!best || it.duration < best.duration || (it.duration === best.duration && it.endTime > best.endTime)) best = it;
   const res = best ? { ...summarize(best), dayBefore: new Date(best.startTime).getTime() < dayStart }
                    : { none: true, reason: (d.itineraries || []).length ? 'no trip that leaves from now on and arrives in time' : 'no connection found' };
   const soon = target.getTime() - Date.now() < 2 * DAY;
@@ -641,8 +660,7 @@ async function compute() {
     let needed = 0;
     for (const p of parts) for (const c of cands) {
       if (same(p, c)) continue;
-      const from = p.origin.kind === 'station' ? p.origin.stopId : `${p.origin.lat.toFixed(6)},${p.origin.lon.toFixed(6)}`;
-      if (cacheGet(`plan4|${from}|${c.id}|${target.toISOString()}|${state.settings.walkMin}`) === undefined) needed++;
+      if (cacheGet(planKey(p, c, target)) === undefined) needed++;
     }
     if (needed > 150 && !confirm(`This needs ${needed} trip queries to Transitous, a free volunteer service that asks for at most ~720 per day. Continue?`)) return;
 
@@ -756,7 +774,7 @@ $('#partners').addEventListener('change', e => {
   if (t.dataset.f === 'query') renderPartners();
   if (t.dataset.f === 'name') { renderMap(); if (results) renderResults(); }
   if (t.dataset.f === 'geo') { p.geoIdx = +t.value; resolvePartner(p, { keepGeo: true }); }
-  if (t.dataset.f === 'ice') { p.iceId = t.value; save(); renderMap(); }
+  if (t.dataset.f === 'ice') { p.iceId = t.value; save(); markStale(); renderMap(); }
 });
 $('#partners').addEventListener('keydown', e => {
   if (e.key === 'Enter' && e.target.dataset.f === 'query') { const p = state.partners.find(x => x.id === e.target.dataset.pid); if (p) resolvePartner(p); }
@@ -765,7 +783,7 @@ $('#partners').addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b) return;
   const p = state.partners.find(x => x.id === b.dataset.pid); if (!p) return;
   if (b.dataset.act === 'find') resolvePartner(p);
-  if (b.dataset.act === 'del') { state.partners = state.partners.filter(x => x !== p); save(); renderPartners(); renderMap(); }
+  if (b.dataset.act === 'del') { state.partners = state.partners.filter(x => x !== p); save(); renderPartners(); if (p.origin) markStale(); renderMap(); }
 });
 $('#btnAdd').onclick = () => {
   state.partners.push({ id: uid(), name: '', query: '' }); save(); renderPartners();
@@ -890,7 +908,15 @@ function renderDetail() {
     `Timetable: DB/DELFI via Transitous, queried ${results.at.toLocaleString('de-DE', { timeZone: TZ })}; live delays only exist for the next hours. ` +
     `Road = shortest driving route (OSRM); DB route = length along the trip. Confirm final plans on bahn.de, especially during construction work.`;
 }
-function renderResults() { renderToolbar(); renderTiles(); renderTable(); renderDetail(); }
+// Results that no longer match the inputs stay visible but are dimmed and flagged
+function markStale() { if (results && !results.stale) { results.stale = true; renderResults(); } }
+function renderResults() {
+  const stale = !!(results && results.stale);
+  $('#staleNote').hidden = !stale;
+  document.querySelector('.mp .content').classList.toggle('is-stale', stale);
+  renderToolbar(); renderTiles(); renderTable(); renderDetail();
+}
+$('#btnRecompute').onclick = () => compute();
 
 $('#rankTable').addEventListener('click', e => {
   const s = e.target.closest('button[data-sort]');
@@ -958,14 +984,14 @@ function renderMap() {
 /* ---------- meeting inputs, settings, import/export ---------- */
 function bindInputs() {
   $('#mDate').value = state.date; $('#mTime').value = state.time; $('#mBuffer').value = state.buffer;
-  $('#mDate').onchange = e => { state.date = e.target.value; save(); };
-  $('#mTime').onchange = e => { state.time = e.target.value; save(); };
-  $('#mBuffer').onchange = e => { state.buffer = Math.max(0, +e.target.value || 0); save(); };
+  $('#mDate').onchange = e => { state.date = e.target.value; save(); markStale(); };
+  $('#mTime').onchange = e => { state.time = e.target.value; save(); markStale(); };
+  $('#mBuffer').onchange = e => { state.buffer = Math.max(0, +e.target.value || 0); save(); markStale(); };
   const s = state.settings;
   const ids = { sTransitous: 'transitous', sNominatim: 'nominatim', sOsrm: 'osrm', sCountries: 'countries', sMinIce: 'minIce', sWalk: 'walkMin' };
   for (const [id, k] of Object.entries(ids)) {
     const el = document.getElementById(id); el.value = s[k];
-    el.onchange = () => { s[k] = el.type === 'number' ? Math.max(1, +el.value || DEFAULT_SETTINGS[k]) : el.value.trim(); if (k === 'transitous') iceStations = null; save(); };
+    el.onchange = () => { s[k] = el.type === 'number' ? Math.max(1, +el.value || DEFAULT_SETTINGS[k]) : el.value.trim(); if (k === 'transitous') iceStations = null; save(); markStale(); };
   }
 }
 $('#btnResetSettings').onclick = () => { state.settings = { ...DEFAULT_SETTINGS }; iceStations = null; save(); bindInputs(); };
