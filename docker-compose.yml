@@ -8,6 +8,8 @@ services:
     ports:
       - "4000:4000"
   crawler:
+    # Fixed name so the deploy workflow's `docker build -t aixleuphanade-crawler` matches
+    image: aixleuphanade-crawler
     build:
       context: .
       dockerfile: Dockerfile.crawler
