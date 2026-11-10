@@ -54,12 +54,36 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           port: 575
           script: |
+            # Stop at the first failing command so a broken deploy fails this job
+            set -eu
             cd /opt/jekyll/aix.leuphana.de
             # Discard any local changes and force the server to match GitHub exactly
             git fetch origin
             git reset --hard origin/main
-            # Stop and remove the old containers, rebuild and start the new ones
+            # Build the crawler image before stopping anything. Its build needs host
+            # networking, which newer Docker Compose versions refuse to grant
+            # ("pass --allow=network.host"), so it is built with plain docker build.
+            docker build --network host -f Dockerfile.crawler -t aixleuphanade-crawler .
+            # Restart the containers from the images that are now in place
             docker compose down
-            docker compose up -d --build
+            docker compose up -d --no-build
+            docker compose ps
+            # Fail the job unless the site answers within 5 minutes (Jekyll rebuilds on start)
+            for i in $(seq 1 30); do
+              if curl -fsS -o /dev/null http://localhost:4000/; then echo "Site is up"; break; fi
+              if [ "$i" -eq 30 ]; then echo "Site did not come up"; docker compose logs --tail 50 jekyll; exit 1; fi
+              sleep 10
+            done
+            # Both services are long-running (the crawler loops daily), so fail the job if
+            # any of them has already exited. Checked after the wait so startup crashes show up.
+            expected=$(docker compose config --services | sort | tr '\n' ' ')
+            running=$(docker compose ps --services --status running | sort | tr '\n' ' ')
+            if [ "$running" != "$expected" ]; then
+              echo "Not all services are running. Expected: $expected Running: $running"
+              docker compose ps --all
+              docker compose logs --tail 50
+              exit 1
+            fi
+            echo "All services running: $running"
             # Clean up dangling images to prevent disk space exhaustion
             docker image prune -f
