@@ -5,7 +5,7 @@ image: "debayan_banerjee.png"
 job_category: "researcher"
 
 layout: team_member
-permalink: /team/debeyan-banerjee/
+permalink: /team/debayan-banerjee/
 ---
 
 ## About Me

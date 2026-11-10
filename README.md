@@ -2,6 +2,8 @@
 
 The source for [aix.leuphana.de](https://aix.leuphana.de), built with Jekyll. Markdown files provide the content; Jekyll turns them into a static website.
 
+**Want to update your profile or publish something? Start with the [editing guide](docs/how-to-edit.md).** You can do everything in your browser on GitHub.
+
 ## Preview locally
 
 1. Install Docker with Compose.
