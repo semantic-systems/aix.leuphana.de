@@ -1,0 +1,31 @@
+# Text about the group, shown on the About page (/about/) and at the top of the Team page (/team/).
+# Edit it here once; both pages update. Markdown links like [text](/projects/sage/) work.
+
+intro: >-
+  The research group Artificial Intelligence and Explainability (AIX), led by Prof. Dr. Ricardo Usbeck,
+  focuses on neuro-symbolic AI: it combines neural machine learning with symbolic AI to build explainable
+  and responsible real-world solutions. To do this, we combine current Natural Language Processing methods,
+  such as Transformer models and Large Language Models (LLMs), with Knowledge Graphs and databases.
+
+research: >-
+  Our research focuses on Knowledge Graph Question Answering, neuro-symbolic AI, conversational AI,
+  narrative understanding in Natural Language Processing, biomedical Knowledge Graphs, ethics of AI and
+  sustainability in AI. On the Leuphana campus, the group runs the
+  [Creative Space](/projects/creative-space/), where students try out AI-based tools such as interactive
+  simulations and robots. We aim to solve real-world problems.
+
+teaching: >-
+  The AIX group teaches in Bachelor's and Master's programmes at Leuphana: in the Major Business
+  Information Systems, the Minor AI, the Master Management and Data Science and the DataX module of the
+  Leuphana Semester. Our courses include AI projects, AI seminars, an advanced AI lecture on NLP and
+  Knowledge Graphs, methods courses and lectures on Explainable AI and visualisation. We see AI as a
+  societal challenge as well as a technical one, and we teach it that way.
+
+transfer: >-
+  The AIX group works on funded projects with partners from industry, public administration and research.
+  Partners in past and current projects include Siemens, DATEV, Infineon, Airbus, Lufthansa, HHLA, HPA and
+  the University Medical Center Hamburg-Eppendorf (UKE). Current projects include
+  [NFDI4DataScience](/projects/nfdi4datascience/), the national research data infrastructure for data
+  science and AI; [PROVIDER](/projects/provider/), an AI-based early warning system for supply bottlenecks;
+  [RESCUE-MATE](/projects/rescue-mate/), decision support for rescue services in crises; and
+  [SAGE](/projects/sage/), AI for small and medium-sized enterprises.
