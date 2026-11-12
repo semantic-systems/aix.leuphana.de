@@ -4,9 +4,7 @@
 #     "requests",
 #     "beautifulsoup4",
 #     "pyyaml",
-#     "python-dotenv",
-#     "playwright",
-#     "playwright-stealth"
+#     "python-dotenv"
 # ]
 # ///
 
@@ -19,7 +17,7 @@ import fnmatch
 import re
 import argparse
 import time
-import random
+import threading
 import smtplib
 import json
 from email.utils import parseaddr
@@ -28,13 +26,6 @@ from html import unescape
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from email.mime.text import MIMEText
 from dotenv import load_dotenv
-
-from playwright.sync_api import sync_playwright
-try:
-    from playwright_stealth import Stealth
-    stealth = lambda page: Stealth().apply_stealth_sync(page)
-except ImportError:
-    stealth = None
 
 # Automatically load the .env file in the current directory if it exists
 load_dotenv()
@@ -46,6 +37,23 @@ OWNER_FILE = 'scripts/link_owners.yml'
 SITE_URL = 'https://aix.leuphana.de'
 REMINDER_SECONDS = 7 * 86400
 DNS_FAILURE = 'DNS_NAME_NOT_RESOLVED'
+# Honest identification; no browser automation or bot-detection workarounds. Sites that block
+# automated requests (401/403/429/...) are reported as "blocked" and never emailed to owners.
+USER_AGENT = 'AIX-Website-LinkChecker/2.0 (+https://aix.leuphana.de; mailto:aix@leuphana.de)'
+MIN_HOST_INTERVAL = 1.0  # seconds between two requests to the same host
+
+_host_lock = threading.Lock()
+_host_next = {}
+
+def wait_for_host(url):
+    """Space requests to the same host, even with several worker threads."""
+    host = (urlsplit(url).hostname or '').lower()
+    with _host_lock:
+        now = time.monotonic()
+        start = max(now, _host_next.get(host, 0))
+        _host_next[host] = start + MIN_HOST_INTERVAL
+    if start > now:
+        time.sleep(start - now)
 
 def is_dns_resolution_error(error):
     message = str(error).lower()
@@ -251,26 +259,10 @@ def save_notification_state(state):
         json.dump(state, stream, indent=2, sort_keys=True)
     os.replace(temporary, NOTIFICATION_STATE_FILE)
 
-def check_link_playwright(url, page):
-    """Fallback check using playwright."""
-    print(f"  [Fallback] Checking via Playwright Stealth: {url}")
-    # Random sleep to mimic human behavior and avoid rate limits
-    time.sleep(random.uniform(2.0, 4.0))
-    try:
-        response = page.goto(url, wait_until="domcontentloaded", timeout=15000)
-        time.sleep(random.uniform(1.0, 2.0)) # Stay on page briefly like a human
-        if response:
-            return (response.status < 400), response.status
-        return False, "No Response"
-    except Exception as e:
-        if is_dns_resolution_error(e):
-            return False, DNS_FAILURE
-        return False, f"Exception: {type(e).__name__}"
-
 def check_link_http(url, session, site_dir='_site'):
-    """Check if a URL is broken using standard HTTP requests."""
+    """Check a link. Returns (is_valid, status)."""
     if url.startswith('mailto:') or url.startswith('tel:'):
-        return True, False, 200
+        return True, 200
         
     if url.startswith('/'):
         url = url.split('#')[0]
@@ -281,28 +273,26 @@ def check_link_http(url, session, site_dir='_site'):
             local_path += '.html'
             
         exists = os.path.exists(local_path)
-        return exists, False, (200 if exists else 404)
+        return exists, (200 if exists else 404)
 
     if url.startswith('http://') or url.startswith('https://'):
         url = url.split('#')[0]
-        # Small delay between external requests to avoid triggering WAFs
-        time.sleep(random.uniform(0.5, 1.5))
+        headers = {'User-Agent': USER_AGENT}
         try:
-            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
-            resp = session.head(url, headers=headers, allow_redirects=True, timeout=10)
+            wait_for_host(url)
+            resp = session.head(url, headers=headers, allow_redirects=True, timeout=15)
             # Many servers reject HEAD (405 or other 4xx/5xx): retry every failed HEAD with GET
             if resp.status_code >= 400:
-                resp = session.get(url, headers=headers, stream=True, timeout=10)
-                if resp.status_code >= 400:
-                    return False, True, resp.status_code # False for HTTP success, True for needs Playwright
-                return resp.status_code < 400, False, resp.status_code
-            return resp.status_code < 400, False, resp.status_code
+                wait_for_host(url)
+                with session.get(url, headers=headers, allow_redirects=True, timeout=15, stream=True) as get_resp:
+                    return get_resp.status_code < 400, get_resp.status_code
+            return True, resp.status_code
         except requests.RequestException as e:
             if is_dns_resolution_error(e):
-                return False, True, DNS_FAILURE
-            return False, True, type(e).__name__
-            
-    return True, False, 200
+                return False, DNS_FAILURE
+            return False, type(e).__name__
+
+    return True, 200
 
 def classify_error(status):
     if status == DNS_FAILURE:
@@ -408,8 +398,6 @@ def main():
 
     unique_urls = sorted(set(url for _, _, url in links_to_check))
     results = {}
-    needs_playwright = []
-    dns_failures_from_http = set()
     print(f"Total unique URLs to check: {len(unique_urls)}")
 
     with requests.Session() as session:
@@ -423,40 +411,13 @@ def main():
             for future in as_completed(future_to_url):
                 url = future_to_url[future]
                 try:
-                    is_valid, needs_pw, status = future.result()
-                    if needs_pw:
-                        needs_playwright.append(url)
-                        if status == DNS_FAILURE:
-                            dns_failures_from_http.add(url)
-                    else:
-                        results[url] = {'is_valid': is_valid, 'status': status}
-                        if is_valid:
-                            cache[url] = {'is_valid': True, 'timestamp': time.time()}
+                    is_valid, status = future.result()
                 except Exception as exc:
                     print(f"{url} generated an exception: {exc}")
-                    needs_playwright.append(url)
-
-    if needs_playwright:
-        print(f"Using Playwright fallback for {len(needs_playwright)} URLs...")
-        with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True)
-            context = browser.new_context(
-                user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-            )
-            page = context.new_page()
-            if stealth:
-                stealth(page)
-            
-            for url in needs_playwright:
-                is_valid, status = check_link_playwright(url, page)
-                if not is_valid and url in dns_failures_from_http and (
-                    status == 'No Response' or str(status).startswith('Exception:')
-                ):
-                    status = DNS_FAILURE
+                    is_valid, status = False, type(exc).__name__
                 results[url] = {'is_valid': is_valid, 'status': status}
                 if is_valid:
                     cache[url] = {'is_valid': True, 'timestamp': time.time()}
-            browser.close()
 
     if not args.dry_run:
         save_cache(cache)
