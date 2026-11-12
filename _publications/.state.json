@@ -657,14 +657,6 @@
       "is_journal": false,
       "is_archive": false
     },
-    "dicegroupdbpediachatloganalysis-code-for-the-paper-an-approach-for-expostfacto-analysis-of-knowledge": {
-      "title": "dice-group/DBpedia-Chatlog-Analysis - Code for the paper: An Approach for Ex-Post-Facto Analysis of Knowledge Graph-Driven Chatbots - The DBpedia Chatbot",
-      "has_abstract": true,
-      "file": "_publications/dicegroupdbpediachatloganalysis-code-for-the-paper-an-approach-for-expostfacto-analysis-of-knowledge.md",
-      "is_conference": false,
-      "is_journal": false,
-      "is_archive": false
-    },
     "semantic-answer-type-prediction-task-smart-at-iswc-2020-semantic-web-challenge": {
       "title": "SeMantic AnsweR Type prediction task (SMART) at ISWC 2020 Semantic Web Challenge",
       "has_abstract": true,

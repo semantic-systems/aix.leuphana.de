@@ -1,6 +1,6 @@
 ---
 layout: publication
-title: "The Lifecycle of &quot;Facts&quot;: A Survey of Social Bias in Knowledge Graphs"
+title: "The Lifecycle of \"Facts\": A Survey of Social Bias in Knowledge Graphs"
 year: 2022
 authors:
   - "Angelie Kraft"
@@ -12,8 +12,7 @@ is_archive: false
 conference: "AACL/IJCNLP 2022"
 ---
 
-> **Abstract:**
-> Angelie Kraft, Ricardo Usbeck. Proceedings of the 2nd Conference of the Asia-Pacific Chapter of the Association for Computational Linguistics and the 12th International Joint Conference on Natural Language Processing (Volume 1: Long Papers). 2022.
+*Abstract not available.*
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

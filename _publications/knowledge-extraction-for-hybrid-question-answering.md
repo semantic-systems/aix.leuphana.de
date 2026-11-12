@@ -7,9 +7,12 @@ authors:
 is_conference: false
 is_journal: false
 is_archive: false
+is_thesis: true
+thesis: "Doctoral thesis, Leipzig University"
+link: "https://nbn-resolving.org/urn:nbn:de:bsz:15-qucosa-225097"
+link_label: "Thesis"
 ---
 
-> **Abstract:**
-> the question type. By considering the hybrid data of tables and text, this paper proposes a  hybrid  be because the DEHG approach uses their own Open Information Extraction (OIE) tool.
+*Abstract not available.*
 
 

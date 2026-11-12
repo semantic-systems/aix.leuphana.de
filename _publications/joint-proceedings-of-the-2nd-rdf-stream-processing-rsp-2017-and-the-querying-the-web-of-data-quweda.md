@@ -5,7 +5,7 @@ year: 2017
 authors:
   - "Jean-Paul Calbimonte"
   - "Minh Dao-Tran"
-  - "Daniele Dell&apos;Aglio"
+  - "Daniele Dell'Aglio"
   - "Danh Le Phuoc"
   - "Muhammad Saleem 0002"
   - "Ricardo Usbeck"
@@ -14,8 +14,13 @@ authors:
 is_conference: false
 is_journal: false
 is_archive: false
+is_proceedings: true
+proceedings: "CEUR Workshop Proceedings, Vol. 1870"
+link: "https://ceur-ws.org/Vol-1870"
+link_label: "Proceedings"
 ---
 
-*Proceedings volume.*
+> **Abstract:**
+> Workshop proceedings published in CEUR Workshop Proceedings, Vol. 1870. Ricardo Usbeck is one of the editors.
 
 

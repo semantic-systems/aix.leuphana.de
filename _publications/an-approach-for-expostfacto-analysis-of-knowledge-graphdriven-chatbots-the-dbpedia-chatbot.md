@@ -13,6 +13,7 @@ is_conference: true
 is_journal: false
 is_archive: false
 conference: "CONVERSATIONS 2019"
+github_repo: "https://github.com/dice-group/DBpedia-Chatlog-Analysis"
 ---
 
 > **Abstract:**

@@ -8,7 +8,7 @@ authors:
   - "Rana Abdullah"
   - "Aida Usmanova"
   - "Ricardo Usbeck"
-  - "Jennifer D&apos;Souza 0001"
+  - "Jennifer D'Souza 0001"
   - "Sören Auer"
 doi: "https://doi.org/10.1007/978-3-031-65794-8_1"
 is_conference: true

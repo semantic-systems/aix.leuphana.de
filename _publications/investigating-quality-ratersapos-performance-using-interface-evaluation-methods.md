@@ -1,6 +1,6 @@
 ---
 layout: publication
-title: "Investigating Quality Raters&apos; Performance Using Interface Evaluation Methods"
+title: "Investigating Quality Raters' Performance Using Interface Evaluation Methods"
 year: 2013
 authors:
   - "Michael Röder"

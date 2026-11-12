@@ -11,7 +11,7 @@ authors:
   - "Ekaterina Borisova 0002"
   - "Zongxiong Chen"
   - "Stefan Dietze"
-  - "Jennifer D&apos;Souza 0001"
+  - "Jennifer D'Souza 0001"
   - "Mayra Elwes"
   - "Genet Asefa Gesese"
   - "Shufan Jiang 0001"

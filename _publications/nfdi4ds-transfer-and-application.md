@@ -7,7 +7,7 @@ authors:
   - "Raia Abu Ahmad"
   - "Georg Rehm"
   - "Ricardo Usbeck"
-  - "Jennifer D&apos;Souza 0001"
+  - "Jennifer D'Souza 0001"
   - "Markus Stocker"
   - "Sören Auer"
   - "Judith Gilsbach"

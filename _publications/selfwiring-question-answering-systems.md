@@ -7,6 +7,7 @@ authors:
   - "Jonathan Huthmann"
   - "Nico Duldhardt"
   - "Axel-Cyrille Ngonga Ngomo"
+doi: "https://doi.org/10.48550/ARXIV.1611.01802"
 is_conference: false
 is_journal: false
 is_archive: true

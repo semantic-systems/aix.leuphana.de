@@ -17,7 +17,7 @@ conference: "ISWC 2025"
 ---
 
 > **Abstract:**
-> the DBLP KG schema. Therefore, we implement a baseline following the approach in ASK-DBLP  [ Then, we randomly select 5,000 SPARQLs with their associated answers and queries.
+> DBLP is currently serving as a source of structured information for the computer science community. Among the offered services, DBLP provides users with a SPARQL endpoint interface, enabling them to write and execute SPARQL queries on the DBLP Knowledge Graph (KG). However, not every user is familiar with the SPARQL syntax and the KG schema. Having an automated method, such as semantic parsing-based KG Question Answering (KGQA), bridges the user's SPARQL familiarity gap, where KGQA converts natural language questions into structured queries to retrieve relevant data from the KG. Nevertheless, existing KGQA systems over DBLP are not robust enough to reflect the recent changes in the DBLP schema. Hence, we propose ASK-DBLP, which accepts natural language questions, converts them to SPARQL, and provides answers. In case of unclear questions, ASK-DBLP advises users to reformulate their questions. Also, it empowers users to select their preferred correct entities among the candidate linked entities and update the SPARQL. The user can also modify the resulting SPARQL query. Finally, if the user confirms the correctness of the SPARQL query and the answer, ASK-DBLP updates the training set to further improve SPARQL generation. ASK-DBLP achieves a competitive performance over the DBLP-QuAD benchmark. The current deployed version of ASK-DBLP is available at~\url{https://ask-dblp.nliwod.org}.
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

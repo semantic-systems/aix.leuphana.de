@@ -24,6 +24,12 @@ layout: default
       <p style="margin: 0.5rem 0;"><strong>Journal:</strong> {{ page.journal }}</p>
       {% elsif page.is_archive %}
       <p style="margin: 0.5rem 0;"><strong>Archive:</strong> Preprint</p>
+      {% elsif page.is_proceedings %}
+      <p style="margin: 0.5rem 0;"><strong>Proceedings:</strong> {{ page.proceedings }}</p>
+      {% elsif page.is_dataset %}
+      <p style="margin: 0.5rem 0;"><strong>Dataset:</strong> {{ page.dataset }}</p>
+      {% elsif page.is_thesis %}
+      <p style="margin: 0.5rem 0;"><strong>Thesis:</strong> {{ page.thesis }}</p>
       {% endif %}
       
       <div class="publication-links" style="display: flex; flex-wrap: wrap; gap: 0.55rem; margin-top: 1rem;">
@@ -37,6 +43,12 @@ layout: default
           <a href="{{ page.pdf }}" target="_blank" rel="noopener" class="pub-btn">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 15px; height: 15px; flex-shrink: 0;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
             PDF
+          </a>
+        {% endif %}
+        {% if page.link %}
+          <a href="{{ page.link }}" target="_blank" rel="noopener" class="pub-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 15px; height: 15px; flex-shrink: 0;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            {{ page.link_label | default: "Website" }}
           </a>
         {% endif %}
         {% if page.github_repo %}

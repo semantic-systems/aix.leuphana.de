@@ -15,7 +15,7 @@ conference: "ECAI 2024"
 ---
 
 > **Abstract:**
-> generation (RAG) system that integrates graph reasoning and semantic search to improve the  factuality and transparency of biomedical question answer on-demand dataset generation.
+> Despite the plethora of resources such as large-scale corpora and manually curated Knowledge Graphs (KGs), the ability to perform reasoning with natural language inputs over biomedical graphs remains challenging due to insufficient training data. We propose a novel method for automatically constructing a Biomedical Knowledge Graph Question Answering (BioKGQA) dataset sourced from PrimeKG, the largest precision medicine-oriented KG. In total, we create 85,368 question-answer pairs along with their respective SPARQL queries. Our approach generates a diverse array of contextually relevant questions covering a wide spectrum of biomedical concepts and levels of complexity. We evaluate our method based on automatic metrics alongside manual annotations. We establish novel standards tailored for KGQA systems to highlight the linguistic correctness and semantical faithfulness of the generated questions based on extracted KG facts. The compiled dataset – PrimeKGQA – serves as a valuable benchmarking resource for advancing knowledge-driven biomedical research and evaluating KGQA systems.
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

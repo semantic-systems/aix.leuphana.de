@@ -17,7 +17,6 @@ is_archive: false
 journal: "J. Web Semant."
 ---
 
-> **Abstract:**
-> Contemporary AI models can generate persuasive, platform-ready content in dozens of   a continuously updated benchmark focussed on fact verification in breaking news events.
+*Abstract not available.*
 
 

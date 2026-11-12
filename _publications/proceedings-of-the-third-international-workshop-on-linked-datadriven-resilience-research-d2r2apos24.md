@@ -1,6 +1,6 @@
 ---
 layout: publication
-title: "Proceedings of the Third International Workshop on Linked Data-driven Resilience Research (D2R2&apos;24) co-located with European Semantic Web Conference 2024 (ESWC 2024), May 27, 2024"
+title: "Proceedings of the Third International Workshop on Linked Data-driven Resilience Research (D2R2'24) co-located with European Semantic Web Conference 2024 (ESWC 2024), May 27, 2024"
 year: 2024
 authors:
   - "Julia Holze"
@@ -12,9 +12,14 @@ authors:
 is_conference: false
 is_journal: false
 is_archive: false
+is_proceedings: true
+proceedings: "CEUR Workshop Proceedings, Vol. 3707"
+link: "https://ceur-ws.org/Vol-3707"
+link_label: "Proceedings"
 ---
 
-*Proceedings volume.*
+> **Abstract:**
+> Workshop proceedings published in CEUR Workshop Proceedings, Vol. 3707. Ricardo Usbeck is one of the editors.
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

@@ -9,7 +9,7 @@ authors:
   - "Stefan Dietze"
   - "Saurav Kamakar"
   - "Wolfgang Otto 0002"
-  - "Jennifer D&apos;Souza 0001"
+  - "Jennifer D'Souza 0001"
   - "Fidan Limani"
   - "Ricardo Usbeck"
 doi: "https://doi.org/10.18420/INF2023_105"
