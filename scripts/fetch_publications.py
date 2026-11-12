@@ -7,7 +7,6 @@ from datetime import datetime, timezone
 import subprocess
 import html
 import glob
-import difflib
 import requests
 from urllib.parse import urlsplit
 
@@ -311,6 +310,10 @@ def build_dblp_bibtex(pub):
     body += ",\n  bibsource    = {dblp computer science bibliography, https://dblp.org}"
     return f"@{entry}{{DBLP:{pub['key']},\n{body}\n}}"
 
+def yaml_str(value):
+    """Double-quoted YAML scalar with backslashes and quotes escaped."""
+    return '"' + str(value).replace('\\', '\\\\').replace('"', '\\"') + '"'
+
 def generate_markdown(pub, bibtex, filepath, abstract=""):
     title = pub.get("title", "Untitled").replace('"', '\\"')
     year = pub.get("year", "")
@@ -353,12 +356,12 @@ def generate_markdown(pub, bibtex, filepath, abstract=""):
         md += f'journal: "{j_name}"\n'
     if pub.get("is_proceedings"):
         md += "is_proceedings: true\n"
-        md += f'proceedings: "{pub["proceedings"]}"\n'
+        md += f'proceedings: {yaml_str(pub["proceedings"])}\n'
         if pub.get("ee"):
-            md += f'link: "{pub["ee"]}"\nlink_label: "Proceedings"\n'
+            md += f'link: {yaml_str(pub["ee"])}\nlink_label: "Proceedings"\n'
     elif pub.get("is_dataset"):
         md += "is_dataset: true\n"
-        md += f'dataset: "{pub["dataset"]}"\n'
+        md += f'dataset: {yaml_str(pub["dataset"])}\n'
 
     md += "---\n\n"
 
@@ -591,12 +594,11 @@ def fetch_acl_abstract(doi=None, title=None):
     return ""
 
 def same_title(a, b):
-    """True if two titles name the same paper (search APIs also return similar, unrelated works)."""
+    """True only if both titles are identical after ignoring case, spacing and punctuation.
+    Fuzzy matching is not safe: "8th Challenge on QALD (QALD-8)" and "9th ... (QALD-9)" are 97% similar."""
     norm = lambda s: re.sub(r"[^a-z0-9]", "", html.unescape(s or "").lower())
     na, nb = norm(a), norm(b)
-    if not na or not nb:
-        return False
-    return na == nb or difflib.SequenceMatcher(None, na, nb).ratio() >= 0.92
+    return bool(na) and na == nb
 
 def fetch_openalex_abstract(title, doi=None):
     """Fetch complete abstract from OpenAlex API (polite pool)."""

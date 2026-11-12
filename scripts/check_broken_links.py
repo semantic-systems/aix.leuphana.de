@@ -259,6 +259,24 @@ def save_notification_state(state):
         json.dump(state, stream, indent=2, sort_keys=True)
     os.replace(temporary, NOTIFICATION_STATE_FILE)
 
+MAX_REDIRECTS = 10
+
+def fetch_status(session, method, url):
+    """Final HTTP status of a request. Redirects are followed one by one so that every hop,
+    including hops to other hosts, respects the per-host spacing."""
+    headers = {'User-Agent': USER_AGENT}
+    for _ in range(MAX_REDIRECTS + 1):
+        wait_for_host(url)
+        with session.request(method, url, headers=headers, allow_redirects=False, timeout=15, stream=True) as resp:
+            location = resp.headers.get('Location')
+            if resp.is_redirect and location:
+                url = requests.compat.urljoin(url, location)
+                if resp.status_code == 303:
+                    method = 'GET'
+                continue
+            return resp.status_code
+    raise requests.TooManyRedirects(f'More than {MAX_REDIRECTS} redirects')
+
 def check_link_http(url, session, site_dir='_site'):
     """Check a link. Returns (is_valid, status)."""
     if url.startswith('mailto:') or url.startswith('tel:'):
@@ -277,16 +295,12 @@ def check_link_http(url, session, site_dir='_site'):
 
     if url.startswith('http://') or url.startswith('https://'):
         url = url.split('#')[0]
-        headers = {'User-Agent': USER_AGENT}
         try:
-            wait_for_host(url)
-            resp = session.head(url, headers=headers, allow_redirects=True, timeout=15)
+            status = fetch_status(session, 'HEAD', url)
             # Many servers reject HEAD (405 or other 4xx/5xx): retry every failed HEAD with GET
-            if resp.status_code >= 400:
-                wait_for_host(url)
-                with session.get(url, headers=headers, allow_redirects=True, timeout=15, stream=True) as get_resp:
-                    return get_resp.status_code < 400, get_resp.status_code
-            return True, resp.status_code
+            if status >= 400:
+                status = fetch_status(session, 'GET', url)
+            return status < 400, status
         except requests.RequestException as e:
             if is_dns_resolution_error(e):
                 return False, DNS_FAILURE

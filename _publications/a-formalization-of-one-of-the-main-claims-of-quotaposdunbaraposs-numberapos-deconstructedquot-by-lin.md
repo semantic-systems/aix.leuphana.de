@@ -1,6 +1,6 @@
 ---
 layout: publication
-title: "A formalization of one of the main claims of \"'Dunbar's number' deconstructed\" by Lindenfors et al. 20211"
+title: "A formalization of one of the main claims of \"'Dunbar's number' deconstructed\" by Lindenfors et al. 2021"
 year: 2022
 authors:
   - "Ricardo Usbeck"
