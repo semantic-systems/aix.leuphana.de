@@ -18,6 +18,6 @@ conference: "SEMANTiCS 2015"
 ---
 
 > **Abstract:**
-> and data provenance with respect to ML experiments, this work presents a generic solution   with the MEX vocabulary, a lightweight solution for archiving and querying ML experiments.
+> Over the last decades many machine learning experiments have been published, giving benefit to the scientific progress. In order to compare machine-learning experiment results with each other and collaborate positively, they need to be performed thoroughly on the same computing environment, using the same sample datasets and algorithm configurations. Besides this, practical experience shows that scientists and engineers tend to have large output data in their experiments, which is both difficult to analyze and archive properly without provenance metadata. However, the Linked Data community still misses a lightweight specification for interchanging machine-learning metadata over different architectures to achieve a higher level of interoperability. In this paper, we address this gap by presenting a novel vocabulary dubbed MEX. We show that MEX provides a prompt method to describe experiments with a special focus on data provenance and fulfills the requirements for a long-term maintenance.
 
 

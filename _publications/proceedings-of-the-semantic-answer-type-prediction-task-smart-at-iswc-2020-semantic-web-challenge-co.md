@@ -12,8 +12,13 @@ authors:
 is_conference: false
 is_journal: false
 is_archive: false
+is_proceedings: true
+proceedings: "CEUR Workshop Proceedings, Vol. 2774"
+link: "https://ceur-ws.org/Vol-2774"
+link_label: "Proceedings"
 ---
 
-*Proceedings volume.*
+> **Abstract:**
+> Workshop proceedings published in CEUR Workshop Proceedings, Vol. 2774. Ricardo Usbeck is one of the editors.
 
 

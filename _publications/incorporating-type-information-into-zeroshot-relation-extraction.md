@@ -11,8 +11,7 @@ is_archive: false
 conference: "TEXT2KG/DQMLKG@ESWC 2024"
 ---
 
-> **Abstract:**
-> The task of zero-shot relation extraction focuses on the extraction of relations not seen during training time.
+*Abstract not available.*
 Commonly, additional information about the relation such as the relation name or a description of the relation is
 utilised. In this work, we analyze whether a relation extractor can benefit from the inclusion of fine-grained type
 information about the involved entities. This is based on the intuition that relation descriptions might contain

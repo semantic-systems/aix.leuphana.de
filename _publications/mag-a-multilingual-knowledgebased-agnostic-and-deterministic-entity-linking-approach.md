@@ -7,6 +7,7 @@ authors:
   - "Ricardo Usbeck"
   - "Michael Röder"
   - "Axel-Cyrille Ngonga Ngomo"
+doi: "https://doi.org/10.48550/ARXIV.1707.05288"
 is_conference: false
 is_journal: false
 is_archive: true

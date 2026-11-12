@@ -9,6 +9,7 @@ authors:
   - "Jens Lehmann 0001"
   - "Axel-Cyrille Ngonga Ngomo"
   - "Ricardo Usbeck"
+doi: "https://doi.org/10.48550/ARXIV.2012.00555"
 is_conference: false
 is_journal: false
 is_archive: true

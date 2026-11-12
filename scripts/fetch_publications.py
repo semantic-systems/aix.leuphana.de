@@ -14,6 +14,11 @@ from urllib.parse import urlsplit
 # endpoint is open to scripts and has the same data. Ricardo Usbeck's dblp person ID:
 DBLP_SPARQL_URL = "https://sparql.dblp.org/sparql"
 DBLP_PERSON = "https://dblp.org/pid/65/9656"
+
+# dblp records that are not listed as publications. Code releases (Zenodo archives of GitHub
+# repositories, titled "owner/repo - ...") are linked from their paper via github_repo instead.
+SKIP_DBLP_KEYS = {"data/10/JalotaTMNU20"}  # dice-group/DBpedia-Chatlog-Analysis
+CODE_RELEASE_TITLE = re.compile(r"^[\w.-]+/[\w.-]+ - ")
 OUTPUT_DIR = "_publications"
 STATE_FILE = "_publications/.state.json"
 
@@ -168,6 +173,7 @@ def fetch_dblp_publications():
     meta_query = f"""PREFIX dblp: <https://dblp.org/rdf/schema#>
 SELECT ?pub (SAMPLE(?t) AS ?title) (SAMPLE(?y) AS ?year) (SAMPLE(?ty) AS ?type) (SAMPLE(?v) AS ?venue)
        (SAMPLE(?d) AS ?doi) (SAMPLE(?page) AS ?ee) (SAMPLE(?pg) AS ?pages) (SAMPLE(?vol) AS ?volume) (SAMPLE(?iss) AS ?number)
+       (SAMPLE(?sv) AS ?seriesvol) (SAMPLE(?pb) AS ?publisher)
 WHERE {{
   ?pub dblp:createdBy <{DBLP_PERSON}> ; dblp:title ?t ; a ?ty .
   FILTER(?ty != dblp:Publication)
@@ -178,6 +184,8 @@ WHERE {{
   OPTIONAL {{ ?pub dblp:pagination ?pg }}
   OPTIONAL {{ ?pub dblp:publishedInJournalVolume ?vol }}
   OPTIONAL {{ ?pub dblp:publishedInJournalVolumeIssue ?iss }}
+  OPTIONAL {{ ?pub dblp:publishedInSeriesVolume ?sv }}
+  OPTIONAL {{ ?pub dblp:publishedBy ?pb }}
 }} GROUP BY ?pub"""
     people_query = f"""PREFIX dblp: <https://dblp.org/rdf/schema#>
 SELECT ?pub ?ord ?name ?role WHERE {{
@@ -200,6 +208,9 @@ SELECT ?pub ?ord ?name ?role WHERE {{
     publications = []
     for row in meta:
         uri = row["pub"]
+        dblp_key = uri.split("/rec/", 1)[-1]
+        if dblp_key in SKIP_DBLP_KEYS or (row.get("type", "").endswith("#Data") and CODE_RELEASE_TITLE.match(row.get("title") or "")):
+            continue
         pub_type = DBLP_TYPES.get(row.get("type", "").rsplit("#", 1)[-1], "")
         venue = row.get("venue") or ""
         doi = row.get("doi") or ""
@@ -216,6 +227,8 @@ SELECT ?pub ?ord ?name ?role WHERE {{
             "volume": row.get("volume"),
             "number": row.get("number"),
             "is_editorship": pub_type == "Editorship",
+            "seriesvol": row.get("seriesvol"),
+            "dblp_publisher": row.get("publisher"),
             "is_conference": False,
             "is_journal": False,
             "is_archive": False,
@@ -229,6 +242,15 @@ SELECT ?pub ?ord ?name ?role WHERE {{
             if venue: pub["journal"] = venue
         elif "Informal" in pub_type:
             pub["is_archive"] = True
+        elif pub_type == "Editorship":
+            pub["is_proceedings"] = True
+            series = venue or "Proceedings"
+            pub["proceedings"] = f"{series}, Vol. {pub['seriesvol']}" if pub.get("seriesvol") else series
+            pub["description"] = (f"Workshop proceedings published in {pub['proceedings']}. "
+                                  "Ricardo Usbeck is one of the editors.")
+        elif pub_type == "Data and Artifacts":
+            pub["is_dataset"] = True
+            pub["dataset"] = pub.get("dblp_publisher") or venue or "Dataset"
         publications.append(pub)
 
     log(f"dblp fetch complete: {len(publications)} publications retrieved.")
@@ -288,6 +310,10 @@ def build_dblp_bibtex(pub):
     body += ",\n  bibsource    = {dblp computer science bibliography, https://dblp.org}"
     return f"@{entry}{{DBLP:{pub['key']},\n{body}\n}}"
 
+def yaml_str(value):
+    """Double-quoted YAML scalar with backslashes and quotes escaped."""
+    return '"' + str(value).replace('\\', '\\\\').replace('"', '\\"') + '"'
+
 def generate_markdown(pub, bibtex, filepath, abstract=""):
     title = pub.get("title", "Untitled").replace('"', '\\"')
     year = pub.get("year", "")
@@ -328,6 +354,14 @@ def generate_markdown(pub, bibtex, filepath, abstract=""):
     elif is_journal and journal_name:
         j_name = journal_name.replace('"', '\\"')
         md += f'journal: "{j_name}"\n'
+    if pub.get("is_proceedings"):
+        md += "is_proceedings: true\n"
+        md += f'proceedings: {yaml_str(pub["proceedings"])}\n'
+        if pub.get("ee"):
+            md += f'link: {yaml_str(pub["ee"])}\nlink_label: "Proceedings"\n'
+    elif pub.get("is_dataset"):
+        md += "is_dataset: true\n"
+        md += f'dataset: {yaml_str(pub["dataset"])}\n'
 
     md += "---\n\n"
 
@@ -416,10 +450,6 @@ CURATED_ABSTRACTS = {
     "DBLP-QuAD DBLP Dump": (
         "This is the RDF dump of DBLP released on August 1, 2022. The DBLP RDF dump is published to allow "
         "fair and replicable evaluation of Knowledge Graph Question Answering (KGQA) systems with the DBLP-QuAD dataset."
-    ),
-    "dice-group/DBpedia-Chatlog-Analysis": (
-        "Open-source software repository and code for the paper: An Approach for Ex-Post-Facto Analysis of "
-        "Knowledge Graph-Driven Chatbots – The DBpedia Chatbot (http://chat.dbpedia.org/)."
     )
 }
 
@@ -563,6 +593,13 @@ def fetch_acl_abstract(doi=None, title=None):
             pass
     return ""
 
+def same_title(a, b):
+    """True only if both titles are identical after ignoring case, spacing and punctuation.
+    Fuzzy matching is not safe: "8th Challenge on QALD (QALD-8)" and "9th ... (QALD-9)" are 97% similar."""
+    norm = lambda s: re.sub(r"[^a-z0-9]", "", html.unescape(s or "").lower())
+    na, nb = norm(a), norm(b)
+    return bool(na) and na == nb
+
 def fetch_openalex_abstract(title, doi=None):
     """Fetch complete abstract from OpenAlex API (polite pool)."""
     headers = {"User-Agent": "AIX-Publication-Crawler/1.0 (mailto:aix@leuphana.de)"}
@@ -596,6 +633,8 @@ def fetch_openalex_abstract(title, doi=None):
                 data = fetcher.get_json(url)
                 if data:
                     for item in data.get("results", []):
+                        if not same_title(title, item.get("display_name") or item.get("title")):
+                            continue
                         inv = item.get("abstract_inverted_index")
                         if inv:
                             w_idx = []
@@ -659,14 +698,24 @@ def fetch_abstract_semanticscholar(title, doi=None):
         if rate_limited():
             return ""
         results = (data or {}).get("data", [])
-        if results and results[0].get("abstract"):
+        if results and results[0].get("abstract") and same_title(title, results[0].get("title")):
             return clean_abstract_text(results[0]["abstract"])
     except Exception as e:
         log(f"Semantic Scholar error for '{title[:40]}': {e}", "WARN")
     return ""
 
+def looks_like_citation(text):
+    """Some sources return the citation line ("A. Author, B. Author. Proceedings of ...") as abstract."""
+    head = (text or "")[:300]
+    return bool(re.search(r"\bProceedings of the\b|Association for Computational Linguistics|\bpages \d+[-–]\d+", head)
+                and len(text) < 600)
+
 def fetch_abstract_fallback(title, doi=None):
-    """Multi-tiered robust fallback abstract fetcher."""
+    """Multi-tiered robust fallback abstract fetcher (rejects citation lines)."""
+    ab = _fetch_abstract_fallback(title, doi)
+    return "" if looks_like_citation(ab) else ab
+
+def _fetch_abstract_fallback(title, doi=None):
     # 0. Curated abstracts for special challenge/workshop reports
     for k, text in CURATED_ABSTRACTS.items():
         if k.lower() in title.lower() or title.lower() in k.lower():
@@ -816,7 +865,9 @@ def main():
 
         enrich_from_crossref(pub)
         bibtex = build_dblp_bibtex(pub)
-        generate_markdown(pub, bibtex, filepath, abstract="")
+        generate_markdown(pub, bibtex, filepath, abstract=pub.get("description", ""))
+        if pub.get("description"):
+            pubs_state[filename]["has_abstract"] = True
         log(f"+ {filename}.md")
         new_count += 1
 
@@ -910,8 +961,8 @@ def main():
         with open(filepath, "r", encoding="utf-8") as fp:
             content = fp.read()
 
-        tm = re.search(r'^title:\s*"([^"]+)"', content, re.MULTILINE)
-        title = tm.group(1) if tm else fn
+        tm = re.search(r'^title:\s*"((?:[^"\\]|\\.)*)"', content, re.MULTILINE)
+        title = tm.group(1).replace('\\"', '"') if tm else fn
         pubs_state[fn]["title"] = title
         doi = extract_doi_from_file(filepath)
 
@@ -919,7 +970,7 @@ def main():
 
         # Check if proceedings volume or preface
         if any(title.lower().startswith(p) for p in ["proceedings of", "joint proceedings of", "preface"]):
-            if current_abstract not in ("*Proceedings volume.*", "*Preface.*"):
+            if not current_abstract:  # keep an existing description
                 proc_note = "*Proceedings volume.*" if "proceedings" in title.lower() else "*Preface.*"
                 set_or_update_abstract_in_file(filepath, proc_note)
                 pubs_state[fn]["has_abstract"] = True

@@ -13,8 +13,13 @@ authors:
 is_conference: false
 is_journal: false
 is_archive: false
+is_proceedings: true
+proceedings: "CEUR Workshop Proceedings, Vol. 3337"
+link: "https://ceur-ws.org/Vol-3337"
+link_label: "Proceedings"
 ---
 
-*Proceedings volume.*
+> **Abstract:**
+> Workshop proceedings published in CEUR Workshop Proceedings, Vol. 3337. Ricardo Usbeck is one of the editors.
 
 

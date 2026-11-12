@@ -1,6 +1,6 @@
 ---
 layout: publication
-title: "Junior fellows and distinguished dissertation of the GI &amp; AI for crisis"
+title: "Junior fellows and distinguished dissertation of the GI & AI for crisis"
 year: 2025
 authors:
   - "Ricardo Usbeck"
@@ -14,7 +14,7 @@ journal: "it Inf. Technol."
 ---
 
 > **Abstract:**
-> master’s dissertation focused on travel agencies and their crisis  This chapter further explores  how AI tools are being used to  to anticipate and mitigate the impacts of crises on tourism.
+> In this issue, we introduce four recent Gesellschaft für Informatik (GI) junior fellows and highlight one distinguished dissertation. These scholars share insights into their research journeys and key contributions to their fields. Additionally, we present a response to our Call for Papers on AI for Crisis, demonstrating how AI-driven approaches can enhance resilience in times of uncertainty. In his article "Natural Language Processing for Social Good: Contribution to Research and Society," Daniel Braun illustrates how AI -especially NLP -is changing our world. His appointment as a GI Junior Fellow emphasizes the importance of navigating the responsibilities associated with the growing use of AI.Daniel is a professor in Marburg and highlights key aspects in his article, such as trustworthiness; in particular, trustworthy annotated data shapes the development of AI.His article effectively demonstrates how AI in law works and how we -as computer scientists -can influence society. In the second article, Franziska Boenisch introduces herself in "A Self-Portrayal of GI Junior Fellow Franziska Boenisch: Trustworthy Machine Learning for Individuals" as part of our series on recent GI junior fellows. Franziska is a tenure-track faculty member at the CISPA Helmholtz Center for Information Security, where she co-leads the SprintML lab focused on secure, private, robust, interpretable, and trustworthy machine learning. The author highlights her perspective on user-centered machine learning privacy and how federated learning, differential privacy methods, and even single neurons leak private data. As AI increasingly integrates into our daily lives, safeguarding our privacy is more important than ever.
 
 
 <details markdown="1" style="margin-top: 1.5rem;">

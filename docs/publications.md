@@ -23,6 +23,8 @@ Search `/publications/` and `_publications/` for the paper title and DOI. If it 
 | `authors` | YAML list in the paper's author order. | List, search, detail page, linked team profiles. |
 | `abstract` | Optional text summary. | Shown as a preview on the publication list when set. |
 | `is_conference`, `is_journal`, `is_archive` | Boolean publication type flags. | Determines the venue label. |
+| `is_proceedings` + `proceedings`, `is_dataset` + `dataset`, `is_thesis` + `thesis` | Further types for edited volumes (whose `authors` are shown as Editors), datasets and theses, with the text to show (e.g. `"CEUR Workshop Proceedings, Vol. 1932"`). | Venue label. |
+| `link`, `link_label` | Any other URL, such as a proceedings volume or a thesis record, and its button text. | Button on the detail page (default label: Website). |
 | `conference`, `journal` | Venue name for the selected type. | List and detail page. |
 | `doi`, `pdf` | Full verified URLs. | Paper and PDF buttons. |
 | `github_repo`, `github_page`, `demo` | Optional code, project page, and demo URLs. | Buttons on the detail page. |
@@ -42,7 +44,7 @@ is_archive: false
 conference: "Example Conference 2026"
 ```
 
-For a journal article, set `is_journal: true`, set the other type flags to `false`, and use `journal` instead of `conference`. For a preprint, use `is_archive: true`. Keep author spelling consistent with team `name` fields. Publication search uses those names; matching names also add the paper automatically to team profiles.
+For a journal article, set `is_journal: true`, set the other type flags to `false`, and use `journal` instead of `conference`. For a preprint, use `is_archive: true`. Preprints stay separate entries from the published version. Code releases are not listed as publications: add the repository to the paper as `github_repo`. Keep author spelling consistent with team `name` fields. Publication search uses those names; matching names also add the paper automatically to team profiles.
 
 ## Abstract, body, and images
 

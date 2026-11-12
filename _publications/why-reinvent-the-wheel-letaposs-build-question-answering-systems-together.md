@@ -1,6 +1,6 @@
 ---
 layout: publication
-title: "Why Reinvent the Wheel: Let&apos;s Build Question Answering Systems Together"
+title: "Why Reinvent the Wheel: Let's Build Question Answering Systems Together"
 year: 2018
 authors:
   - "Kuldeep Singh 0001"
