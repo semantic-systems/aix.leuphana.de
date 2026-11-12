@@ -38,7 +38,7 @@ Legal basis: § 3 sentence 1 no. 1 NDSG in conjunction with Art. 6(1)(e) GDPR.
 
 ## No cookies, no tracking
 
-This website sets no cookies and uses no analytics, advertising or social media plugins. All fonts, scripts and images are delivered from our own server. The search in the page header runs in your browser and uses an index file from this website, so your search terms are not sent anywhere.
+This website sets no cookies and uses no analytics, advertising or social media plugins. Fonts, scripts and images are delivered from our own server. The only exception is the Meeting Point Planner, which loads map images and data from external services (see below). The search in the page header runs in your browser and uses an index file from this website, so your search terms are not sent anywhere.
 
 ## Meeting Point Planner
 
