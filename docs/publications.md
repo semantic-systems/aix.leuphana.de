@@ -23,7 +23,7 @@ Search `/publications/` and `_publications/` for the paper title and DOI. If it 
 | `authors` | YAML list in the paper's author order. | List, search, detail page, linked team profiles. |
 | `abstract` | Optional text summary. | Shown as a preview on the publication list when set. |
 | `is_conference`, `is_journal`, `is_archive` | Boolean publication type flags. | Determines the venue label. |
-| `is_proceedings` + `proceedings`, `is_dataset` + `dataset`, `is_thesis` + `thesis` | Further types for edited volumes, datasets and theses, with the text to show (e.g. `"CEUR Workshop Proceedings, Vol. 1932"`). | Venue label. |
+| `is_proceedings` + `proceedings`, `is_dataset` + `dataset`, `is_thesis` + `thesis` | Further types for edited volumes (whose `authors` are shown as Editors), datasets and theses, with the text to show (e.g. `"CEUR Workshop Proceedings, Vol. 1932"`). | Venue label. |
 | `link`, `link_label` | Any other URL, such as a proceedings volume or a thesis record, and its button text. | Button on the detail page (default label: Website). |
 | `conference`, `journal` | Venue name for the selected type. | List and detail page. |
 | `doi`, `pdf` | Full verified URLs. | Paper and PDF buttons. |

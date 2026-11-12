@@ -9,7 +9,7 @@
       <h3 style="margin-bottom: 0.5rem;">
         <a href="{{ publication.url | relative_url }}">{{ publication.title }}</a>
       </h3>
-      <p style="margin: 0.25rem 0; color: var(--text-secondary);"><strong>Authors:</strong> {% include team_links.html persons=publication.authors %}</p>
+      <p style="margin: 0.25rem 0; color: var(--text-secondary);"><strong>{% if publication.is_proceedings %}Editors{% else %}Authors{% endif %}:</strong> {% include team_links.html persons=publication.authors %}</p>
       {% if publication.is_conference and publication.conference != "" %}
       <p style="margin: 0.25rem 0; color: var(--text-secondary);"><strong>Conference:</strong> {{ publication.conference }}</p>
       {% elsif publication.is_journal and publication.journal != "" %}
