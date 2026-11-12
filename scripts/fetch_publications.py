@@ -66,7 +66,7 @@ class ApiFetcher:
                 log(f"Request to {host} failed ({type(e).__name__}), retrying", "WARN")
                 time.sleep(2 ** attempt)
                 continue
-            if resp.status_code in (429, 500, 502, 503, 504) and attempt < self.MAX_ATTEMPTS - 1:
+            if (resp.status_code == 429 or 500 <= resp.status_code <= 599) and attempt < self.MAX_ATTEMPTS - 1:
                 retry_after = resp.headers.get("Retry-After", "")
                 delay = int(retry_after) if retry_after.isdigit() else 2 ** (attempt + 1)
                 time.sleep(min(delay, 60))
