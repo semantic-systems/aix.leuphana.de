@@ -24,7 +24,7 @@ Each `_team/` file creates an individual page and a card on `/team/`. Use the [t
 | `bio`, `research_interests` | Optional structured text and list. | Display them in the body with Liquid, as in the Aang example. |
 | `email`, `website`, `github`, `linkedin`, `office` | Optional verified contact details. | Include them explicitly in the Markdown body if you want visitors to see them. |
 
-The team page groups `head`, `office_management`, `technical_staff`, `researcher`, `student_assistant`, and `alumni`. Any other value appears under “Other Members”. Choose the category that reflects the person's current role. Do not put an academic title in `job_category`.
+The team page groups `head`, `office_management`, `technical_staff`, `researcher`, `student_assistant`, and `alumni`. For alumni, an optional `alumni_note` (for example `"now at TU Berlin"`) appears below the name on the team page. Any other value appears under “Other Members”. Choose the category that reflects the person's current role. Do not put an academic title in `job_category`.
 
 ## Add a portrait
 

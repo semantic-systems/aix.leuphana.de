@@ -2,36 +2,33 @@ import os
 import sys
 import json
 import time
-import random
 import re
 from datetime import datetime, timezone
 import subprocess
 import html
+import glob
 import requests
-try:
-    from scholarly import scholarly
-except Exception as e:
-    scholarly = None
+from urllib.parse import urlsplit
 
-try:
-    from playwright.sync_api import sync_playwright
-except ImportError:
-    sync_playwright = None
-
-try:
-    from playwright_stealth import Stealth
-    stealth = lambda page: Stealth().apply_stealth_sync(page)
-except ImportError:
-    stealth = None
-
-DBLP_API_URL = "https://dblp.org/search/publ/api"
-AUTHOR_QUERY = "author:Ricardo_Usbeck:"
+# dblp's search API and record pages sit behind a bot challenge; its official SPARQL
+# endpoint is open to scripts and has the same data. Ricardo Usbeck's dblp person ID:
+DBLP_SPARQL_URL = "https://sparql.dblp.org/sparql"
+DBLP_PERSON = "https://dblp.org/pid/65/9656"
 OUTPUT_DIR = "_publications"
 STATE_FILE = "_publications/.state.json"
 
-class BrowserFetcher:
+# Honest identification for the public APIs used below (DBLP, OpenAlex, Crossref,
+# Semantic Scholar, Zenodo, ACL Anthology). No browser automation, no scraping of
+# sites whose terms forbid it (e.g. Google Scholar).
+USER_AGENT = "AIX-Website-PublicationFetcher/2.0 (+https://aix.leuphana.de; mailto:aix@leuphana.de)"
+
+class ApiFetcher:
+    """Plain HTTP client: waits between requests to the same host and backs off
+    when a server answers 429/5xx (respecting Retry-After)."""
     _instance = None
-    
+    MIN_INTERVAL = 1.0  # seconds between two requests to the same host
+    MAX_ATTEMPTS = 4
+
     @classmethod
     def get_instance(cls):
         if cls._instance is None:
@@ -39,79 +36,55 @@ class BrowserFetcher:
         return cls._instance
 
     def __init__(self):
-        if not sync_playwright:
-            raise ImportError("Playwright is not installed.")
-        self.playwright = sync_playwright().start()
-        self.browser = self.playwright.chromium.launch(headless=True)
-        self.context = self.browser.new_context(
-            user_agent=HUMAN_HEADERS["User-Agent"],
-            extra_http_headers={
-                "Accept": HUMAN_HEADERS["Accept"],
-                "Accept-Language": HUMAN_HEADERS["Accept-Language"],
-                "Referer": HUMAN_HEADERS["Referer"]
-            }
-        )
-        self.page = self.context.new_page()
-        if stealth:
-            stealth(self.page)
-        
-    def _simulate_human(self):
-        try:
-            for _ in range(random.randint(2, 4)):
-                self.page.mouse.move(random.randint(100, 800), random.randint(100, 800))
-                time.sleep(random.uniform(0.3, 0.8))
-            self.page.mouse.wheel(0, random.randint(200, 800))
-            time.sleep(random.uniform(0.5, 1.5))
-        except Exception:
-            pass
+        self.session = requests.Session()
+        self.session.headers.update({"User-Agent": USER_AGENT})
+        self.s2_api_key = os.environ.get("S2_API_KEY", "")  # optional, free from Semantic Scholar
+        self._last_request = {}
+        self.last_status = None  # HTTP status of the most recent request (None if it failed)
+
+    def _get(self, url, params=None, accept="application/json"):
+        host = urlsplit(url).netloc
+        for attempt in range(self.MAX_ATTEMPTS):
+            wait = self._last_request.get(host, 0) + self.MIN_INTERVAL - time.monotonic()
+            if wait > 0:
+                time.sleep(wait)
+            self._last_request[host] = time.monotonic()
+            try:
+                headers = {"Accept": accept}
+                if self.s2_api_key and host == "api.semanticscholar.org":
+                    headers["x-api-key"] = self.s2_api_key
+                resp = self.session.get(url, params=params, headers=headers, timeout=30)
+                self.last_status = resp.status_code
+            except requests.RequestException as e:
+                self.last_status = None
+                log(f"Request to {host} failed ({type(e).__name__}), retrying", "WARN")
+                time.sleep(2 ** attempt)
+                continue
+            if (resp.status_code == 429 or 500 <= resp.status_code <= 599) and attempt < self.MAX_ATTEMPTS - 1:
+                retry_after = resp.headers.get("Retry-After", "")
+                delay = int(retry_after) if retry_after.isdigit() else 2 ** (attempt + 1)
+                time.sleep(min(delay, 60))
+                continue
+            return resp
+        return None
 
     def get_json(self, url, params=None):
-        if params:
-            from urllib.parse import urlencode
-            url = f"{url}?{urlencode(params)}"
+        resp = self._get(url, params)
+        if resp is None or resp.status_code >= 400:
+            return None
         try:
-            self.page.goto(url, wait_until="networkidle", timeout=30000)
-            self._simulate_human()
-            text = self.page.evaluate('() => document.body.innerText')
-            return json.loads(text)
-        except Exception:
-            try:
-                resp = self.context.request.get(url)
-                return resp.json()
-            except Exception:
-                return None
+            return resp.json()
+        except ValueError:
+            return None
 
-    def get_text(self, url, wait_until="domcontentloaded"):
-        try:
-            self.page.goto(url, wait_until=wait_until, timeout=30000)
-            self._simulate_human()
-            return self.page.evaluate('() => document.body.innerText')
-        except Exception:
+    def get_text(self, url, params=None):
+        resp = self._get(url, params, accept="text/plain, */*;q=0.8")
+        if resp is None or resp.status_code >= 400:
             return ""
+        return resp.text
 
-    def get_html(self, url, wait_until="domcontentloaded"):
-        try:
-            self.page.goto(url, wait_until=wait_until, timeout=30000)
-            self._simulate_human()
-            return self.page.content()
-        except Exception:
-            return ""
-            
     def close(self):
-        try:
-            self.context.close()
-            self.browser.close()
-            self.playwright.stop()
-        except:
-            pass
-
-HUMAN_HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-    "Accept-Language": "en-US,en;q=0.5",
-    "Connection": "keep-alive",
-    "Referer": "https://www.google.com/"
-}
+        self.session.close()
 
 # ─── Logging helpers ───────────────────────────────────────
 
@@ -168,118 +141,152 @@ def sanitize_filename(title):
     filename = re.sub(r'\s+', '-', filename).lower()
     return filename[:100].rstrip('-')
 
+# dblp RDF class -> the publication type names of the dblp search API used by this script
+DBLP_TYPES = {
+    "Inproceedings": "Conference and Workshop Papers",
+    "Article": "Journal Articles",
+    "Informal": "Informal and Other Publications",
+    "Editorship": "Editorship",
+    "Incollection": "Parts in Books or Collections",
+    "Book": "Books and Theses",
+    "Data": "Data and Artifacts",
+    "Reference": "Reference Works",
+}
+
+def sparql_select(query):
+    """Run a SELECT query against dblp's SPARQL endpoint and return plain dict rows."""
+    fetcher = ApiFetcher.get_instance()
+    resp = fetcher._get(DBLP_SPARQL_URL, params={"query": query}, accept="application/sparql-results+json")
+    if resp is None or resp.status_code >= 400:
+        raise RuntimeError(f"dblp SPARQL request failed (HTTP {getattr(resp, 'status_code', 'no response')})")
+    rows = resp.json().get("results", {}).get("bindings", [])
+    return [{k: v.get("value") for k, v in row.items()} for row in rows]
+
 def fetch_dblp_publications():
-    """Fetch ALL publications from DBLP, paginating in batches of 100."""
-    log("Querying DBLP API...")
+    """Fetch all publications (incl. edited volumes) of DBLP_PERSON from dblp."""
+    log("Querying dblp SPARQL endpoint...")
+    meta_query = f"""PREFIX dblp: <https://dblp.org/rdf/schema#>
+SELECT ?pub (SAMPLE(?t) AS ?title) (SAMPLE(?y) AS ?year) (SAMPLE(?ty) AS ?type) (SAMPLE(?v) AS ?venue)
+       (SAMPLE(?d) AS ?doi) (SAMPLE(?page) AS ?ee) (SAMPLE(?pg) AS ?pages) (SAMPLE(?vol) AS ?volume) (SAMPLE(?iss) AS ?number)
+WHERE {{
+  ?pub dblp:createdBy <{DBLP_PERSON}> ; dblp:title ?t ; a ?ty .
+  FILTER(?ty != dblp:Publication)
+  OPTIONAL {{ ?pub dblp:yearOfPublication ?y }}
+  OPTIONAL {{ ?pub dblp:publishedIn ?v }}
+  OPTIONAL {{ ?pub dblp:doi ?d }}
+  OPTIONAL {{ ?pub dblp:primaryDocumentPage ?page }}
+  OPTIONAL {{ ?pub dblp:pagination ?pg }}
+  OPTIONAL {{ ?pub dblp:publishedInJournalVolume ?vol }}
+  OPTIONAL {{ ?pub dblp:publishedInJournalVolumeIssue ?iss }}
+}} GROUP BY ?pub"""
+    people_query = f"""PREFIX dblp: <https://dblp.org/rdf/schema#>
+SELECT ?pub ?ord ?name ?role WHERE {{
+  ?pub dblp:createdBy <{DBLP_PERSON}> ; dblp:hasSignature ?sig .
+  ?sig dblp:signatureOrdinal ?ord ; dblp:signatureDblpName ?name ; a ?role .
+  FILTER(?role IN (dblp:AuthorSignature, dblp:EditorSignature))
+}}"""
+    try:
+        meta = sparql_select(meta_query)
+        people = sparql_select(people_query)
+    except Exception as e:
+        log(f"dblp request failed: {e}", "ERROR")
+        return []
+
+    authors, editors = {}, {}
+    for row in people:
+        target = editors if row["role"].endswith("EditorSignature") else authors
+        target.setdefault(row["pub"], []).append((int(row["ord"]), row["name"]))
+
     publications = []
-    batch_size = 100
-    offset = 0
-    total = None
-
-    while True:
-        params = {
-            "q": AUTHOR_QUERY,
-            "format": "json",
-            "h": batch_size,
-            "f": offset
+    for row in meta:
+        uri = row["pub"]
+        pub_type = DBLP_TYPES.get(row.get("type", "").rsplit("#", 1)[-1], "")
+        venue = row.get("venue") or ""
+        doi = row.get("doi") or ""
+        names = authors.get(uri) or editors.get(uri) or []
+        pub = {
+            "key": uri.split("/rec/", 1)[-1],
+            "title": (row.get("title") or "").strip().rstrip('.'),
+            "year": (row.get("year") or "")[:4],
+            "venue": venue,
+            "doi": doi.replace("https://doi.org/", "") if doi else None,
+            "ee": row.get("ee"),
+            "type": pub_type,
+            "pages": row.get("pages"),
+            "volume": row.get("volume"),
+            "number": row.get("number"),
+            "is_editorship": pub_type == "Editorship",
+            "is_conference": False,
+            "is_journal": False,
+            "is_archive": False,
+            "authors": [name for _, name in sorted(names)],
         }
-        try:
-            # Add random sleep before making the request to simulate human speed
-            if offset > 0:
-                time.sleep(random.uniform(2.0, 4.0))
-            
-            fetcher = BrowserFetcher.get_instance()
-            data = fetcher.get_json(DBLP_API_URL, params=params)
-            if not data:
-                break
+        if pub_type == "Conference and Workshop Papers":
+            pub["is_conference"] = True
+            if venue: pub["conference"] = re.sub(r"\s*\([^)]*\)", "", venue).strip()
+        elif pub_type == "Journal Articles":
+            pub["is_journal"] = True
+            if venue: pub["journal"] = venue
+        elif "Informal" in pub_type:
+            pub["is_archive"] = True
+        publications.append(pub)
 
-            hits_obj = data.get("result", {}).get("hits", {})
-            if total is None:
-                total = int(hits_obj.get("@total", 0))
-                log(f"DBLP reports {total} total publications.")
-
-            hits = hits_obj.get("hit", [])
-            if not hits:
-                break
-
-            for hit in hits:
-                info = hit.get("info", {})
-                pub = {
-                    "key": info.get("key"),
-                    "title": info.get("title", "").strip().rstrip('.'),
-                    "year": info.get("year"),
-                    "venue": info.get("venue"),
-                    "doi": info.get("doi"),
-                    "ee": info.get("ee"),
-                    "type": info.get("type"),
-                    "is_conference": False,
-                    "is_journal": False,
-                    "is_archive": False,
-                }
-                
-                pub_type = info.get("type", "")
-                venue = info.get("venue", "")
-                if pub_type == "Conference and Workshop Papers":
-                    pub["is_conference"] = True
-                    if venue: pub["conference"] = venue
-                elif pub_type == "Journal Articles":
-                    pub["is_journal"] = True
-                    if venue: pub["journal"] = venue
-                elif "Informal" in pub_type:
-                    pub["is_archive"] = True
-
-                authors = info.get("authors", {}).get("author", [])
-                if isinstance(authors, dict):
-                    authors = [authors]
-                pub["authors"] = [a.get("text") for a in authors if isinstance(a, dict) and "text" in a]
-
-                publications.append(pub)
-
-            offset += batch_size
-            log(f"  Fetched batch: {len(publications)}/{total}")
-
-            if offset >= total:
-                break
-
-        except Exception as e:
-            log(f"DBLP request failed (offset={offset}): {e}", "ERROR")
-            break
-
-    log(f"DBLP fetch complete: {len(publications)} publications retrieved.")
+    log(f"dblp fetch complete: {len(publications)} publications retrieved.")
     return publications
 
-def fetch_dblp_bibtex(key):
-    """Fetch BibTeX string directly from DBLP"""
-    if not key:
-        return ""
-    try:
-        bib_url = f"https://dblp.org/rec/{key}.bib"
-        fetcher = BrowserFetcher.get_instance()
-        text = fetcher.get_text(bib_url)
-        if text:
-            return text
-    except Exception as e:
-        log(f"BibTeX fetch failed for {key}: {e}", "WARN")
-    return ""
+def enrich_from_crossref(pub):
+    """Add full venue title, publisher and editors from Crossref (best effort, DOI only)."""
+    if not pub.get("doi"):
+        return
+    data = ApiFetcher.get_instance().get_json(f"https://api.crossref.org/works/{pub['doi']}", params={"mailto": "aix@leuphana.de"})
+    message = (data or {}).get("message", {})
+    # Book chapters list the series first ("Lecture Notes in Computer Science"), then the book title
+    container = (message.get("container-title") or [""])[-1]
+    if container:
+        pub["venue_full"] = container
+    if message.get("publisher"):
+        pub["publisher"] = message["publisher"]
+    editors = [" ".join(x for x in (e.get("given"), e.get("family")) if x) for e in message.get("editor", [])]
+    if editors and not pub.get("is_editorship"):
+        pub["editors"] = [e for e in editors if e]
 
-def fetch_abstract_scholarly(title):
-    """Use Playwright to search Google Scholar and return the abstract snippet."""
-    try:
-        url = f"https://scholar.google.com/scholar?q={requests.utils.quote(title)}"
-        fetcher = BrowserFetcher.get_instance()
-        html_content = fetcher.get_html(url)
-        if html_content:
-            if "Please show you're not a robot" in html_content:
-                return "RATE_LIMITED"
-            
-            # Find the first result snippet (usually <div class="gs_rs">)
-            m = re.search(r'<div class="gs_rs".*?>(.*?)</div>', html_content, re.DOTALL)
-            if m:
-                snippet = m.group(1)
-                return clean_abstract_text(snippet)
-    except Exception as e:
-        log(f"Google Scholar error: {str(e)}", "WARN")
-    return ""
+def bibtex_escape(value):
+    return str(value).replace("{", "\\{").replace("}", "\\}")
+
+def build_dblp_bibtex(pub):
+    """BibTeX in dblp's layout, built from the dblp metadata (dblp's .bib export is not
+    reachable for scripts). Existing publication files are never rewritten."""
+    if not pub.get("key"):
+        return ""
+    entry = {
+        "Conference and Workshop Papers": "inproceedings", "Journal Articles": "article",
+        "Editorship": "proceedings", "Parts in Books or Collections": "incollection",
+        "Books and Theses": "book", "Data and Artifacts": "misc",
+    }.get(pub.get("type"), "misc")
+    fields = []
+    names = " and\n                  ".join(pub.get("authors", []))
+    if names:
+        fields.append(("editor" if pub.get("is_editorship") else "author", names))
+    if pub.get("editors"):
+        fields.append(("editor", " and\n                  ".join(pub["editors"])))
+    fields.append(("title", pub.get("title", "")))
+    venue = pub.get("venue_full") or pub.get("venue")
+    if venue:
+        fields.append(("journal" if entry == "article" else "booktitle" if entry in ("inproceedings", "incollection") else "howpublished", venue))
+    for name in ("volume", "number", "pages"):
+        if pub.get(name):
+            fields.append((name, str(pub[name]).replace("-", "--")))
+    if pub.get("publisher"):
+        fields.append(("publisher", pub["publisher"]))
+    if pub.get("year"):
+        fields.append(("year", pub["year"]))
+    if pub.get("ee"):
+        fields.append(("url", pub["ee"]))
+    if pub.get("doi"):
+        fields.append(("doi", pub["doi"]))
+    body = ",\n".join(f"  {name:<12} = {{{bibtex_escape(value) if name not in ('author', 'editor', 'url', 'doi') else value}}}" for name, value in fields)
+    body += ",\n  bibsource    = {dblp computer science bibliography, https://dblp.org}"
+    return f"@{entry}{{DBLP:{pub['key']},\n{body}\n}}"
 
 def generate_markdown(pub, bibtex, filepath, abstract=""):
     title = pub.get("title", "Untitled").replace('"', '\\"')
@@ -424,6 +431,7 @@ def clean_abstract_text(text):
     clean = html.unescape(clean)
     clean = " ".join(clean.split())
     clean = re.sub(r'^(?:Abstract|Summary)[\.\:\—\-\s]*', '', clean, flags=re.IGNORECASE)
+    clean = re.sub(r'([a-z])\.([A-Z][a-z])', r'\1. \2', clean)  # "intensive.Moreover" -> "intensive. Moreover"
     return clean.strip()
 
 def extract_abstract_from_file(filepath):
@@ -515,7 +523,7 @@ def fetch_zenodo_abstract(doi):
     rec_id = m.group(1)
     url = f"https://zenodo.org/api/records/{rec_id}"
     try:
-        fetcher = BrowserFetcher.get_instance()
+        fetcher = ApiFetcher.get_instance()
         data = fetcher.get_json(url)
         if data:
             desc = data.get("metadata", {}).get("description", "")
@@ -529,12 +537,12 @@ def fetch_acl_abstract(doi=None, title=None):
     if doi and "10.18653" in doi.lower():
         clean_doi = doi.replace("https://doi.org/", "").replace("http://doi.org/", "").strip()
         acl_id = clean_doi.split("/")[-1].lower()
-        url = f"https://aclanthology.org/{acl_id}/"
+        url = f"https://aclanthology.org/{acl_id}.bib"
         try:
-            fetcher = BrowserFetcher.get_instance()
+            fetcher = ApiFetcher.get_instance()
             text = fetcher.get_text(url)
             if text:
-                m = re.search(r'abstract:\s*"((?:[^"\\]|\\.)*)"', text)
+                m = re.search(r'abstract\s*=\s*"((?:[^"\\]|\\.)*)"', text)
                 if m:
                     raw = m.group(1).encode('utf-8').decode('unicode_escape')
                     return clean_abstract_text(raw)
@@ -542,50 +550,15 @@ def fetch_acl_abstract(doi=None, title=None):
             pass
 
     if title and "Treating Dialogue Quality Evaluation" in title:
-        url = "https://aclanthology.org/2020.lrec-1.64/"
+        url = "https://aclanthology.org/2020.lrec-1.64.bib"
         try:
-            fetcher = BrowserFetcher.get_instance()
+            fetcher = ApiFetcher.get_instance()
             text = fetcher.get_text(url)
             if text:
-                m = re.search(r'abstract:\s*"((?:[^"\\]|\\.)*)"', text)
+                m = re.search(r'abstract\s*=\s*"((?:[^"\\]|\\.)*)"', text)
                 if m:
                     raw = m.group(1).encode('utf-8').decode('unicode_escape')
                     return clean_abstract_text(raw)
-        except Exception:
-            pass
-    return ""
-
-def fetch_springer_abstract(doi):
-    """Fetch full abstract from SpringerLink metadata using Playwright."""
-    if not doi:
-        return ""
-    clean_doi = doi.replace("https://doi.org/", "").replace("http://doi.org/", "").strip()
-    if not (clean_doi.startswith("10.1007/") or clean_doi.startswith("10.1002/")):
-        return ""
-    
-    urls = [f"https://doi.org/{clean_doi}"]
-    for prefix in ["chapter", "article", "referenceworkentry"]:
-        urls.append(f"https://link.springer.com/{prefix}/{clean_doi}")
-
-    fetcher = BrowserFetcher.get_instance()
-    for url in urls:
-        try:
-            html_content = fetcher.get_html(url)
-            if html_content and ("application/ld+json" in html_content or "Abs1" in html_content):
-                json_matches = re.findall(r'<script[^>]*type=["\']application/ld\+json["\'][^>]*>(.*?)</script>', html_content, re.DOTALL)
-                for j in json_matches:
-                    try:
-                        data = json.loads(j)
-                        desc = data.get("description") or data.get("mainEntity", {}).get("description")
-                        if desc and len(desc) > 80:
-                            return clean_abstract_text(desc)
-                    except Exception:
-                        pass
-                m = re.search(r'<(?:section|div)[^>]*(?:id|aria-labelledby)=["\']Abs1[^"\']*["\'][^>]*>(.*?)</(?:section|div)>', html_content, re.DOTALL)
-                if m:
-                    clean = clean_abstract_text(m.group(1))
-                    if len(clean) > 80:
-                        return clean
         except Exception:
             pass
     return ""
@@ -597,7 +570,7 @@ def fetch_openalex_abstract(title, doi=None):
         clean_doi = doi.replace("https://doi.org/", "").replace("http://doi.org/", "").strip()
         url = f"https://api.openalex.org/works/doi:{clean_doi}?mailto=aix@leuphana.de"
         try:
-            fetcher = BrowserFetcher.get_instance()
+            fetcher = ApiFetcher.get_instance()
             data = fetcher.get_json(url)
             if data:
                 inv = data.get("abstract_inverted_index")
@@ -619,7 +592,7 @@ def fetch_openalex_abstract(title, doi=None):
             query = " ".join(words)
             url = f"https://api.openalex.org/works?filter=title.search:{requests.utils.quote(query)}&per-page=3&mailto=aix@leuphana.de"
             try:
-                fetcher = BrowserFetcher.get_instance()
+                fetcher = ApiFetcher.get_instance()
                 data = fetcher.get_json(url)
                 if data:
                     for item in data.get("results", []):
@@ -644,7 +617,7 @@ def fetch_crossref_abstract(doi):
     clean_doi = doi.replace("https://doi.org/", "").replace("http://doi.org/", "").strip()
     url = f"https://api.crossref.org/works/{clean_doi}?mailto=aix@leuphana.de"
     try:
-        fetcher = BrowserFetcher.get_instance()
+        fetcher = ApiFetcher.get_instance()
         data = fetcher.get_json(url)
         if data:
             raw = data.get("message", {}).get("abstract")
@@ -661,33 +634,33 @@ def fetch_abstract_semanticscholar(title, doi=None):
     global s2_circuit_broken
     if s2_circuit_broken:
         return ""
-    headers = {"User-Agent": "AIX-Publication-Crawler/1.0 (mailto:aix@leuphana.de)"}
+    fetcher = ApiFetcher.get_instance()
+
+    def rate_limited():
+        # Only a real rate limit disables the API for this run; "paper not found" (404) does not.
+        global s2_circuit_broken
+        if fetcher.last_status == 429:
+            s2_circuit_broken = True
+            log("Semantic Scholar rate limited; disabling for remainder of run.", "WARN")
+            return True
+        return False
+
     try:
         if doi:
             clean_doi = doi.replace("https://doi.org/", "").replace("http://doi.org/", "").strip()
-            url = f"https://api.semanticscholar.org/graph/v1/paper/{clean_doi}?fields=title,abstract"
-            fetcher = BrowserFetcher.get_instance()
-            data = fetcher.get_json(url)
-            if not data or data.get("message") == "Too Many Requests":
-                s2_circuit_broken = True
-                log("Semantic Scholar rate limited; disabling for remainder of run.", "WARN")
+            data = fetcher.get_json(f"https://api.semanticscholar.org/graph/v1/paper/{clean_doi}?fields=title,abstract")
+            if rate_limited():
                 return ""
-            if data:
-                abs_text = data.get("abstract")
-                if abs_text:
-                    return clean_abstract_text(abs_text)
+            if data and data.get("abstract"):
+                return clean_abstract_text(data["abstract"])
 
         url = f"https://api.semanticscholar.org/graph/v1/paper/search?query={requests.utils.quote(title)}&limit=1&fields=title,abstract"
-        fetcher = BrowserFetcher.get_instance()
         data = fetcher.get_json(url)
-        if not data or data.get("message") == "Too Many Requests":
-            s2_circuit_broken = True
-            log("Semantic Scholar rate limited; disabling for remainder of run.", "WARN")
+        if rate_limited():
             return ""
-        if data:
-            results = data.get("data", [])
-            if data and data[0].get("abstract"):
-                return clean_abstract_text(data[0].get("abstract"))
+        results = (data or {}).get("data", [])
+        if results and results[0].get("abstract"):
+            return clean_abstract_text(results[0]["abstract"])
     except Exception as e:
         log(f"Semantic Scholar error for '{title[:40]}': {e}", "WARN")
     return ""
@@ -710,11 +683,7 @@ def fetch_abstract_fallback(title, doi=None):
     if ab and len(ab) > 60:
         return ab
 
-    # 3. SpringerLink (direct publisher metadata via curl)
-    if doi and ("10.1007" in doi or "10.1002" in doi):
-        ab = fetch_springer_abstract(doi)
-        if ab and len(ab) > 80:
-            return ab
+    # (Springer abstracts come from OpenAlex/Crossref; publisher pages are not scraped.)
 
     # 4. OpenAlex (polite pool)
     ab = fetch_openalex_abstract(title, doi)
@@ -801,6 +770,17 @@ def main():
             best = group[0]
         best_pubs.append(best)
 
+    # Titles of the files already on disk, normalized. Older files were named from titles that
+    # still contained HTML entities (&quot; &apos; &amp;), so file names alone miss duplicates.
+    def title_key(value):
+        return re.sub(r'[^a-z0-9]', '', html.unescape(html.unescape(value or "")).lower())
+    existing_titles = {}
+    for path in glob.glob(os.path.join(OUTPUT_DIR, "*.md")):
+        with open(path, encoding="utf-8") as fh:
+            m = re.search(r'^title:\s*"(.*)"\s*$', fh.read(), re.MULTILINE)
+        if m:
+            existing_titles[title_key(m.group(1).replace('\\"', '"'))] = path
+
     new_count = 0
     skipped = 0
     for pub in best_pubs:
@@ -813,6 +793,10 @@ def main():
             continue
 
         filepath = os.path.join(OUTPUT_DIR, f"{filename}.md")
+        if not os.path.exists(filepath) and title_key(title) in existing_titles:
+            # Same paper under an older file name: keep using that file
+            filepath = existing_titles[title_key(title)]
+            filename = os.path.splitext(os.path.basename(filepath))[0]
 
         # Register in state if not tracked yet
         if filename not in pubs_state:
@@ -830,9 +814,8 @@ def main():
             skipped += 1
             continue
 
-        # Polite random delay to avoid DBLP rate-limiting and simulate human behavior
-        time.sleep(random.uniform(1.5, 3.5))
-        bibtex = fetch_dblp_bibtex(pub.get("key"))
+        enrich_from_crossref(pub)
+        bibtex = build_dblp_bibtex(pub)
         generate_markdown(pub, bibtex, filepath, abstract="")
         log(f"+ {filename}.md")
         new_count += 1
@@ -857,7 +840,6 @@ def main():
         log_header(f"PHASE 2 — Fetch abstracts ({len(needs_abstract)} remaining)")
 
     enriched = 0
-    scholar_failures = 0
 
     for i, (filename, info) in enumerate(needs_abstract.items()):
         title = info.get("title", "")
@@ -871,7 +853,7 @@ def main():
             continue
 
         doi = extract_doi_from_file(filepath) or info.get("doi")
-        # 1. First try fast, reliable fallback APIs (Springer, OpenAlex, ACL, Zenodo, Crossref)
+        # 1. Try the open APIs (Zenodo, ACL Anthology, OpenAlex, Crossref, Semantic Scholar)
         abstract = fetch_abstract_fallback(title, doi)
         if abstract and not is_abstract_incomplete(abstract, title):
             updated = set_or_update_abstract_in_file(filepath, abstract)
@@ -894,26 +876,7 @@ def main():
             save_state(state)
             continue
 
-        # 3. Fallback to Google Scholar if available and not failing
-        if scholarly and scholar_failures < 3:
-            abstract = fetch_abstract_scholarly(title)
-            if abstract == "RATE_LIMITED":
-                log(f"{progress} Rate limited by Google Scholar. Disabling Scholar for remainder.", "WARN")
-                scholar_failures = 999
-            elif abstract:
-                updated = set_or_update_abstract_in_file(filepath, abstract)
-                if updated:
-                    pubs_state[filename]["has_abstract"] = True
-                    enriched += 1
-                    log(f"{progress} ✓ Abstract added via Scholar")
-                    state["publications"] = pubs_state
-                    save_state(state)
-                time.sleep(random.uniform(1, 3))
-            else:
-                scholar_failures += 1
-                log(f"{progress} ✗ No abstract found")
-        else:
-            log(f"{progress} ✗ Scholar skipped or unavailable")
+        log(f"{progress} ✗ No abstract found")
 
     state["publications"] = pubs_state
     save_state(state)
@@ -934,7 +897,6 @@ def main():
     phase3_upgraded = 0
     phase3_checked = 0
 
-    import glob
     existing_files = sorted(glob.glob(os.path.join(OUTPUT_DIR, "*.md")))
     log(f"Inspecting {len(existing_files)} publication files on disk for missing or incomplete abstracts...")
 
@@ -1002,5 +964,5 @@ if __name__ == "__main__":
     try:
         main()
     finally:
-        if BrowserFetcher._instance:
-            BrowserFetcher.get_instance().close()
+        if ApiFetcher._instance:
+            ApiFetcher.get_instance().close()

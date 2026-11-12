@@ -9,38 +9,29 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..',
 import fetch_publications
 
 class TestFetchPublications(unittest.TestCase):
-    @patch('fetch_publications.BrowserFetcher')
-    def test_fetch_dblp_publications(self, mock_browser_fetcher):
-        mock_fetcher = mock_browser_fetcher.get_instance.return_value
-        mock_fetcher.get_json.return_value = {
-            "result": {
-                "hits": {
-                    "@total": "1",
-                    "hit": [
-                        {
-                            "info": {
-                                "key": "conf/test/paper1",
-                                "title": "Test Paper",
-                                "year": "2026",
-                                "venue": "TestConf",
-                                "doi": "10.1234/test",
-                                "authors": {
-                                    "author": [{"text": "Ricardo Usbeck"}, {"text": "John Doe"}]
-                                }
-                            }
-                        }
-                    ]
-                }
-            }
-        }
-        
+    @patch('fetch_publications.sparql_select')
+    def test_fetch_dblp_publications(self, mock_sparql):
+        uri = "https://dblp.org/rec/conf/test/paper1"
+        mock_sparql.side_effect = [
+            [{"pub": uri, "title": "Test Paper.", "year": "2026", "type": "https://dblp.org/rdf/schema#Inproceedings",
+              "venue": "TestConf", "doi": "https://doi.org/10.1234/test"}],
+            [{"pub": uri, "ord": "2", "name": "John Doe", "role": "https://dblp.org/rdf/schema#AuthorSignature"},
+             {"pub": uri, "ord": "1", "name": "Ricardo Usbeck", "role": "https://dblp.org/rdf/schema#AuthorSignature"}],
+        ]
+
         pubs = fetch_publications.fetch_dblp_publications()
         self.assertEqual(len(pubs), 1)
+        self.assertEqual(pubs[0]['key'], "conf/test/paper1")
         self.assertEqual(pubs[0]['title'], "Test Paper")
         self.assertEqual(pubs[0]['authors'], ["Ricardo Usbeck", "John Doe"])
         self.assertEqual(pubs[0]['doi'], "10.1234/test")
-        
-    @patch('fetch_publications.BrowserFetcher')
+        self.assertTrue(pubs[0]['is_conference'])
+        self.assertEqual(pubs[0]['conference'], "TestConf")
+        bib = fetch_publications.build_dblp_bibtex(pubs[0])
+        self.assertTrue(bib.startswith("@inproceedings{DBLP:conf/test/paper1,"))
+        self.assertIn("doi          = {10.1234/test}", bib)
+
+    @patch('fetch_publications.ApiFetcher')
     def test_fetch_abstract(self, mock_browser_fetcher):
         mock_fetcher = mock_browser_fetcher.get_instance.return_value
         mock_fetcher.get_json.return_value = {"abstract": "This is a test abstract."}
