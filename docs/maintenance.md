@@ -63,7 +63,7 @@ All are in `.gitignore`. Repository internals (`README.md`, `docs/`, `tests/`, D
 
 `crawler` service, `scripts/run_daily_crawler.sh`, every 24 h:
 
-1. `scripts/fetch_publications.py`: new DBLP papers → `_publications/`
+1. `scripts/fetch_publications.py`: new DBLP papers → `_publications/`; existing files are not regenerated, but missing, placeholder or cut-off abstracts in them are replaced from the open APIs. These edits are not committed: they show in `git diff` on the server and are discarded by the next deploy's `git reset --hard`
 2. Fresh Jekyll build → `/tmp/aix-link-check-site`
 3. `scripts/check_broken_links.py --site-dir /tmp/aix-link-check-site`
 

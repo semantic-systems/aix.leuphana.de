@@ -105,8 +105,11 @@ Demo offline → update the page or set `published: false`.
 | `doi`, `pdf` | Full URLs → "Paper" / "PDF" buttons |
 | `github_repo`, `github_page`, `demo` | Optional buttons |
 | `link`, `link_label` | Any other URL and its button text (default "Website") |
+| `abstract` | Optional; short summary shown in the publication list |
 
-Page text: abstract as `> **Abstract:**` followed by `> text`. Generated files are never overwritten by the fetcher; corrections are safe.
+Page text: abstract as `> **Abstract:**` followed by `> text`.
+
+The fetcher never regenerates an existing file, so other corrections stay. It does fill in abstracts: a missing one, a placeholder, or one under 600 characters that ends without `.` `!` `?` or with `...` is replaced by the version from OpenAlex, Crossref, Semantic Scholar, Zenodo or ACL. End a hand-written abstract with a full stop to keep it.
 
 ## Images
 
