@@ -8,7 +8,7 @@ Technical setup, deployment and the crawler: [maintenance.md](maintenance.md).
 1. Be a member of the `website-editors` team in the `semantic-systems` organization (ask a website admin).
 2. Open the file → pencil icon (**Edit this file**). New file: **Add file → Create new file**. Image: **Add file → Upload files**.
 3. **Commit changes…** → **Create a new branch … and start a pull request** → **Propose changes** → **Create pull request**.
-4. Another website editor approves (content folders) or a website admin (everything else); tests and site build must pass. Then merge. The site updates within ~5 minutes.
+4. Wait for the tests and site build to pass. Content folders: merge yourself. Templates or anything else: a website admin must approve first. The site updates within ~5 minutes; to undo, **Revert** on the merged pull request.
 
 ## Rules for every file
 

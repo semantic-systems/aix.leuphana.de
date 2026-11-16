@@ -40,11 +40,11 @@ Push to `main` → [`.github/workflows/deploy.yml`](../.github/workflows/deploy.
 | `website-admins` (org team) | Maintain/Admin: approve non-content changes |
 | Repository admins | Can bypass the rule on `main` (emergencies only) |
 
-Ruleset "Protect main": pull request with 1 approval from a code owner ([`.github/CODEOWNERS`](../.github/CODEOWNERS)), `test-python` and `build-jekyll` must pass, no force-push, no deletion.
+Ruleset "Protect main": pull request, 0 approvals but code-owner review required ([`.github/CODEOWNERS`](../.github/CODEOWNERS)), `test-python` and `build-jekyll` must pass, no force-push, no deletion.
 
 | Path | Approved by |
 |---|---|
-| `_team`, `_posts`, `_projects`, `_demos`, `_publications`, `assets/images`, `assets/icons` | `website-editors` or `website-admins` |
+| `_team`, `_posts`, `_projects`, `_demos`, `_publications`, `assets/images`, `assets/icons` | No one: the author merges once the checks pass |
 | Everything else, templates, `_publications/.state.json` | `website-admins` |
 
 Server secrets live in the `production` environment (deployable from `main` only).
