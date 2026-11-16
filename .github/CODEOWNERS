@@ -1,17 +1,18 @@
-# Who must approve a pull request (rule on main: 1 approval from a code owner).
-# The last matching line wins.
+# Who must approve a pull request. The rule on main requires code-owner review
+# but 0 approvals, so a pull request that only touches paths without an owner
+# can be merged by its author once the checks pass. The last matching line wins.
 
 # Everything else (layouts, legal pages, config, scripts, workflows, Docker): admins
 *                       @semantic-systems/website-admins
 
-# Content: any website editor (or admin) can approve
-/_team/                 @semantic-systems/website-editors @semantic-systems/website-admins
-/_posts/                @semantic-systems/website-editors @semantic-systems/website-admins
-/_projects/             @semantic-systems/website-editors @semantic-systems/website-admins
-/_demos/                @semantic-systems/website-editors @semantic-systems/website-admins
-/_publications/         @semantic-systems/website-editors @semantic-systems/website-admins
-/assets/images/         @semantic-systems/website-editors @semantic-systems/website-admins
-/assets/icons/          @semantic-systems/website-editors @semantic-systems/website-admins
+# Content: no owner, the author merges after the checks pass
+/_team/
+/_posts/
+/_projects/
+/_demos/
+/_publications/
+/assets/images/
+/assets/icons/
 
 # Except: the fetcher state and the templates stay with the admins
 /_publications/.state.json                  @semantic-systems/website-admins
