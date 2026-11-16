@@ -61,7 +61,7 @@ layout: team_member
 permalink: /team/kai-moltzen/
 ---
 ## Me in Short
-Hi, I'm Kai. I research and teach about automatically interpreting language that describes geospatial regions or event like the destruction caused by a disaster. For that, I combine natural language texts with earth embeddings learned from remote sensing images. Let's get in contact!
+Hi, I'm Kai. I research and teach about interpreting language that describes geospatial regions or events like the destruction caused by a disaster. For that, I combine natural language texts, knowledge graphs, and earth embeddings learned from remote sensing. Let's get in contact!
 
 ## Vita
 
