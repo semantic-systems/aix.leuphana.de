@@ -27,10 +27,27 @@ Push to `main` → [`.github/workflows/deploy.yml`](../.github/workflows/deploy.
 - Server: `hpc-v-gondel.leuphana.de`, SSH port 575, `/opt/jekyll/aix.leuphana.de`; nginx in front of Jekyll (`:4000`). Docker access needs the `docker` group.
 - Manual restart on the VM: `docker build --network host -f Dockerfile.crawler -t aixleuphanade-crawler . && docker compose up -d --no-build`.
 
-| Secret (GitHub → Settings → Secrets → Actions) | Use |
+| Secret (GitHub → Settings → Environments → production) | Use |
 |---|---|
 | `VPS_HOST`, `VPS_USER`, `VPS_SSH_KEY` | Deploy login |
 | `SMTP_PASSWORD` | Optional; replaces the `SMTP_PASSWORD` line in the server's `.env` on deploy |
+
+## Access
+
+| Who | How |
+|---|---|
+| `website-editors` (org team) | Write: branches and pull requests |
+| `website-admins` (org team) | Maintain/Admin: approve non-content changes |
+| Repository admins | Can bypass the rule on `main` (emergencies only) |
+
+Ruleset "Protect main": pull request with 1 approval from a code owner ([`.github/CODEOWNERS`](../.github/CODEOWNERS)), `test-python` and `build-jekyll` must pass, no force-push, no deletion.
+
+| Path | Approved by |
+|---|---|
+| `_team`, `_posts`, `_projects`, `_demos`, `_publications`, `assets/images`, `assets/icons` | `website-editors` or `website-admins` |
+| Everything else, templates, `_publications/.state.json` | `website-admins` |
+
+Server secrets live in the `production` environment (deployable from `main` only).
 
 ## Never commit
 

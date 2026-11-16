@@ -5,10 +5,10 @@ Technical setup, deployment and the crawler: [maintenance.md](maintenance.md).
 
 ## Workflow
 
-1. Get write access to [semantic-systems/aix.leuphana.de](https://github.com/semantic-systems/aix.leuphana.de) from a website admin.
+1. Be a member of the `website-editors` team in the `semantic-systems` organization (ask a website admin).
 2. Open the file → pencil icon (**Edit this file**). New file: **Add file → Create new file**. Image: **Add file → Upload files**.
 3. **Commit changes…** → **Create a new branch … and start a pull request** → **Propose changes** → **Create pull request**.
-4. An admin reviews and merges. The site updates within ~5 minutes.
+4. Another website editor approves (content folders) or a website admin (everything else); tests and site build must pass. Then merge. The site updates within ~5 minutes.
 
 ## Rules for every file
 
