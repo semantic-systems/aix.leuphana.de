@@ -2,6 +2,9 @@ name: Deploy to VPS
 on:
   push:
     branches: [ main ]
+  # Tests and site build also run on every pull request (required checks); deploy does not
+  pull_request:
+    branches: [ main ]
 
 jobs:
   test-python:
@@ -41,7 +44,10 @@ jobs:
 
   deploy:
     needs: [test-python, build-jekyll]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    # Server secrets live in this environment, which only the main branch may use
+    environment: production
     steps:
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.3
