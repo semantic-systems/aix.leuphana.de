@@ -105,7 +105,6 @@ Not taken from `author`, `authors` or `project_members`.
 |---|---|
 | `run_daily_crawler.sh`, `fetch_publications.py`, `check_broken_links.py`, `link_owners.yml` | In use (crawler) |
 | `test_smtp.py` | Manual SMTP test |
-| `fetch_project_metadata.py`, `fetch_team.py`, `generate_projects_auto.py`, `merge_projects_data.py`, `fix_skipped_pubs.py`, `migrate_dedup.py`, `migrate_pub_types.py`, `remove_duplicates.py`, `set_blank_except.py`, `set_blank_image.py` | One-off migrations; not run automatically |
 
 ## Repository map
 
