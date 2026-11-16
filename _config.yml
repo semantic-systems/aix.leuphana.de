@@ -1,23 +1,4 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely edit after that. If you find
-# yourself editing this file very often, consider using Jekyll's data files
-# feature for the data you need to update frequently.
-#
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
-#
-# If you need help with YAML syntax, here are some quick references for you:
-# https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
-# https://learnxinyminutes.com/docs/yaml/
-#
-# Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and they will be accessible
-# in the templates via {{ site.myvariable }}.
-
+# Site settings (restart `jekyll serve` after changes)
 title: AIX - Artificial Intelligence and Explainability | Leuphana University
 email: aix@leuphana.de
 author:
@@ -69,14 +50,7 @@ collections:
     output: true
     permalink: /demos/:path/
 
-# Exclude from processing.
-# The following items will not be processed, by default.
-# Any item listed under the `exclude:` key here will be automatically added to
-# the internal "default list".
-#
-# Excluded items can be processed by explicitly listing the directories or
-# their entries' file path in the `include:` list.
-#
+# Not built into the website
 exclude:
   - .sass-cache/
   - .jekyll-cache/
@@ -92,10 +66,7 @@ exclude:
   - fetch_venv/
   - scripts/
   - fetch_team_members.py
-  # Repository internals that must not be published on the website
   - README.md
-  - TEAM_AND_PUBLICATIONS_README.md
-  - PROJECT_ANALYSIS.json
   - link_cache.json
   - link_notification_state.json
   - Dockerfile.crawler
