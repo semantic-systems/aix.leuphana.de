@@ -9,6 +9,7 @@ thumbnail: "/assets/logo.svg"
 excerpt: "Students of Leuphana's new Artificial Intelligence minor presented their own AI projects, from a plant app to a fork for mindful eating, at the first Minor AI Conference."
 published: true
 ---
+<img src="/assets/images/cosit-2026-1.jpg"(https://github.com/semantic-systems/aix.leuphana.de/edit/main/_posts/2026-10-08-first-minor-ai-conference.md#:~:text=01_main_building.png-,250926_Minor,-AI%20Konferenz%2D1)" alt="Minor AI Conference Room with participants" style="display: block; width: 100%; max-width: 420px; margin: 1.5rem auto; border-radius: 8px;">
 
 On 25 September 2026, Leuphana's new **Artificial Intelligence minor** held its first Minor AI Conference. After a welcome by programme director [Ricardo Usbeck](/team/ricardo-usbeck/), students presented their semester projects at around ten stands in image recognition, language models and recommendation systems.
 
