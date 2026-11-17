@@ -1,11 +1,11 @@
 ---
-name: "Jan Reinecke"
+name: "Jan Reineke"
 title: ""
 image: "blank.png"
 job_category: "researcher"
 
 layout: team_member
-permalink: /team/jan-reinecke/
+permalink: /team/jan-reineke/
 ---
 
 ## About Me
