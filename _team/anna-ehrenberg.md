@@ -18,8 +18,7 @@ Besides my research efforts, I coordinate the Minor AI study program at Leuphana
 ## Research Interests
 
 - Geoprivacy, Utility-Transparency-Tradeoff and Responsible AI
-- Intersectional Feminism
-- Co-creation
+- Intersectional Feminism and Co-Creation
 
 ## Contact
 
