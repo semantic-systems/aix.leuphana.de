@@ -101,6 +101,8 @@ Demo offline → update the page or set `published: false`.
 |---|---|
 | `title`, `year` | Exact title; four-digit year |
 | `authors` | List in paper order; editors for proceedings |
+| `editors`, `contributors` | Optional lists of people involved in this publication; names as in team profiles |
+| `book_editors` | Optional metadata for editors of a chapter's parent volume; does not add the chapter to their profiles |
 | Type (one `true`) | `is_conference` + `conference`, `is_journal` + `journal`, `is_archive` (preprint), `is_proceedings` + `proceedings`, `is_dataset` + `dataset`, `is_thesis` + `thesis` |
 | `doi`, `pdf` | Full URLs → "Paper" / "PDF" buttons |
 | `github_repo`, `github_page`, `demo` | Optional buttons |
@@ -108,6 +110,8 @@ Demo offline → update the page or set `published: false`.
 | `abstract` | Optional; short summary shown in the publication list |
 
 Page text: abstract as `> **Abstract:**` followed by `> text`.
+
+Profiles automatically list publications where the person's name matches an entry in `authors`, `editors` or `contributors`, regardless of publication type. Each publication appears once even if the person has multiple roles. Each list accepts names (`- "Jane Doe"`) or entries with `name` and optional `role`, as for project members. These additional fields control profile membership; they are not yet displayed as separate role lists on publication pages.
 
 The fetcher never regenerates an existing file, so other corrections stay. It does fill in abstracts: a missing one, a placeholder, or one under 600 characters that ends without `.` `!` `?` or with `...` is replaced by the version from OpenAlex, Crossref, Semantic Scholar, Zenodo or ACL. End a hand-written abstract with a full stop to keep it.
 
