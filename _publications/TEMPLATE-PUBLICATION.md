@@ -5,6 +5,13 @@ year: 2099
 authors:
   - "First Last"
   - "Second Author"
+# Optional roles for automatic listing on team profiles (same name spelling):
+# editors:
+#   - "Editor Name"
+# contributors:
+#   - name: "Contributor Name"
+#     role: "Editorial contribution"
+# For chapters, book_editors describes the parent volume, not profile membership.
 abstract: "A short factual summary of the paper's question, method, and result."
 is_conference: true
 is_journal: false
