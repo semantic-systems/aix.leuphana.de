@@ -5,7 +5,7 @@ date: 2026-10-08
 author: "AIX Research Group"
 link_check_owner: "kai-moltzen"
 categories: [news]
-thumbnail: "/assets/logo.svg"
+thumbnail: "/assets/images/wallpaper/250926_Minor AI Konferenz-1.jpg"
 excerpt: "Students of Leuphana's new Artificial Intelligence minor presented their own AI projects, from a plant app to a fork for mindful eating, at the first Minor AI Conference."
 published: true
 ---
